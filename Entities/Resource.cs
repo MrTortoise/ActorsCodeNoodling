@@ -7,6 +7,17 @@ namespace Entities
     /// </summary>
     public class Resource : ITradeable
     {
+        protected bool Equals(Resource other)
+        {
+            return string.Equals(Name, other.Name);
+        }
+
+        public override int GetHashCode()
+        {
+            return Name?.GetHashCode() ?? 0;
+        }
+
+
         /// <summary>
         /// Creates a resource with a name
         /// </summary>
@@ -25,5 +36,14 @@ namespace Entities
         /// Gets the name of the resource
         /// </summary>
         public string Name { get; }
+
+        public override bool Equals(object obj)
+        {
+            var rhs = obj as Resource;
+            if (rhs == null) return false;
+            return rhs == this || Equals(rhs);
+        }
+
+
     }
 }

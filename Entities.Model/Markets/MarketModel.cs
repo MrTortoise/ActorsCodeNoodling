@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Pex.Framework;
 using Microsoft.Pex.Framework.Validation;
 using NUnit.Framework;
@@ -23,38 +25,46 @@ namespace Entities.Model.Markets
             PexAssert.AreEqual(name, market.Name);
         }
 
-        [PexMethod]
-        public void AddResourceToSell([PexAssumeUnderTest]Entities.Market target, ITradeable resource, int amount, int pricePerUnit)
+     [PexMethod(MaxRunsWithoutNewTests = 200)]
+        public void AddResourceToSell([PexAssumeUnderTest]Entities.Market target, Market.SaleItem[] saleItems)
         {
-            var existingItems = target.ItemsForSale;
-            target.AddItemForSale(resource, amount, pricePerUnit);
-
-            var newItems = target.ItemsForSale;
-
-            if (existingItems.ContainsKey(resource.Name))
+            PexAssume.IsNotNull(saleItems);
+            // add each item for sale
+            foreach (var saleItem in saleItems)
             {
-                PexAssert.AreEqual(existingItems.Count, newItems.Count);
+                PexAssume.IsNotNull(saleItem);
+                PexAssume.IsTrue(saleItems.Count(i => Equals(i, saleItem)) == 1);
 
-                var oldItem = existingItems[resource.Name];
-                var newItem = newItems[resource.Name];
-                PexAssert.AreEqual(oldItem.Amount + amount, newItem.Amount);
+                var resource = saleItem.Resource;
+                var amount = saleItem.Amount;
+                var pricePerUnit = saleItem.PricePerUnit;
 
-                //for now assume price per unit becomes most expensive
-                PexAssert.AreEqual(Math.Max(oldItem.PricePerUnit, newItem.PricePerUnit),
-                    Math.Max(pricePerUnit, oldItem.PricePerUnit));
+                var existingItems = target.ItemsForSale;
+                target.AddItemForSale(resource, amount, pricePerUnit);
+                var newItems = target.ItemsForSale;
+
+                // if item already exists them combine them oterwise set it
+                if (existingItems.ContainsKey(saleItem.Resource.Name))
+                {
+                    var oldItem = existingItems[resource.Name];
+                    var newItem = newItems[resource.Name];
+
+                    PexAssert.AreEqual(existingItems.Count, newItems.Count);
+                    PexAssert.AreEqual(oldItem.Amount + amount, newItem.Amount);
+
+                    //for now assume price per unit becomes most expensive
+                    PexAssert.AreEqual(
+                        Math.Max(oldItem.PricePerUnit, newItem.PricePerUnit),
+                        Math.Max(pricePerUnit, oldItem.PricePerUnit));
+                }
+                else
+                {
+                    PexAssert.AreEqual(existingItems.Count + 1, newItems.Count);
+                    var item = newItems[resource.Name];
+                    PexAssert.AreEqual(amount, item.Amount);
+                    PexAssert.AreEqual(pricePerUnit, item.PricePerUnit);
+                }
             }
-            else
-            {
-                PexAssert.AreEqual(existingItems.Count + 1, newItems.Count);
-                var item = newItems[resource.Name];
-                PexAssert.AreEqual(amount,item.Amount);
-                PexAssert.AreEqual(pricePerUnit,item.PricePerUnit);
-            }
-
-            
-            
         }
-
-
     }
 }
