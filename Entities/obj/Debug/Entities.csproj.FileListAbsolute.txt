@@ -1,0 +1,7 @@
+J:\programming\general\git\EconomySimulator\TradingAISystem\Entities\bin\Debug\Entities.dll
+J:\programming\general\git\EconomySimulator\TradingAISystem\Entities\bin\Debug\Entities.pdb
+J:\programming\general\git\EconomySimulator\TradingAISystem\Entities\obj\Debug\Entities.csprojResolveAssemblyReference.cache
+J:\programming\general\git\EconomySimulator\TradingAISystem\Entities\obj\Debug\Entities.dll
+J:\programming\general\git\EconomySimulator\TradingAISystem\Entities\obj\Debug\Entities.pdb
+J:\programming\general\git\EconomySimulator\TradingAISystem\Entities\bin\Debug\System.Collections.Immutable.dll
+J:\programming\general\git\EconomySimulator\TradingAISystem\Entities\bin\Debug\System.Collections.Immutable.xml
