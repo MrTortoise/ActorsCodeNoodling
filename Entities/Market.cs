@@ -14,6 +14,7 @@ namespace Entities
             Name = name;
 
             ItemsForSale  = ImmutableDictionary<string, SaleItem>.Empty;
+
         }
 
         public void AddItemForSale(ITradeable resource, int amount, int pricePerUnit)
