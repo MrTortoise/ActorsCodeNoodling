@@ -26,14 +26,14 @@ namespace Entities.Model.Markets
         }
 
      [PexMethod(MaxRunsWithoutNewTests = 200)]
-        public void AddResourceToSell([PexAssumeUnderTest]Entities.Market target, Market.SaleItem[] saleItems)
+        public void AddResourceToSell([PexAssumeUnderTest]Entities.Market target, Market.ResourceForSale[] resourceForSale)
         {
-            PexAssume.IsNotNull(saleItems);
+            PexAssume.IsNotNull(resourceForSale);
             // add each item for sale
-            foreach (var saleItem in saleItems)
+            foreach (var saleItem in resourceForSale)
             {
                 PexAssume.IsNotNull(saleItem);
-                PexAssume.IsTrue(saleItems.Count(i => Equals(i, saleItem)) == 1);
+                PexAssume.IsTrue(resourceForSale.Count(i => Equals(i, saleItem)) == 1);
 
                 var resource = saleItem.Resource;
                 var amount = saleItem.Amount;
@@ -66,5 +66,12 @@ namespace Entities.Model.Markets
                 }
             }
         }
+
+        public void MakeOfferOnResource(Market target, ITrader trader, ITradeable resource, int quantity, int amount)
+        {
+            
+        }
+
+
     }
 }

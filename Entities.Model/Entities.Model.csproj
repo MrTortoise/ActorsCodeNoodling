@@ -74,9 +74,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Market.feature</DependentUpon>
     </Compile>
-    <Compile Include="Markets\MarketModel.AddResourceToSell.g.cs">
-      <DependentUpon>MarketModel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Markets\MarketModel.CreateMarket.g.cs">
       <DependentUpon>MarketModel.cs</DependentUpon>
     </Compile>

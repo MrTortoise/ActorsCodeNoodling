@@ -6,14 +6,14 @@ namespace Entities
     public class Market
     {
         public string Name { get; }
-        public ImmutableDictionary<string, SaleItem> ItemsForSale { get; private set; }
+        public ImmutableDictionary<string, ResourceForSale> ItemsForSale { get; private set; }
 
         public Market(string name)
         {
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
             Name = name;
 
-            ItemsForSale  = ImmutableDictionary<string, SaleItem>.Empty;
+            ItemsForSale  = ImmutableDictionary<string, ResourceForSale>.Empty;
 
         }
 
@@ -23,25 +23,25 @@ namespace Entities
             if (ItemsForSale.ContainsKey(resource.Name))
             {
                 var existing = ItemsForSale[resource.Name];
-                var newItem = new SaleItem(resource, existing.Amount + amount,
+                var newItem = new ResourceForSale(resource, existing.Amount + amount,
                     Math.Max(pricePerUnit, existing.PricePerUnit));
 
                 ItemsForSale = ItemsForSale.SetItem(resource.Name, newItem);
             }
             else
             {
-                var saleItem = new SaleItem(resource, amount, pricePerUnit);
+                var saleItem = new ResourceForSale(resource, amount, pricePerUnit);
                 ItemsForSale = ItemsForSale.Add(saleItem.Resource.Name, saleItem);
             }
         }
 
-        public class SaleItem
+        public class ResourceForSale
         {
             public ITradeable Resource { get; }
             public int Amount { get; }
             public int PricePerUnit { get; }
 
-            public SaleItem(ITradeable resource, int amount, int pricePerUnit)
+            public ResourceForSale(ITradeable resource, int amount, int pricePerUnit)
             {
                 if (resource == null) throw new ArgumentNullException(nameof(resource));
                 Resource = resource;
@@ -49,7 +49,7 @@ namespace Entities
                 PricePerUnit = pricePerUnit;
             }
 
-            protected bool Equals(SaleItem other)
+            protected bool Equals(ResourceForSale other)
             {
                 return Equals(Resource.Name, other.Resource.Name) && Amount == other.Amount && PricePerUnit == other.PricePerUnit;
             }
@@ -59,7 +59,7 @@ namespace Entities
                 if (ReferenceEquals(null, obj)) return false;
                 if (ReferenceEquals(this, obj)) return true;
                 if (obj.GetType() != this.GetType()) return false;
-                return Equals((SaleItem)obj);
+                return Equals((ResourceForSale)obj);
             }
 
             public override int GetHashCode()
