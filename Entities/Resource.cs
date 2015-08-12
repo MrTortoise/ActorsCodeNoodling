@@ -5,7 +5,7 @@ namespace Entities
     /// <summary>
     /// Represents a resource a location produces and is consumed and sold
     /// </summary>
-    public class Resource : ITradeable
+    public class Resource : IResource
     {
         protected bool Equals(Resource other)
         {

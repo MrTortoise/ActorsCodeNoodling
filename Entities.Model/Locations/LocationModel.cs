@@ -13,7 +13,7 @@ namespace Entities.Model.Locations
     public partial class LocationModel
     {
         [PexMethod]
-        public void CreateLocation(string name, IEnumerable<ITradeable> resources)
+        public void CreateLocation(string name, IEnumerable<IResource> resources)
         {
             var loc = new Entities.Location(name, resources);
             PexAssert.AreEqual(name, loc.Name);

@@ -16,7 +16,7 @@ namespace Entities
         /// </summary>
         /// <param name="name"></param>
         /// <param name="resources"></param>
-        public Location(string name, IEnumerable<ITradeable> resources)
+        public Location(string name, IEnumerable<IResource> resources)
         {
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
             if (resources == null) throw new ArgumentNullException(nameof(resources));
@@ -33,6 +33,6 @@ namespace Entities
         /// <summary>
         /// Gets an immutable collection of resources available
         /// </summary>
-        public ImmutableArray<ITradeable> Resources { get; private set; }
+        public ImmutableArray<IResource> Resources { get; private set; }
     }
 }

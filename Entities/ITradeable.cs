@@ -1,6 +1,6 @@
 ﻿namespace Entities
 {
-    public interface ITradeable
+    public interface IResource
     {
         string Name { get; }
     }

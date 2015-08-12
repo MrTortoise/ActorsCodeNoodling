@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Entities.Model.Trader
+namespace Entities.Model.Traders
 {
     using TechTalk.SpecFlow;
     
@@ -20,6 +20,7 @@ namespace Entities.Model.Trader
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Trader")]
+    [NUnit.Framework.CategoryAttribute("actorSystem")]
     public partial class TraderFeature
     {
         
@@ -32,8 +33,9 @@ namespace Entities.Model.Trader
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Trader", "In order to profit\nAs a Trader\nI want to be able to visit markets to buy and sell" +
-                    " goods", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Trader", "In order to profit\r\nAs a Trader\r\nI want to be able to post invitations to trade, " +
+                    "make offers, accept, reject and exchange goods", ProgrammingLanguage.CSharp, new string[] {
+                        "actorSystem"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -66,22 +68,41 @@ namespace Entities.Model.Trader
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add two numbers")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
-        public virtual void AddTwoNumbers()
+        [NUnit.Framework.DescriptionAttribute("Create a trader and give it some reources")]
+        public virtual void CreateATraderAndGiveItSomeReources()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add two numbers", new string[] {
-                        "mytag"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a trader and give it some reources", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I have entered 50 into the calculator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have created a Trader called \"Test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "name",
+                        "quantity"});
+            table1.AddRow(new string[] {
+                        "metal",
+                        "3"});
+            table1.AddRow(new string[] {
+                        "rock",
+                        "4"});
 #line 9
- testRunner.And("I have entered 70 into the calculator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 10
- testRunner.When("I press add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 11
- testRunner.Then("the result should be 120 on the screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I post the folowing resources to the Trader \"Test\"", ((string)(null)), table1, "When ");
+#line 13
+ testRunner.And("I ask What resources Trader \"Test\" has storing them in the context as \"TestResour" +
+                    "ces\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "name",
+                        "quantity"});
+            table2.AddRow(new string[] {
+                        "metal",
+                        "3"});
+            table2.AddRow(new string[] {
+                        "rock",
+                        "4"});
+#line 14
+ testRunner.Then("I expect the following resources in context \"TestResources\"", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

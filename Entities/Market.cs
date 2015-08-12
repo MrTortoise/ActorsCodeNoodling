@@ -3,6 +3,11 @@ using System.Collections.Immutable;
 
 namespace Entities
 {
+    /// <summary>
+    /// A market holds various contracts and their status. 
+    /// It provides a workflow for both parties to post and interact with contracts. 
+    /// It is like a billboard for invitations, a negotiation service and then an escrow service
+    /// </summary>
     public class Market
     {
         public string Name { get; }
@@ -17,7 +22,7 @@ namespace Entities
 
         }
 
-        public void AddItemForSale(ITradeable resource, int amount, int pricePerUnit)
+        public void AddItemForSale(IResource resource, int amount, int pricePerUnit)
         {
             if (resource == null) throw new ArgumentNullException(nameof(resource));
             if (ItemsForSale.ContainsKey(resource.Name))
@@ -37,11 +42,11 @@ namespace Entities
 
         public class ResourceForSale
         {
-            public ITradeable Resource { get; }
+            public IResource Resource { get; }
             public int Amount { get; }
             public int PricePerUnit { get; }
 
-            public ResourceForSale(ITradeable resource, int amount, int pricePerUnit)
+            public ResourceForSale(IResource resource, int amount, int pricePerUnit)
             {
                 if (resource == null) throw new ArgumentNullException(nameof(resource));
                 Resource = resource;
@@ -73,5 +78,7 @@ namespace Entities
                 }
             }
         }
+
+ 
     }
 }
