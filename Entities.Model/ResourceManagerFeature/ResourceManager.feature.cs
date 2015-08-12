@@ -20,8 +20,6 @@ namespace Entities.Model.ResourceManagerFeature
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("ResourceManager")]
-    [NUnit.Framework.CategoryAttribute("actorSystem")]
-    [NUnit.Framework.CategoryAttribute("resourceManager")]
     public partial class ResourceManagerFeature
     {
         
@@ -34,10 +32,8 @@ namespace Entities.Model.ResourceManagerFeature
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ResourceManager", "In order to keep references to resources singular and immutable\nAs an Actor\nI wan" +
-                    "t to be able to add and return resource instances", ProgrammingLanguage.CSharp, new string[] {
-                        "actorSystem",
-                        "resourceManager"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ResourceManager", "In order to keep references to resources singular and immutable\r\nAs an Actor\r\nI w" +
+                    "ant to be able to add and return resource instances", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -72,12 +68,14 @@ namespace Entities.Model.ResourceManagerFeature
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Given a resource manager from the context, add a resource and then return it by i" +
             "ts name")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
+        [NUnit.Framework.CategoryAttribute("actorSystem")]
+        [NUnit.Framework.CategoryAttribute("resourceManager")]
         public virtual void GivenAResourceManagerFromTheContextAddAResourceAndThenReturnItByItsName()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Given a resource manager from the context, add a resource and then return it by i" +
                     "ts name", new string[] {
-                        "mytag"});
+                        "actorSystem",
+                        "resourceManager"});
 #line 9
 this.ScenarioSetup(scenarioInfo);
 #line hidden

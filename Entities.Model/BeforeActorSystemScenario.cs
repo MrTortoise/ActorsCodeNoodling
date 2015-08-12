@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Akka.Actor;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 
 namespace Entities.Model
 {
-    public static class BeforeScenarioTags
+    [Binding]
+    public class BeforeScenarioTags
     {
         [BeforeScenario("actorSystem")]
         public static void BeforeActorSystemScenario()
@@ -20,8 +18,21 @@ namespace Entities.Model
         [AfterScenario("actorSystem")]
         public static void AfterActorSystemScenario()
         {
-            var actorSystem = (ActorSystem) ScenarioContext.Current[Constants.TestActorSystemName];
+            var actorSystem = GetActorSystem();
             actorSystem.Shutdown();
+        }
+
+        private static ActorSystem GetActorSystem()
+        {
+            return (ActorSystem) ScenarioContext.Current[Constants.TestActorSystemName];
+        }
+
+        [BeforeScenario("resourceManager")]
+        public static void BeforeResourceManagerScenario()
+        {
+            var actorSystem = GetActorSystem();
+            var resourceManagerActorRef = actorSystem.ActorOf<ResourceManager>("resourceManager");
+            ScenarioContext.Current.Add(Constants.ResourceManager, resourceManagerActorRef);
         }
     }
 }
