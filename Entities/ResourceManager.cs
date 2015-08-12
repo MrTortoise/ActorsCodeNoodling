@@ -13,14 +13,31 @@ namespace Entities
     /// </summary>
     public class ResourceManager : ReceiveActor
     {
-        private ImmutableDictionary<string,IResource> _resources = ImmutableDictionary<string, IResource>.Empty;
+        private readonly Dictionary<string, IResource> _resources;
+
+        public ResourceManager()
+        {
+            _resources = new Dictionary<string, IResource>();
+            Receive<PostResourceMessage>(m => _resources.Add(m.Resource.Name, m.Resource));
+            Receive<GetResource>(m =>
+            {
+                IResource retVal = null;
+                if (_resources.ContainsKey(m.Name))
+                {
+                    retVal = _resources[m.Name];
+                }
+
+                Sender.Tell(retVal);
+
+            });
+        }
 
 
         public class PostResourceMessage
         {
-            public Resource Resource { get;  }
+            public IResource Resource { get;  }
 
-            public PostResourceMessage(Resource resource)
+            public PostResourceMessage(IResource resource)
             {
                 Resource = resource;
             }

@@ -38,18 +38,16 @@ namespace Entities.Model.ResourceManagerFeature
         {
             var resources = CreateResourcesFromTable(table);
             var resManagerActor = GetResourceManagerActorRef();
-            List<Task<Resource>> tasks = new List<Task<Resource>>();
+            List<Task<IResource>> tasks = new List<Task<IResource>>();
 
             resources.ForEach(r =>
             {
-                var t = resManagerActor.Ask<Resource>(new ResourceManager.GetResource(r.Name),TimeSpan.FromSeconds(2));
+                var t = resManagerActor.Ask<IResource>(new ResourceManager.GetResource(r.Name),TimeSpan.FromSeconds(2));
                 tasks.Add(t);
             });
 
             // ReSharper disable once CoVariantArrayConversion
             Task.WaitAll(tasks.ToArray());
-
-            tasks.ForEach(t=>Assert.IsTrue(t.IsCompleted,t.Exception.Flatten().ToString()));
 
             var results = tasks.Select(i => i.Result.Name).ToList();
             foreach (string resourceName in resources.Select(r=>r.Name))
