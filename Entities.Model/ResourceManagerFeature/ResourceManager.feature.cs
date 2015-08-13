@@ -86,7 +86,7 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "rock"});
 #line 10
- testRunner.When("I press add the following resources to the Resource Manager", ((string)(null)), table1, "When ");
+ testRunner.When("I add the following resources to the Resource Manager", ((string)(null)), table1, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "name"});

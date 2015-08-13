@@ -18,19 +18,16 @@ namespace Entities.Model
         [AfterScenario("actorSystem")]
         public static void AfterActorSystemScenario()
         {
-            var actorSystem = GetActorSystem();
+            var actorSystem = ScenarioContext.Current.GetActorSystem();
             actorSystem.Shutdown();
         }
 
-        private static ActorSystem GetActorSystem()
-        {
-            return (ActorSystem) ScenarioContext.Current[Constants.TestActorSystemName];
-        }
+       
 
         [BeforeScenario("resourceManager")]
         public static void BeforeResourceManagerScenario()
         {
-            var actorSystem = GetActorSystem();
+            var actorSystem = ScenarioContext.Current.GetActorSystem();
             var resourceManagerActorRef = actorSystem.ActorOf<ResourceManager>("resourceManager");
             ScenarioContext.Current.Add(Constants.ResourceManager, resourceManagerActorRef);
         }

@@ -96,6 +96,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResourceManager.feature</DependentUpon>
     </Compile>
+    <Compile Include="ScenarioContextExtensions.cs" />
     <Compile Include="Tradeables\ResourceModel.CreateAResource.g.cs">
       <DependentUpon>ResourceModel.cs</DependentUpon>
     </Compile>

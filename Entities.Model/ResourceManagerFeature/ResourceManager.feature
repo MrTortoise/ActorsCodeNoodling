@@ -7,7 +7,7 @@ Feature: ResourceManager
 @actorSystem
 @resourceManager
 Scenario: Given a resource manager from the context, add a resource and then return it by its name
-	When I press add the following resources to the Resource Manager
+	When I add the following resources to the Resource Manager
 	| name  |
 	| metal |
 	| rock  |

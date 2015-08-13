@@ -1,4 +1,6 @@
-﻿using Akka.Actor;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
+using Akka.Actor;
 
 namespace Entities
 {
@@ -7,35 +9,62 @@ namespace Entities
     /// </summary>
     public class Trader : ReceiveActor, ITrader
     {
+        private Dictionary<IResource, ResourceStack> _resources;
+
         /// <summary>
         /// Creates a Trader with a name
         /// </summary>
         /// <param name="name"></param>
         public Trader(string name)
         {
+            _resources = new Dictionary<IResource, ResourceStack>();
+
             Name = name;
+           
+            Receive<PostResourceMessage>(message =>
+            {
+                if (_resources.ContainsKey(message.ResourceStack.Resource))
+                {
+                    var resourceStack = _resources[message.ResourceStack.Resource];
+                    _resources[message.ResourceStack.Resource] = new ResourceStack(resourceStack.Resource,
+                        resourceStack.Quantity + message.ResourceStack.Quantity);
+                }
+                else
+                {
+                    _resources.Add(message.ResourceStack.Resource, message.ResourceStack);
+                }
+            });
+
+            Receive<QueryResourcesMessage>(message =>
+            {
+                Sender.Tell(new QueryResourcesResultMessage(_resources.Values.ToImmutableArray()));
+            });
         }
 
         public string Name { get; }
 
-        public class PostResourceMessage
+        public struct PostResourceMessage
         {
-            public IResource Resource { get; }
-            public int Quantity { get;  }
+            public ResourceStack ResourceStack { get; }
 
-            public PostResourceMessage(IResource resource, int quantity)
+            public PostResourceMessage(ResourceStack resourceStack)
             {
-                Resource = resource;
-                Quantity = quantity;
+                ResourceStack = resourceStack;
             }
         }
 
-        public class QueryResourcesMessage
+        public struct QueryResourcesMessage
         {
         }
 
-        public class QueryResourcesResultMessage
+        public struct QueryResourcesResultMessage
         {
+            public QueryResourcesResultMessage(ImmutableArray<ResourceStack> resourceStacks)
+            {
+                ResourceStacks = resourceStacks;
+            }
+
+            public ImmutableArray<ResourceStack> ResourceStacks { get; }
         }
     }
 }

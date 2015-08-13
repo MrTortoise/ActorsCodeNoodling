@@ -43,7 +43,5 @@ namespace Entities
             if (rhs == null) return false;
             return rhs == this || Equals(rhs);
         }
-
-
     }
 }

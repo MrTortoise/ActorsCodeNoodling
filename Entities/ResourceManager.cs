@@ -28,7 +28,6 @@ namespace Entities
                 }
 
                 Sender.Tell(retVal);
-
             });
         }
 
