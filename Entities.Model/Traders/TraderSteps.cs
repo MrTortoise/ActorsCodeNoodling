@@ -51,24 +51,14 @@ namespace Entities.Model.Traders
             });
 
             // post them
-            var trader = GetTraderActorFromName(name);
+            var trader = SpecflowHelpers.GetTraderActorFromName(name);
             messages.ForEach(m => trader.Tell(m));
         }
 
-        /// <summary>
-        /// Returns a trader actor assuming that the name is in the cotext in the format of "trader_[name]"
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        private static IActorRef GetTraderActorFromName(string name)
-        {
-            return (IActorRef)ScenarioContext.Current["trader_" + name];
-        }
-
-        [When(@"I ask What resources Trader ""(.*)"" has storing them in the context as ""(.*)""")]
+       [When(@"I ask What resources Trader ""(.*)"" has storing them in the context as ""(.*)""")]
         public void WhenIAskWhatResourcesTraderHasStoringThemInTheContextAs(string name, string resourceString)
         {
-            var trader = GetTraderActorFromName(name);
+            var trader = SpecflowHelpers.GetTraderActorFromName(name);
             var query = trader.Ask<Trader.QueryResourcesResultMessage>(new Trader.QueryResourcesMessage(),TimeSpan.FromMilliseconds(40));
             Task.WaitAll(query);
             var resources = query.Result;

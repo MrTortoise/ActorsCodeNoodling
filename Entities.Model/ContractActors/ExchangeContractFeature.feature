@@ -5,21 +5,36 @@
 
 @actorSystem
 @resourceManager
-Scenario: Get an instance of ExchangeContract Actor and verify it is uninitialised
-	When I create an ExchangeContract Actor called "test"
-	Then I expect the state of the Exchange contract actor "test" to be "Uninitialised"
+Scenario: Get an instance of ExchangeContractActor and verify it is uninitialised
+	When I create an ExchangeContractActor called "test"
+	Then I expect the state of the ExchangeContractActor "test" to be "Uninitialised"
 
+@actorSystem
+@resourceManager
 Scenario:  Post invitation to Exchange contract and verify its current state is posted
-	Given I create an ExchangeContract Actor called "test"	
+	Given I create an ExchangeContractActor called "test"	
 	And I have created a Trader called "Test"
+   And I have configured the DateTime provider to return "2015/1/1 15:00:00"
 	When I post to the ExchangeContract "test" the following invitation
-	| Field                          | Value |
-	| SellResourceName               |       |
-	| SellResourceQuantity           |       |
-	| SellResourceTime               |       |
-	| SuggestedOfferResourceName     |       |
-	| SuggestedOfferResourceQuantity |       |
-	| LiabilityResourceName          |       |
-	| LiabilityResourceQuantity      |       |
-	| TraderName                     |       |
-	Then the result should be 120 on the screen
+	| Field                          | Value    |
+	| ExchangeType                   | Purchase |
+	| SellResourceName               | metal    |
+	| SellResourceQuantity           | 10       |
+	| SellResourceTimePeriod         | hour     |
+	| SellResourceTimePeriodQuantity | 1        |
+	| SuggestedOfferResourceName     | rock     |
+	| SuggestedOfferResourceQuantity | 2        |
+	| LiabilityResourceName          | metal    |
+	| LiabilityResourceQuantity      | 2        |
+	| ContractOwner                  | Test     |
+	Then I expect the state of the ExchangeContractActor "test" to be "InvitationPosted"
+   And I expect the creator of ExchangeContractActor "test" to be "test"
+   And I expect the ExchangeContractActor "test" to have the following for offer
+   | Field          | Value             |
+   | ExchangeType   | Purchase          |
+   | Resource       | metal             |
+   | Quantity       | 10                |
+   | CompletionTime | 2015/1/1 16:00:00 |
+   And I expect the ExchangeContractActor "test" to have the following suggested offer of Resource "rock" and Quantity "1"   
+   And I expect the ExchangeContractActor "test" to have the following liability of Resource "metal" and Quantity "2"
+   
