@@ -20,7 +20,7 @@ Scenario:  Post invitation to Exchange contract and verify its current state is 
 	| ExchangeType                   | Purchase |
 	| SellResourceName               | metal    |
 	| SellResourceQuantity           | 10       |
-	| SellResourceTimePeriod         | hour     |
+	| SellResourceTimePeriod         | Hour     |
 	| SellResourceTimePeriodQuantity | 1        |
 	| SuggestedOfferResourceName     | rock     |
 	| SuggestedOfferResourceQuantity | 2        |
@@ -28,7 +28,7 @@ Scenario:  Post invitation to Exchange contract and verify its current state is 
 	| LiabilityResourceQuantity      | 2        |
 	| ContractOwner                  | Test     |
 	Then I expect the state of the ExchangeContractActor "test" to be "InvitationPosted"
-   And I expect the creator of ExchangeContractActor "test" to be "test"
+   And I expect the creator of ExchangeContractActor "test" to be "Test"
    And I expect the ExchangeContractActor "test" to have the following for offer
    | Field          | Value             |
    | ExchangeType   | Purchase          |

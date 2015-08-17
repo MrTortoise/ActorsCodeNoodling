@@ -14,9 +14,14 @@ namespace Entities.Model
          _dateTime = dateTime;
       }
 
-      public DateTime GetdateTime()
+      public DateTime GetDateTime()
       {
          return _dateTime;
+      }
+
+      public DateTime GetDateTime(TimePeriodType periodType, int quantity)
+      {
+         return _dateTime.AddTimePeriod(periodType, quantity);
       }
    }
 }

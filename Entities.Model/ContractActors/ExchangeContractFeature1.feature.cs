@@ -116,7 +116,7 @@ this.ScenarioSetup(scenarioInfo);
                         "10"});
             table1.AddRow(new string[] {
                         "SellResourceTimePeriod",
-                        "hour"});
+                        "Hour"});
             table1.AddRow(new string[] {
                         "SellResourceTimePeriodQuantity",
                         "1"});
@@ -140,7 +140,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 30
  testRunner.Then("I expect the state of the ExchangeContractActor \"test\" to be \"InvitationPosted\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 31
-   testRunner.And("I expect the creator of ExchangeContractActor \"test\" to be \"test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("I expect the creator of ExchangeContractActor \"test\" to be \"Test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",

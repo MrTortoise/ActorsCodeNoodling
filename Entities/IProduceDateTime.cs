@@ -4,6 +4,6 @@ namespace Entities
 {
    public interface IProduceDateTime
    {
-      DateTime GetdateTime();
+      DateTime GetDateTime();
    }
 }

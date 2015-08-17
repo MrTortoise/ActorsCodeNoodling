@@ -1,3 +1,4 @@
+using System;
 using Akka.Actor;
 
 namespace Entities
@@ -10,38 +11,54 @@ namespace Entities
 
    {
       private State _state;
+      private OfferType _exchangeType;
+      private ResourceStack _invitationStack;
+      private DateTime _invitationDeadline;
+      private ResourceStack _liabilityStack;
+      private ResourceStack _suggestedOfferStack;
+      private ActorPath _owner;
 
       public class PostInvitationMessage
       { 
-         public OfferType ExchangeType { get; }
+         public OfferType ExchangeType { get; } 
+
          public int LiabilityQuantity { get; }
-         public Resource LiabilityResource { get; }
-         public Resource SellResource { get; }
-         public int SellResourceQuantity { get; }
-         public TimePeriodType SellResourceTimePeriod { get; }
-         public int SellResourceTimePeriodQuantity { get; }
+         public Resource LiabilityResource { get; } 
+
+         public Resource InvitationResource { get; }
+         public int InvitationResourceQuantity { get; }
+         public TimePeriodType InvitationResourceTimePeriod { get; }
+         public int InvitationResourceTimePeriodQuantity { get; } 
+
          public Resource SuggestedOfferResource { get; }
          public int SuggestedQuantity { get; }
 
-         public PostInvitationMessage(OfferType exchangeType, Resource sellResource, int sellResourceQuantity,
-            TimePeriodType sellResourceTimePeriod, int sellResourceTimePeriodQuantity, Resource suggestedOfferResource,
+         public PostInvitationMessage(OfferType exchangeType, Resource invitationResource, int invitationResourceQuantity,
+            TimePeriodType invitationResourceTimePeriod, int invitationResourceTimePeriodQuantity, Resource suggestedOfferResource,
             int suggestedQuantity, Resource liabilityResource, int liabilityQuantity)
          {
             this.ExchangeType = exchangeType;
-            this.SellResource = sellResource;
-            this.SellResourceQuantity = sellResourceQuantity;
-            this.SellResourceTimePeriod = sellResourceTimePeriod;
-            this.SellResourceTimePeriodQuantity = sellResourceTimePeriodQuantity;
+
+            this.InvitationResource = invitationResource;
+            this.InvitationResourceQuantity = invitationResourceQuantity;
+            this.InvitationResourceTimePeriod = invitationResourceTimePeriod;
+            this.InvitationResourceTimePeriodQuantity = invitationResourceTimePeriodQuantity;
+
             this.SuggestedOfferResource = suggestedOfferResource;
             this.SuggestedQuantity = suggestedQuantity;
+
             this.LiabilityResource = liabilityResource;
             this.LiabilityQuantity = liabilityQuantity; 
          }
       }
 
+      /// <summary>
+      /// The states of the ExchangeContractActor
+      /// </summary>
       public enum State
       {
-         Uninitialised
+         Uninitialised,
+         InvitationPosted
       }
 
       public struct QueryStateMessage
@@ -63,7 +80,18 @@ namespace Entities
 
       public void Handle(PostInvitationMessage message)
       {
-         throw new System.NotImplementedException();
+         _exchangeType = message.ExchangeType;
+
+         _invitationStack = new ResourceStack(message.InvitationResource, message.InvitationResourceQuantity);
+         _invitationDeadline = DateTimeProvider.NowPlusPeriod(message.InvitationResourceTimePeriod,
+            message.InvitationResourceTimePeriodQuantity);
+
+         _liabilityStack = new ResourceStack(message.LiabilityResource, message.LiabilityQuantity);
+         _suggestedOfferStack = new ResourceStack(message.SuggestedOfferResource, message.SuggestedQuantity);  
+
+         _state = State.InvitationPosted;
+
+         _owner = Sender.Path;
       }
 
       public void Handle(QueryStateMessage message)
@@ -73,7 +101,7 @@ namespace Entities
 
       public void Handle(QueryOwner message)
       {
-         throw new System.NotImplementedException();
+        Sender.Tell(_owner);
       }
 
       public void Handle(QueryDto message)
