@@ -79,25 +79,41 @@ namespace Entities.Model.ContractActors
           var exchangeActorRef = SpecflowHelpers.GetExchangeContractActor(exchangeContractActorName);
           var creatorActorRef = SpecflowHelpers.GetTraderActorFromName(creator);
 
-          var ownerTask = exchangeActorRef.Ask<string>(new ExchangeContract.QueryOwner(), TimeSpan.FromMilliseconds(50));
+          var ownerTask = exchangeActorRef.Ask<IActorRef>(new ExchangeContract.QueryOwner(), TimeSpan.FromMilliseconds(50));
           ownerTask.Wait();
           var owner = ownerTask.Result;
 
-          var creatorDtoTask = creatorActorRef.Ask<ExchangeContract>(new ExchangeContract.QueryDto(),
-             TimeSpan.FromMilliseconds(50));
-          creatorDtoTask.Wait();
-
-
-          ScenarioContext.Current.Pending();
+           Assert.AreEqual(creatorActorRef,owner);   
        }
 
        [Then(@"I expect the ExchangeContractActor ""(.*)"" to have the following for offer")]
-        public void ThenIExpectTheExchangeContractActorToHaveTheFollowingForOffer(string p0, Table table)
-        {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Then(@"I expect the ExchangeContractActor ""(.*)"" to have the following suggested offer of Resource ""(.*)"" and Quantity ""(.*)""")]
+       public void ThenIExpectTheExchangeContractActorToHaveTheFollowingForOffer(string exchangeContract, Table table)
+       {
+          var exchangeActorRef = SpecflowHelpers.GetExchangeContractActor(exchangeContract);
+          var queryTask = exchangeActorRef.Ask<InvitationToTreat>(new ExchangeContract.QueryInvitationToTreat(), TimeSpan.FromMilliseconds(50));
+
+          queryTask.Wait();
+          var invitation = queryTask.Result;
+
+          var exchangeType = Enum.Parse(typeof (OfferType), table.GetField("ExchangeType"));
+          var resource = SpecflowHelpers.GetResourceFromName(table.GetField("Resource"));
+          var resourceStack = new ResourceStack(resource, int.Parse(table.GetField("Quantity")));
+          var dateTime = DateTime.Parse(table.GetField("CompletionTime"));
+
+          resource = SpecflowHelpers.GetResourceFromName(table.GetField("SuggestedOfferResourceName"));
+          var suggestedResource = new ResourceStack(resource, int.Parse(table.GetField("SuggestedOfferResourceQuantity")));
+
+          resource = SpecflowHelpers.GetResourceFromName(table.GetField("LiabilityResourceName"));
+          var liabilityResource = new ResourceStack(resource, int.Parse(table.GetField("LiabilityResourceQuantity")));
+
+          Assert.AreEqual(exchangeType, invitation.ExchangeType);
+          Assert.AreEqual(resourceStack, invitation.InvitationStack);
+          Assert.AreEqual(dateTime, invitation.InvitationDeadline);
+          Assert.AreEqual(suggestedResource, invitation.SuggestedOffer);
+          Assert.AreEqual(liabilityResource, invitation.LiabilityStack);
+       }
+
+       [Then(@"I expect the ExchangeContractActor ""(.*)"" to have the following suggested offer of Resource ""(.*)"" and Quantity ""(.*)""")]
         public void ThenIExpectTheExchangeContractActorToHaveTheFollowingSuggestedOfferOfResourceAndQuantity(string p0, string p1, int p2)
         {
             ScenarioContext.Current.Pending();

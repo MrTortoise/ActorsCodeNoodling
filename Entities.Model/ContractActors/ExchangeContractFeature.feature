@@ -5,6 +5,14 @@
 
 @actorSystem
 @resourceManager
+Background: 
+   Given I add the following resources to the Resource Manager
+	| name  |
+	| metal |
+	| rock  |
+
+@actorSystem
+@resourceManager
 Scenario: Get an instance of ExchangeContractActor and verify it is uninitialised
 	When I create an ExchangeContractActor called "test"
 	Then I expect the state of the ExchangeContractActor "test" to be "Uninitialised"
@@ -30,11 +38,14 @@ Scenario:  Post invitation to Exchange contract and verify its current state is 
 	Then I expect the state of the ExchangeContractActor "test" to be "InvitationPosted"
    And I expect the creator of ExchangeContractActor "test" to be "Test"
    And I expect the ExchangeContractActor "test" to have the following for offer
-   | Field          | Value             |
-   | ExchangeType   | Purchase          |
-   | Resource       | metal             |
-   | Quantity       | 10                |
-   | CompletionTime | 2015/1/1 16:00:00 |
-   And I expect the ExchangeContractActor "test" to have the following suggested offer of Resource "rock" and Quantity "1"   
-   And I expect the ExchangeContractActor "test" to have the following liability of Resource "metal" and Quantity "2"
+   | Field                          | Value             |
+   | ExchangeType                   | Purchase          |
+   | Resource                       | metal             |
+   | Quantity                       | 10                |
+   | CompletionTime                 | 2015/1/1 16:00:00 |
+   | SuggestedOfferResourceName     | rock              |
+   | SuggestedOfferResourceQuantity | 2                 |
+   | LiabilityResourceName          | metal             |
+   | LiabilityResourceQuantity      | 2                 |
+
    

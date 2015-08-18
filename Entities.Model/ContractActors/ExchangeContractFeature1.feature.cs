@@ -65,20 +65,41 @@ namespace Entities.Model.ContractActors
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 8
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "name"});
+            table1.AddRow(new string[] {
+                        "metal"});
+            table1.AddRow(new string[] {
+                        "rock"});
+#line 9
+   testRunner.Given("I add the following resources to the Resource Manager", ((string)(null)), table1, "Given ");
+#line hidden
+        }
+        
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Get an instance of ExchangeContractActor and verify it is uninitialised")]
+        [NUnit.Framework.CategoryAttribute("actorSystem")]
+        [NUnit.Framework.CategoryAttribute("resourceManager")]
         [NUnit.Framework.CategoryAttribute("actorSystem")]
         [NUnit.Framework.CategoryAttribute("resourceManager")]
         public virtual void GetAnInstanceOfExchangeContractActorAndVerifyItIsUninitialised()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get an instance of ExchangeContractActor and verify it is uninitialised", new string[] {
                         "actorSystem",
+                        "resourceManager",
+                        "actorSystem",
                         "resourceManager"});
-#line 8
+#line 16
 this.ScenarioSetup(scenarioInfo);
-#line 9
+#line 8
+this.FeatureBackground();
+#line 17
  testRunner.When("I create an ExchangeContractActor called \"test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 10
+#line 18
  testRunner.Then("I expect the state of the ExchangeContractActor \"test\" to be \"Uninitialised\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -93,54 +114,16 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Post invitation to Exchange contract and verify its current state is posted", new string[] {
                         "actorSystem",
                         "resourceManager"});
-#line 14
+#line 22
 this.ScenarioSetup(scenarioInfo);
-#line 15
+#line 8
+this.FeatureBackground();
+#line 23
  testRunner.Given("I create an ExchangeContractActor called \"test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 16
+#line 24
  testRunner.And("I have created a Trader called \"Test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 17
+#line 25
    testRunner.And("I have configured the DateTime provider to return \"2015/1/1 15:00:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Field",
-                        "Value"});
-            table1.AddRow(new string[] {
-                        "ExchangeType",
-                        "Purchase"});
-            table1.AddRow(new string[] {
-                        "SellResourceName",
-                        "metal"});
-            table1.AddRow(new string[] {
-                        "SellResourceQuantity",
-                        "10"});
-            table1.AddRow(new string[] {
-                        "SellResourceTimePeriod",
-                        "Hour"});
-            table1.AddRow(new string[] {
-                        "SellResourceTimePeriodQuantity",
-                        "1"});
-            table1.AddRow(new string[] {
-                        "SuggestedOfferResourceName",
-                        "rock"});
-            table1.AddRow(new string[] {
-                        "SuggestedOfferResourceQuantity",
-                        "2"});
-            table1.AddRow(new string[] {
-                        "LiabilityResourceName",
-                        "metal"});
-            table1.AddRow(new string[] {
-                        "LiabilityResourceQuantity",
-                        "2"});
-            table1.AddRow(new string[] {
-                        "ContractOwner",
-                        "Test"});
-#line 18
- testRunner.When("I post to the ExchangeContract \"test\" the following invitation", ((string)(null)), table1, "When ");
-#line 30
- testRunner.Then("I expect the state of the ExchangeContractActor \"test\" to be \"InvitationPosted\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 31
-   testRunner.And("I expect the creator of ExchangeContractActor \"test\" to be \"Test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
@@ -149,22 +132,68 @@ this.ScenarioSetup(scenarioInfo);
                         "ExchangeType",
                         "Purchase"});
             table2.AddRow(new string[] {
-                        "Resource",
+                        "SellResourceName",
                         "metal"});
             table2.AddRow(new string[] {
-                        "Quantity",
+                        "SellResourceQuantity",
                         "10"});
             table2.AddRow(new string[] {
+                        "SellResourceTimePeriod",
+                        "Hour"});
+            table2.AddRow(new string[] {
+                        "SellResourceTimePeriodQuantity",
+                        "1"});
+            table2.AddRow(new string[] {
+                        "SuggestedOfferResourceName",
+                        "rock"});
+            table2.AddRow(new string[] {
+                        "SuggestedOfferResourceQuantity",
+                        "2"});
+            table2.AddRow(new string[] {
+                        "LiabilityResourceName",
+                        "metal"});
+            table2.AddRow(new string[] {
+                        "LiabilityResourceQuantity",
+                        "2"});
+            table2.AddRow(new string[] {
+                        "ContractOwner",
+                        "Test"});
+#line 26
+ testRunner.When("I post to the ExchangeContract \"test\" the following invitation", ((string)(null)), table2, "When ");
+#line 38
+ testRunner.Then("I expect the state of the ExchangeContractActor \"test\" to be \"InvitationPosted\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 39
+   testRunner.And("I expect the creator of ExchangeContractActor \"test\" to be \"Test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table3.AddRow(new string[] {
+                        "ExchangeType",
+                        "Purchase"});
+            table3.AddRow(new string[] {
+                        "Resource",
+                        "metal"});
+            table3.AddRow(new string[] {
+                        "Quantity",
+                        "10"});
+            table3.AddRow(new string[] {
                         "CompletionTime",
                         "2015/1/1 16:00:00"});
-#line 32
-   testRunner.And("I expect the ExchangeContractActor \"test\" to have the following for offer", ((string)(null)), table2, "And ");
-#line 38
-   testRunner.And("I expect the ExchangeContractActor \"test\" to have the following suggested offer o" +
-                    "f Resource \"rock\" and Quantity \"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 39
-   testRunner.And("I expect the ExchangeContractActor \"test\" to have the following liability of Reso" +
-                    "urce \"metal\" and Quantity \"2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            table3.AddRow(new string[] {
+                        "SuggestedOfferResourceName",
+                        "rock"});
+            table3.AddRow(new string[] {
+                        "SuggestedOfferResourceQuantity",
+                        "2"});
+            table3.AddRow(new string[] {
+                        "LiabilityResourceName",
+                        "metal"});
+            table3.AddRow(new string[] {
+                        "LiabilityResourceQuantity",
+                        "2"});
+#line 40
+   testRunner.And("I expect the ExchangeContractActor \"test\" to have the following for offer", ((string)(null)), table3, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
