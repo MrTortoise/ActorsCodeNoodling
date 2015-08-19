@@ -25,7 +25,8 @@ namespace Entities.Model.ContractActors
           DateTimeProvider.SetProvider(new FixedDateTime(dateTime));
        }
 
-       [When(@"I post to the ExchangeContract ""(.*)"" the following invitation")]
+      [Given(@"I post to the ExchangeContract ""(.*)"" the following invitation")]
+      [When(@"I post to the ExchangeContract ""(.*)"" the following invitation")]
        public void WhenIPostToTheExchangeContractTheFollowingInvitation(string exchangeContractName, Table table)
        {  
           var exchangeContractActor = SpecflowHelpers.GetExchangeContractActor(exchangeContractName);
@@ -111,18 +112,6 @@ namespace Entities.Model.ContractActors
           Assert.AreEqual(dateTime, invitation.InvitationDeadline);
           Assert.AreEqual(suggestedResource, invitation.SuggestedOffer);
           Assert.AreEqual(liabilityResource, invitation.LiabilityStack);
-       }
-
-       [Then(@"I expect the ExchangeContractActor ""(.*)"" to have the following suggested offer of Resource ""(.*)"" and Quantity ""(.*)""")]
-        public void ThenIExpectTheExchangeContractActorToHaveTheFollowingSuggestedOfferOfResourceAndQuantity(string p0, string p1, int p2)
-        {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Then(@"I expect the ExchangeContractActor ""(.*)"" to have the following liability of Resource ""(.*)"" and Quantity ""(.*)""")]
-        public void ThenIExpectTheExchangeContractActorToHaveTheFollowingLiabilityOfResourceAndQuantity(string p0, string p1, int p2)
-        {
-            ScenarioContext.Current.Pending();
-        }
+       }  
     }
 }
