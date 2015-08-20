@@ -63,6 +63,7 @@ Scenario: Take an invitation and make an offer, verify state is OfferMade, offer
 	| LiabilityResourceName          | metal    |
 	| LiabilityResourceQuantity      | 2        |
 	| ContractOwner                  | Test     |
+   And I configure the Trader called "seller" to log when offer recieved as "offers"
    When the Trader called "buyer" makes the following offer on the ExchangeContractActor called "test"
    | Field    | Value |
    | Resource | metal |
@@ -92,11 +93,14 @@ Scenario: Take an invitation that is under offer, reject it and make an alternat
    | Field    | Value |
    | Resource | metal |
    | Quantity | 8     |
+   And I configure the Trader called "seller" to log when offer recieved as "offers"
    When the Trader called "seller" rejects the offer on the ExchangeContractActor called "test" and makes the following suggested offer
    | Field    | Value |
    | Resource | metal |
    | Quantity | 10    |
-   Then I expect that the Trader "seller" will of been notified of a suggested offer being made 
+   Then I expect that the Trader "seller" will of recieved the following offers as "offers"
+   | Resource | Quantity |
+   | metal    | 10       |
    And I expect the suggested offer on the ExchangeContractActor called "test" to be
    | Field    | Value |
    | Resource | metal |

@@ -101,5 +101,15 @@ namespace Entities
       public struct QueryInvitationToTreat
       {
       }
+
+      public struct PostOffer
+      {
+         public ResourceStack ResourceStack { get;  }
+
+         public PostOffer(ResourceStack resourceStack)
+         {
+            ResourceStack = resourceStack;  
+         }
+      }
    }
 }

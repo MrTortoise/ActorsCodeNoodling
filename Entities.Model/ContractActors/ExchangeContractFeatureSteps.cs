@@ -112,6 +112,55 @@ namespace Entities.Model.ContractActors
           Assert.AreEqual(dateTime, invitation.InvitationDeadline);
           Assert.AreEqual(suggestedResource, invitation.SuggestedOffer);
           Assert.AreEqual(liabilityResource, invitation.LiabilityStack);
-       }  
-    }
+       }
+
+      [When(@"the Trader called ""(.*)"" makes the following offer on the ExchangeContractActor called ""(.*)""")]
+      public void WhenTheTraderCalledMakesTheFollowingOfferOnTheExchangeContractActorCalled(string buyerName, string exchangeContractName, Table table)
+      {
+         var buyerActorRef = SpecflowHelpers.GetTraderActorFromName(buyerName);
+         var exchangeActorRef = SpecflowHelpers.GetExchangeContractActor(exchangeContractName);
+
+         var resource = SpecflowHelpers.GetResourceFromName(table.GetField("Resource"));
+         var resourceStack = new ResourceStack(resource, int.Parse(table.GetField("Quantity")));
+
+         exchangeActorRef.Tell(new ExchangeContract.PostOffer(resourceStack), buyerActorRef);  
+      }
+
+      [Then(@"I expect that the Trader ""(.*)"" will of been notified of an offer being made")]
+      public void ThenIExpectThatTheTraderWillOfBeenNotifiedOfAnOfferBeingMade(string sellerName)
+      {
+         var sellerActorRef = SpecflowHelpers.GetTraderActorFromName(sellerName);
+      }
+
+      [Then(@"I expect the offer on the ExchangeContractActor called ""(.*)"" to be")]
+      public void ThenIExpectTheOfferOnTheExchangeContractActorCalledToBe(string p0, Table table)
+      {
+         ScenarioContext.Current.Pending();
+      }
+
+      [Given(@"the Trader called ""(.*)"" makes the following offer on the ExchangeContractActor called ""(.*)""")]
+      public void GivenTheTraderCalledMakesTheFollowingOfferOnTheExchangeContractActorCalled(string p0, string p1, Table table)
+      {
+         ScenarioContext.Current.Pending();
+      }
+
+      [When(@"the Trader called ""(.*)"" rejects the offer on the ExchangeContractActor called ""(.*)"" and makes the following suggested offer")]
+      public void WhenTheTraderCalledRejectsTheOfferOnTheExchangeContractActorCalledAndMakesTheFollowingSuggestedOffer(string p0, string p1, Table table)
+      {
+         ScenarioContext.Current.Pending();
+      }
+
+      [Then(@"I expect that the Trader ""(.*)"" will of been notified of a suggested offer being made")]
+      public void ThenIExpectThatTheTraderWillOfBeenNotifiedOfASuggestedOfferBeingMade(string p0)
+      {
+         ScenarioContext.Current.Pending();
+      }
+
+      [Then(@"I expect the suggested offer on the ExchangeContractActor called ""(.*)"" to be")]
+      public void ThenIExpectTheSuggestedOfferOnTheExchangeContractActorCalledToBe(string p0, Table table)
+      {
+         ScenarioContext.Current.Pending();
+      }
+
+   }
 }
