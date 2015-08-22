@@ -67,18 +67,26 @@ namespace Entities.Model.Traders
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 8
+#line 9
+   testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 10
+   testRunner.And("I create a Resource Manager", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+        }
+        
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Create a trader and give it some reources")]
-        [NUnit.Framework.CategoryAttribute("actorSystem")]
-        [NUnit.Framework.CategoryAttribute("resourceManager")]
         public virtual void CreateATraderAndGiveItSomeReources()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a trader and give it some reources", new string[] {
-                        "actorSystem",
-                        "resourceManager"});
-#line 9
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a trader and give it some reources", ((string[])(null)));
+#line 12
 this.ScenarioSetup(scenarioInfo);
-#line 10
+#line 8
+this.FeatureBackground();
+#line 13
  testRunner.Given("I have created a Trader called \"Test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -87,7 +95,7 @@ this.ScenarioSetup(scenarioInfo);
                         "metal"});
             table1.AddRow(new string[] {
                         "rock"});
-#line 11
+#line 14
  testRunner.And("I add the following resources to the Resource Manager", ((string)(null)), table1, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -99,9 +107,9 @@ this.ScenarioSetup(scenarioInfo);
             table2.AddRow(new string[] {
                         "rock",
                         "4"});
-#line 15
+#line 18
  testRunner.When("I post the folowing resources to the Trader \"Test\"", ((string)(null)), table2, "When ");
-#line 19
+#line 22
  testRunner.And("I ask What resources Trader \"Test\" has storing them in the context as \"TestResour" +
                     "ces\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -114,7 +122,7 @@ this.ScenarioSetup(scenarioInfo);
             table3.AddRow(new string[] {
                         "rock",
                         "4"});
-#line 20
+#line 23
  testRunner.Then("I expect the following resources in context \"TestResources\"", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();

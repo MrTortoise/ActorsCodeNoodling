@@ -65,19 +65,27 @@ namespace Entities.Model.ResourceManagerFeature
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 8
+#line 9
+   testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 10
+   testRunner.And("I create a Resource Manager", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+        }
+        
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Given a resource manager from the context, add a resource and then return it by i" +
             "ts name")]
-        [NUnit.Framework.CategoryAttribute("actorSystem")]
-        [NUnit.Framework.CategoryAttribute("resourceManager")]
         public virtual void GivenAResourceManagerFromTheContextAddAResourceAndThenReturnItByItsName()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Given a resource manager from the context, add a resource and then return it by i" +
-                    "ts name", new string[] {
-                        "actorSystem",
-                        "resourceManager"});
-#line 9
+                    "ts name", ((string[])(null)));
+#line 12
 this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "name"});
@@ -85,7 +93,7 @@ this.ScenarioSetup(scenarioInfo);
                         "metal"});
             table1.AddRow(new string[] {
                         "rock"});
-#line 10
+#line 13
  testRunner.When("I add the following resources to the Resource Manager", ((string)(null)), table1, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -94,7 +102,7 @@ this.ScenarioSetup(scenarioInfo);
                         "metal"});
             table2.AddRow(new string[] {
                         "rock"});
-#line 14
+#line 17
  testRunner.Then("the I expect the Resource  Manager to contain the following resources", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();

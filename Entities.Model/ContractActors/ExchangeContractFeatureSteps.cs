@@ -1,22 +1,31 @@
 ﻿using System;
 using System.Linq;
 using Akka.Actor;
+using Akka.TestKit;
+using Akka.TestKit.NUnit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 
 namespace Entities.Model.ContractActors
 {
     [Binding]
-    public class ExchangeContractFeatureSteps
+    public class ExchangeContractFeatureSteps 
     {
+       private readonly ScenarioContextState _state;
+    
+
+       public ExchangeContractFeatureSteps(ScenarioContextState state)
+       {
+          _state = state;
+       }
+
        [Given(@"I create an ExchangeContractActor called ""(.*)""")]
        [When(@"I create an ExchangeContractActor called ""(.*)""")]
        public void GivenICreateAnExchangeContractActorCalled(string name)
-       {
-         var system = ScenarioContext.Current.GetActorSystem();
-          var exchangeContractActor = system.ActorOf<ExchangeContract>(name);
-          ScenarioContext.Current.Add("ExchangeContract_" + name, exchangeContractActor);
-       }
+      {
+         var exchangeContractActor = _state.TestKit.ActorOfAsTestActorRef<ExchangeContract>(name);
+          _state.ExchangeContractActors.Add(name, exchangeContractActor);
+      }
 
        [Given(@"I have configured the DateTime provider to return ""(.*)""")]
         public void GivenIHaveConfiguredTheDateTimeProviderToReturn(string dateTimeString)
@@ -28,26 +37,26 @@ namespace Entities.Model.ContractActors
       [Given(@"I post to the ExchangeContract ""(.*)"" the following invitation")]
       [When(@"I post to the ExchangeContract ""(.*)"" the following invitation")]
        public void WhenIPostToTheExchangeContractTheFollowingInvitation(string exchangeContractName, Table table)
-       {  
-          var exchangeContractActor = SpecflowHelpers.GetExchangeContractActor(exchangeContractName);
+      {
+         var exchangeContractActor = _state.ExchangeContractActors[exchangeContractName];
           var exchangeType = (OfferType)Enum.Parse(typeof (OfferType), table.GetField("ExchangeType"));
 
           var resourceName = table.GetField("SellResourceName");
-          var sellResource = SpecflowHelpers.GetResourceFromName(resourceName);
+          var sellResource = _state.GetResourceFromName(resourceName);
 
           var sellResourceQuantity = int.Parse(table.GetField("SellResourceQuantity"));
           var sellResourceTimePeriod = (TimePeriodType)Enum.Parse(typeof (TimePeriodType), table.GetField("SellResourceTimePeriod"));
           var sellResourceTimePeriodQuantity = int.Parse(table.GetField("SellResourceTimePeriodQuantity"));
 
           var suggestedOfferResourceName = table.GetField("SuggestedOfferResourceName");
-          var suggestedOfferResource = SpecflowHelpers.GetResourceFromName(suggestedOfferResourceName);
+          var suggestedOfferResource = _state.GetResourceFromName(suggestedOfferResourceName);
           var suggestedQuantity = int.Parse(table.GetField("SuggestedOfferResourceQuantity"));
 
          var liabilityResourceName = table.GetField("LiabilityResourceName");
-         var liabilityResource = SpecflowHelpers.GetResourceFromName(liabilityResourceName);
+         var liabilityResource = _state.GetResourceFromName(liabilityResourceName);
          var liabilityQuantity = int.Parse(table.GetField("LiabilityResourceQuantity"));
 
-         var contractOwner = SpecflowHelpers.GetTraderActorFromName(table.GetField("ContractOwner"));
+         var contractOwner = _state.Traders[table.GetField("ContractOwner")];
 
           var postInvitationMessage = new ExchangeContract.PostInvitationMessage(
              exchangeType,
@@ -66,7 +75,7 @@ namespace Entities.Model.ContractActors
        [Then(@"I expect the state of the ExchangeContractActor ""(.*)"" to be ""(.*)""")]
         public void ThenIExpectTheStateOfTheExchangeContractActorToBe(string exchangeContractActorName, string exchangeContractActorState)
        {
-          var exchangeActorRef = SpecflowHelpers.GetExchangeContractActor(exchangeContractActorName);
+          var exchangeActorRef = _state.ExchangeContractActors[exchangeContractActorName];
           var stateTask = exchangeActorRef.Ask<ExchangeContract.State>(new ExchangeContract.QueryStateMessage(), TimeSpan.FromMilliseconds(50));
           stateTask.Wait();
           var expectedState = (ExchangeContract.State) Enum.Parse(typeof (ExchangeContract.State), exchangeContractActorState);
@@ -77,8 +86,8 @@ namespace Entities.Model.ContractActors
        [Then(@"I expect the creator of ExchangeContractActor ""(.*)"" to be ""(.*)""")]
        public void ThenIExpectTheCreatorOfExchangeContractActorToBe(string exchangeContractActorName, string creator)
        {
-          var exchangeActorRef = SpecflowHelpers.GetExchangeContractActor(exchangeContractActorName);
-          var creatorActorRef = SpecflowHelpers.GetTraderActorFromName(creator);
+          var exchangeActorRef = _state.ExchangeContractActors[exchangeContractActorName];
+          var creatorActorRef = _state.Traders[creator];
 
           var ownerTask = exchangeActorRef.Ask<IActorRef>(new ExchangeContract.QueryOwner(), TimeSpan.FromMilliseconds(50));
           ownerTask.Wait();
@@ -90,21 +99,21 @@ namespace Entities.Model.ContractActors
        [Then(@"I expect the ExchangeContractActor ""(.*)"" to have the following for offer")]
        public void ThenIExpectTheExchangeContractActorToHaveTheFollowingForOffer(string exchangeContract, Table table)
        {
-          var exchangeActorRef = SpecflowHelpers.GetExchangeContractActor(exchangeContract);
+          var exchangeActorRef = _state.ExchangeContractActors[exchangeContract];
           var queryTask = exchangeActorRef.Ask<InvitationToTreat>(new ExchangeContract.QueryInvitationToTreat(), TimeSpan.FromMilliseconds(50));
 
           queryTask.Wait();
           var invitation = queryTask.Result;
 
           var exchangeType = Enum.Parse(typeof (OfferType), table.GetField("ExchangeType"));
-          var resource = SpecflowHelpers.GetResourceFromName(table.GetField("Resource"));
+          var resource = _state.GetResourceFromName(table.GetField("Resource"));
           var resourceStack = new ResourceStack(resource, int.Parse(table.GetField("Quantity")));
           var dateTime = DateTime.Parse(table.GetField("CompletionTime"));
 
-          resource = SpecflowHelpers.GetResourceFromName(table.GetField("SuggestedOfferResourceName"));
+          resource = _state.GetResourceFromName(table.GetField("SuggestedOfferResourceName"));
           var suggestedResource = new ResourceStack(resource, int.Parse(table.GetField("SuggestedOfferResourceQuantity")));
 
-          resource = SpecflowHelpers.GetResourceFromName(table.GetField("LiabilityResourceName"));
+          resource = _state.GetResourceFromName(table.GetField("LiabilityResourceName"));
           var liabilityResource = new ResourceStack(resource, int.Parse(table.GetField("LiabilityResourceQuantity")));
 
           Assert.AreEqual(exchangeType, invitation.ExchangeType);
@@ -117,10 +126,10 @@ namespace Entities.Model.ContractActors
       [When(@"the Trader called ""(.*)"" makes the following offer on the ExchangeContractActor called ""(.*)""")]
       public void WhenTheTraderCalledMakesTheFollowingOfferOnTheExchangeContractActorCalled(string buyerName, string exchangeContractName, Table table)
       {
-         var buyerActorRef = SpecflowHelpers.GetTraderActorFromName(buyerName);
-         var exchangeActorRef = SpecflowHelpers.GetExchangeContractActor(exchangeContractName);
+         var buyerActorRef = _state.Traders[buyerName];
+         var exchangeActorRef = _state.ExchangeContractActors[exchangeContractName];
 
-         var resource = SpecflowHelpers.GetResourceFromName(table.GetField("Resource"));
+         var resource = _state.GetResourceFromName(table.GetField("Resource"));
          var resourceStack = new ResourceStack(resource, int.Parse(table.GetField("Quantity")));
 
          exchangeActorRef.Tell(new ExchangeContract.PostOffer(resourceStack), buyerActorRef);  
@@ -129,7 +138,7 @@ namespace Entities.Model.ContractActors
       [Then(@"I expect that the Trader ""(.*)"" will of been notified of an offer being made")]
       public void ThenIExpectThatTheTraderWillOfBeenNotifiedOfAnOfferBeingMade(string sellerName)
       {
-         var sellerActorRef = SpecflowHelpers.GetTraderActorFromName(sellerName);
+         var sellerActorRef = _state.Traders[sellerName];
       }
 
       [Then(@"I expect the offer on the ExchangeContractActor called ""(.*)"" to be")]

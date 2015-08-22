@@ -13,13 +13,19 @@ namespace Entities.Model.Traders
     [Binding]
     public class TraderSteps
     {
-        [Given(@"I have created a Trader called ""(.*)""")]
+       private readonly ScenarioContextState _state;
+
+       public TraderSteps(ScenarioContextState state)
+       {
+          _state = state;
+       }
+
+       [Given(@"I have created a Trader called ""(.*)""")]
         public void GivenIHaveCreatedATraderCalled(string name)
-        {
-            var system = ScenarioContext.Current.GetActorSystem();
-            var traderActor = system.ActorOf(Props.Create<Trader>(args: new object[] {name}));
-            ScenarioContext.Current.Add("trader_" + name, traderActor);
-        }
+       {
+          var traderActor = _state.TestKit.ActorOfAsTestActorRef<Trader>(Props.Create(() => new Trader(name)));
+          _state.Traders.Add(name, traderActor);
+       }
         
         /// <summary>
         /// Takes a trader and set of resources with quantities. Looks up the resources and posts them to the trader
@@ -29,7 +35,7 @@ namespace Entities.Model.Traders
         [When(@"I post the folowing resources to the Trader ""(.*)""")]
         public void WhenIPostTheFolowingResourcesToTheTrader(string name, Table table)
         {
-            var resourceManager = ScenarioContext.Current.GetResourceManagerActorRef();
+           var resourceManager = _state.ResourceManager;
             List<Task<Resource>> resourceTasks = new List<Task<Resource>>();
 
             // get the resources
@@ -51,14 +57,14 @@ namespace Entities.Model.Traders
             });
 
             // post them
-            var trader = SpecflowHelpers.GetTraderActorFromName(name);
+            var trader = _state.Traders[name];
             messages.ForEach(m => trader.Tell(m));
         }
 
        [When(@"I ask What resources Trader ""(.*)"" has storing them in the context as ""(.*)""")]
         public void WhenIAskWhatResourcesTraderHasStoringThemInTheContextAs(string name, string resourceString)
         {
-            var trader = SpecflowHelpers.GetTraderActorFromName(name);
+            var trader = _state.Traders[name];
             var query = trader.Ask<Trader.QueryResourcesResultMessage>(new Trader.QueryResourcesMessage(),TimeSpan.FromMilliseconds(40));
             Task.WaitAll(query);
             var resources = query.Result;
