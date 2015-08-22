@@ -3,8 +3,6 @@
 	As a math idiot
 	I want to be told the sum of two numbers
 
-@actorSystem
-@resourceManager
 Background: 
    Given I create a test actor system
    And I create a Resource Manager
@@ -16,14 +14,11 @@ Background:
    And I have created a Trader called "buyer"
    And I have configured the DateTime provider to return "2015/1/1 15:00:00"
 
-@actorSystem
-@resourceManager
 Scenario: Get an instance of ExchangeContractActor and verify it is uninitialised
 	When I create an ExchangeContractActor called "test"
 	Then I expect the state of the ExchangeContractActor "test" to be "Uninitialised"
 
-@actorSystem
-@resourceManager
+
 Scenario:  Post invitation to Exchange contract, verify its current state is posted and that it can be queried
 	Given I create an ExchangeContractActor called "test"	
 	When I post to the ExchangeContract "test" the following invitation
@@ -64,18 +59,18 @@ Scenario: Take an invitation and make an offer, verify state is OfferMade, offer
 	| SuggestedOfferResourceQuantity | 2        |
 	| LiabilityResourceName          | metal    |
 	| LiabilityResourceQuantity      | 2        |
-	| ContractOwner                  | Test     |
-   And I configure the Trader called "seller" to log when offer recieved as "offers"
+	| ContractOwner                  | seller   |
    When the Trader called "buyer" makes the following offer on the ExchangeContractActor called "test"
    | Field    | Value |
    | Resource | metal |
    | Quantity | 8     |
-   Then I expect that the Trader "seller" will of been notified of an offer being made
-   And I expect the offer on the ExchangeContractActor called "test" to be
-   | Field    | Value |
-   | Resource | metal |
-   | Quantity | 8     |
-   And I expect the state of the ExchangeContractActor "test" to be "Offered"
+   #Then I expect that the Trader "seller" will of been notified of an offer being made
+   Then I expect the state of the ExchangeContractActor "test" to be "OfferRecieved" 
+   And I expect an offer on the ExchangeContractActor called "test" to be
+   | Field      | Value |
+   | Resource   | metal |
+   | Quantity   | 8     |
+   | SenderName | buyer |
 
 Scenario: Take an invitation that is under offer, reject it and make an alternate suggestion
 	Given I create an ExchangeContractActor called "test"	

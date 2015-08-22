@@ -132,19 +132,28 @@ namespace Entities.Model.ContractActors
          var resource = _state.GetResourceFromName(table.GetField("Resource"));
          var resourceStack = new ResourceStack(resource, int.Parse(table.GetField("Quantity")));
 
-         exchangeActorRef.Tell(new ExchangeContract.PostOffer(resourceStack), buyerActorRef);  
+         exchangeActorRef.Tell(new ExchangeContract.PostOffer(resourceStack), buyerActorRef); 
       }
 
-      [Then(@"I expect that the Trader ""(.*)"" will of been notified of an offer being made")]
-      public void ThenIExpectThatTheTraderWillOfBeenNotifiedOfAnOfferBeingMade(string sellerName)
-      {
-         var sellerActorRef = _state.Traders[sellerName];
-      }
+      //[Then(@"I expect that the Trader ""(.*)"" will of been notified of an offer being made")]
+      //public void ThenIExpectThatTheTraderWillOfBeenNotifiedOfAnOfferBeingMade(string sellerName)
+      //{
 
-      [Then(@"I expect the offer on the ExchangeContractActor called ""(.*)"" to be")]
-      public void ThenIExpectTheOfferOnTheExchangeContractActorCalledToBe(string p0, Table table)
+      //}    
+
+      [Then(@"I expect an offer on the ExchangeContractActor called ""(.*)"" to be")]
+      public void ThenIExpectAnOfferOnTheExchangeContractActorCalledToBe(string contractName, Table table)
       {
-         ScenarioContext.Current.Pending();
+         var exchangeContractActor = _state.ExchangeContractActors[contractName];
+         var resource = _state.GetResourceFromName(table.GetField("Resource"));
+         int quantity = int.Parse(table.GetField("Quantity"));
+         var sender = _state.Traders[table.GetField("SenderName")];
+
+         _state.TestKit.ExpectMsg<ExchangeContract.OfferMade>((offerMade) => resource.Equals(offerMade.Offer.ResourceStack.Resource)
+                                                                             && quantity == offerMade.Offer.ResourceStack.Quantity
+                                                                             && ReferenceEquals(sender,offerMade.Offer.Offerer), TimeSpan.FromMilliseconds(500));
+
+
       }
 
       [Given(@"the Trader called ""(.*)"" makes the following offer on the ExchangeContractActor called ""(.*)""")]

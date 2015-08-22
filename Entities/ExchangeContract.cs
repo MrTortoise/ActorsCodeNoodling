@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Akka.Actor;
 
 namespace Entities
@@ -7,7 +8,8 @@ namespace Entities
       IHandle<ExchangeContract.PostInvitationMessage>,
       IHandle<ExchangeContract.QueryStateMessage>,
       IHandle<ExchangeContract.QueryOwner>,
-      IHandle<ExchangeContract.QueryInvitationToTreat>
+      IHandle<ExchangeContract.QueryInvitationToTreat>,
+      IHandle<ExchangeContract.PostOffer>
 
    {
       /// <summary>
@@ -16,19 +18,22 @@ namespace Entities
       public enum State
       {
          Uninitialised,
-         InvitationPosted
+         InvitationPosted,
+         OfferRecieved
       }        
           
       private State _state;
       private IActorRef _owner;
       private InvitationToTreat _invitationToTreat;
+      private Dictionary<IActorRef,Offer> _offers;
 
       public ExchangeContract()
       {
          _state = State.Uninitialised; 
+         _offers = new Dictionary<IActorRef, Offer>();
       }
 
-      public void Handle(ExchangeContract.PostInvitationMessage message)
+      public void Handle(PostInvitationMessage message)
       {
          _invitationToTreat = new InvitationToTreat(
             message.ExchangeType,
@@ -42,19 +47,27 @@ namespace Entities
          _owner = Sender;
       }
 
-      public void Handle(ExchangeContract.QueryInvitationToTreat message)
+      public void Handle(QueryInvitationToTreat message)
       {
          Sender.Tell(_invitationToTreat);
       }
 
-      public void Handle(ExchangeContract.QueryOwner message)
+      public void Handle(QueryOwner message)
       {
          Sender.Tell(_owner);
       }
 
-      public void Handle(ExchangeContract.QueryStateMessage message)
+      public void Handle(QueryStateMessage message)
       {
          Sender.Tell(_state);
+      }
+
+      public void Handle(PostOffer message)
+      {
+         var offer = new Offer(Sender, message.ResourceStack);
+         _offers.Add(Sender, offer);
+         _state = State.OfferRecieved;
+         _owner.Tell(new OfferMade(offer));
       }
 
       public class PostInvitationMessage
@@ -111,5 +124,48 @@ namespace Entities
             ResourceStack = resourceStack;  
          }
       }
+
+      /// <summary>
+      /// Represents an offer on a contract.
+      /// </summary>
+      public class Offer
+      {                                     
+         public Offer(IActorRef offerer, ResourceStack resourceStack)
+         {
+            OfferStatus = OfferStatus.Outstanding;
+            Offerer = offerer;
+            ResourceStack = resourceStack;
+         }
+
+         //public Offer(IActorRef offerer, ResourceStack resourceStack, OfferStatus offerStatus)
+         //{
+         //   Offerer = offerer;
+         //   OfferStatus = offerStatus;
+         //   ResourceStack = resourceStack;
+         //}
+
+         public IActorRef Offerer { get;  }
+         public ResourceStack ResourceStack { get; }
+         public OfferStatus OfferStatus { get; }   
+      }
+
+      public enum OfferStatus
+      {
+         Outstanding,
+         Declined,
+         Accepted
+      }
+
+      public struct OfferMade
+      {
+         public Offer Offer { get; } 
+
+         public OfferMade(Offer offer)
+         {
+            Offer = offer;
+         }
+      }
    }
+
+
 }
