@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.Linq;
 using Akka.Actor;
 using Akka.TestKit;
@@ -34,29 +35,37 @@ namespace Entities.Model.ContractActors
           DateTimeProvider.SetProvider(new FixedDateTime(dateTime));
        }
 
-      [Given(@"I post to the ExchangeContract ""(.*)"" the following invitation")]
-      [When(@"I post to the ExchangeContract ""(.*)"" the following invitation")]
-       public void WhenIPostToTheExchangeContractTheFollowingInvitation(string exchangeContractName, Table table)
+      [Given(@"I have created a TestActor called ""(.*)""")]
+      public void GivenIHaveCreatedATestActorCalled(string p0)
       {
-         var exchangeContractActor = _state.ExchangeContractActors[exchangeContractName];
-          var exchangeType = (OfferType)Enum.Parse(typeof (OfferType), table.GetField("ExchangeType"));
+         ScenarioContext.Current.Pending();
+      }    
+
+      [Given(@"I post to the ExchangeContract ""(.*)"" the following invitation")]
+       [When(@"I post to the ExchangeContract ""(.*)"" the following invitation")]
+       public void WhenIPostToTheExchangeContractTheFollowingInvitation(string exchangeContractName, Table table)
+       {
+          var exchangeContractActor = _state.ExchangeContractActors[exchangeContractName];
+          var exchangeType = (OfferType) Enum.Parse(typeof (OfferType), table.GetField("ExchangeType"));
 
           var resourceName = table.GetField("SellResourceName");
           var sellResource = _state.GetResourceFromName(resourceName);
 
           var sellResourceQuantity = int.Parse(table.GetField("SellResourceQuantity"));
-          var sellResourceTimePeriod = (TimePeriodType)Enum.Parse(typeof (TimePeriodType), table.GetField("SellResourceTimePeriod"));
+          var sellResourceTimePeriod =
+             (TimePeriodType) Enum.Parse(typeof (TimePeriodType), table.GetField("SellResourceTimePeriod"));
           var sellResourceTimePeriodQuantity = int.Parse(table.GetField("SellResourceTimePeriodQuantity"));
 
           var suggestedOfferResourceName = table.GetField("SuggestedOfferResourceName");
           var suggestedOfferResource = _state.GetResourceFromName(suggestedOfferResourceName);
           var suggestedQuantity = int.Parse(table.GetField("SuggestedOfferResourceQuantity"));
 
-         var liabilityResourceName = table.GetField("LiabilityResourceName");
-         var liabilityResource = _state.GetResourceFromName(liabilityResourceName);
-         var liabilityQuantity = int.Parse(table.GetField("LiabilityResourceQuantity"));
+          var liabilityResourceName = table.GetField("LiabilityResourceName");
+          var liabilityResource = _state.GetResourceFromName(liabilityResourceName);
+          var liabilityQuantity = int.Parse(table.GetField("LiabilityResourceQuantity"));
 
-         var contractOwner = _state.Traders[table.GetField("ContractOwner")];
+          var owner = table.GetField("ContractOwner");
+          var contractOwner = owner == "testActor" ? _state.TestKit.TestActor : _state.Traders[owner];
 
           var postInvitationMessage = new ExchangeContract.PostInvitationMessage(
              exchangeType,
@@ -133,28 +142,54 @@ namespace Entities.Model.ContractActors
          var resourceStack = new ResourceStack(resource, int.Parse(table.GetField("Quantity")));
 
          exchangeActorRef.Tell(new ExchangeContract.PostOffer(resourceStack), buyerActorRef); 
+      }  
+
+      [Then(@"I expect that the TestActor will of been notified of the following offer being made")]
+      public void ThenIExpectThatTheTestActorWillOfBeenNotifiedOfTheFollowingOfferBeingMade(Table table)
+      {  
+         var resource = _state.GetResourceFromName(table.GetField("Resource"));
+         int quantity = int.Parse(table.GetField("Quantity"));
+         var sender = _state.Traders[table.GetField("SenderName")];
+
+         var offer = _state.TestKit.ExpectMsg<ExchangeContract.OfferMade>((offerMade) => resource.Equals(offerMade.Offer.ResourceStack.Resource)
+                                                                    && quantity == offerMade.Offer.ResourceStack.Quantity
+                                                                    && ReferenceEquals(sender, offerMade.Offer.Offerer), TimeSpan.FromMilliseconds(500));
+
+         Assert.IsNotNull(offer);
       }
 
-      //[Then(@"I expect that the Trader ""(.*)"" will of been notified of an offer being made")]
-      //public void ThenIExpectThatTheTraderWillOfBeenNotifiedOfAnOfferBeingMade(string sellerName)
-      //{
-
-      //}    
 
       [Then(@"I expect an offer on the ExchangeContractActor called ""(.*)"" to be")]
-      public void ThenIExpectAnOfferOnTheExchangeContractActorCalledToBe(string contractName, Table table)
+       public void ThenIExpectAnOfferOnTheExchangeContractActorCalledToBe(string contractName, Table table)
       {
          var exchangeContractActor = _state.ExchangeContractActors[contractName];
          var resource = _state.GetResourceFromName(table.GetField("Resource"));
          int quantity = int.Parse(table.GetField("Quantity"));
          var sender = _state.Traders[table.GetField("SenderName")];
 
-         _state.TestKit.ExpectMsg<ExchangeContract.OfferMade>((offerMade) => resource.Equals(offerMade.Offer.ResourceStack.Resource)
-                                                                             && quantity == offerMade.Offer.ResourceStack.Quantity
-                                                                             && ReferenceEquals(sender,offerMade.Offer.Offerer), TimeSpan.FromMilliseconds(500));
+         var queryTask = exchangeContractActor.Ask<ImmutableArray<ExchangeContract.Offer>>(new ExchangeContract.QueryOffers(),
+            TimeSpan.FromMilliseconds(50));
 
+         queryTask.Wait();
 
+         var item = queryTask.Result.SingleOrDefault(i => i.Offerer == sender);
+         Assert.AreEqual(resource,item.ResourceStack.Resource);
+         Assert.AreEqual(quantity, item.ResourceStack.Quantity);
       }
+
+      //[Then(@"I expect that the Trader ""(.*)"" will of been notified of the following offer being made")]
+      //public void ThenIExpectThatTheTraderWillOfBeenNotifiedOfTheFollowingOfferBeingMade(string traderName, Table table)
+      //{
+      //   var resource = _state.GetResourceFromName(table.GetField("Resource"));
+      //   int quantity = int.Parse(table.GetField("Quantity"));
+      //   var sender = _state.Traders[table.GetField("SenderName")];
+
+      //   var trader = _state.Traders[traderName];
+        
+
+
+      //}
+
 
       [Given(@"the Trader called ""(.*)"" makes the following offer on the ExchangeContractActor called ""(.*)""")]
       public void GivenTheTraderCalledMakesTheFollowingOfferOnTheExchangeContractActorCalled(string p0, string p1, Table table)

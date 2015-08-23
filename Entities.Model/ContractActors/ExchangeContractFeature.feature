@@ -12,6 +12,7 @@ Background:
 	| rock  |
    And I have created a Trader called "seller"
    And I have created a Trader called "buyer"
+  # And I have created a TestActor called "testActor"
    And I have configured the DateTime provider to return "2015/1/1 15:00:00"
 
 Scenario: Get an instance of ExchangeContractActor and verify it is uninitialised
@@ -47,34 +48,39 @@ Scenario:  Post invitation to Exchange contract, verify its current state is pos
    | LiabilityResourceQuantity      | 2                 |
 
 Scenario: Take an invitation and make an offer, verify state is OfferMade, offer is queryable, and owner gets notified
-	Given I create an ExchangeContractActor called "test"	
-	And I post to the ExchangeContract "test" the following invitation
-	| Field                          | Value    |
-	| ExchangeType                   | Purchase |
-	| SellResourceName               | metal    |
-	| SellResourceQuantity           | 10       |
-	| SellResourceTimePeriod         | Hour     |
-	| SellResourceTimePeriodQuantity | 1        |
-	| SuggestedOfferResourceName     | rock     |
-	| SuggestedOfferResourceQuantity | 2        |
-	| LiabilityResourceName          | metal    |
-	| LiabilityResourceQuantity      | 2        |
-	| ContractOwner                  | seller   |
-   When the Trader called "buyer" makes the following offer on the ExchangeContractActor called "test"
+	Given I create an ExchangeContractActor called "exchangeContract"	
+	And I post to the ExchangeContract "exchangeContract" the following invitation
+	| Field                          | Value     |
+	| ExchangeType                   | Purchase  |
+	| SellResourceName               | metal     |
+	| SellResourceQuantity           | 10        |
+	| SellResourceTimePeriod         | Hour      |
+	| SellResourceTimePeriodQuantity | 1         |
+	| SuggestedOfferResourceName     | rock      |
+	| SuggestedOfferResourceQuantity | 2         |
+	| LiabilityResourceName          | metal     |
+	| LiabilityResourceQuantity      | 2         |
+	| ContractOwner                  | testActor |
+   When the Trader called "buyer" makes the following offer on the ExchangeContractActor called "exchangeContract"
    | Field    | Value |
    | Resource | metal |
    | Quantity | 8     |
-   #Then I expect that the Trader "seller" will of been notified of an offer being made
-   Then I expect the state of the ExchangeContractActor "test" to be "OfferRecieved" 
-   And I expect an offer on the ExchangeContractActor called "test" to be
+   Then I expect that the TestActor will of been notified of the following offer being made
+    | Field      | Value |
+    | Resource   | metal |
+    | Quantity   | 8     |
+    | SenderName | buyer |
+   Then I expect the state of the ExchangeContractActor "exchangeContract" to be "OfferRecieved" 
+   And I expect an offer on the ExchangeContractActor called "exchangeContract" to be
    | Field      | Value |
    | Resource   | metal |
    | Quantity   | 8     |
    | SenderName | buyer |
+  
 
 Scenario: Take an invitation that is under offer, reject it and make an alternate suggestion
-	Given I create an ExchangeContractActor called "test"	
-	And I post to the ExchangeContract "test" the following invitation
+	Given I create an ExchangeContractActor called "exchangeContract"	
+	And I post to the ExchangeContract "exchangeContract" the following invitation
 	| Field                          | Value    |
 	| ExchangeType                   | Purchase |
 	| SellResourceName               | metal    |
@@ -86,23 +92,23 @@ Scenario: Take an invitation that is under offer, reject it and make an alternat
 	| LiabilityResourceName          | metal    |
 	| LiabilityResourceQuantity      | 2        |
 	| ContractOwner                  | Test     |
-   And the Trader called "buyer" makes the following offer on the ExchangeContractActor called "test"
+   And the Trader called "buyer" makes the following offer on the ExchangeContractActor called "exchangeContract"
    | Field    | Value |
    | Resource | metal |
    | Quantity | 8     |
    And I configure the Trader called "seller" to log when offer recieved as "offers"
-   When the Trader called "seller" rejects the offer on the ExchangeContractActor called "test" and makes the following suggested offer
+   When the Trader called "seller" rejects the offer on the ExchangeContractActor called "exchangeContract" and makes the following suggested offer
    | Field    | Value |
    | Resource | metal |
    | Quantity | 10    |
    Then I expect that the Trader "seller" will of recieved the following offers as "offers"
    | Resource | Quantity |
    | metal    | 10       |
-   And I expect the suggested offer on the ExchangeContractActor called "test" to be
+   And I expect the suggested offer on the ExchangeContractActor called "exchangeContract" to be
    | Field    | Value |
    | Resource | metal |
    | Quantity | 10    |
-   And I expect the state of the ExchangeContractActor "test" to be "CounterOffered"
+   And I expect the state of the ExchangeContractActor "exchangeContract" to be "CounterOffered"
 
 Scenario: Take an invitation that is under offer, accept it 
 

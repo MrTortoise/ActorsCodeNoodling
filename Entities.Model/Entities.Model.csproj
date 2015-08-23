@@ -93,6 +93,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Akka.Testkit.Experiments\ExpectMessageTest.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExpectMessageTest.feature</DependentUpon>
+    </Compile>
     <Compile Include="BeforeActorSystemScenario.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ContractActors\ContractSupervisorActor.feature.cs">
@@ -143,6 +148,10 @@
     <Compile Include="Traders\TraderSteps.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Akka.Testkit.Experiments\ExpectMessageTest.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ExpectMessageTest.feature.cs</LastGenOutput>
+    </None>
     <None Include="App.config" />
     <None Include="ContractActors\ContractSupervisorActor.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

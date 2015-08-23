@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using Akka.Actor;
 
 namespace Entities
@@ -9,7 +10,8 @@ namespace Entities
       IHandle<ExchangeContract.QueryStateMessage>,
       IHandle<ExchangeContract.QueryOwner>,
       IHandle<ExchangeContract.QueryInvitationToTreat>,
-      IHandle<ExchangeContract.PostOffer>
+      IHandle<ExchangeContract.PostOffer> ,
+      IHandle<ExchangeContract.QueryOffers>
 
    {
       /// <summary>
@@ -25,7 +27,7 @@ namespace Entities
       private State _state;
       private IActorRef _owner;
       private InvitationToTreat _invitationToTreat;
-      private Dictionary<IActorRef,Offer> _offers;
+      private readonly Dictionary<IActorRef,Offer> _offers;
 
       public ExchangeContract()
       {
@@ -68,6 +70,12 @@ namespace Entities
          _offers.Add(Sender, offer);
          _state = State.OfferRecieved;
          _owner.Tell(new OfferMade(offer));
+      }
+
+      public void Handle(QueryOffers message)
+      {
+         var offers = _offers.Values.ToImmutableArray();
+         Sender.Tell(offers);
       }
 
       public class PostInvitationMessage
@@ -165,7 +173,11 @@ namespace Entities
             Offer = offer;
          }
       }
-   }
+
+      public struct QueryOffers
+      {
+      }
 
 
+   }        
 }
