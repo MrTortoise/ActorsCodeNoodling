@@ -188,32 +188,6 @@ namespace Entities.Model.ContractActors
         
 
 
-      //}
-
-
-      [Given(@"the Trader called ""(.*)"" makes the following offer on the ExchangeContractActor called ""(.*)""")]
-      public void GivenTheTraderCalledMakesTheFollowingOfferOnTheExchangeContractActorCalled(string p0, string p1, Table table)
-      {
-         ScenarioContext.Current.Pending();
-      }
-
-      [When(@"the Trader called ""(.*)"" rejects the offer on the ExchangeContractActor called ""(.*)"" and makes the following suggested offer")]
-      public void WhenTheTraderCalledRejectsTheOfferOnTheExchangeContractActorCalledAndMakesTheFollowingSuggestedOffer(string p0, string p1, Table table)
-      {
-         ScenarioContext.Current.Pending();
-      }
-
-      [Then(@"I expect that the Trader ""(.*)"" will of been notified of a suggested offer being made")]
-      public void ThenIExpectThatTheTraderWillOfBeenNotifiedOfASuggestedOfferBeingMade(string p0)
-      {
-         ScenarioContext.Current.Pending();
-      }
-
-      [Then(@"I expect the suggested offer on the ExchangeContractActor called ""(.*)"" to be")]
-      public void ThenIExpectTheSuggestedOfferOnTheExchangeContractActorCalledToBe(string p0, Table table)
-      {
-         ScenarioContext.Current.Pending();
-      }
-
+      //}    
    }
 }

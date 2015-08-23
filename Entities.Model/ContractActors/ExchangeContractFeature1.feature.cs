@@ -340,7 +340,7 @@ this.FeatureBackground();
                         "2"});
             table8.AddRow(new string[] {
                         "ContractOwner",
-                        "Test"});
+                        "seller"});
 #line 83
  testRunner.And("I post to the ExchangeContract \"exchangeContract\" the following invitation", ((string)(null)), table8, "And ");
 #line hidden
@@ -354,10 +354,8 @@ this.FeatureBackground();
                         "Quantity",
                         "8"});
 #line 95
-   testRunner.And("the Trader called \"buyer\" makes the following offer on the ExchangeContractActor " +
-                    "called \"exchangeContract\"", ((string)(null)), table9, "And ");
-#line 99
-   testRunner.And("I configure the Trader called \"seller\" to log when offer recieved as \"offers\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("the TestActor makes the following offer on the ExchangeContractActor called \"exch" +
+                    "angeContract\"", ((string)(null)), table9, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Field",
@@ -368,7 +366,7 @@ this.FeatureBackground();
             table10.AddRow(new string[] {
                         "Quantity",
                         "10"});
-#line 100
+#line 99
    testRunner.When("the Trader called \"seller\" rejects the offer on the ExchangeContractActor called " +
                     "\"exchangeContract\" and makes the following suggested offer", ((string)(null)), table10, "When ");
 #line hidden
@@ -378,7 +376,7 @@ this.FeatureBackground();
             table11.AddRow(new string[] {
                         "metal",
                         "10"});
-#line 104
+#line 103
    testRunner.Then("I expect that the Trader \"seller\" will of recieved the following offers as \"offer" +
                     "s\"", ((string)(null)), table11, "Then ");
 #line hidden
@@ -391,10 +389,10 @@ this.FeatureBackground();
             table12.AddRow(new string[] {
                         "Quantity",
                         "10"});
-#line 107
+#line 106
    testRunner.And("I expect the suggested offer on the ExchangeContractActor called \"exchangeContrac" +
                     "t\" to be", ((string)(null)), table12, "And ");
-#line 111
+#line 110
    testRunner.And("I expect the state of the ExchangeContractActor \"exchangeContract\" to be \"Counter" +
                     "Offered\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -406,7 +404,7 @@ this.FeatureBackground();
         public virtual void TakeAnInvitationThatIsUnderOfferAcceptIt()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Take an invitation that is under offer, accept it", ((string[])(null)));
-#line 113
+#line 112
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();

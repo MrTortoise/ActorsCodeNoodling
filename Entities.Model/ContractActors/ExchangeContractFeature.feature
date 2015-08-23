@@ -91,12 +91,11 @@ Scenario: Take an invitation that is under offer, reject it and make an alternat
 	| SuggestedOfferResourceQuantity | 2        |
 	| LiabilityResourceName          | metal    |
 	| LiabilityResourceQuantity      | 2        |
-	| ContractOwner                  | Test     |
-   And the Trader called "buyer" makes the following offer on the ExchangeContractActor called "exchangeContract"
+	| ContractOwner                  | seller   |
+   And the TestActor makes the following offer on the ExchangeContractActor called "exchangeContract"
    | Field    | Value |
    | Resource | metal |
    | Quantity | 8     |
-   And I configure the Trader called "seller" to log when offer recieved as "offers"
    When the Trader called "seller" rejects the offer on the ExchangeContractActor called "exchangeContract" and makes the following suggested offer
    | Field    | Value |
    | Resource | metal |
