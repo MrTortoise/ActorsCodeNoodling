@@ -56,7 +56,13 @@ namespace Entities
 
             protected bool Equals(ResourceForSale other)
             {
-                return Equals(Resource.Name, other.Resource.Name) && Amount == other.Amount && PricePerUnit == other.PricePerUnit;
+               if (other == null)
+                  return false;
+
+               return
+                  Equals(Resource.Name, other.Resource.Name) &&
+                  Amount == other.Amount &&
+                  PricePerUnit == other.PricePerUnit;
             }
 
             public override bool Equals(object obj)

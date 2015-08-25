@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Contracts;
 
 namespace Entities
 {
@@ -9,7 +10,6 @@ namespace Entities
    {
       public ResourceStack(IResource resource, int quantity)
       {
-         if (resource == null) throw new ArgumentNullException(nameof(resource));
          Resource = resource;
          Quantity = quantity;
       }
@@ -28,7 +28,7 @@ namespace Entities
       {
          unchecked
          {
-            return (Resource.GetHashCode()*397) ^ Quantity;
+                return (Resource.GetHashCode()*397) ^ Quantity;
          }
       }
 

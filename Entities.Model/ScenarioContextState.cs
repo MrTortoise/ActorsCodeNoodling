@@ -21,21 +21,27 @@ namespace Entities.Model
       {
          Traders = new Dictionary<string, TestActorRef<Trader>>();
          ExchangeContractActors = new Dictionary<string, TestActorRef<ExchangeContract>>();
+         TestProbes = new Dictionary<string, TestProbe>();
       }
 
       /// <summary>
       /// A reference to the <see cref="TestKit"/> in order to get at all the Akka.Test goodness
       /// </summary>
       public TestKit TestKit { get; set; }
+
       public TestActorRef<ResourceManager> ResourceManager { get; set; }
+
       /// <summary>
       /// Dictionary of <see cref="Trader"/> by name 
       /// </summary>
       public Dictionary<string,TestActorRef<Trader>> Traders { get; private set; }
+
       /// <summary>
       /// Dictionary of <see cref="ExchangeContract"/> by name
       /// </summary>
       public Dictionary<string,TestActorRef<ExchangeContract>> ExchangeContractActors { get; private set; }
+
+      public Dictionary<string,TestProbe> TestProbes { get; private set; }
 
       /// <summary>
       /// Given a resource name will return a <see cref="Resource"/> from <see cref="ResourceManager"/>

@@ -9,10 +9,10 @@ namespace Entities
     {
         protected bool Equals(Resource other)
         {
-            return string.Equals(Name, other.Name);
+           return other != null && string.Equals(Name, other.Name);
         }
 
-        public override int GetHashCode()
+       public override int GetHashCode()
         {
             return Name?.GetHashCode() ?? 0;
         }

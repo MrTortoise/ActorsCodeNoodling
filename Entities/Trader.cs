@@ -7,9 +7,12 @@ namespace Entities
     /// <summary>
     /// This is an actor representing a trader. 
     /// </summary>
-    public class Trader : ReceiveActor, ITrader
+    public class Trader : TypedActor, ITrader,
+        IHandle<Trader.PostResourceMessage>,
+        IHandle<Trader.QueryResourcesMessage>,
+        IHandle<ExchangeContract.OfferMade>
     {
-        private Dictionary<IResource, ResourceStack> _resources;
+        private readonly Dictionary<IResource, ResourceStack> _resources;
 
         /// <summary>
         /// Creates a Trader with a name
@@ -20,28 +23,28 @@ namespace Entities
             _resources = new Dictionary<IResource, ResourceStack>();
 
             Name = name;
-           
-            Receive<PostResourceMessage>(message =>
-            {
-                if (_resources.ContainsKey(message.ResourceStack.Resource))
-                {
-                    var resourceStack = _resources[message.ResourceStack.Resource];
-                    _resources[message.ResourceStack.Resource] = new ResourceStack(resourceStack.Resource,
-                        resourceStack.Quantity + message.ResourceStack.Quantity);
-                }
-                else
-                {
-                    _resources.Add(message.ResourceStack.Resource, message.ResourceStack);
-                }
-            });
-
-            Receive<QueryResourcesMessage>(message =>
-            {
-                Sender.Tell(new QueryResourcesResultMessage(_resources.Values.ToImmutableArray()));
-            });
         }
 
         public string Name { get; }
+
+        public void Handle(PostResourceMessage message)
+        {
+            if (_resources.ContainsKey(message.ResourceStack.Resource))
+            {
+                var resourceStack = _resources[message.ResourceStack.Resource];
+                _resources[message.ResourceStack.Resource] = new ResourceStack(resourceStack.Resource,
+                    resourceStack.Quantity + message.ResourceStack.Quantity);
+            }
+            else
+            {
+                _resources.Add(message.ResourceStack.Resource, message.ResourceStack);
+            }
+        }
+
+        public void Handle(QueryResourcesMessage message)
+        {
+            Sender.Tell(new QueryResourcesResultMessage(_resources.Values.ToImmutableArray()));
+        }
 
         public struct PostResourceMessage
         {
@@ -65,6 +68,11 @@ namespace Entities
             }
 
             public ImmutableArray<ResourceStack> ResourceStacks { get; }
+        }
+
+        public void Handle(ExchangeContract.OfferMade message)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Akka.Actor;
+using Akka.TestKit;
 using Akka.TestKit.NUnit;
 using Akka.Util.Internal;
 using NUnit.Framework;
@@ -27,20 +28,22 @@ namespace Entities.Model.ResourceManagerFeature
          _state.TestKit = new TestKit();
       }
 
-      [Given(@"I create a Resource Manager")]
-      public void GivenICreateAResourceManager()
-      {
-         var resourceManager = _state.TestKit.ActorOfAsTestActorRef<ResourceManager>();
-         _state.ResourceManager = resourceManager;
-      }
+        [Given(@"I create a Resource Manager")]
+        public void GivenICreateAResourceManager()
+        {
+            var resourceManagerTestProbe = new TestProbe(_state.TestKit.Sys, new NUnitAssertions(),
+                "resourceManagerTestProbe");
+            var resourceManager = _state.TestKit.ActorOfAsTestActorRef<ResourceManager>(resourceManagerTestProbe);
+            _state.ResourceManager = resourceManager;
+        }
 
 
-      [Given(@"I add the following resources to the Resource Manager")]
+        [Given(@"I add the following resources to the Resource Manager")]
         [When(@"I add the following resources to the Resource Manager")]
         public void WhenIPressAddTheFollowingResourcesToTheResourceManager(Table table)
         {
             var resources = CreateResourcesFromTable(table);
-         var resourceManagerActorRef = _state.ResourceManager;
+            var resourceManagerActorRef = _state.ResourceManager;
             resources.ForEach(r => resourceManagerActorRef.Tell(new ResourceManager.PostResourceMessage(r)));
         }
 
@@ -54,11 +57,11 @@ namespace Entities.Model.ResourceManagerFeature
         {
             var resources = CreateResourcesFromTable(table);
             var resManagerActor = _state.ResourceManager;
-         List<Task<IResource>> tasks = new List<Task<IResource>>();
+            List<Task<IResource>> tasks = new List<Task<IResource>>();
 
             resources.ForEach(r =>
             {
-                var t = resManagerActor.Ask<IResource>(new ResourceManager.GetResource(r.Name),TimeSpan.FromSeconds(2));
+                var t = resManagerActor.Ask<IResource>(new ResourceManager.GetResource(r.Name), TimeSpan.FromSeconds(2));
                 tasks.Add(t);
             });
 
@@ -66,7 +69,7 @@ namespace Entities.Model.ResourceManagerFeature
             Task.WaitAll(tasks.ToArray());
 
             var results = tasks.Select(i => i.Result.Name).ToList();
-            foreach (string resourceName in resources.Select(r=>r.Name))
+            foreach (string resourceName in resources.Select(r => r.Name))
             {
                 Assert.Contains(resourceName, results);
             }
