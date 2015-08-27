@@ -10,7 +10,7 @@ namespace Entities
     public class Trader : TypedActor, ITrader,
         IHandle<Trader.PostResourceMessage>,
         IHandle<Trader.QueryResourcesMessage>,
-        IHandle<ExchangeContract.OfferMade>
+        IHandle<ExchangeContract.OfferMadeNotification>
     {
         private readonly Dictionary<IResource, ResourceStack> _resources;
 
@@ -46,6 +46,11 @@ namespace Entities
             Sender.Tell(new QueryResourcesResultMessage(_resources.Values.ToImmutableArray()));
         }
 
+        public void Handle(ExchangeContract.OfferMadeNotification message)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public struct PostResourceMessage
         {
             public ResourceStack ResourceStack { get; }
@@ -70,9 +75,6 @@ namespace Entities
             public ImmutableArray<ResourceStack> ResourceStacks { get; }
         }
 
-        public void Handle(ExchangeContract.OfferMade message)
-        {
-            throw new System.NotImplementedException();
-        }
+
     }
 }

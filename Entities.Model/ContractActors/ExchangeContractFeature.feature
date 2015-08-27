@@ -106,11 +106,17 @@ Scenario: Take an invitation and make an offer, verify state is OfferMade, offer
    | LiabilityResource | metal |
    | LiabilityQuantity | 1     |
    When the TestProbe called "seller" rejects the offer on the ExchangeContractActor called "exchangeContract"
-   Then I expect that the TestProbe "buyer" will of recieved the following suggested offer
+   Then I expect the TestProbe "exchangeContractSup" to of recieved the message Offer Rejected Notification
+   And I expect that the TestProbe "buyer" will of recieved an empty Offer Rejected Message   
+   And I expect the TestProbe "seller" to recieve the following Liability Message
    | Field    | Value |
    | Resource | metal |
-   | Quantity | 10    |
-   And I expect the state of the ExchangeContractActor "exchangeContract" to be "CounterOffered"
+   | Quantity | 2     |
+   And I expect the TestProbe "buyer" to recieve the following Liability Message
+   | Field    | Value |
+   | Resource | metal |
+   | Quantity | 1     |
+   And I expect the state of the ExchangeContractActor "exchangeContract" to be "OfferRejected"
   
 Scenario: Take an invitation that is under offer, reject it and make an alternate suggestion
 	Given I create an ExchangeContractActor called "exchangeContract" with supervisor TestProbe called "exchangeContractSup"	

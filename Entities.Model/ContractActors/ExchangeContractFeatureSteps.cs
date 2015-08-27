@@ -5,6 +5,7 @@ using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.NUnit;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework.Constraints;
 using TechTalk.SpecFlow;
 
 namespace Entities.Model.ContractActors
@@ -102,7 +103,7 @@ namespace Entities.Model.ContractActors
             var exchangeActorRef = _state.ExchangeContractActors[exchangeContractActorName];
             var creatorActorRef = _state.Traders[creator];
 
-            var ownerTask = exchangeActorRef.Ask<IActorRef>(new ExchangeContract.QueryOwner(),
+            var ownerTask = exchangeActorRef.Ask<IActorRef>(new ExchangeContract.QuerySeller(),
                 TimeSpan.FromMilliseconds(50));
             ownerTask.Wait();
             var owner = ownerTask.Result;
@@ -174,7 +175,7 @@ namespace Entities.Model.ContractActors
             var sender = _state.Traders[table.GetField("SenderName")];
 
             var offer =
-                _state.TestKit.ExpectMsg<ExchangeContract.OfferMade>(
+                _state.TestKit.ExpectMsg<ExchangeContract.OfferMadeNotification>(
                     (offerMade) => resourceStack.Resource.Equals(offerMade.Offer.ResourceStack.Resource)
                                    && resourceStack.Quantity == offerMade.Offer.ResourceStack.Quantity
                                    && liabilityResourceStack.Resource.Equals(offerMade.Offer.LiabilityStack.Resource)
@@ -281,7 +282,7 @@ namespace Entities.Model.ContractActors
             var seller = _state.TestProbes[rejectorName];
             var exchangeContract = _state.ExchangeContractActors[exchangeContractName];
 
-            exchangeContract.Tell(new ExchangeContract.RejectOffer(offer, liabilityResourceStack), seller);
+            exchangeContract.Tell(new ExchangeContract.PostRejectOffer(offer, liabilityResourceStack), seller);
         }
 
         [Then(@"I expect that the TestProbe ""(.*)"" will of recieved the following suggested offer")]
@@ -295,10 +296,51 @@ namespace Entities.Model.ContractActors
 
             // var msg = tp.TestActor.Cel;
 
-            tp.ExpectMsg<ExchangeContract.RejectOffer>(
+            tp.ExpectMsg<ExchangeContract.PostRejectOffer>(
                 message => offer.Resource.Equals(message.Offer.Resource) && offer.Quantity == message.Offer.Quantity,
                 TimeSpan.FromMilliseconds(50));
         }
+
+        [Then(@"I expect the TestProbe ""(.*)"" to of recieved the message Offer Rejected Notification")]
+        public void ThenIExpectTheTestProbeToOfRecievedTheMessageOfferRejected(string supervisorName)
+        {
+            var sup = _state.TestProbes[supervisorName];
+            sup.FishForMessage<ExchangeContract.OfferRejectedNotification>((msg) => true, TimeSpan.FromMilliseconds(50));
+        }
+
+        [When(@"the TestProbe called ""(.*)"" rejects the offer on the ExchangeContractActor called ""(.*)""")]
+        public void WhenTheTestProbeCalledRejectsTheOfferOnTheExchangeContractActorCalled(string sellerName, string exchangeContractActorName)
+        {
+            var seller = _state.TestProbes[sellerName];
+            var contract = _state.ExchangeContractActors[exchangeContractActorName];
+
+            contract.Tell(new ExchangeContract.PostRejectOffer(null, null), seller);
+        }
+
+        [Then(@"I expect the TestProbe ""(.*)"" to recieve the following Liability Message")]
+        public void ThenIExpectTheTestProbeToRecieveTheFollowingLiabilityMessage(string sellerName, Table table)
+        {
+            var seller = _state.TestProbes[sellerName];
+            var liability = seller.FishForMessage<ExchangeContract.LiabilityReturnedMessage>((msg)=>true ,TimeSpan.FromMilliseconds(50));
+            var resourceName = table.GetField("Resource");
+            var resource = _state.GetResourceFromName(resourceName);
+            var quantity = int.Parse(table.GetField("Quantity"));
+
+            Assert.AreEqual(resource,liability.LiabilityStack.Resource);
+            Assert.AreEqual(quantity, liability.LiabilityStack.Quantity);
+        }
+
+        [Then(@"I expect that the TestProbe ""(.*)"" will of recieved an empty Offer Rejected Message")]
+        public void ThenIExpectThatTheTestProbeWillOfRecievedAnEmptyOfferRejectedMessage(string testProbe)
+        {
+            var tp = _state.TestProbes[testProbe];
+            var msg = tp.ExpectMsg<ExchangeContract.PostRejectOffer>(TimeSpan.FromMilliseconds(50));
+
+            Assert.IsNull(msg.Offer);
+            Assert.IsNull(msg.Liability);
+
+        }
+
 
     }
 }

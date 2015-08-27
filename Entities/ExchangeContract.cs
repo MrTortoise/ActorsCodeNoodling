@@ -9,11 +9,11 @@ namespace Entities
     public class ExchangeContract : TypedActor,
         IHandle<ExchangeContract.PostInvitationMessage>,
         IHandle<ExchangeContract.QueryStateMessage>,
-        IHandle<ExchangeContract.QueryOwner>,
+        IHandle<ExchangeContract.QuerySeller>,
         IHandle<ExchangeContract.QueryInvitationToTreat>,
         IHandle<ExchangeContract.PostOffer>,
         IHandle<ExchangeContract.QueryOffers>,
-        IHandle<ExchangeContract.RejectOffer>
+        IHandle<ExchangeContract.PostRejectOffer>
 
     {
         /// <summary>
@@ -24,150 +24,158 @@ namespace Entities
             Uninitialised,
             InvitationPosted,
             OfferRecieved,
-            Rejected,
+            OfferRejected,
             CounterOffered
         }
 
-
         private State _state;
-        private IActorRef _owner;
+        private IActorRef _seller;
         private InvitationToTreat _invitationToTreat;
         private Offer _offer;
 
-      public ExchangeContract()
-      {
-         _state = State.Uninitialised; 
-      }
+        public ExchangeContract()
+        {
+            _state = State.Uninitialised;
+        }
 
-      public void Handle(PostInvitationMessage message)
-      { 
-         _invitationToTreat = new InvitationToTreat(
-            message.ExchangeType,
-            DateTimeProvider.NowPlusPeriod(message.InvitationResourceTimePeriod,
-               message.InvitationResourceTimePeriodQuantity),
-            new ResourceStack(message.InvitationResource, message.InvitationResourceQuantity),
-            new ResourceStack(message.LiabilityResource, message.LiabilityQuantity),
-            new ResourceStack(message.SuggestedOfferResource, message.SuggestedQuantity));
+        public void Handle(PostInvitationMessage message)
+        {
+            _invitationToTreat = new InvitationToTreat(
+                message.ExchangeType,
+                DateTimeProvider.NowPlusPeriod(message.InvitationResourceTimePeriod,
+                    message.InvitationResourceTimePeriodQuantity),
+                new ResourceStack(message.InvitationResource, message.InvitationResourceQuantity),
+                new ResourceStack(message.LiabilityResource, message.LiabilityQuantity),
+                new ResourceStack(message.SuggestedOfferResource, message.SuggestedQuantity));
 
-         _state = State.InvitationPosted;
-         _owner = Sender;
-      }
+            _state = State.InvitationPosted;
+            _seller = Sender;
+        }
 
-      public void Handle(QueryInvitationToTreat message)
-      {  
-         Sender.Tell(_invitationToTreat);
-      }
+        public void Handle(QueryInvitationToTreat message)
+        {
+            Sender.Tell(_invitationToTreat);
+        }
 
-      public void Handle(QueryOwner message)
-      {
-         Sender.Tell(_owner);
-      }
+        public void Handle(QuerySeller message)
+        {
+            Sender.Tell(_seller);
+        }
 
-      public void Handle(QueryStateMessage message)
-      {
-         Sender.Tell(_state);
-      }
+        public void Handle(QueryStateMessage message)
+        {
+            Sender.Tell(_state);
+        }
 
-      public void Handle(PostOffer message)
-      {
-         var offer = new Offer(Sender, message.OfferResourceStack,message.LiabilityResourceStack);
-         _offer = offer;
-         _state = State.OfferRecieved;
-         _owner.Tell(new OfferMade(offer));
-      }
+        public void Handle(PostOffer message)
+        {
+            var offer = new Offer(Sender, message.OfferResourceStack, message.LiabilityResourceStack);
+            _offer = offer;
+            _state = State.OfferRecieved;
+            _seller.Tell(new OfferMadeNotification(offer));
+        }
 
-      public void Handle(QueryOffers message)
-      { 
-         Sender.Tell(_offer);
-      }
+        public void Handle(QueryOffers message)
+        {
+            Sender.Tell(_offer);
+        }
 
-       public void Handle(RejectOffer message)
-       {
-           if (!ReferenceEquals(Sender, _owner))
-           {
-               throw new InvalidOperationException($"Rejecting offer on Exchange contract where Sender:{Sender.Path} != owner{_owner.Path}");
-           }
+        public void Handle(PostRejectOffer message)
+        {
+            if (!ReferenceEquals(Sender, _seller))
+            {
+                throw new InvalidOperationException(
+                    $"Rejecting offer on Exchange contract where Sender:{Sender.Path} != owner{_seller.Path}");
+            }
 
-           if (message.Offer == null)
-           {
-               _state = State.Rejected;
-               _offer.Offerer.Tell(message);
-               _owner.Tell(new LiabilityReturnedMessage(_invitationToTreat.LiabilityStack));
-               Context.Parent.Tell(message);
-           }
-           else
-           {
-               _state = State.CounterOffered;
-               _offer.Offerer.Tell(message);
-           }
-       }
+            if (message.Offer == null)
+            {
+                _state = State.OfferRejected;
+                _offer.Offerer.Tell(message);
+                _seller.Tell(new LiabilityReturnedMessage(_invitationToTreat.LiabilityStack));
+                _offer.Offerer.Tell(new LiabilityReturnedMessage(_offer.LiabilityStack));
+                Context.Parent.Tell(new OfferRejectedNotification());
+            }
+            else
+            {
+                _state = State.CounterOffered;
+                _offer.Offerer.Tell(message);
+            }
+        }
 
-       public struct LiabilityReturnedMessage
-       {
-           public ResourceStack LiabilityStack { get;  }
+        public struct OfferRejectedNotification
+        {
+        }
 
-           public LiabilityReturnedMessage(ResourceStack liabilityStack)
-           {
-               LiabilityStack = liabilityStack;
-           }
-       }
+        public struct LiabilityReturnedMessage
+        {
+            public ResourceStack LiabilityStack { get; }
 
-       public class PostInvitationMessage
-      {
-         public PostInvitationMessage(OfferType exchangeType, Resource invitationResource,
-            int invitationResourceQuantity,
-            TimePeriodType invitationResourceTimePeriod, int invitationResourceTimePeriodQuantity,
-            Resource suggestedOfferResource,
-            int suggestedQuantity, Resource liabilityResource, int liabilityQuantity)
-         {
-            ExchangeType = exchangeType;
+            public LiabilityReturnedMessage(ResourceStack liabilityStack)
+            {
+                LiabilityStack = liabilityStack;
+            }
+        }
 
-            InvitationResource = invitationResource;
-            InvitationResourceQuantity = invitationResourceQuantity;
-            InvitationResourceTimePeriod = invitationResourceTimePeriod;
-            InvitationResourceTimePeriodQuantity = invitationResourceTimePeriodQuantity;
+        public class PostInvitationMessage
+        {
+            public PostInvitationMessage(OfferType exchangeType, Resource invitationResource,
+                int invitationResourceQuantity,
+                TimePeriodType invitationResourceTimePeriod, int invitationResourceTimePeriodQuantity,
+                Resource suggestedOfferResource,
+                int suggestedQuantity, Resource liabilityResource, int liabilityQuantity)
+            {
+                ExchangeType = exchangeType;
 
-            SuggestedOfferResource = suggestedOfferResource;
-            SuggestedQuantity = suggestedQuantity;
+                InvitationResource = invitationResource;
+                InvitationResourceQuantity = invitationResourceQuantity;
+                InvitationResourceTimePeriod = invitationResourceTimePeriod;
+                InvitationResourceTimePeriodQuantity = invitationResourceTimePeriodQuantity;
 
-            LiabilityResource = liabilityResource;
-            LiabilityQuantity = liabilityQuantity;
-         }
+                SuggestedOfferResource = suggestedOfferResource;
+                SuggestedQuantity = suggestedQuantity;
 
-         public OfferType ExchangeType { get; }
-         public int LiabilityQuantity { get; }
-         public Resource LiabilityResource { get; }
-         public Resource InvitationResource { get; }
-         public int InvitationResourceQuantity { get; }
-         public TimePeriodType InvitationResourceTimePeriod { get; }
-         public int InvitationResourceTimePeriodQuantity { get; }
-         public Resource SuggestedOfferResource { get; }
-         public int SuggestedQuantity { get; }
-      }
+                LiabilityResource = liabilityResource;
+                LiabilityQuantity = liabilityQuantity;
+            }
 
-      public struct QueryStateMessage
-      {
-      }
+            public OfferType ExchangeType { get; }
+            public int LiabilityQuantity { get; }
+            public Resource LiabilityResource { get; }
+            public Resource InvitationResource { get; }
+            public int InvitationResourceQuantity { get; }
+            public TimePeriodType InvitationResourceTimePeriod { get; }
+            public int InvitationResourceTimePeriodQuantity { get; }
+            public Resource SuggestedOfferResource { get; }
+            public int SuggestedQuantity { get; }
+        }
 
-      public struct QueryOwner
-      {
-      }
+        public struct QueryStateMessage
+        {
+        }
 
-      public struct QueryInvitationToTreat
-      {
-      }
+        /// <summary>
+        /// Triggers a message that returns the owner or seller of the contract.
+        /// </summary>
+        public struct QuerySeller
+        {
+        }
 
-      public struct PostOffer
-      {
-         public ResourceStack OfferResourceStack { get;  }
-          public ResourceStack LiabilityResourceStack { get;  }
+        public struct QueryInvitationToTreat
+        {
+        }
 
-          public PostOffer(ResourceStack offerResourceStack, ResourceStack liabilityResourceStack)
-          {
-              OfferResourceStack = offerResourceStack;
-              LiabilityResourceStack = liabilityResourceStack;
-          }
-      }
+        public struct PostOffer
+        {
+            public ResourceStack OfferResourceStack { get; }
+            public ResourceStack LiabilityResourceStack { get; }
+
+            public PostOffer(ResourceStack offerResourceStack, ResourceStack liabilityResourceStack)
+            {
+                OfferResourceStack = offerResourceStack;
+                LiabilityResourceStack = liabilityResourceStack;
+            }
+        }
 
         /// <summary>
         /// Represents an offer on a contract.
@@ -189,41 +197,41 @@ namespace Entities
         }
 
         public enum OfferStatus
-      {
-         Outstanding,
-         Declined,
-         Accepted
-      }
+        {
+            Outstanding,
+            Declined,
+            Accepted
+        }
 
-      public struct OfferMade
-      {
-         public Offer Offer { get; } 
+        public struct OfferMadeNotification
+        {
+            public Offer Offer { get; }
 
-         public OfferMade(Offer offer)
-         {
-            Offer = offer;
-         }
-      }
+            public OfferMadeNotification(Offer offer)
+            {
+                Offer = offer;
+            }
+        }
 
-      public struct QueryOffers
-      {
-      }
+        public struct QueryOffers
+        {
+        }
 
-      public struct RejectOffer
-      {
-         public ResourceStack Offer { get;  }
-          public ResourceStack Liability { get;  }
+        public struct PostRejectOffer
+        {
+            public ResourceStack Offer { get; }
+            public ResourceStack Liability { get; }
 
             /// <summary>
             /// Rejects the offer but offers a counter offer
             /// </summary>
             /// <param name="offer"></param>
             /// <param name="liability"></param>
-          public RejectOffer(ResourceStack offer, ResourceStack liability)
-          {
-              Offer = offer;
-              Liability = liability;
-          }
-      }
-   }        
+            public PostRejectOffer(ResourceStack offer, ResourceStack liability)
+            {
+                Offer = offer;
+                Liability = liability;
+            }
+        }
+    }
 }
