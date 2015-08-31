@@ -1,4 +1,5 @@
 ﻿using System;
+using Akka.Util.Internal;
 using Autofac;
 using Autofac.Builder;
 using Autofac.Core;
@@ -29,10 +30,8 @@ namespace Entities.Model.AutoFackery
         [Given(@"I configure, build and scope with the per feature configuration")]
         public void GivenICreateAContainerInThePerFeatureConfiguration()
         {
-            _state.Builder = new ContainerBuilder();
-            _state.Builder.RegisterModule(new PerFeatureModule());
-            _state.Container = _state.Builder.Build();
-            _state.Scope = _state.Container.BeginLifetimeScope();
+            var module = new PerFeatureModule();
+            ConfigureStateStartScope(new IModule[] { module });
         }
 
         [Given(@"I resolve an instance of the iterator and store it in the context")]
@@ -57,18 +56,19 @@ namespace Entities.Model.AutoFackery
         [Given(@"I configure, build and scope with the per scenario configuration")]
         public void GivenICreateAContainerInThePerScenarioConfiguration()
         {
+            var perScenarioModule = new PerScenarioModule();
+            ConfigureStateStartScope(new IModule[] {perScenarioModule});
+        }
+
+        private void ConfigureStateStartScope(IModule[] modules)
+        {
+            if (modules == null) throw new ArgumentNullException(nameof(modules));
+
             _state.Builder = new ContainerBuilder();
-            _state.Builder.RegisterModule(new PerScenarioModule());
+            modules.ForEach(_=>_state.Builder.RegisterModule(_));
             _state.Container = _state.Builder.Build();
             _state.Scope = _state.Container.BeginLifetimeScope();
         }
-
-        [Given(@"I build the container")]
-        public void GivenIBuildTheContainer()
-        {
-            _state.Container = _state.Builder.Build(ContainerBuildOptions.ExcludeDefaultModules);
-        }
-
     }
 
     // ReSharper disable once InconsistentNaming
