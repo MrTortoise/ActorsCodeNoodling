@@ -152,10 +152,28 @@ Scenario: Take an invitation that is under offer, reject it and make an alternat
    | LiabilityQuantity | 1     |
    And I expect the state of the ExchangeContractActor "exchangeContract" to be "CounterOffered"
 
-Scenario: Take an invitation that is under offer, accept it 
+Scenario: Take an invitation that is under offer, accept it. Need to start escrow.
+	Given I create an ExchangeContractActor called "exchangeContract" with supervisor TestProbe called "exchangeContractSup"	
+	And I post to the ExchangeContract "exchangeContract" the following invitation using a TestProbe
+	| Field                          | Value    |
+	| ExchangeType                   | Purchase |
+	| SellResourceName               | metal    |
+	| SellResourceQuantity           | 10       |
+	| SellResourceTimePeriod         | Hour     |
+	| SellResourceTimePeriodQuantity | 1        |
+	| SuggestedOfferResourceName     | rock     |
+	| SuggestedOfferResourceQuantity | 2        |
+	| LiabilityResourceName          | metal    |
+	| LiabilityResourceQuantity      | 2        |
+	| ContractOwner                  | seller   |
+   And the TestProbe called "buyer" makes the following offer on the ExchangeContractActor called "exchangeContract"
+   | Field             | Value |
+   | Resource          | metal |
+   | Quantity          | 8     |
+   | LiabilityResource | metal |
+   | LiabilityQuantity | 1     |
+   When the TestProbe called "seller" rejects the offer on the ExchangeContractActor called "exchangeContract"
+   Then I expect the state of the ExchangeContractActor "exchangeContract" to be "OfferAccepted"
 
-// what is the difference between the suggested offer and the deposited liabilities.
-// all are messages ... sp what about actors that misbehave?
-// problem is after accepting offer we end up in escrow ... so why not just use ledgers from the start
-// ie in a ledger an offer is placed with the liability to balance
+
    

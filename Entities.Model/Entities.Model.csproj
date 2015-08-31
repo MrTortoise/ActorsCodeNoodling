@@ -98,6 +98,31 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpectMessageTest.feature</DependentUpon>
     </Compile>
+    <Compile Include="AutoFackery\ContainerPerFeature.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContainerPerFeature.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AutoFackery\ContainerPerFeaturePart2.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContainerPerFeaturePart2.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AutoFackery\ContainerPerScenario.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContainerPerScenario.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AutoFackery\LoggingByDynamicInterception.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoggingByDynamicInterception.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AutoFackery\SubstitutionByInterfaceRegistration.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SubstitutionByInterfaceRegistration.feature</DependentUpon>
+    </Compile>
     <Compile Include="BeforeActorSystemScenario.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="ContractActors\ContractSupervisorActor.feature.cs">
@@ -153,6 +178,26 @@
       <LastGenOutput>ExpectMessageTest.feature.cs</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="AutoFackery\ContainerPerFeature.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ContainerPerFeature.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AutoFackery\ContainerPerFeaturePart2.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ContainerPerFeaturePart2.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AutoFackery\ContainerPerScenario.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ContainerPerScenario.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AutoFackery\LoggingByDynamicInterception.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>LoggingByDynamicInterception.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AutoFackery\SubstitutionByInterfaceRegistration.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SubstitutionByInterfaceRegistration.feature.cs</LastGenOutput>
+    </None>
     <None Include="ContractActors\ContractSupervisorActor.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ContractSupervisorActor.feature.cs</LastGenOutput>
