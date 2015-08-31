@@ -20,6 +20,7 @@ namespace Entities.Model.AutoFackery
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("LoggingByDynamicInterception")]
+    [NUnit.Framework.CategoryAttribute("Autofackery")]
     public partial class LoggingByDynamicInterceptionFeature
     {
         
@@ -34,7 +35,8 @@ namespace Entities.Model.AutoFackery
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "LoggingByDynamicInterception", @"In order to inspect calls inside composite components where it is undesirable to break into smaller units
 As a lazy dev who dislikes lots of logging code for tests in live code just in case its needed
-I want to be able to decide at configuration time where and when logging happens and assert against it", ProgrammingLanguage.CSharp, ((string[])(null)));
+I want to be able to decide at configuration time where and when logging happens and assert against it", ProgrammingLanguage.CSharp, new string[] {
+                        "Autofackery"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -71,7 +73,7 @@ I want to be able to decide at configuration time where and when logging happens
         public virtual void Take4ClassesThatCommunicateAndMakeACallThroughThem()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Take 4 classes that communicate and make a call through them", ((string[])(null)));
-#line 6
+#line 7
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
@@ -84,7 +86,7 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Take 4 classes that communicate and make a call through them but log the communic" +
                     "ation between middle 2", ((string[])(null)));
-#line 8
+#line 9
 this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();

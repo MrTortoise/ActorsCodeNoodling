@@ -1,4 +1,4 @@
-﻿@autofac
+﻿@Autofackery
 Feature: InstancePerScenario
 	In order to do config per feature
 	As a lazy dev

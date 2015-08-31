@@ -1,4 +1,5 @@
-﻿Feature: InstancePerFeaturePart1
+﻿@Autofackery
+Feature: InstancePerFeaturePart1
 	In order to share expensive configuration accross scenarios
 	As a lazy dev
 	I want to be able to check an iterator continues accross scenarios

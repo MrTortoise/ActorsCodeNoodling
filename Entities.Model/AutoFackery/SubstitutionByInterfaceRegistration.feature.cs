@@ -20,6 +20,7 @@ namespace Entities.Model.AutoFackery
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("SubstitutionByInterfaceRegistration")]
+    [NUnit.Framework.CategoryAttribute("Autofackery")]
     public partial class SubstitutionByInterfaceRegistrationFeature
     {
         
@@ -33,7 +34,8 @@ namespace Entities.Model.AutoFackery
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SubstitutionByInterfaceRegistration", "In order to avoid silly mistakes\nAs a math idiot\nI want to be told the sum of two" +
-                    " numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    " numbers", ProgrammingLanguage.CSharp, new string[] {
+                        "Autofackery"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -67,11 +69,9 @@ namespace Entities.Model.AutoFackery
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Take a component and execute it using one configuration")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
         public virtual void TakeAComponentAndExecuteItUsingOneConfiguration()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Take a component and execute it using one configuration", new string[] {
-                        "mytag"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Take a component and execute it using one configuration", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line hidden

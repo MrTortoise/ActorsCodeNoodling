@@ -1,4 +1,5 @@
-﻿Feature: InstancePerFeaturePart2
+﻿@Autofackery
+Feature: InstancePerFeaturePart2
 	In order to share expensive configuration accross scenarios
 	As a lazy dev
 	I want to confirm the iterator resets to 0 and still iterates

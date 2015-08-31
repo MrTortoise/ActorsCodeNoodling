@@ -7,7 +7,8 @@ using TechTalk.SpecFlow;
 
 namespace Entities.Model.AutoFackery
 {
-    [Binding]
+    [Binding()]
+    [Scope(Tag = "Autofackery")]
     public class AutoFacSteps
     {
         private AutoFackeryState _state;

@@ -20,7 +20,7 @@ namespace Entities.Model.AutoFackery
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("InstancePerScenario")]
-    [NUnit.Framework.CategoryAttribute("autofac")]
+    [NUnit.Framework.CategoryAttribute("Autofackery")]
     public partial class InstancePerScenarioFeature
     {
         
@@ -35,7 +35,7 @@ namespace Entities.Model.AutoFackery
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "InstancePerScenario", "In order to do config per feature\nAs a lazy dev\nI want to be able to recreate the" +
                     " container per scenario", ProgrammingLanguage.CSharp, new string[] {
-                        "autofac"});
+                        "Autofackery"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
