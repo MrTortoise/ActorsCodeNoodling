@@ -98,26 +98,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpectMessageTest.feature</DependentUpon>
     </Compile>
-    <Compile Include="AutoFackery\ContainerPerFeature.feature.cs">
+    <Compile Include="AutoFackery\AutoFackeryState.cs" />
+    <Compile Include="AutoFackery\AutoFacSteps.cs" />
+    <Compile Include="AutoFackery\IIterator.cs" />
+    <Compile Include="AutoFackery\InstancePerFeature.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ContainerPerFeature.feature</DependentUpon>
+      <DependentUpon>InstancePerFeature.feature</DependentUpon>
     </Compile>
-    <Compile Include="AutoFackery\ContainerPerFeaturePart2.feature.cs">
+    <Compile Include="AutoFackery\InstancePerFeaturePart2.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ContainerPerFeaturePart2.feature</DependentUpon>
+      <DependentUpon>InstancePerFeaturePart2.feature</DependentUpon>
     </Compile>
-    <Compile Include="AutoFackery\ContainerPerScenario.feature.cs">
+    <Compile Include="AutoFackery\InstancePerScenario.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ContainerPerScenario.feature</DependentUpon>
+      <DependentUpon>InstancePerScenario.feature</DependentUpon>
     </Compile>
+    <Compile Include="AutoFackery\Iterator.cs" />
     <Compile Include="AutoFackery\LoggingByDynamicInterception.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LoggingByDynamicInterception.feature</DependentUpon>
     </Compile>
+    <Compile Include="AutoFackery\PerFeatureModule.cs" />
+    <Compile Include="AutoFackery\PerScenarioModule.cs" />
     <Compile Include="AutoFackery\SubstitutionByInterfaceRegistration.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -178,17 +184,17 @@
       <LastGenOutput>ExpectMessageTest.feature.cs</LastGenOutput>
     </None>
     <None Include="App.config" />
-    <None Include="AutoFackery\ContainerPerFeature.feature">
+    <None Include="AutoFackery\InstancePerFeature.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ContainerPerFeature.feature.cs</LastGenOutput>
+      <LastGenOutput>InstancePerFeature.feature.cs</LastGenOutput>
     </None>
-    <None Include="AutoFackery\ContainerPerFeaturePart2.feature">
+    <None Include="AutoFackery\InstancePerFeaturePart2.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ContainerPerFeaturePart2.feature.cs</LastGenOutput>
+      <LastGenOutput>InstancePerFeaturePart2.feature.cs</LastGenOutput>
     </None>
-    <None Include="AutoFackery\ContainerPerScenario.feature">
+    <None Include="AutoFackery\InstancePerScenario.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ContainerPerScenario.feature.cs</LastGenOutput>
+      <LastGenOutput>InstancePerScenario.feature.cs</LastGenOutput>
     </None>
     <None Include="AutoFackery\LoggingByDynamicInterception.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
