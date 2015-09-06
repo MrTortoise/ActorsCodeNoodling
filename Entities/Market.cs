@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Immutable;
+using Akka.Actor;
 
 namespace Entities
 {
@@ -8,18 +9,28 @@ namespace Entities
     /// It provides a workflow for both parties to post and interact with contracts. 
     /// It is like a billboard for invitations, a negotiation service and then an escrow service
     /// </summary>
-    public class Market
+    public class Market : TypedActor , IHandle<Market.QueryMarketMessage>
     {
+        private IActorRef _creator;
+
         public string Name { get; }
         public ImmutableDictionary<string, ResourceForSale> ItemsForSale { get; private set; }
 
-        public Market(string name)
+        public Market(string name, IActorRef creator)
         {
+            if (creator == null) throw new ArgumentNullException(nameof(creator));
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
+
             Name = name;
+            this._creator = creator;
 
             ItemsForSale  = ImmutableDictionary<string, ResourceForSale>.Empty;
+        }
 
+        public void Handle(QueryMarketMessage message)
+        {
+            var ret = new ResultMarketResources(Name, ItemsForSale, Self);
+            Sender.Tell(ret, Self);
         }
 
         public void AddItemForSale(IResource resource, int amount, int pricePerUnit)
@@ -40,12 +51,21 @@ namespace Entities
             }
         }
 
+        /// <summary>
+        /// Represents an <see cref="IResource"/>, a quantity and a price of a resource for sale
+        /// </summary>
         public class ResourceForSale
         {
             public IResource Resource { get; }
             public int Amount { get; }
             public int PricePerUnit { get; }
 
+            /// <summary>
+            /// Creates an instance of <see cref="ResourceForSale"/>
+            /// </summary>
+            /// <param name="resource">The <see cref="IResource"/> for sale</param>
+            /// <param name="amount">the unit amount for sale</param>
+            /// <param name="pricePerUnit">THe price per unit</param>
             public ResourceForSale(IResource resource, int amount, int pricePerUnit)
             {
                 if (resource == null) throw new ArgumentNullException(nameof(resource));
@@ -85,6 +105,34 @@ namespace Entities
             }
         }
 
- 
+        /// <summary>
+        /// The result of the <see cref="QueryMarketMessage"/>
+        /// </summary>
+        public class ResultMarketResources
+        {
+            public ResultMarketResources(string marketName, ImmutableDictionary<string, ResourceForSale> itemsForSale, IActorRef market)
+            {
+                if (string.IsNullOrWhiteSpace(marketName)) throw new ArgumentNullException(nameof(marketName));
+                if (itemsForSale == null) throw new ArgumentNullException(nameof(itemsForSale));
+                if (market == null) throw new ArgumentNullException(nameof(market));
+
+                MarketName = marketName;
+                ItemsForSale = itemsForSale;
+                Market = market;
+            }
+
+            public string MarketName { get; private set; }
+            public ImmutableDictionary<string, ResourceForSale> ItemsForSale { get; private set; }
+            public IActorRef Market { get; private set; }
+        }
+
+        /// <summary>
+        /// The message to query a market about its resources
+        /// </summary>
+        public class QueryMarketMessage
+        {
+        }
+
+
     }
 }

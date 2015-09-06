@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.NUnit;
+using Entities.Model.Markets;
 
 namespace Entities.Model
 {
@@ -22,6 +23,7 @@ namespace Entities.Model
          Traders = new Dictionary<string, TestActorRef<Trader>>();
          ExchangeContractActors = new Dictionary<string, TestActorRef<ExchangeContract>>();
          TestProbes = new Dictionary<string, TestProbe>();
+            Markets = new Dictionary<string, IActorRef>();
       }
 
       /// <summary>
@@ -42,8 +44,10 @@ namespace Entities.Model
       public Dictionary<string,TestActorRef<ExchangeContract>> ExchangeContractActors { get; private set; }
 
       public Dictionary<string,TestProbe> TestProbes { get; private set; }
+       public TestActorRef<MarketHub> MarketHubActor { get; set; }
+       public Dictionary<string,IActorRef> Markets { get; private set; }
 
-      /// <summary>
+       /// <summary>
       /// Given a resource name will return a <see cref="Resource"/> from <see cref="ResourceManager"/>
       /// </summary>
       /// <param name="resourceName">The value of a <see cref="Resource.Name"/></param>

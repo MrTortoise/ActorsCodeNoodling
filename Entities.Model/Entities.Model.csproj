@@ -152,10 +152,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Market.feature</DependentUpon>
     </Compile>
-    <Compile Include="Markets\MarketModel.CreateMarket.g.cs">
-      <DependentUpon>MarketModel.cs</DependentUpon>
+    <Compile Include="Markets\MarketHub.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MarketHub.feature</DependentUpon>
     </Compile>
     <Compile Include="Markets\MarketModel.cs" />
+    <Compile Include="Markets\MarketSteps.cs" />
+    <Compile Include="Producers\Mine.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mine.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\PexAssemblyInfo.cs" />
     <Compile Include="ResourceManagerFeature\ResourceManagerFeatureSteps.cs" />
@@ -216,7 +224,15 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Market.feature.cs</LastGenOutput>
     </None>
+    <None Include="Markets\MarketHub.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>MarketHub.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
+    <None Include="Producers\Mine.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Mine.feature.cs</LastGenOutput>
+    </None>
     <None Include="ResourceManagerFeature\ResourceManager.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ResourceManager.feature.cs</LastGenOutput>

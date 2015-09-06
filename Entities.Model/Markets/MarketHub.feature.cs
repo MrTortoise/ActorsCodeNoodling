@@ -19,21 +19,21 @@ namespace Entities.Model.Markets
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Market")]
-    public partial class MarketFeature
+    [NUnit.Framework.DescriptionAttribute("MarketHub")]
+    public partial class MarketHubFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Market.feature"
+#line 1 "MarketHub.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Market", "In order to create a world for things to trade in\r\nAs a demigod\r\nI want to be abl" +
-                    "e to create markets and populate them", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "MarketHub", "In order to create and manage markets for thiungs to trade stuff on\r\nAs a demigod" +
+                    "\r\nI want to be able to create markets, list them and query", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -71,7 +71,9 @@ namespace Entities.Model.Markets
 #line 7
  testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.And("I initialise the MarketListings Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I initialise the MarketHub Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 9
+ testRunner.And("I create a TestProbe called \"marketCreator\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -80,7 +82,7 @@ namespace Entities.Model.Markets
         public virtual void CreateAMarketInTheListingAndConfirmItsReferenceIsAsExpected()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a market in the listing and confirm its reference is as expected", ((string[])(null)));
-#line 10
+#line 11
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -89,15 +91,16 @@ this.FeatureBackground();
                         "Name"});
             table1.AddRow(new string[] {
                         "test1"});
-#line 11
-  testRunner.When("I create the following markets", ((string)(null)), table1, "When ");
+#line 12
+  testRunner.When("I create the following markets using testProbe \"marketCreator\"", ((string)(null)), table1, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name"});
             table2.AddRow(new string[] {
                         "test1"});
-#line 14
-  testRunner.Then("I expect the returned market to be", ((string)(null)), table2, "Then ");
+#line 15
+  testRunner.Then("I expect testProbe \"marketCreator\" of been notified of the market having been cre" +
+                    "ated", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -107,7 +110,7 @@ this.FeatureBackground();
         public virtual void CreateAMarketWithAGivenNameInTheMarketListing()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a market with a given name\tin the market listing", ((string[])(null)));
-#line 18
+#line 19
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -118,10 +121,8 @@ this.FeatureBackground();
                         "test1"});
             table3.AddRow(new string[] {
                         "test2"});
-#line 19
- testRunner.When("I create the following markets", ((string)(null)), table3, "When ");
-#line 23
- testRunner.And("I query the market listings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 20
+ testRunner.When("I create the following markets using testProbe \"marketCreator\"", ((string)(null)), table3, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name"});
@@ -130,7 +131,7 @@ this.FeatureBackground();
             table4.AddRow(new string[] {
                         "test2"});
 #line 24
- testRunner.Then("I expect to see the following markets", ((string)(null)), table4, "Then ");
+ testRunner.Then("I expect to see the following markets when I query the listings", ((string)(null)), table4, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
