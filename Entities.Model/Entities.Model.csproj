@@ -98,6 +98,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpectMessageTest.feature</DependentUpon>
     </Compile>
+    <Compile Include="Akka.Testkit.Experiments\FsmBecomeActor.cs" />
+    <Compile Include="Akka.Testkit.Experiments\FsmBecomeTests.cs" />
     <Compile Include="AutoFackery\AutoFackeryState.cs" />
     <Compile Include="AutoFackery\AutoFacSteps.cs" />
     <Compile Include="AutoFackery\IIterator.cs" />
@@ -147,6 +149,12 @@
       <DependentUpon>LocationModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Locations\LocationModel.cs" />
+    <Compile Include="Locations\LocationNameGeneratorTests.cs" />
+    <Compile Include="Locations\WorldLocation.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorldLocation.feature</DependentUpon>
+    </Compile>
     <Compile Include="Markets\Market.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -219,6 +227,10 @@
     <None Include="ContractActors\ExchangeContractFeature.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ExchangeContractFeature1.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Locations\WorldLocation.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>WorldLocation.feature.cs</LastGenOutput>
     </None>
     <None Include="Markets\Market.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
