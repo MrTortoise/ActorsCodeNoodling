@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Akka.Actor;
 
@@ -31,19 +32,15 @@ namespace Entities.Model.Akka.Testkit.Experiments
 
         private void Offered()
         {
-            Receive<string>(s =>
+            Receive<string>(s => s == "accept", s =>
             {
-                switch (s)
-                {
-                    case "accept":
-                        Become(Accepted);
-                        State = FsmActorState.Accepted;
-                        break;
-                    case "reject":
-                        Become(Start);
-                        State = FsmActorState.Start;
-                        break;
-                }
+                Become(Accepted);
+                State = FsmActorState.Accepted;
+            });
+            Receive<string>(s => s == "reject", s =>
+            {
+                Become(Start);
+                State = FsmActorState.Start;
             });
         }
 
