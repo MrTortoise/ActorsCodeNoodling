@@ -32,8 +32,8 @@ namespace Entities.Model.Locations
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "WorldLocation", "In order to have places and be able to dynamically add them\nAs a WorldGenerator\nI" +
-                    " want to be able to create Locations", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "WorldLocation", "In order to have places and be able to dynamically add them\r\nAs a WorldGenerator\r" +
+                    "\nI want to be able to create Locations", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -65,21 +65,77 @@ namespace Entities.Model.Locations
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Generate 10,000,000 names and verify they are unique")]
-        public virtual void Generate10000000NamesAndVerifyTheyAreUnique()
+        public virtual void FeatureBackground()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Generate 10,000,000 names and verify they are unique", ((string[])(null)));
+#line 6
 #line 7
-this.ScenarioSetup(scenarioInfo);
-#line 8
- testRunner.Given("I generate 10000000 location names", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Take a list of prefixes, store them and then restore them")]
+        public virtual void TakeAListOfPrefixesStoreThemAndThenRestoreThem()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Take a list of prefixes, store them and then restore them", ((string[])(null)));
 #line 9
- testRunner.And("I have entered 70 into the calculator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
 #line 10
- testRunner.When("I press add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I create a WorldPrefixPersistanceActor Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 11
- testRunner.Then("the result should be 120 on the screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I create a TestProbe called \"worldWatcher\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "prefix"});
+            table1.AddRow(new string[] {
+                        "qwe"});
+            table1.AddRow(new string[] {
+                        "asd"});
+            table1.AddRow(new string[] {
+                        "zxc"});
+            table1.AddRow(new string[] {
+                        "wer"});
+            table1.AddRow(new string[] {
+                        "sdf"});
+            table1.AddRow(new string[] {
+                        "xcv"});
+            table1.AddRow(new string[] {
+                        "ert"});
+            table1.AddRow(new string[] {
+                        "dfg"});
+            table1.AddRow(new string[] {
+                        "cvb"});
+#line 12
+ testRunner.And("I create the following prefixes in the WorldPrefixPersistanceActor Actor and stor" +
+                    "e its state", ((string)(null)), table1, "And ");
+#line 23
+ testRunner.When("I kill and restore the WorldPrefixPersistanceActor Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "prefix"});
+            table2.AddRow(new string[] {
+                        "qwe"});
+            table2.AddRow(new string[] {
+                        "asd"});
+            table2.AddRow(new string[] {
+                        "zxc"});
+            table2.AddRow(new string[] {
+                        "wer"});
+            table2.AddRow(new string[] {
+                        "sdf"});
+            table2.AddRow(new string[] {
+                        "xcv"});
+            table2.AddRow(new string[] {
+                        "ert"});
+            table2.AddRow(new string[] {
+                        "dfg"});
+            table2.AddRow(new string[] {
+                        "cvb"});
+#line 24
+ testRunner.Then("I expect querying the WorldPrefixPersistanceActor with TestProbe \"worldWatcher\" t" +
+                    "o yield the following prefixes", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

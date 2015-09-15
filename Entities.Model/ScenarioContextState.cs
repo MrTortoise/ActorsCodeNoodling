@@ -46,6 +46,7 @@ namespace Entities.Model
       public Dictionary<string,TestProbe> TestProbes { get; private set; }
        public TestActorRef<MarketHub> MarketHubActor { get; set; }
        public Dictionary<string,IActorRef> Markets { get; private set; }
+       public TestActorRef<WorldPrefixPersistanceActor> WorldPrefixPersistanceActor { get; set; }
 
        /// <summary>
       /// Given a resource name will return a <see cref="Resource"/> from <see cref="ResourceManager"/>

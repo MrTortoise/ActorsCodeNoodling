@@ -48,11 +48,4 @@ namespace Entities.Model.Akka.Testkit.Experiments
             Assert.AreEqual(FsmActorState.Start, fsmActor.UnderlyingActor.State);
         }
     }
-
-    public enum FsmActorState
-    {
-        Start,
-        Offered,
-        Accepted
-    }
 }

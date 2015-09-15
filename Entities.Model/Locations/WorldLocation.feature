@@ -3,9 +3,32 @@
 	As a WorldGenerator
 	I want to be able to create Locations
 
+Background: 
+	Given I create a test actor system
 
-Scenario: Generate 10,000,000 names and verify they are unique
-	Given I generate 10000000 location names
-	And I have entered 70 into the calculator
-	When I press add
-	Then the result should be 120 on the screen
+Scenario: Take a list of prefixes, store them and then restore them
+	Given I create a WorldPrefixPersistanceActor Actor
+	And I create a TestProbe called "worldWatcher"
+	And I create the following prefixes in the WorldPrefixPersistanceActor Actor and store its state
+	| prefix |
+	| qwe    |
+	| asd    |
+	| zxc    |
+	| wer    |
+	| sdf    |
+	| xcv    |
+	| ert    |
+	| dfg    |
+	| cvb    |
+	When I kill and restore the WorldPrefixPersistanceActor Actor
+	Then I expect querying the WorldPrefixPersistanceActor with TestProbe "worldWatcher" to yield the following prefixes
+	| prefix |
+	| qwe    |
+	| asd    |
+	| zxc    |
+	| wer    |
+	| sdf    |
+	| xcv    |
+	| ert    |
+	| dfg    |
+	| cvb    |

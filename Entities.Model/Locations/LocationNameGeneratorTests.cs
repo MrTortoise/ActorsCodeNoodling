@@ -1,28 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Akka.Actor;
-using Akka.TestKit.NUnit;
+﻿using System.Collections.Generic;
+using System.IO;
+using Akka;
 using NUnit.Framework;
+
 
 namespace Entities.Model.Locations
 {
     [TestFixture]
     public class LocationNameGeneratorTests
     {
-        [TestCase()]
-        public void Generate10000000NamesEnsureNoneAreDuplicates()
+        [TestCase]
+        public void PrefixFileGeneratorCreate()
         {
-            var testKit = new TestKit();
-            var nameGenerator = testKit.ActorOfAsTestActorRef<World>();
+            if (File.Exists(World.WorldPrefixStringsFilename))
+            {
+                File.Delete(World.WorldPrefixStringsFilename);
+            }
 
+            var noPrefixes = 1000;
+            World.GenerateNamePrefixFile(noPrefixes, World.WorldPrefixStringsFilename);
+            var strings = World.LoadPrefixesFromFile(World.WorldPrefixStringsFilename);
+
+            Assert.AreEqual(noPrefixes, strings.Count);
         }
-    }
 
-    public class World : ReceiveActor 
-    {
-      
+        [TestCase]
+        public void PrefixFileGeneratorCreateUnique()
+        {
+            if (File.Exists(World.WorldPrefixStringsFilename))
+            {
+                File.Delete(World.WorldPrefixStringsFilename);
+            }
+
+            var noPrefixes = 10000;
+            World.GenerateNamePrefixFile(noPrefixes, World.WorldPrefixStringsFilename);
+            var strings = World.LoadPrefixesFromFile(World.WorldPrefixStringsFilename);
+
+            var uniqueStrings = new HashSet<string>(strings);
+
+            Assert.AreEqual(noPrefixes, uniqueStrings.Count);
+        }
     }
 }
