@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Akka;
+using Akka.Event;
+using Akka.Logger.Serilog;
 using Akka.Persistence;
+
+
 
 namespace Entities
 {
@@ -11,6 +15,7 @@ namespace Entities
     {
         private State _state = new State();
         private const string PersistenceIdName = "WorldPrefixPersistenceActor";
+        private readonly ILoggingAdapter log = Context.GetLogger(new SerilogLogMessageFormatter());
 
         protected override bool ReceiveRecover(object message)
         {
@@ -18,6 +23,7 @@ namespace Entities
             var snapShot = message as SnapshotOffer;
             if (s != null)
             {
+                log.Debug("{Id}: Recover string {String}", Self.Path, s);
                 UpdateState(s);
             }
             else if (snapShot != null)
@@ -25,6 +31,7 @@ namespace Entities
                 var state = snapShot.Snapshot as State;
                 if (state != null)
                 {
+                    log.Debug("{Id}: Recover snapshot {@Snapshot}",Self.Path, state);
                     _state = state;
                 }
                 else
@@ -39,21 +46,27 @@ namespace Entities
 
         protected override bool ReceiveCommand(object message)
         {
+            log.Debug("{Id}: message recieved {@message}", Self.Path, message);
             var prefixMessage = message as PostNewPrefixMessage;
             var storeMessage = message as PostStoreStateMessage;
             var queryMessage = message as QueryPrefixes;
             if (prefixMessage != null)
             {
+                log.Debug("{Id}: Receive prefix {Prefix}", Self.Path, prefixMessage.Prefix);
                 Persist(prefixMessage.Prefix, UpdateState);
             }
             else if (storeMessage != null)
             {
-                SaveSnapshot(_state); 
+                log.Debug("{Id}: Receive store snapshot", Self.Path);
+                SaveSnapshot(_state);
+                Sender.Tell(new StateSavedMessage(), Self);
             }
             else if (queryMessage != null)
             {
+                log.Debug("{Id}: Receive query", Self.Path);
                 Sender.Tell(new PostQueryResultsMessage(_state.Prefixes), Self);
             }
+            else if (message is SaveSnapshotFailure || message is SaveSnapshotSuccess) { }
             else
             {
                 return false;
@@ -64,9 +77,10 @@ namespace Entities
 
 
 
-        private void UpdateState(string val)
+        private void UpdateState(string prefix)
         {
-            _state.Update(val);
+            log.Debug("update state: {prefix}",prefix);
+            _state.Update(prefix);
         }
 
         public override string PersistenceId => PersistenceIdName;
@@ -76,19 +90,17 @@ namespace Entities
         /// </summary>
         public class State
         {
-            List<string> _prefixes = new List<string>();
-
-            public List<string> Prefixes => _prefixes;
+           public List<string> Prefixes { get; set; } = new List<string>();
 
             /// <summary>
             /// Updates the state with the newest first.
             /// </summary>
-            /// <param name="val"></param>
-            public void Update(string val)
+            /// <param name="prefix"></param>
+            public void Update(string prefix)
             {
-                var newState = new List<string>() { val };
-                newState.AddRange(_prefixes);
-                _prefixes = newState;
+                var newState = new List<string>() { prefix };
+                newState.AddRange(Prefixes);
+                Prefixes = newState;
             }
         }
 
@@ -127,6 +139,10 @@ namespace Entities
             {
                 Prefixes = prefixes;
             }
+        }
+
+        public class StateSavedMessage
+        {
         }
     }
 }

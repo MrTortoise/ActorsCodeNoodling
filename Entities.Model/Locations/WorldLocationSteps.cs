@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Akka.Actor;
+using Akka.Dispatch.SysMsg;
 using Akka.TestKit;
 using Akka.Util.Internal;
+using Entities.Model.ResourceManagerFeature;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -26,22 +28,36 @@ namespace Entities.Model.Locations
             State.WorldPrefixPersistanceActor = State.TestKit.ActorOfAsTestActorRef<WorldPrefixPersistanceActor>();
         }
         
-        [Given(@"I create the following prefixes in the WorldPrefixPersistanceActor Actor and store its state")]
-        public void GivenICreateTheFollowingPrefixesInTheWorldPrefixPersistanceActorActorAndStoreItsState(Table table)
+        [Given(@"I create the following prefixes in the WorldPrefixPersistanceActor Actor and store its state using test probe ""(.*)""")]
+        public void GivenICreateTheFollowingPrefixesInTheWorldPrefixPersistanceActorActorAndStoreItsState(string probe,Table table)
         {
+            var pr = State.TestProbes[probe];
             var prefixes = new List<string>(table.Rows.Select(r => r[0]));
 
             prefixes.ForEach(p => State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.PostNewPrefixMessage(p)));
 
-            State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.PostStoreStateMessage());
+            State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.PostStoreStateMessage(), pr);
+            pr.ExpectMsg<WorldPrefixPersistanceActor.StateSavedMessage>();
         }
         
         [When(@"I kill and restore the WorldPrefixPersistanceActor Actor")]
         public void WhenIKillAndRestoreTheWorldPrefixPersistanceActorActor()
         {
-            State.WorldPrefixPersistanceActor.GracefulStop(TimeSpan.FromMilliseconds(500)).Wait();
-            State.WorldPrefixPersistanceActor = null;
-            State.WorldPrefixPersistanceActor = State.TestKit.ActorOfAsTestActorRef<WorldPrefixPersistanceActor>();
+            Debug.WriteLine("about to watch World persistence actor");
+            State.TestKit.Watch(State.WorldPrefixPersistanceActor);
+            Debug.WriteLine("sending poison pill");
+            State.WorldPrefixPersistanceActor.Tell(PoisonPill.Instance);
+            Debug.WriteLine("Expecting terminated");
+            State.TestKit.ExpectMsg<Terminated>();
+            Debug.WriteLine("Terminated");
+
+
+            //State.TestKit.Sys.Shutdown();
+            //var man = new ResourceManagerSteps(State);
+            //man.GivenICreateATestActorSystem();
+
+
+            GivenICreateAWorldPrefixPersistanceActorActor();
         }
 
         [Then(@"I expect querying the WorldPrefixPersistanceActor with TestProbe ""(.*)"" to yield the following prefixes")]
@@ -50,7 +66,7 @@ namespace Entities.Model.Locations
             var probe = State.TestProbes[name];
             State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.QueryPrefixes(), probe);
 
-            var result = probe.ExpectMsg<WorldPrefixPersistanceActor.PostQueryResultsMessage>(TimeSpan.FromMilliseconds(500));
+            var result = probe.ExpectMsg<WorldPrefixPersistanceActor.PostQueryResultsMessage>(TimeSpan.FromMilliseconds(5000));
             var prefixes = result.Prefixes;
             Assert.IsNotNull(prefixes);
 

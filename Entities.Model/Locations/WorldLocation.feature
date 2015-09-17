@@ -9,7 +9,34 @@ Background:
 Scenario: Take a list of prefixes, store them and then restore them
 	Given I create a WorldPrefixPersistanceActor Actor
 	And I create a TestProbe called "worldWatcher"
-	And I create the following prefixes in the WorldPrefixPersistanceActor Actor and store its state
+	And I create the following prefixes in the WorldPrefixPersistanceActor Actor and store its state using test probe "worldWatcher"
+	| prefix |
+	| qwe    |
+	| asd    |
+	| zxc    |
+	| wer    |
+	| sdf    |
+	| xcv    |
+	| ert    |
+	| dfg    |
+	| cvb    |
+#	When I kill and restore the WorldPrefixPersistanceActor Actor
+	Then I expect querying the WorldPrefixPersistanceActor with TestProbe "worldWatcher" to yield the following prefixes
+	| prefix |
+	| qwe    |
+	| asd    |
+	| zxc    |
+	| wer    |
+	| sdf    |
+	| xcv    |
+	| ert    |
+	| dfg    |
+	| cvb    |
+
+Scenario: Take a list of prefixes, store them, kill actor and then restore them
+	Given I create a WorldPrefixPersistanceActor Actor
+	And I create a TestProbe called "worldWatcher"
+	And I create the following prefixes in the WorldPrefixPersistanceActor Actor and store its state using test probe "worldWatcher"
 	| prefix |
 	| qwe    |
 	| asd    |
@@ -32,3 +59,4 @@ Scenario: Take a list of prefixes, store them and then restore them
 	| ert    |
 	| dfg    |
 	| cvb    |
+

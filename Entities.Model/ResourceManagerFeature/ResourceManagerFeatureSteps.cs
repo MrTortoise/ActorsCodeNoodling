@@ -7,6 +7,7 @@ using Akka.TestKit;
 using Akka.TestKit.NUnit;
 using Akka.Util.Internal;
 using NUnit.Framework;
+using Serilog;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -22,11 +23,20 @@ namespace Entities.Model.ResourceManagerFeature
           _state = state;
        }
 
-       [Given(@"I create a test actor system")]
-      public void GivenICreateATestActorSystem()
-      {
-         _state.TestKit = new TestKit();
-      }
+        [Given(@"I create a test actor system")]
+        public void GivenICreateATestActorSystem()
+        {
+            var logger = new LoggerConfiguration()
+                .WriteTo.ColoredConsole()
+                .MinimumLevel.Debug()
+                .CreateLogger();
+            Serilog.Log.Logger = logger;
+
+            _state.TestKit =
+                new TestKit(
+                    "akka { loglevel=DEBUG,  loggers=[\"Akka.Logger.Serilog.SerilogLogger, Akka.Logger.Serilog\"]}",
+                    "testActorSystem");
+        }
 
         [Given(@"I create a Resource Manager")]
         public void GivenICreateAResourceManager()
