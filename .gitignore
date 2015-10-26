@@ -5,3 +5,5 @@ Entities/bin/
 .vs/TradingAISystem/v14/.suo
 packages/
 TradingAISystem.sln.DotSettings.user
+Entities.Tests/bin/
+Entities.Tests/obj/
