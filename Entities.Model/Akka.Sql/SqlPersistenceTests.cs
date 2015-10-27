@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -45,13 +46,34 @@ namespace Entities.Model.Akka.Sql
                         }
                     }";
 
+        
+
         [TestCase()]
         public void SomeTest()
         {
             var testSystem = new TestKit(Config,"sql");
             SqlServerPersistence.Init(testSystem.Sys);
 
-            var persistor = testSystem.ActorOfAsTestActorRef<SqlTestActor>(Props.Create(() => new SqlTestActor("SomeTest")));
+            using (var connection = new SqlConnection(@"Data Source = localhost\SQLEXPRESS; Database = AkkaPersistenceTest; User Id = akkadotnet; Password = akkadotnet;"))
+            {
+                var cleanSnapShotSql = "delete from SnapshotStore;";
+                var cleanEventJournalSql = "delete from EventJournal;";
+                connection.Open();
+
+                using (var command = new SqlCommand(cleanSnapShotSql,connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+
+                using (var command = new SqlCommand(cleanEventJournalSql, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+
+            var persistor =
+                testSystem.ActorOfAsTestActorRef<SqlTestActor>(Props.Create(() => new SqlTestActor("SomeTest")));
             var probe = testSystem.CreateTestProbe("testies");
             persistor.Tell(new SqlTestActor.Incrementor(10), probe);
             persistor.Tell(new SqlTestActor.RequestCurrentValue(), probe);
@@ -68,6 +90,23 @@ namespace Entities.Model.Akka.Sql
 
             result = probe.ExpectMsg<SqlTestActor.IncrementorResult>();
             Assert.AreEqual(10, result.Value);
+
+            persistor.Tell("snap",probe);
+        //    probe.ExpectMsg<SaveSnapshotSuccess>();
+            persistor.Tell(new SqlTestActor.Incrementor(10), probe);
+            persistor.Tell(new SqlTestActor.RequestCurrentValue(), probe);
+
+            result = probe.ExpectMsg<SqlTestActor.IncrementorResult>();
+            Assert.AreEqual(20, result.Value);
+            testSystem.Shutdown(TimeSpan.FromSeconds(5), true);
+
+            testSystem = new TestKit(Config, "sql");
+            persistor = testSystem.ActorOfAsTestActorRef<SqlTestActor>(Props.Create(() => new SqlTestActor("SomeTest")));
+            probe = testSystem.CreateTestProbe("testies3");
+            persistor.Tell(new SqlTestActor.RequestCurrentValue(), probe);
+
+            result = probe.ExpectMsg<SqlTestActor.IncrementorResult>();
+            Assert.AreEqual(20, result.Value);
         }
 
         internal class SqlTestActor : PersistentActor
@@ -79,7 +118,7 @@ namespace Entities.Model.Akka.Sql
                     Value = value;
                 }
 
-                public int Value { get; }
+                public int Value { get;  }
 
                 public override bool Equals(object obj)
                 {
@@ -123,18 +162,13 @@ namespace Entities.Model.Akka.Sql
                 if (snap != null)
                 {
                     var state = (IncrementorState)snap.Snapshot;
-                    if (_state.Equals(state))
+                    if (!_state.Equals(state))
                     {
                         _state = state;
                     }
                     return true;
                 }
 
-                if (message as string == "snap")
-                {
-                    SaveSnapshot(_state);
-                    return true;
-                }
 
                 return false;
             }
@@ -156,6 +190,13 @@ namespace Entities.Model.Akka.Sql
                 if (request != null)
                 {
                     Sender.Tell(new IncrementorResult(_state.Value));
+                    return true;
+                }
+
+
+                if (message as string == "snap")
+                {
+                    SaveSnapshot(_state);
                     return true;
                 }
 

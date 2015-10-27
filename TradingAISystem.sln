@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Model", "Entities.
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "ArchitecturalModel", "ArchitecturalModel\ArchitecturalModel.modelproj", "{EF86F230-D55F-432A-8E2F-1B00FC0CBBE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Tests", "Entities.Tests\Entities.Tests.csproj", "{67AA2251-9F08-45D1-B2EE-EE3487C7053E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{EF86F230-D55F-432A-8E2F-1B00FC0CBBE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF86F230-D55F-432A-8E2F-1B00FC0CBBE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF86F230-D55F-432A-8E2F-1B00FC0CBBE8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67AA2251-9F08-45D1-B2EE-EE3487C7053E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67AA2251-9F08-45D1-B2EE-EE3487C7053E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67AA2251-9F08-45D1-B2EE-EE3487C7053E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67AA2251-9F08-45D1-B2EE-EE3487C7053E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
