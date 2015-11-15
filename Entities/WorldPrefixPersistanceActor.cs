@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Akka;
+using Akka.Actor;
 using Akka.Event;
 using Akka.Logger.Serilog;
 using Akka.Persistence;
-
-
 
 namespace Entities
 {
@@ -15,15 +14,15 @@ namespace Entities
     {
         private State _state = new State();
         private const string PersistenceIdName = "WorldPrefixPersistenceActor";
-        private readonly ILoggingAdapter log = Context.GetLogger(new SerilogLogMessageFormatter());
 
         protected override bool ReceiveRecover(object message)
         {
             var s = message as string;
             var snapShot = message as SnapshotOffer;
+            var recoverComplete = message as RecoveryCompleted;
             if (s != null)
             {
-                log.Debug("{Id}: Recover string {String}", Self.Path, s);
+                Context.LogMessageDebug(s);
                 UpdateState(s);
             }
             else if (snapShot != null)
@@ -31,42 +30,59 @@ namespace Entities
                 var state = snapShot.Snapshot as State;
                 if (state != null)
                 {
-                    log.Debug("{Id}: Recover snapshot {@Snapshot}",Self.Path, state);
+                    Context.LogMessageDebug(state, "Recieve recover");
                     _state = state;
                 }
                 else
                 {
+                    Context.LogMessageDebug(snapShot, "failed to parse");
                     return false;
                 }
             }
-            else return false;
+            else if (recoverComplete != null)
+            {
+                Context.LogMessageDebug(recoverComplete);
+                Context.Parent.Tell(new WorldPrefixPersistentRecoveryComplete());
+            }
+            else
+            {
+                Context.LogMessageDebug(message, "failed to parse");
+                return false;
+            }
 
             return true;
         }
 
+        public class WorldPrefixPersistentRecoveryComplete
+        {
+        }
+
         protected override bool ReceiveCommand(object message)
         {
-            log.Debug("{Id}: message recieved {@message}", Self.Path, message);
             var prefixMessage = message as PostNewPrefixMessage;
             var storeMessage = message as PostStoreStateMessage;
             var queryMessage = message as QueryPrefixes;
+            
             if (prefixMessage != null)
             {
-                log.Debug("{Id}: Receive prefix {Prefix}", Self.Path, prefixMessage.Prefix);
                 Persist(prefixMessage.Prefix, UpdateState);
             }
             else if (storeMessage != null)
             {
-                log.Debug("{Id}: Receive store snapshot", Self.Path);
+                Context.LogMessageDebug(message);
                 SaveSnapshot(_state);
-                Sender.Tell(new StateSavedMessage(), Self);
             }
             else if (queryMessage != null)
             {
-                log.Debug("{Id}: Receive query", Self.Path);
-                Sender.Tell(new PostQueryResultsMessage(_state.Prefixes), Self);
+                Context.LogMessageDebug(message);
+                Sender.Tell(new PostQueryResultsMessage(_state.Prefixes, queryMessage.Sender), Self);
             }
-            else if (message is SaveSnapshotFailure || message is SaveSnapshotSuccess) { }
+            else if (message is SaveSnapshotSuccess)
+            {
+                Context.LogMessageDebug(message);
+                Context.Parent.Tell(new StateSavedMessage());
+            }
+            else if (message is SaveSnapshotFailure) { Context.LogMessageDebug(message); }
             else
             {
                 return false;
@@ -75,12 +91,10 @@ namespace Entities
             return true;
         }
 
-
-
         private void UpdateState(string prefix)
         {
-            log.Debug("update state: {prefix}",prefix);
             _state.Update(prefix);
+            Context.Parent.Tell(new PrefixPersisted(prefix));
         }
 
         public override string PersistenceId => PersistenceIdName;
@@ -129,20 +143,38 @@ namespace Entities
         /// </summary>
         public class QueryPrefixes
         {
+            public IActorRef Sender { get;  }
+
+            public QueryPrefixes(IActorRef sender)
+            {
+                Sender = sender;
+            }
         }
 
         public class PostQueryResultsMessage
         {
             public List<string> Prefixes { get; }
+            public IActorRef Sender { get; }
 
-            public PostQueryResultsMessage(List<string> prefixes)
+            public PostQueryResultsMessage(List<string> prefixes, IActorRef sender)
             {
                 Prefixes = prefixes;
+                Sender = sender;
             }
         }
 
         public class StateSavedMessage
         {
+        }
+
+        public class PrefixPersisted
+        {
+            public string Prefix { get; }
+
+            public PrefixPersisted(string prefix)
+            {
+                Prefix = prefix;
+            }
         }
     }
 }

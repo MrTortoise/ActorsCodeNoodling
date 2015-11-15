@@ -7,3 +7,5 @@ packages/
 TradingAISystem.sln.DotSettings.user
 Entities.Tests/bin/
 Entities.Tests/obj/
+Entities.Model.XUnit/bin/
+Entities.Model.XUnit/obj/

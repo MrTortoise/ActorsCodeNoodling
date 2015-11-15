@@ -46,10 +46,8 @@ namespace Entities.Model.Akka.Sql
                         }
                     }";
 
-        
-
         [TestCase()]
-        public void SomeTest()
+        public void SqlEventSnapShotJournal()
         {
             var testSystem = new TestKit(Config,"sql");
             SqlServerPersistence.Init(testSystem.Sys);
@@ -92,7 +90,6 @@ namespace Entities.Model.Akka.Sql
             Assert.AreEqual(10, result.Value);
 
             persistor.Tell("snap",probe);
-        //    probe.ExpectMsg<SaveSnapshotSuccess>();
             persistor.Tell(new SqlTestActor.Incrementor(10), probe);
             persistor.Tell(new SqlTestActor.RequestCurrentValue(), probe);
 
@@ -192,7 +189,6 @@ namespace Entities.Model.Akka.Sql
                     Sender.Tell(new IncrementorResult(_state.Value));
                     return true;
                 }
-
 
                 if (message as string == "snap")
                 {

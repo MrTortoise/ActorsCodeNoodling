@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.NUnit;
+using Entities.Model.Locations;
 using Entities.Model.Markets;
 
 namespace Entities.Model
@@ -15,18 +16,21 @@ namespace Entities.Model
    /// </summary>
    public class ScenarioContextState
    {
-      /// <summary>
-      /// Creates an instance of <see cref="ScenarioContextState"/> class.
-      /// </summary>
-      public ScenarioContextState()
-      {
-         Traders = new Dictionary<string, TestActorRef<Trader>>();
-         ExchangeContractActors = new Dictionary<string, TestActorRef<ExchangeContract>>();
-         TestProbes = new Dictionary<string, TestProbe>();
-            Markets = new Dictionary<string, IActorRef>();
-      }
+       /// <summary>
+       /// Creates an instance of <see cref="ScenarioContextState"/> class.
+       /// </summary>
+       public ScenarioContextState()
+       {
+           Traders = new Dictionary<string, TestActorRef<Trader>>();
+           ExchangeContractActors = new Dictionary<string, TestActorRef<ExchangeContract>>();
+           TestProbes = new Dictionary<string, TestProbe>();
+           Markets = new Dictionary<string, IActorRef>();
+           Config = "akka { loglevel=DEBUG,  loggers=[\"Akka.Logger.Serilog.SerilogLogger, Akka.Logger.Serilog\"]}";
+       }
 
-      /// <summary>
+       public Dictionary<string, IActorRef> Actors { get; set; }
+
+       /// <summary>
       /// A reference to the <see cref="TestKit"/> in order to get at all the Akka.Test goodness
       /// </summary>
       public TestKit TestKit { get; set; }
@@ -47,6 +51,8 @@ namespace Entities.Model
        public TestActorRef<MarketHub> MarketHubActor { get; set; }
        public Dictionary<string,IActorRef> Markets { get; private set; }
        public TestActorRef<WorldPrefixPersistanceActor> WorldPrefixPersistanceActor { get; set; }
+       public string Config { get; set; }
+       public TestActorRef<LocationGeneratorActor> LocationGeneratorActor { get; set; }
 
        /// <summary>
       /// Given a resource name will return a <see cref="Resource"/> from <see cref="ResourceManager"/>

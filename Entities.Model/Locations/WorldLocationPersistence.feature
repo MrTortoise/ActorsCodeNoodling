@@ -1,14 +1,17 @@
-﻿Feature: WorldLocation
+﻿@Persistence
+Feature: WorldLocationPersistence
 	In order to have places and be able to dynamically add them
 	As a WorldGenerator
 	I want to be able to create Locations
 
 Background: 
+	Given I have cleared out any persistence file data
 	Given I create a test actor system
-
-Scenario: Take a list of prefixes, store them and then restore them
-	Given I create a WorldPrefixPersistanceActor Actor
 	And I create a TestProbe called "worldWatcher"
+
+@Persistence
+Scenario: Take a list of prefixes, store them and then restore them
+	Given I create a WorldPrefixPersistanceActor Actor using testProbe "worldWatcher"	
 	And I create the following prefixes in the WorldPrefixPersistanceActor Actor and store its state using test probe "worldWatcher"
 	| prefix |
 	| qwe    |
@@ -33,9 +36,9 @@ Scenario: Take a list of prefixes, store them and then restore them
 	| dfg    |
 	| cvb    |
 
+@Persistence
 Scenario: Take a list of prefixes, store them, kill actor and then restore them
-	Given I create a WorldPrefixPersistanceActor Actor
-	And I create a TestProbe called "worldWatcher"
+	Given I create a WorldPrefixPersistanceActor Actor using testProbe "worldWatcher"	
 	And I create the following prefixes in the WorldPrefixPersistanceActor Actor and store its state using test probe "worldWatcher"
 	| prefix |
 	| qwe    |

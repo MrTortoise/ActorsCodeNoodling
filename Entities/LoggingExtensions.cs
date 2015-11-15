@@ -10,10 +10,11 @@ namespace Entities
 {
     public static class LoggingExtensions
     {
-        public static void LogMessageDebug(this IActorContext context, object msg)
+        public static void LogMessageDebug(this IActorContext context, object msg, string extra = "")
         {
             context.GetLogger()
-                .Debug("{Actor}:{MessageType}:{@Message}", context.Self.Path, msg.GetType().FullName, msg);
+                .Debug("{Actor}:{MessageType}:{@Message}:{@extra}", context.Self.Path, msg.GetType().FullName, msg,
+                    extra);
         }
     }
 }

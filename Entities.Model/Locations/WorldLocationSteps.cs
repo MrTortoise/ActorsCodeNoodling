@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using Akka.Actor;
 using Akka.Dispatch.SysMsg;
 using Akka.TestKit;
@@ -22,25 +23,38 @@ namespace Entities.Model.Locations
             State = state;
         }
 
-        [Given(@"I create a WorldPrefixPersistanceActor Actor")]
-        public void GivenICreateAWorldPrefixPersistanceActorActor()
+        [Scope(Tag = "Persistence")]
+        [Given(@"I create a WorldPrefixPersistanceActor Actor using testProbe ""(.*)""")]
+        public void GivenICreateAWorldPrefixPersistanceActorActorUsingTestProbe(string probe)
         {
-            State.WorldPrefixPersistanceActor = State.TestKit.ActorOfAsTestActorRef<WorldPrefixPersistanceActor>();
+            var testProbe = State.TestProbes[probe];
+            State.WorldPrefixPersistanceActor =
+                testProbe.ActorOfAsTestActorRef<WorldPrefixPersistanceActor>(
+                    Props.Create(() => new WorldPrefixPersistanceActor()), testProbe, "worldPersistenceActor");
+            var parent = State.WorldPrefixPersistanceActor.Path.Parent;
+
         }
-        
+
+        [Scope(Tag = "Persistence")]
         [Given(@"I create the following prefixes in the WorldPrefixPersistanceActor Actor and store its state using test probe ""(.*)""")]
         public void GivenICreateTheFollowingPrefixesInTheWorldPrefixPersistanceActorActorAndStoreItsState(string probe,Table table)
         {
             var pr = State.TestProbes[probe];
             var prefixes = new List<string>(table.Rows.Select(r => r[0]));
 
-            prefixes.ForEach(p => State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.PostNewPrefixMessage(p)));
+            prefixes.ForEach(p =>
+            {
+                State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.PostNewPrefixMessage(p));
+                Thread.Sleep(10);
+                var msg = pr.ExpectMsg<WorldPrefixPersistanceActor.PrefixPersisted>(persisted => persisted.Prefix == p);
+            });
 
             State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.PostStoreStateMessage(), pr);
             pr.ExpectMsg<WorldPrefixPersistanceActor.StateSavedMessage>();
         }
-        
-        [When(@"I kill and restore the WorldPrefixPersistanceActor Actor")]
+
+        [Scope(Tag = "Persistence")]
+        [When(@"I kill the WorldPrefixPersistanceActor Actor")]
         public void WhenIKillAndRestoreTheWorldPrefixPersistanceActorActor()
         {
             Debug.WriteLine("about to watch World persistence actor");
@@ -57,17 +71,19 @@ namespace Entities.Model.Locations
             //man.GivenICreateATestActorSystem();
 
 
-            GivenICreateAWorldPrefixPersistanceActorActor();
+           // GivenICreateAWorldPrefixPersistanceActorActorCalled("worldWatcher");
         }
 
+        [Scope(Tag = "Persistence")]
         [Then(@"I expect querying the WorldPrefixPersistanceActor with TestProbe ""(.*)"" to yield the following prefixes")]
         public void ThenIExpectQueryingTheWorldPrefixPersistanceActorWithTestProbeToYieldTheFollowingPrefixes(string name, Table table)
         {
             var probe = State.TestProbes[name];
-            State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.QueryPrefixes(), probe);
+            State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.QueryPrefixes(null), probe);
 
             var result = probe.ExpectMsg<WorldPrefixPersistanceActor.PostQueryResultsMessage>(TimeSpan.FromMilliseconds(5000));
             var prefixes = result.Prefixes;
+            Thread.Sleep(1);
             Assert.IsNotNull(prefixes);
 
             table.Rows.Select(r=>r[0]).ForEach(p =>
@@ -76,5 +92,148 @@ namespace Entities.Model.Locations
             });
         }
 
+        [When(@"I have created a LocationGenerator Actor")]
+        [Given(@"I have created a LocationGenerator Actor")]
+        public void GivenIHaveCreatedALocationGeneratorActor()
+        {
+            State.LocationGeneratorActor =
+                State.TestKit.ActorOfAsTestActorRef<LocationGeneratorActor>(
+                    Props.Create(() => new LocationGeneratorActor()), "LocationGenerator");
+            Thread.Sleep(1);
+        }
+
+        [When(@"I add a location using ""(.*)"" called ""(.*)""")]
+        public void WhenIAddALocationUsingCalled(string testProbe , string location)
+        {
+            var sender = State.TestProbes[testProbe];
+            State.LocationGeneratorActor.Tell(new LocationGeneratorActor.AddLocation(new[] {location}), sender);
+            Thread.Sleep(250);
+        }
+
+        [Then(@"I expect the location ""(.*)"" to exist")]
+        public void ThenIExpectTheLocationToExist(string p0)
+        {
+            var res = State.LocationGeneratorActor.Ask<LocationGeneratorActor.Locations>(new LocationGeneratorActor.QueryLocations());
+            res.Wait();
+            Assert.AreEqual(1,res.Result.Names.Count());
+            Assert.AreEqual(p0,res.Result.Names.Single());
+        }
+
+        [When(@"I poison the LocationGenerator")]
+        public void WhenIPoisonTheLocationGenerator()
+        {
+            Debug.WriteLine("about to watch World persistence actor");
+            State.TestKit.Watch(State.LocationGeneratorActor);
+            Debug.WriteLine("sending poison pill");
+            State.LocationGeneratorActor.Tell(PoisonPill.Instance);
+            Thread.Sleep(1);
+            Debug.WriteLine("Expecting terminated");
+            var msg = State.TestKit.ExpectMsg<Terminated>();
+            Thread.Sleep(1);
+            State.TestKit.Unwatch(State.LocationGeneratorActor);
+            Debug.WriteLine("Terminated");
+           // Thread.Sleep(5000);
+
+            // GivenICreateAWorldPrefixPersistanceActorActor();
+        }
+
+        [Then(@"I expect that TestProbe ""(.*)"" be told the following locations was added ""(.*)""")]
+        public void ThenIExpectThatTestProbeBeToldTheFollowingLocationsWasAdded(string testProbe, string location)
+        {
+            var probe = State.TestProbes[testProbe];
+            var msg = probe.ExpectMsg<LocationGeneratorActor.LocationsAdded>();
+            Assert.Contains(location, msg.AddedLocations);
+        }
+
+
+    }
+
+    public class LocationGeneratorActor : ReceiveActor
+    {
+        private IActorRef _persistence;
+        private readonly HashSet<string> _locations = new HashSet<string>();
+
+        protected override void PreStart()
+        {
+            _persistence = Context.ActorOf(Props.Create(() => new WorldPrefixPersistanceActor()),
+                "worldPersistanceActor");
+        }
+
+        public LocationGeneratorActor()
+        {
+           
+
+            //Receive<ShutdownRequest>(msg =>
+            //{
+            //    _persistence.Tell(new ShutdownRequest(msg,Self));
+            //});
+
+            //Receive<ShutdownResponse>(msg =>
+            //{
+            //    var sender = msg.Senders.Pop();
+            //    sender.Tell(new ShutdownResponse(msg.Senders));
+            //    Self.Tell(Stop.Instance);
+            //});
+
+            Receive<AddLocation>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                foreach (var location in msg.Locations)
+                {
+                    if (!_locations.Contains(location))
+                    {
+                        _persistence.Tell(new WorldPrefixPersistanceActor.PostNewPrefixMessage(location));
+                    }
+                }
+
+                _persistence.Tell(new WorldPrefixPersistanceActor.PostStoreStateMessage());
+            });
+
+            Receive<QueryLocations>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                Sender.Tell(new Locations(_locations.ToArray()));
+            });
+
+            Receive<WorldPrefixPersistanceActor.PrefixPersisted>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                _locations.Add(msg.Prefix);
+            });
+        }
+
+        public class LocationsAdded
+        {
+            public List<string> AddedLocations { get; }
+
+            public LocationsAdded(List<string> addedLocations)
+            {
+                AddedLocations = addedLocations;
+            }
+        }
+
+        public class AddLocation
+        {
+            public string[] Locations { get;  }
+
+            public AddLocation(string[] locationses)
+            {
+                Locations = locationses;
+            }
+        }
+
+        public class Locations
+        {
+            public Locations(string[] names)
+            {
+                Names = names;
+            }
+
+            public string[] Names { get; private set; }
+        }
+
+        public class QueryLocations
+        {
+        }
     }
 }

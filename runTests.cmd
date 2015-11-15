@@ -1,0 +1,1 @@
+packages\xunit.runner.console.2.1.0\tools\xunit.console Entities.Model.XUnit\bin\Debug\Entities.Model.XUnit.dll
