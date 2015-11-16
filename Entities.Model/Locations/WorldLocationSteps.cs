@@ -25,6 +25,7 @@ namespace Entities.Model.Locations
 
         [Scope(Tag = "Persistence")]
         [Given(@"I create a WorldPrefixPersistanceActor Actor using testProbe ""(.*)""")]
+        [When(@"I create a WorldPrefixPersistanceActor Actor using testProbe ""(.*)""")]
         public void GivenICreateAWorldPrefixPersistanceActorActorUsingTestProbe(string probe)
         {
             var testProbe = State.TestProbes[probe];
@@ -32,6 +33,7 @@ namespace Entities.Model.Locations
                 testProbe.ActorOfAsTestActorRef<WorldPrefixPersistanceActor>(
                     Props.Create(() => new WorldPrefixPersistanceActor()), testProbe, "worldPersistenceActor");
             var parent = State.WorldPrefixPersistanceActor.Path.Parent;
+            testProbe.ExpectMsg<WorldPrefixPersistanceActor.WorldPrefixPersistentRecoveryComplete>();
 
         }
 
@@ -64,14 +66,6 @@ namespace Entities.Model.Locations
             Debug.WriteLine("Expecting terminated");
             State.TestKit.ExpectMsg<Terminated>();
             Debug.WriteLine("Terminated");
-
-
-            //State.TestKit.Sys.Shutdown();
-            //var man = new ResourceManagerSteps(State);
-            //man.GivenICreateATestActorSystem();
-
-
-           // GivenICreateAWorldPrefixPersistanceActorActorCalled("worldWatcher");
         }
 
         [Scope(Tag = "Persistence")]

@@ -137,7 +137,7 @@ this.FeatureBackground();
                         "dfg"});
             table2.AddRow(new string[] {
                         "cvb"});
-#line 27
+#line 26
  testRunner.Then("I expect querying the WorldPrefixPersistanceActor with TestProbe \"worldWatcher\" t" +
                     "o yield the following prefixes", ((string)(null)), table2, "Then ");
 #line hidden
@@ -151,11 +151,11 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Take a list of prefixes, store them, kill actor and then restore them", new string[] {
                         "Persistence"});
-#line 40
+#line 39
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 41
+#line 40
  testRunner.Given("I create a WorldPrefixPersistanceActor Actor using testProbe \"worldWatcher\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -178,11 +178,13 @@ this.FeatureBackground();
                         "dfg"});
             table3.AddRow(new string[] {
                         "cvb"});
-#line 42
+#line 41
  testRunner.And("I create the following prefixes in the WorldPrefixPersistanceActor Actor and stor" +
                     "e its state using test probe \"worldWatcher\"", ((string)(null)), table3, "And ");
+#line 52
+ testRunner.When("I kill the WorldPrefixPersistanceActor Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 53
- testRunner.When("I kill and restore the WorldPrefixPersistanceActor Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I create a WorldPrefixPersistanceActor Actor using testProbe \"worldWatcher\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "prefix"});

@@ -23,7 +23,6 @@ Scenario: Take a list of prefixes, store them and then restore them
 	| ert    |
 	| dfg    |
 	| cvb    |
-#	When I kill and restore the WorldPrefixPersistanceActor Actor
 	Then I expect querying the WorldPrefixPersistanceActor with TestProbe "worldWatcher" to yield the following prefixes
 	| prefix |
 	| qwe    |
@@ -50,7 +49,8 @@ Scenario: Take a list of prefixes, store them, kill actor and then restore them
 	| ert    |
 	| dfg    |
 	| cvb    |
-	When I kill and restore the WorldPrefixPersistanceActor Actor
+	When I kill the WorldPrefixPersistanceActor Actor
+	And I create a WorldPrefixPersistanceActor Actor using testProbe "worldWatcher"	
 	Then I expect querying the WorldPrefixPersistanceActor with TestProbe "worldWatcher" to yield the following prefixes
 	| prefix |
 	| qwe    |
