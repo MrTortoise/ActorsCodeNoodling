@@ -48,3 +48,30 @@ Scenario: Add a location
 	When I poison the LocationGenerator
 	And I have created a LocationGenerator Actor
 	Then I expect the location "test" to exist
+
+
+@LocationGenerator
+Scenario: Add multiple locations
+	Given I have created a LocationGenerator Actor
+	And I create a TestProbe called "LocationWatcher"
+	And I observe LocationGenerator with TestProbe "LocationWatcher"
+	When I add the following locations using "LocationWatcher"
+	| location   |
+	| test1      |
+	| another    |
+	| yesAnother |
+	| andAgain   |
+	Then I expect that TestProbe "LocationWatcher" be told the following locations were added 
+	| location   |
+	| test1      |
+	| another    |
+	| yesAnother |
+	| andAgain   |
+	When I poison the LocationGenerator
+	And I have created a LocationGenerator Actor
+	Then I expect the follwing locations to exist
+	| location   |
+	| test1      |
+	| another    |
+	| yesAnother |
+	| andAgain   |

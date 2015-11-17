@@ -147,6 +147,46 @@ namespace Entities.Model.Locations
             Assert.Contains(location, msg.AddedLocations);
         }
 
+        [When(@"I add the following locations using ""(.*)""")]
+        public void WhenIAddTheFollowingLocationsUsing(string probeName, Table table)
+        {
+            var locations = GetLocations(table);
+            var probe = State.TestProbes[probeName];
+            State.LocationGeneratorActor.Tell(new LocationGeneratorActor.AddLocation(locations), probe);
+        }
+
+        private static string[] GetLocations(Table table)
+        {
+            return table.Rows.Select(i => i[0]).ToArray();
+        }
+
+        [Then(@"I expect that TestProbe ""(.*)"" be told the following locations were added")]
+        public void ThenIExpectThatTestProbeBeToldTheFollowingLocationsWereAdded(string probeName, Table table)
+        {
+            var locations = GetLocations(table);
+            var probe = State.TestProbes[probeName];
+            var msg = probe.ExpectMsg<LocationGeneratorActor.LocationsAdded>();
+            foreach (var location in locations)
+            {
+                Assert.Contains(location, msg.AddedLocations);
+            }
+        }
+
+        [Then(@"I expect the follwing locations to exist")]
+        public void ThenIExpectTheFollwingLocationsToExist(Table table)
+        {
+            var locations = GetLocations(table);
+
+            var res = State.LocationGeneratorActor.Ask<LocationGeneratorActor.Locations>(new LocationGeneratorActor.QueryLocations());
+            res.Wait();
+            
+            foreach (var location in locations)
+            {
+                Assert.Contains(location,res.Result.Names);
+            }
+        }
+
+
 
     }
 }

@@ -129,6 +129,71 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Add multiple locations")]
+        [NUnit.Framework.CategoryAttribute("LocationGenerator")]
+        public virtual void AddMultipleLocations()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add multiple locations", new string[] {
+                        "LocationGenerator"});
+#line 54
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 55
+ testRunner.Given("I have created a LocationGenerator Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 56
+ testRunner.And("I create a TestProbe called \"LocationWatcher\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 57
+ testRunner.And("I observe LocationGenerator with TestProbe \"LocationWatcher\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "location"});
+            table1.AddRow(new string[] {
+                        "test1"});
+            table1.AddRow(new string[] {
+                        "another"});
+            table1.AddRow(new string[] {
+                        "yesAnother"});
+            table1.AddRow(new string[] {
+                        "andAgain"});
+#line 58
+ testRunner.When("I add the following locations using \"LocationWatcher\"", ((string)(null)), table1, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "location"});
+            table2.AddRow(new string[] {
+                        "test1"});
+            table2.AddRow(new string[] {
+                        "another"});
+            table2.AddRow(new string[] {
+                        "yesAnother"});
+            table2.AddRow(new string[] {
+                        "andAgain"});
+#line 64
+ testRunner.Then("I expect that TestProbe \"LocationWatcher\" be told the following locations were ad" +
+                    "ded", ((string)(null)), table2, "Then ");
+#line 70
+ testRunner.When("I poison the LocationGenerator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 71
+ testRunner.And("I have created a LocationGenerator Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "location"});
+            table3.AddRow(new string[] {
+                        "test1"});
+            table3.AddRow(new string[] {
+                        "another"});
+            table3.AddRow(new string[] {
+                        "yesAnother"});
+            table3.AddRow(new string[] {
+                        "andAgain"});
+#line 72
+ testRunner.Then("I expect the follwing locations to exist", ((string)(null)), table3, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
