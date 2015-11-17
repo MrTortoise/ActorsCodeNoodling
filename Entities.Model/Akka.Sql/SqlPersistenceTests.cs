@@ -52,57 +52,41 @@ namespace Entities.Model.Akka.Sql
             var testSystem = new TestKit(Config,"sql");
             SqlServerPersistence.Init(testSystem.Sys);
 
-            using (var connection = new SqlConnection(@"Data Source = localhost\SQLEXPRESS; Database = AkkaPersistenceTest; User Id = akkadotnet; Password = akkadotnet;"))
-            {
-                var cleanSnapShotSql = "delete from SnapshotStore;";
-                var cleanEventJournalSql = "delete from EventJournal;";
-                connection.Open();
-
-                using (var command = new SqlCommand(cleanSnapShotSql,connection))
-                {
-                    command.ExecuteNonQuery();
-                }
-
-                using (var command = new SqlCommand(cleanEventJournalSql, connection))
-                {
-                    command.ExecuteNonQuery();
-                }
-                connection.Close();
-            }
+            SqlPersistenceHelpers.ClearDatabase();
 
             var persistor =
-                testSystem.ActorOfAsTestActorRef<SqlTestActor>(Props.Create(() => new SqlTestActor("SomeTest")));
+                testSystem.ActorOfAsTestActorRef<SqlPersistenceTests.SqlTestActor>(Props.Create(() => new SqlPersistenceTests.SqlTestActor("SomeTest")));
             var probe = testSystem.CreateTestProbe("testies");
-            persistor.Tell(new SqlTestActor.Incrementor(10), probe);
-            persistor.Tell(new SqlTestActor.RequestCurrentValue(), probe);
+            persistor.Tell(new SqlPersistenceTests.SqlTestActor.Incrementor(10), probe);
+            persistor.Tell(new SqlPersistenceTests.SqlTestActor.RequestCurrentValue(), probe);
 
-            var result = probe.ExpectMsg<SqlTestActor.IncrementorResult>();
+            var result = probe.ExpectMsg<SqlPersistenceTests.SqlTestActor.IncrementorResult>();
             Assert.AreEqual(10,result.Value);
 
             testSystem.Shutdown(TimeSpan.FromSeconds(5), true);
 
             testSystem = new TestKit(Config, "sql");
-             persistor = testSystem.ActorOfAsTestActorRef<SqlTestActor>(Props.Create(() => new SqlTestActor("SomeTest")));
+             persistor = testSystem.ActorOfAsTestActorRef<SqlPersistenceTests.SqlTestActor>(Props.Create(() => new SqlPersistenceTests.SqlTestActor("SomeTest")));
              probe = testSystem.CreateTestProbe("testies2");
-            persistor.Tell(new SqlTestActor.RequestCurrentValue(),probe);
+            persistor.Tell(new SqlPersistenceTests.SqlTestActor.RequestCurrentValue(),probe);
 
-            result = probe.ExpectMsg<SqlTestActor.IncrementorResult>();
+            result = probe.ExpectMsg<SqlPersistenceTests.SqlTestActor.IncrementorResult>();
             Assert.AreEqual(10, result.Value);
 
             persistor.Tell("snap",probe);
-            persistor.Tell(new SqlTestActor.Incrementor(10), probe);
-            persistor.Tell(new SqlTestActor.RequestCurrentValue(), probe);
+            persistor.Tell(new SqlPersistenceTests.SqlTestActor.Incrementor(10), probe);
+            persistor.Tell(new SqlPersistenceTests.SqlTestActor.RequestCurrentValue(), probe);
 
-            result = probe.ExpectMsg<SqlTestActor.IncrementorResult>();
+            result = probe.ExpectMsg<SqlPersistenceTests.SqlTestActor.IncrementorResult>();
             Assert.AreEqual(20, result.Value);
             testSystem.Shutdown(TimeSpan.FromSeconds(5), true);
 
             testSystem = new TestKit(Config, "sql");
-            persistor = testSystem.ActorOfAsTestActorRef<SqlTestActor>(Props.Create(() => new SqlTestActor("SomeTest")));
+            persistor = testSystem.ActorOfAsTestActorRef<SqlPersistenceTests.SqlTestActor>(Props.Create(() => new SqlPersistenceTests.SqlTestActor("SomeTest")));
             probe = testSystem.CreateTestProbe("testies3");
-            persistor.Tell(new SqlTestActor.RequestCurrentValue(), probe);
+            persistor.Tell(new SqlPersistenceTests.SqlTestActor.RequestCurrentValue(), probe);
 
-            result = probe.ExpectMsg<SqlTestActor.IncrementorResult>();
+            result = probe.ExpectMsg<SqlPersistenceTests.SqlTestActor.IncrementorResult>();
             Assert.AreEqual(20, result.Value);
         }
 

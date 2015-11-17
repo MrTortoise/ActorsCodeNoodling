@@ -124,6 +124,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SqlPersistenceHelpers.cs" />
     <Compile Include="Akka.Sql\SqlPersistenceTests.cs" />
     <Compile Include="Akka.Testkit.Experiments\FsmActorState.cs" />
     <Compile Include="Akka.Testkit.Experiments\FsmBecomeActor.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="ScenarioContextExtensions.cs" />
     <Compile Include="ScenarioContextState.cs" />
     <Compile Include="SpecflowHelpers.cs" />
+    <Compile Include="SqlPersistenceSteps.cs" />
     <Compile Include="SystemAndProbsSteps.cs" />
     <Compile Include="Tradeables\ResourceModel.CreateAResource.g.cs">
       <DependentUpon>ResourceModel.cs</DependentUpon>

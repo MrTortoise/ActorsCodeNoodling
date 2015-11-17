@@ -36,12 +36,13 @@ Background:
                     }
 		}
 	"""
-	And I have cleared out any persistence file data
+	And I have cleared out any persistence sql data
 
 @LocationGenerator
 Scenario: Add a location
 	Given I have created a LocationGenerator Actor
 	And I create a TestProbe called "LocationWatcher"
+	And I observe LocationGenerator with TestProbe "LocationWatcher"
 	When I add a location using "LocationWatcher" called "test"
 	Then I expect that TestProbe "LocationWatcher" be told the following locations was added "test"	
 	When I poison the LocationGenerator

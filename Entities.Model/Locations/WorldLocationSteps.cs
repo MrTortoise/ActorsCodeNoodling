@@ -93,7 +93,7 @@ namespace Entities.Model.Locations
             State.LocationGeneratorActor =
                 State.TestKit.ActorOfAsTestActorRef<LocationGeneratorActor>(
                     Props.Create(() => new LocationGeneratorActor()), "LocationGenerator");
-            Thread.Sleep(1);
+            Thread.Sleep(250);
         }
 
         [When(@"I add a location using ""(.*)"" called ""(.*)""")]
@@ -103,6 +103,14 @@ namespace Entities.Model.Locations
             State.LocationGeneratorActor.Tell(new LocationGeneratorActor.AddLocation(new[] {location}), sender);
             Thread.Sleep(250);
         }
+
+        [Given(@"I observe LocationGenerator with TestProbe ""(.*)""")]
+        public void GivenIObserveLocationGeneratorWithTestProbe(string testProbe)
+        {
+            var observer = State.TestProbes[testProbe];
+            State.LocationGeneratorActor.Tell(new LocationGeneratorActor.Observe(), observer);
+        }
+
 
         [Then(@"I expect the location ""(.*)"" to exist")]
         public void ThenIExpectTheLocationToExist(string p0)
@@ -140,94 +148,5 @@ namespace Entities.Model.Locations
         }
 
 
-    }
-
-    public class LocationGeneratorActor : ReceiveActor
-    {
-        private IActorRef _persistence;
-        private readonly HashSet<string> _locations = new HashSet<string>();
-
-        protected override void PreStart()
-        {
-            _persistence = Context.ActorOf(Props.Create(() => new WorldPrefixPersistanceActor()),
-                "worldPersistanceActor");
-        }
-
-        public LocationGeneratorActor()
-        {
-           
-
-            //Receive<ShutdownRequest>(msg =>
-            //{
-            //    _persistence.Tell(new ShutdownRequest(msg,Self));
-            //});
-
-            //Receive<ShutdownResponse>(msg =>
-            //{
-            //    var sender = msg.Senders.Pop();
-            //    sender.Tell(new ShutdownResponse(msg.Senders));
-            //    Self.Tell(Stop.Instance);
-            //});
-
-            Receive<AddLocation>(msg =>
-            {
-                Context.LogMessageDebug(msg);
-                foreach (var location in msg.Locations)
-                {
-                    if (!_locations.Contains(location))
-                    {
-                        _persistence.Tell(new WorldPrefixPersistanceActor.PostNewPrefixMessage(location));
-                    }
-                }
-
-                _persistence.Tell(new WorldPrefixPersistanceActor.PostStoreStateMessage());
-            });
-
-            Receive<QueryLocations>(msg =>
-            {
-                Context.LogMessageDebug(msg);
-                Sender.Tell(new Locations(_locations.ToArray()));
-            });
-
-            Receive<WorldPrefixPersistanceActor.PrefixPersisted>(msg =>
-            {
-                Context.LogMessageDebug(msg);
-                _locations.Add(msg.Prefix);
-            });
-        }
-
-        public class LocationsAdded
-        {
-            public List<string> AddedLocations { get; }
-
-            public LocationsAdded(List<string> addedLocations)
-            {
-                AddedLocations = addedLocations;
-            }
-        }
-
-        public class AddLocation
-        {
-            public string[] Locations { get;  }
-
-            public AddLocation(string[] locationses)
-            {
-                Locations = locationses;
-            }
-        }
-
-        public class Locations
-        {
-            public Locations(string[] names)
-            {
-                Names = names;
-            }
-
-            public string[] Names { get; private set; }
-        }
-
-        public class QueryLocations
-        {
-        }
     }
 }

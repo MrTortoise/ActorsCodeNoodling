@@ -152,6 +152,7 @@
     <Compile Include="ITradeable.cs" />
     <Compile Include="ITrader.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="LocationGeneratorActor.cs" />
     <Compile Include="LoggingExtensions.cs" />
     <Compile Include="Market.cs" />
     <Compile Include="MarketHub.cs" />

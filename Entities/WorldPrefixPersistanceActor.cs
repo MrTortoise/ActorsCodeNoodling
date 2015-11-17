@@ -23,6 +23,7 @@ namespace Entities
             if (s != null)
             {
                 Context.LogMessageDebug(s);
+                Context.Parent.Tell(new Recovering());
                 UpdateState(s);
             }
             else if (snapShot != null)
@@ -42,18 +43,18 @@ namespace Entities
             else if (recoverComplete != null)
             {
                 Context.LogMessageDebug(recoverComplete);
-                Context.Parent.Tell(new WorldPrefixPersistentRecoveryComplete());
+                Context.Parent.Tell(new WorldPrefixPersistentRecoveryComplete(_state.Prefixes.ToArray()));
             }
             else
             {
                 Context.LogMessageDebug(message, "failed to parse");
                 return false;
             }
-
+            
             return true;
         }
 
-        public class WorldPrefixPersistentRecoveryComplete
+        public class Recovering
         {
         }
 
@@ -131,6 +132,16 @@ namespace Entities
             }
         }
 
+        public class WorldPrefixPersistentRecoveryComplete
+        {
+            public string[] Prefixes { get;  }
+
+
+            public WorldPrefixPersistentRecoveryComplete(string[] prefixes)
+            {
+                Prefixes = prefixes;
+            }
+        }
         /// <summary>
         /// Posts the message telling the <see cref="WorldPrefixPersistanceActor"/> to store its state
         /// </summary>

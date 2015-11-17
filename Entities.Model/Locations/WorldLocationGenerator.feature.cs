@@ -92,7 +92,7 @@ namespace Entities.Model.Locations
                     "RESS;Database=AkkaPersistenceTest;User Id=akkadotnet;Password=akkadotnet;\"\r\n    " +
                     "                       }\r\n                       }\r\n                   }\r\n\t}", ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 39
- testRunner.And("I have cleared out any persistence file data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have cleared out any persistence sql data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -114,15 +114,17 @@ this.FeatureBackground();
 #line 44
  testRunner.And("I create a TestProbe called \"LocationWatcher\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 45
- testRunner.When("I add a location using \"LocationWatcher\" called \"test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I observe LocationGenerator with TestProbe \"LocationWatcher\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 46
+ testRunner.When("I add a location using \"LocationWatcher\" called \"test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 47
  testRunner.Then("I expect that TestProbe \"LocationWatcher\" be told the following locations was add" +
                     "ed \"test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 47
- testRunner.When("I poison the LocationGenerator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 48
- testRunner.And("I have created a LocationGenerator Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I poison the LocationGenerator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 49
+ testRunner.And("I have created a LocationGenerator Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 50
  testRunner.Then("I expect the location \"test\" to exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
