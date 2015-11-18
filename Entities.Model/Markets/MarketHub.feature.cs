@@ -88,16 +88,20 @@ this.ScenarioSetup(scenarioInfo);
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Name"});
+                        "Name",
+                        "Location"});
             table1.AddRow(new string[] {
-                        "test1"});
+                        "test1",
+                        "Sopmewhere"});
 #line 12
   testRunner.When("I create the following markets using testProbe \"marketCreator\"", ((string)(null)), table1, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Name"});
+                        "Name",
+                        "Location"});
             table2.AddRow(new string[] {
-                        "test1"});
+                        "test1",
+                        "Sopmewhere"});
 #line 15
   testRunner.Then("I expect testProbe \"marketCreator\" of been notified of the market having been cre" +
                     "ated", ((string)(null)), table2, "Then ");
@@ -116,20 +120,26 @@ this.ScenarioSetup(scenarioInfo);
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Name"});
+                        "Name",
+                        "Location"});
             table3.AddRow(new string[] {
-                        "test1"});
+                        "test1",
+                        "Somewhere"});
             table3.AddRow(new string[] {
-                        "test2"});
+                        "test2",
+                        "SomewhereElse"});
 #line 20
  testRunner.When("I create the following markets using testProbe \"marketCreator\"", ((string)(null)), table3, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Name"});
+                        "Name",
+                        "Location"});
             table4.AddRow(new string[] {
-                        "test1"});
+                        "test1",
+                        "Somewhere"});
             table4.AddRow(new string[] {
-                        "test2"});
+                        "test2",
+                        "SomewhereElse"});
 #line 24
  testRunner.Then("I expect to see the following markets when I query the listings", ((string)(null)), table4, "Then ");
 #line hidden

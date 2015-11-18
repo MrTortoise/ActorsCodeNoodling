@@ -185,8 +185,5 @@ namespace Entities.Model.Locations
                 Assert.Contains(location,res.Result.Names);
             }
         }
-
-
-
     }
 }

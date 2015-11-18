@@ -29,6 +29,7 @@ namespace Entities
 
         public void Handle(QueryMarketMessage message)
         {
+            Context.LogMessageDebug(message);
             var ret = new ResultMarketResources(Name, ItemsForSale, Self);
             Sender.Tell(ret, Self);
         }

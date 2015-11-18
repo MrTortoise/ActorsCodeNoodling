@@ -142,6 +142,7 @@ namespace Entities
                 Prefixes = prefixes;
             }
         }
+
         /// <summary>
         /// Posts the message telling the <see cref="WorldPrefixPersistanceActor"/> to store its state
         /// </summary>

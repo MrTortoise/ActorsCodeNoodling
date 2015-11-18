@@ -6,22 +6,22 @@
 Background: 
 	Given I create a test actor system
 	And I initialise the MarketHub Actor
-	And I create a TestProbe called "marketCreator"
+	And I create a TestProbe called "marketCreator"	
 
 Scenario: Create a market in the listing and confirm its reference is as expected
 	 When I create the following markets using testProbe "marketCreator"
-	 | Name  |
-	 | test1 |
+	 | Name  | Location   |
+	 | test1 | Sopmewhere |
 	 Then I expect testProbe "marketCreator" of been notified of the market having been created
-	 | Name  |
-	 | test1 |
+	 | Name  | Location   |
+	 | test1 | Sopmewhere |
 
 Scenario: Create a market with a given name	in the market listing
 	When I create the following markets using testProbe "marketCreator"
-	 | Name  |
-	 | test1 |
-	 | test2 |
+	 | Name  | Location      |
+	 | test1 | Somewhere     |
+	 | test2 | SomewhereElse |
 	Then I expect to see the following markets when I query the listings
-	| Name  |
-	| test1 |
-	| test2 |
+	| Name  | Location      |
+	| test1 | Somewhere     |
+	| test2 | SomewhereElse |

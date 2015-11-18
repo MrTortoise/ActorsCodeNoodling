@@ -2,6 +2,7 @@ using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Akka.Actor;
@@ -12,41 +13,93 @@ namespace Entities
     /// <summary>
     /// Represents a central listing of markets, manages the creation, querying and lifecycles of them.
     /// </summary>
-    public class MarketHub : TypedActor, IHandle<MarketHub.TellCreateMarketMessage>, IHandle<MarketHub.QueryMarketListingsMessage>
+    public class MarketHub : ReceiveActor
     {
-        /// <summary>
-        /// The message to send to a <see cref="MarketHub"/> to create a market
-        /// </summary>
-        public void Handle(TellCreateMarketMessage message)
+        private readonly Dictionary<string, IActorRef> _markets = new Dictionary<string, IActorRef>();
+
+        public MarketHub()
         {
-            var sender = Context.Sender;
-            var marketActor = Context.ActorOf(Props.Create(() => new Market(message.Name, sender)), message.Name);
-            
-            Context.Sender.Tell(new TellMarketCreatedMessage(marketActor));
+            Receive<TellCreateMarketMessage>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                var sender = Context.Sender;
+                var marketActor = Context.ActorOf(Props.Create(() => new Market(msg.Name, sender)), msg.Name);
+
+                _markets.Add(msg.Name, marketActor);
+                sender.Tell(new TellMarketCreatedMessage(marketActor));
+            });
+
+            Receive<QueryMarketListingsMessage>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                var coordinator = Context.ActorOf(MarketQueryCoordinator.CreateProps());
+                coordinator.Tell(new MarketQueryCoordinator.QueryMarkets(_markets.Values.ToArray(), Sender));
+            });
         }
 
-        public void Handle(QueryMarketListingsMessage message)
-        {
-            var children = Context.GetChildren();
-            var tasks = new List<Task<Market.ResultMarketResources>>();
 
-            // ReSharper disable once LoopCanBeConvertedToQuery
-            foreach (var child in children)
+        public class MarketQueryCoordinator : ReceiveActor
+        {
+            private readonly Dictionary<IActorRef, bool> _markets = new Dictionary<IActorRef, bool>();
+
+            private readonly Dictionary<string, Market.ResultMarketResources> _marketResources =
+                new Dictionary<string, Market.ResultMarketResources>();
+
+            private IActorRef _sender;
+
+            public static Props CreateProps()
             {
-                var t = child.Ask<Market.ResultMarketResources>(new Market.QueryMarketMessage());
-                tasks.Add(t);
+                return Props.Create(() => new MarketQueryCoordinator());
             }
 
-            var conTask = Task.WhenAll(tasks);
-            conTask.ContinueWith((task, state) =>
+            public MarketQueryCoordinator()
             {
-                Market.ResultMarketResources[] resources = task.Result;
-                var result = new ResultsMarketListings(resources);
-                var s = (SenderSelf) state;
+                BecomeStacked(Waiting);
+            }
 
-                s.Sender.Tell(result, s.Self);
-            }, new SenderSelf(Sender, Self)
-                );
+            private void Waiting()
+            {
+                Receive<QueryMarkets>(msg =>
+                {
+                    Context.LogMessageDebug(msg);
+                    _sender = msg.Sender;
+                    foreach (var actorRef in msg.Markets)
+                    {
+                        actorRef.Tell(new Market.QueryMarketMessage());
+                        _markets.Add(actorRef, false);
+                    }
+
+                    Become(Processing);
+                });
+            }
+
+            private void Processing()
+            {
+                Receive<Market.ResultMarketResources>(msg =>
+                {
+                    Context.LogMessageDebug(msg);
+                    _marketResources.Add(msg.MarketName, msg);
+                    _markets[msg.Market] = true;
+
+                    if (!_markets.Values.Contains(false))
+                    {
+                        _sender.Tell(new ResultsMarketListings(_marketResources.Values.ToArray()));
+                        Become(Waiting);
+                    }
+                });
+            }
+
+            public class QueryMarkets
+            {
+                public IActorRef[] Markets { get; }
+                public IActorRef Sender { get; }
+
+                public QueryMarkets(IActorRef[] markets, IActorRef sender)
+                {
+                    Markets = markets;
+                    Sender = sender;
+                }
+            }
         }
 
         /// <summary>
@@ -106,21 +159,6 @@ namespace Entities
         public class QueryMarketListingsMessage
         {
         }
-
-
-    }
-
-    public class SenderSelf
-    {
-        public IActorRef Sender { get; set; }
-        public IActorRef Self { get; set; }
-
-        public SenderSelf(IActorRef sender, IActorRef self)
-        {
-            if (sender == null) throw new ArgumentNullException(nameof(sender));
-            if (self == null) throw new ArgumentNullException(nameof(self));
-            Sender = sender;
-            Self = self;
-        }
     }
 }
+

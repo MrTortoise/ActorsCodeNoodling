@@ -1,7 +1,7 @@
 ﻿Feature: ExchangeContractFeature
-	In order to avoid silly mistakes
-	As a math idiot
-	I want to be told the sum of two numbers
+	In order to setup a contract to exchange goods at a given location
+	As a trader
+	I want to be able to post Exchange contracts and negotiate terms
 
 Background: 
    Given I create a test actor system
