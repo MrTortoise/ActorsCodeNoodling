@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.Util.Internal;
+using Entities.NameGenerators;
 
 namespace Entities
 {
@@ -16,6 +17,7 @@ namespace Entities
     public class MarketHub : ReceiveActor
     {
         private readonly Dictionary<string, IActorRef> _markets = new Dictionary<string, IActorRef>();
+        private ActorSelection _locationGenerator;
 
         public MarketHub()
         {
@@ -23,7 +25,7 @@ namespace Entities
             {
                 Context.LogMessageDebug(msg);
                 var sender = Context.Sender;
-                var marketActor = Context.ActorOf(Props.Create(() => new Market(msg.Name, sender)), msg.Name);
+                var marketActor = Context.ActorOf(Props.Create(() => new Market(msg.Name,msg.Location)), msg.Name);
 
                 _markets.Add(msg.Name, marketActor);
                 sender.Tell(new TellMarketCreatedMessage(marketActor));
@@ -37,8 +39,12 @@ namespace Entities
             });
         }
 
+        protected override void PreStart()
+        {
+            _locationGenerator = Context.ActorSelection(LocationNameGeneratorActor.Path);
+        }
 
-        public class MarketQueryCoordinator : ReceiveActor
+        private class MarketQueryCoordinator : ReceiveActor
         {
             private readonly Dictionary<IActorRef, bool> _markets = new Dictionary<IActorRef, bool>();
 
@@ -54,7 +60,7 @@ namespace Entities
 
             public MarketQueryCoordinator()
             {
-                BecomeStacked(Waiting);
+                Become(Waiting);
             }
 
             private void Waiting()
@@ -112,14 +118,20 @@ namespace Entities
             /// </summary>
             public string Name { get; private set; }
 
+            public string Location { get; private set; }
+
             /// <summary>
             /// Creates an instance of <see cref="TellMarketCreatedMessage"/>
             /// </summary>
             /// <param name="name">The name of the market to create</param>
-            public TellCreateMarketMessage(string name)
+            /// <param name="location"></param>
+            public TellCreateMarketMessage(string name, string location)
             {
                 if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+                if (string.IsNullOrEmpty(location)) throw new ArgumentNullException(nameof(location));
+
                 Name = name;
+                Location = location;
             }
         }
 

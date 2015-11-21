@@ -15,7 +15,6 @@ namespace Entities.Model.ContractActors
     {
         private readonly ScenarioContextState _state;
 
-
         public ExchangeContractFeatureSteps(ScenarioContextState state)
         {
             _state = state;

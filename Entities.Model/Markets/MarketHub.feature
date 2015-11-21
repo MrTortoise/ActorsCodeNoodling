@@ -6,6 +6,7 @@
 Background: 
 	Given I create a test actor system
 	And I initialise the MarketHub Actor
+	And I have created a LocationGenerator Actor
 	And I create a TestProbe called "marketCreator"	
 
 Scenario: Create a market in the listing and confirm its reference is as expected

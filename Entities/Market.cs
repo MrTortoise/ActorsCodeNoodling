@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Runtime.Remoting.Messaging;
 using Akka.Actor;
 
 namespace Entities
@@ -11,44 +13,47 @@ namespace Entities
     /// </summary>
     public class Market : TypedActor , IHandle<Market.QueryMarketMessage>
     {
-        private IActorRef _creator;
+        private readonly Dictionary<string, ResourceForSale> _itemsForSale = new Dictionary<string, ResourceForSale>();
 
-        public string Name { get; }
-        public ImmutableDictionary<string, ResourceForSale> ItemsForSale { get; private set; }
+        private readonly string _name;
+        private IActorRef _location;
 
-        public Market(string name, IActorRef creator)
+        public static Props CreateProps(string name, IActorRef location)
         {
-            if (creator == null) throw new ArgumentNullException(nameof(creator));
+            return Props.Create(() => new Market(name, location));
+        }
+
+        public Market(string name, IActorRef location)
+        {
+            if (location == null) throw new ArgumentNullException(nameof(location));
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
 
-            Name = name;
-            this._creator = creator;
-
-            ItemsForSale  = ImmutableDictionary<string, ResourceForSale>.Empty;
+            _name = name;
+            _location = location;
         }
 
         public void Handle(QueryMarketMessage message)
         {
             Context.LogMessageDebug(message);
-            var ret = new ResultMarketResources(Name, ItemsForSale, Self);
+            var ret = new ResultMarketResources(_name, _itemsForSale, Self);
             Sender.Tell(ret, Self);
         }
 
         public void AddItemForSale(IResource resource, int amount, int pricePerUnit)
         {
             if (resource == null) throw new ArgumentNullException(nameof(resource));
-            if (ItemsForSale.ContainsKey(resource.Name))
+            if (_itemsForSale.ContainsKey(resource.Name))
             {
-                var existing = ItemsForSale[resource.Name];
+                var existing = _itemsForSale[resource.Name];
                 var newItem = new ResourceForSale(resource, existing.Amount + amount,
                     Math.Max(pricePerUnit, existing.PricePerUnit));
 
-                ItemsForSale = ItemsForSale.SetItem(resource.Name, newItem);
+                _itemsForSale[resource.Name] = newItem;
             }
             else
             {
                 var saleItem = new ResourceForSale(resource, amount, pricePerUnit);
-                ItemsForSale = ItemsForSale.Add(saleItem.Resource.Name, saleItem);
+                _itemsForSale.Add(saleItem.Resource.Name, saleItem);
             }
         }
 
@@ -111,7 +116,7 @@ namespace Entities
         /// </summary>
         public class ResultMarketResources
         {
-            public ResultMarketResources(string marketName, ImmutableDictionary<string, ResourceForSale> itemsForSale, IActorRef market)
+            public ResultMarketResources(string marketName, Dictionary<string, ResourceForSale> itemsForSale, IActorRef market)
             {
                 if (string.IsNullOrWhiteSpace(marketName)) throw new ArgumentNullException(nameof(marketName));
                 if (itemsForSale == null) throw new ArgumentNullException(nameof(itemsForSale));
@@ -123,7 +128,7 @@ namespace Entities
             }
 
             public string MarketName { get; private set; }
-            public ImmutableDictionary<string, ResourceForSale> ItemsForSale { get; private set; }
+            public Dictionary<string, ResourceForSale> ItemsForSale { get; private set; }
             public IActorRef Market { get; private set; }
         }
 
@@ -133,7 +138,5 @@ namespace Entities
         public class QueryMarketMessage
         {
         }
-
-
     }
 }

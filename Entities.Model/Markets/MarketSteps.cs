@@ -31,7 +31,8 @@ namespace Entities.Model.Markets
             table.Rows.ForEach(r =>
             {
                 var name = r["Name"];
-                var createMarketMessage = new MarketHub.TellCreateMarketMessage(name);
+                var location = r["Location"];
+                var createMarketMessage = new MarketHub.TellCreateMarketMessage(name, location);
                 marketHub.Tell(createMarketMessage, creator);
             });
         }

@@ -8,6 +8,7 @@ using Akka.TestKit;
 using Akka.TestKit.NUnit;
 using Entities.Model.Locations;
 using Entities.Model.Markets;
+using Entities.NameGenerators;
 
 namespace Entities.Model
 {
@@ -52,7 +53,7 @@ namespace Entities.Model
        public Dictionary<string,IActorRef> Markets { get; private set; }
        public TestActorRef<WorldPrefixPersistanceActor> WorldPrefixPersistanceActor { get; set; }
        public string Config { get; set; }
-       public TestActorRef<LocationGeneratorActor> LocationGeneratorActor { get; set; }
+       public TestActorRef<LocationNameGeneratorActor> LocationGeneratorActor { get; set; }
 
        /// <summary>
       /// Given a resource name will return a <see cref="Resource"/> from <see cref="ResourceManager"/>

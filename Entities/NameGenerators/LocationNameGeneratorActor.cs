@@ -1,22 +1,34 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Akka.Actor;
-using Akka.Dispatch.SysMsg;
 using Akka.Util.Internal;
 
-namespace Entities
+namespace Entities.NameGenerators
 {
-    public class LocationGeneratorActor : ReceiveActor, IWithUnboundedStash
+    /// <summary>
+    /// Manages the creation of unique names for locations and maintaing the list of used options
+    /// </summary>
+    public class LocationNameGeneratorActor : ReceiveActor, IWithUnboundedStash
     {
         private IActorRef _persistence;
         private readonly HashSet<string> _locations = new HashSet<string>();
         private readonly HashSet<string> _locationsBeingAdded = new HashSet<string>();
 
         private readonly List<IActorRef> _observers = new List<IActorRef>();
+        private INameGenerator _nameGenerator;
 
-        public LocationGeneratorActor()
+        public static string Path => @"user/LocationGenerator";
+
+        public static string Name => "LocationGenerator";
+
+        public static Props CreateProps()
         {
+            return Props.Create(() => new LocationNameGeneratorActor());
+        }
+
+        public LocationNameGeneratorActor()
+        {
+            _nameGenerator = new LocationNameGenerator();
             Become(Waiting);
             BecomeStacked(Recovering);
         }
@@ -153,7 +165,5 @@ namespace Entities
         public class QueryLocations
         {
         }
-
-       
     }
 }

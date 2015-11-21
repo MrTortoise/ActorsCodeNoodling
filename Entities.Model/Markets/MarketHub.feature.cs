@@ -73,6 +73,8 @@ namespace Entities.Model.Markets
 #line 8
  testRunner.And("I initialise the MarketHub Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
+ testRunner.And("I have created a LocationGenerator Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 10
  testRunner.And("I create a TestProbe called \"marketCreator\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
@@ -82,7 +84,7 @@ namespace Entities.Model.Markets
         public virtual void CreateAMarketInTheListingAndConfirmItsReferenceIsAsExpected()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a market in the listing and confirm its reference is as expected", ((string[])(null)));
-#line 11
+#line 12
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -93,7 +95,7 @@ this.FeatureBackground();
             table1.AddRow(new string[] {
                         "test1",
                         "Sopmewhere"});
-#line 12
+#line 13
   testRunner.When("I create the following markets using testProbe \"marketCreator\"", ((string)(null)), table1, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -102,7 +104,7 @@ this.FeatureBackground();
             table2.AddRow(new string[] {
                         "test1",
                         "Sopmewhere"});
-#line 15
+#line 16
   testRunner.Then("I expect testProbe \"marketCreator\" of been notified of the market having been cre" +
                     "ated", ((string)(null)), table2, "Then ");
 #line hidden
@@ -114,7 +116,7 @@ this.FeatureBackground();
         public virtual void CreateAMarketWithAGivenNameInTheMarketListing()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a market with a given name\tin the market listing", ((string[])(null)));
-#line 19
+#line 20
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -128,7 +130,7 @@ this.FeatureBackground();
             table3.AddRow(new string[] {
                         "test2",
                         "SomewhereElse"});
-#line 20
+#line 21
  testRunner.When("I create the following markets using testProbe \"marketCreator\"", ((string)(null)), table3, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -140,7 +142,7 @@ this.FeatureBackground();
             table4.AddRow(new string[] {
                         "test2",
                         "SomewhereElse"});
-#line 24
+#line 25
  testRunner.Then("I expect to see the following markets when I query the listings", ((string)(null)), table4, "Then ");
 #line hidden
             this.ScenarioCleanup();

@@ -147,15 +147,17 @@
   <ItemGroup>
     <Compile Include="DateTimeProvider.cs" />
     <Compile Include="ExchangeContract.cs" />
+    <Compile Include="NameGenerators\INameGenerator.cs" />
     <Compile Include="InvitationToTreat.cs" />
     <Compile Include="IProduceDateTime.cs" />
     <Compile Include="ITradeable.cs" />
     <Compile Include="ITrader.cs" />
     <Compile Include="Location.cs" />
-    <Compile Include="LocationGeneratorActor.cs" />
+    <Compile Include="NameGenerators\LocationNameGeneratorActor.cs" />
     <Compile Include="LoggingExtensions.cs" />
     <Compile Include="Market.cs" />
     <Compile Include="MarketHub.cs" />
+    <Compile Include="NameGenerators\LocationNameGenerator.cs" />
     <Compile Include="OfferType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.cs" />
@@ -177,6 +179,7 @@
     <Content Include="licenses\license.txt" />
     <Content Include="licenses\protoc-license.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
