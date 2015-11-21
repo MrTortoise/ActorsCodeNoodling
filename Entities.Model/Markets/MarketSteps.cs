@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Akka.Actor;
 using Akka.Util.Internal;
+using Entities.NameGenerators;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -31,9 +32,13 @@ namespace Entities.Model.Markets
             table.Rows.ForEach(r =>
             {
                 var name = r["Name"];
+
+                _state.LocationGeneratorActor.Tell(new LocationNameGeneratorActor.AddLocation(new[] {r["Location"]}));
                 var location = r["Location"];
-                var createMarketMessage = new MarketHub.TellCreateMarketMessage(name, location);
-                marketHub.Tell(createMarketMessage, creator);
+
+                //ToDo unfook
+              //  var createMarketMessage = new MarketHub.TellCreateMarketMessage(name, location);
+              //  marketHub.Tell(createMarketMessage, creator);
             });
         }
 

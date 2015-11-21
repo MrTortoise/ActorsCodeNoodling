@@ -118,17 +118,18 @@ namespace Entities
             /// </summary>
             public string Name { get; private set; }
 
-            public string Location { get; private set; }
+            public IActorRef Location { get; private set; }
 
             /// <summary>
             /// Creates an instance of <see cref="TellMarketCreatedMessage"/>
             /// </summary>
             /// <param name="name">The name of the market to create</param>
             /// <param name="location"></param>
-            public TellCreateMarketMessage(string name, string location)
+            public TellCreateMarketMessage(string name, IActorRef location)
             {
+                if (location == null) throw new ArgumentNullException(nameof(location));
                 if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
-                if (string.IsNullOrEmpty(location)) throw new ArgumentNullException(nameof(location));
+              
 
                 Name = name;
                 Location = location;

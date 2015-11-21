@@ -1,0 +1,5 @@
+Akka.DI.AutoFac
+Akka.Logger.Serilog
+Akka.Remote
+Akka.TestKit.Xunit2
+xunit.runner.console

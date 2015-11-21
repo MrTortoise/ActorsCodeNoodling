@@ -1,0 +1,74 @@
+NUGET
+  remote: https://nuget.org/api/v2
+  specs:
+    Akka (1.0.4) - framework: >= net452
+      Newtonsoft.Json (>= 7.0.1)
+    Akka.DI.AutoFac (1.0.4) - framework: >= net452
+      Akka.DI.Core (>= 1.0.4)
+      Autofac (>= 3.5.2)
+    Akka.DI.Core (1.0.4) - framework: >= net452
+      Akka (>= 1.0.4)
+    Akka.Logger.Serilog (1.0.4) - framework: >= net452
+      Akka (>= 1.0.4)
+      Serilog (>= 1.3.43)
+    Akka.Persistence (1.0.4.12-beta) - framework: >= net46
+      Akka (>= 1.0.4)
+      Google.ProtocolBuffers (>= 2.4.1.521)
+      Newtonsoft.Json (>= 7.0.1)
+    Akka.Persistence.Sql.Common (1.0.4.12-beta) - framework: >= net46
+      Akka.Persistence (>= 1.0.4.12-beta)
+    Akka.Persistence.SqlServer (1.0.4.1-beta) - framework: >= net46
+      Akka (>= 1.0.4)
+      Akka.Persistence (>= 1.0.4.12-beta)
+      Akka.Persistence.Sql.Common (>= 1.0.4.12-beta)
+      Google.ProtocolBuffers (>= 2.4.1.521)
+      Newtonsoft.Json (>= 7.0.1)
+    Akka.Remote (1.0.4) - framework: >= net452
+      Akka (>= 1.0.4)
+      Google.ProtocolBuffers (>= 2.4.1.521)
+      Helios (>= 1.4.1)
+    Akka.TestKit (1.0.4) - framework: >= net452
+      Akka (>= 1.0.4)
+    Akka.TestKit.NUnit (1.0.4) - framework: >= net452
+      Akka.TestKit (>= 1.0.4)
+      NUnit (>= 2.6.4)
+    Akka.TestKit.Xunit2 (1.0.4) - framework: >= net452
+      Akka.TestKit (>= 1.0.4)
+      xunit (>= 2.0.0)
+      xunit.abstractions (>= 2.0.0)
+      xunit.assert (>= 2.0.0)
+      xunit.core (>= 2.0.0)
+      xunit.extensibility.core (>= 2.0.0)
+    Autofac (3.5.2) - framework: >= net452
+    Google.ProtocolBuffers (2.4.1.555) - framework: >= net452
+    Helios (1.4.1) - framework: >= net452
+    JetBrains.DotMemoryUnit (2.1.20150828.125449) - framework: >= net46
+    Newtonsoft.Json (7.0.1) - framework: >= net452
+    NUnit (3.0.0) - framework: >= net452
+    Serilog (1.5.14) - framework: >= net452
+    SpecFlow (1.9.0) - framework: >= net46
+    SpecFlow.NUnit (1.1.1) - framework: >= net46
+      NUnit (>= 2.6)
+      SpecFlow
+    System.Collections (4.0.0) - framework: >= net452
+    System.Collections.Immutable (1.1.37) - framework: >= net452
+    System.Diagnostics.Debug (4.0.0) - framework: >= net452
+    System.Globalization (4.0.0) - framework: >= net452
+    System.Linq (4.0.0) - framework: >= net452
+    System.Resources.ResourceManager (4.0.0) - framework: >= net452
+    System.Runtime (4.0.0) - framework: >= net452
+    System.Runtime.Extensions (4.0.0) - framework: >= net452
+    System.Threading (4.0.0) - framework: >= net452
+    xunit (2.1.0) - framework: >= net452
+      xunit.assert (2.1.0)
+      xunit.core (2.1.0)
+    xunit.abstractions (2.0.0) - framework: >= net452
+    xunit.assert (2.1.0) - framework: >= net452
+    xunit.core (2.1.0) - framework: >= net452
+      xunit.extensibility.core (2.1.0) - framework: >= net45, dnx451, dnxcore50, monoandroid, monotouch, portable-net45+win80+wp80+wpa81, xamarinios, winv4.5, wpv8.1, wpv8.0
+      xunit.extensibility.execution (2.1.0) - framework: >= net45, dnx451, dnxcore50, monoandroid, monotouch, portable-net45+win80+wp80+wpa81, xamarinios, winv4.5, wpv8.1, wpv8.0
+    xunit.extensibility.core (2.1.0) - framework: >= net452
+      xunit.abstractions (2.0.0)
+    xunit.extensibility.execution (2.1.0) - framework: >= net452
+      xunit.extensibility.core (2.1.0) - framework: >= net45, dnx451, dnxcore50, monoandroid, monotouch, xamarinios, winv4.5, wpv8.1, wpv8.0
+    xunit.runner.console (2.1.0) - framework: >= net452
