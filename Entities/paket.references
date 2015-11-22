@@ -2,7 +2,6 @@ Akka.DI.AutoFac
 Akka.Logger.Serilog
 Akka.Persistence
 Akka.Persistence.SqlServer
-Akka.TestKit.NUnit
 System.Collections
 System.Collections.Immutable
 System.Diagnostics.Debug

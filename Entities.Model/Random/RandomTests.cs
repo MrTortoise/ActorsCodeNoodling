@@ -47,7 +47,7 @@ namespace Entities.Model.Random
         {
             var minValue = 1;
             var maxValue = 12345;
-            var numberOfNumbers = 100000;
+            var numberOfNumbers = 1000000;
 
             var msg = _random.Ask<RandomActor.RandomResult>(new RandomActor.NextRandom(minValue, maxValue, numberOfNumbers));
             msg.Wait();
