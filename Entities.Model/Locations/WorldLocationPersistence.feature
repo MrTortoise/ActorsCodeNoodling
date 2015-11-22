@@ -8,6 +8,7 @@ Background:
 	Given I have cleared out any persistence file data
 	Given I create a test actor system
 	And I create a TestProbe called "worldWatcher"
+	And I have created a Random Actor
 
 @Persistence
 Scenario: Take a list of prefixes, store them and then restore them

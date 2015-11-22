@@ -92,7 +92,8 @@ namespace Entities.Model.Locations
         public void GivenIHaveCreatedALocationGeneratorActor()
         {
             State.LocationGeneratorActor =
-                State.TestKit.ActorOfAsTestActorRef<LocationNameGeneratorActor>(LocationNameGeneratorActor.CreateProps(),
+                State.TestKit.ActorOfAsTestActorRef<LocationNameGeneratorActor>(
+                    LocationNameGeneratorActor.CreateProps(State.RandomActor, 3),
                     LocationNameGeneratorActor.Name);
 
             Thread.Sleep(250);

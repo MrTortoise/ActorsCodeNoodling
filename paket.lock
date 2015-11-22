@@ -1,7 +1,7 @@
 NUGET
   remote: https://nuget.org/api/v2
   specs:
-    Akka (1.0.4) - framework: >= net452
+    Akka (1.0.4)
       Newtonsoft.Json (>= 7.0.1)
     Akka.DI.AutoFac (1.0.4) - framework: >= net452
       Akka.DI.Core (>= 1.0.4)
@@ -43,7 +43,7 @@ NUGET
     Google.ProtocolBuffers (2.4.1.555) - framework: >= net452
     Helios (1.4.1) - framework: >= net452
     JetBrains.DotMemoryUnit (2.1.20150828.125449) - framework: >= net46
-    Newtonsoft.Json (7.0.1) - framework: >= net452
+    Newtonsoft.Json (7.0.1)
     NUnit (3.0.0) - framework: >= net452
     Serilog (1.5.14) - framework: >= net452
     SpecFlow (1.9.0) - framework: >= net46

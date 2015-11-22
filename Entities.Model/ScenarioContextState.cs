@@ -54,6 +54,7 @@ namespace Entities.Model
        public TestActorRef<WorldPrefixPersistanceActor> WorldPrefixPersistanceActor { get; set; }
        public string Config { get; set; }
        public TestActorRef<LocationNameGeneratorActor> LocationGeneratorActor { get; set; }
+       public IActorRef RandomActor { get; set; }
 
        /// <summary>
       /// Given a resource name will return a <see cref="Resource"/> from <see cref="ResourceManager"/>

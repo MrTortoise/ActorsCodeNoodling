@@ -1,5 +1,6 @@
 source https://www.nuget.org/api/v2/
 
+nuget Akka
 nuget Akka.DI.AutoFac 1.0.4 framework: >= net452
 nuget Akka.Logger.Serilog 1.0.4 framework: >= net452
 nuget Akka.Persistence.SqlServer 1.0.4.1-beta framework: >= net46
@@ -7,6 +8,7 @@ nuget Akka.Remote 1.0.4 framework: >= net452
 nuget Akka.TestKit.NUnit 1.0.4 framework: >= net452
 nuget Akka.TestKit.Xunit2 1.0.4 framework: >= net452
 nuget JetBrains.dotMemoryUnit 2.1.20150828.125449 framework: >= net46
+nuget NUnit 3.0.0 framework: >= net46
 nuget SpecFlow.NUnit 1.1.1 framework: >= net46
 nuget System.Collections 4.0.0 framework: >= net452
 nuget System.Collections.Immutable 1.1.37 framework: >= net452

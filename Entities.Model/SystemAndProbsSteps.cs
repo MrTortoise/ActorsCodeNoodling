@@ -79,5 +79,13 @@ namespace Entities.Model
             SetupSystem(_state.Config);
         }
 
+        [Given(@"I have created a Random Actor")]
+        public void GivenIHaveCreatedARandomActor()
+        {
+            var random = new System.Random();
+            _state.RandomActor = _state.TestKit.Sys.ActorOf(RandomActor.CreateProps(random), "random");
+        }
+
+
     }
 }

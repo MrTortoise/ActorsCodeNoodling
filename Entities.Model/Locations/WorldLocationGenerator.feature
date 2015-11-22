@@ -37,6 +37,7 @@ Background:
 		}
 	"""
 	And I have cleared out any persistence sql data
+	And I have created a Random Actor
 
 @LocationGenerator
 Scenario: Add a location

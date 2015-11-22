@@ -1,6 +1,7 @@
 Akka.DI.AutoFac
 Akka.Logger.Serilog
 Akka.Persistence
+Akka.Persistence.SqlServer
 Akka.TestKit.NUnit
 System.Collections
 System.Collections.Immutable
@@ -11,3 +12,4 @@ System.Resources.ResourceManager
 System.Runtime
 System.Runtime.Extensions
 System.Threading
+Akka

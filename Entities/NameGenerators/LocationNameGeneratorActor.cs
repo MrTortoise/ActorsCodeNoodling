@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Akka.Actor;
 using Akka.Util.Internal;
 
@@ -10,6 +12,9 @@ namespace Entities.NameGenerators
     /// </summary>
     public class LocationNameGeneratorActor : ReceiveActor, IWithUnboundedStash
     {
+        private readonly IActorRef _randomActorRef;
+        private readonly int _numberOfCharacters;
+
         private IActorRef _persistence;
         private readonly HashSet<string> _locations = new HashSet<string>();
         private readonly HashSet<string> _locationsBeingAdded = new HashSet<string>();
@@ -21,14 +26,16 @@ namespace Entities.NameGenerators
 
         public static string Name => "LocationGenerator";
 
-        public static Props CreateProps()
+        public static Props CreateProps(IActorRef randomActorRef, int numberOfCharacters)
         {
-            return Props.Create(() => new LocationNameGeneratorActor());
+            return Props.Create(() => new LocationNameGeneratorActor(randomActorRef, numberOfCharacters));
         }
 
-        public LocationNameGeneratorActor()
+        public LocationNameGeneratorActor(IActorRef randomActorRef, int numberOfCharacters)
         {
-            _nameGenerator = new LocationNameGenerator();
+            _randomActorRef = randomActorRef;
+            _numberOfCharacters = numberOfCharacters;
+
             Become(Waiting);
             BecomeStacked(Recovering);
         }
@@ -43,9 +50,18 @@ namespace Entities.NameGenerators
 
         private void Waiting()
         {
+            Receive<GenerateLocations>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                _locationsBeingAdded.Clear();
+                TellWantRandomNumbers(msg.NumberOfLocations);
+                Become(WaitingForRandomNumbers);
+            });
+
             Receive<AddLocation>(msg =>
             {
                 Context.LogMessageDebug(msg);
+                _locationsBeingAdded.Clear();
                 foreach (var location in msg.Locations.Where(i => !_locations.Contains(i)))
                 {
                     _locationsBeingAdded.Add(location);
@@ -58,6 +74,66 @@ namespace Entities.NameGenerators
 
             SetupCommonReceive();
         }
+
+        private void WaitingForRandomNumbers()
+        {
+            Receive<RandomActor.RandomResult>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                int numberOfStrings = msg.Number.Length/_numberOfCharacters;
+
+                string[] names = new string[numberOfStrings];
+                for (int i = 0; i < numberOfStrings; i++)
+                {
+                    StringBuilder name = new StringBuilder(_numberOfCharacters);
+                    for (int j = 0; j < _numberOfCharacters; j++)
+                    {
+                        int index = i + j;
+                        name.Append(msg.Number[index]);
+                    }
+                    names[0] = name.ToString();
+                }
+
+                var repeated = new List<string>();
+                foreach (var name in names)
+                {
+                    if (_locations.Contains(name))
+                    {
+                        repeated.Add(name);
+                    }
+                    else
+                    {
+                        _locationsBeingAdded.Add(name);
+                    }
+                }
+
+                var numberNewRandomsNeeded = repeated.Count;
+                if (numberNewRandomsNeeded > 0)
+                {
+                    TellWantRandomNumbers(numberNewRandomsNeeded);
+                }
+                else
+                {
+                    foreach (var location in _locationsBeingAdded)
+                    {
+                        _persistence.Tell(new WorldPrefixPersistanceActor.PostNewPrefixMessage(location));
+                    }
+                    _persistence.Tell(new WorldPrefixPersistanceActor.PostStoreStateMessage());
+                    Become(AddingLocations);
+                }
+            });
+
+            ReceiveAny(msg =>
+            {
+                Stash.Stash();
+            });
+        }
+
+        private void TellWantRandomNumbers(int numberOfLocations)
+        {
+            _randomActorRef.Tell(new RandomActor.NextRandom('A', 'Z' + 1, _numberOfCharacters*numberOfLocations));
+        }
+
 
         private void SetupCommonReceive()
         {
@@ -144,7 +220,7 @@ namespace Entities.NameGenerators
 
         public class AddLocation
         {
-            public string[] Locations { get;  }
+            public string[] Locations { get; }
 
             public AddLocation(string[] locations)
             {
@@ -164,6 +240,17 @@ namespace Entities.NameGenerators
 
         public class QueryLocations
         {
+        }
+
+
+        public class GenerateLocations
+        {
+            public GenerateLocations(int numberOfLocations)
+            {
+                NumberOfLocations = numberOfLocations;
+            }
+
+            public int NumberOfLocations { get; private set; }
         }
     }
 }
