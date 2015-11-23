@@ -42,12 +42,20 @@ namespace Entities.Model.Random
             _random = _testkit.Sys.ActorOf(RandomActor.CreateProps(random), "random");
         }
 
+        /// <summary>
+        /// Takes freaking ages for 1 million though.
+        /// </summary>
+        /// <remarks>
+        /// But if you want like 1 million then why use random? 
+        /// 3 chars gives 17576 then use 2 digits and we have 1.7M
+        /// So can probalby then just manually trim out any that look crap
+        /// </remarks>
         [TestCase()]
         public void GeneralBoundsTests()
         {
             var minValue = 1;
             var maxValue = 12345;
-            var numberOfNumbers = 1000000;
+            var numberOfNumbers = 1000;
 
             var msg = _random.Ask<RandomActor.RandomResult>(new RandomActor.NextRandom(minValue, maxValue, numberOfNumbers));
             msg.Wait();

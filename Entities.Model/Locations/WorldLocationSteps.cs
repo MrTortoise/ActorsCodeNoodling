@@ -9,6 +9,7 @@ using Akka.TestKit;
 using Akka.Util.Internal;
 using Entities.Model.ResourceManagerFeature;
 using Entities.NameGenerators;
+using Entities.Observation;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -103,7 +104,7 @@ namespace Entities.Model.Locations
         public void WhenIAddALocationUsingCalled(string testProbe , string location)
         {
             var sender = State.TestProbes[testProbe];
-            State.LocationGeneratorActor.Tell(new LocationNameGeneratorActor.AddLocation(new[] {location}), sender);
+            State.LocationGeneratorActor.Tell(new LocationNameGeneratorActor.AddLocationName(new[] {location}), sender);
             Thread.Sleep(250);
         }
 
@@ -111,14 +112,14 @@ namespace Entities.Model.Locations
         public void GivenIObserveLocationGeneratorWithTestProbe(string testProbe)
         {
             var observer = State.TestProbes[testProbe];
-            State.LocationGeneratorActor.Tell(new LocationNameGeneratorActor.Observe(), observer);
+            State.LocationGeneratorActor.Tell(new Observe(), observer);
         }
 
 
         [Then(@"I expect the location ""(.*)"" to exist")]
         public void ThenIExpectTheLocationToExist(string p0)
         {
-            var res = State.LocationGeneratorActor.Ask<LocationNameGeneratorActor.Locations>(new LocationNameGeneratorActor.QueryLocations());
+            var res = State.LocationGeneratorActor.Ask<LocationNameGeneratorActor.LocationNamesResult>(new LocationNameGeneratorActor.QueryLocationNames());
             res.Wait();
             Assert.AreEqual(1,res.Result.Names.Count());
             Assert.AreEqual(p0,res.Result.Names.Single());
@@ -146,7 +147,7 @@ namespace Entities.Model.Locations
         public void ThenIExpectThatTestProbeBeToldTheFollowingLocationsWasAdded(string testProbe, string location)
         {
             var probe = State.TestProbes[testProbe];
-            var msg = probe.ExpectMsg<LocationNameGeneratorActor.LocationsAdded>();
+            var msg = probe.ExpectMsg<LocationNameGeneratorActor.LocationNamesAdded>();
             Assert.Contains(location, msg.AddedLocations);
         }
 
@@ -155,7 +156,7 @@ namespace Entities.Model.Locations
         {
             var locations = GetLocations(table);
             var probe = State.TestProbes[probeName];
-            State.LocationGeneratorActor.Tell(new LocationNameGeneratorActor.AddLocation(locations), probe);
+            State.LocationGeneratorActor.Tell(new LocationNameGeneratorActor.AddLocationName(locations), probe);
         }
 
         private static string[] GetLocations(Table table)
@@ -168,7 +169,7 @@ namespace Entities.Model.Locations
         {
             var locations = GetLocations(table);
             var probe = State.TestProbes[probeName];
-            var msg = probe.ExpectMsg<LocationNameGeneratorActor.LocationsAdded>();
+            var msg = probe.ExpectMsg<LocationNameGeneratorActor.LocationNamesAdded>();
             foreach (var location in locations)
             {
                 Assert.Contains(location, msg.AddedLocations);
@@ -180,7 +181,7 @@ namespace Entities.Model.Locations
         {
             var locations = GetLocations(table);
 
-            var res = State.LocationGeneratorActor.Ask<LocationNameGeneratorActor.Locations>(new LocationNameGeneratorActor.QueryLocations());
+            var res = State.LocationGeneratorActor.Ask<LocationNameGeneratorActor.LocationNamesResult>(new LocationNameGeneratorActor.QueryLocationNames());
             res.Wait();
             
             foreach (var location in locations)

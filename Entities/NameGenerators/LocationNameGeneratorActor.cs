@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Akka.Actor;
 using Akka.Util.Internal;
+using Entities.Observation;
 
 namespace Entities.NameGenerators
 {
@@ -20,7 +21,6 @@ namespace Entities.NameGenerators
         private readonly HashSet<string> _locationsBeingAdded = new HashSet<string>();
 
         private readonly List<IActorRef> _observers = new List<IActorRef>();
-        private INameGenerator _nameGenerator;
 
         public static string Path => @"user/LocationGenerator";
 
@@ -50,7 +50,7 @@ namespace Entities.NameGenerators
 
         private void Waiting()
         {
-            Receive<GenerateLocations>(msg =>
+            Receive<GenerateLocationNames>(msg =>
             {
                 Context.LogMessageDebug(msg);
                 _locationsBeingAdded.Clear();
@@ -58,11 +58,11 @@ namespace Entities.NameGenerators
                 Become(WaitingForRandomNumbers);
             });
 
-            Receive<AddLocation>(msg =>
+            Receive<AddLocationName>(msg =>
             {
                 Context.LogMessageDebug(msg);
                 _locationsBeingAdded.Clear();
-                foreach (var location in msg.Locations.Where(i => !_locations.Contains(i)))
+                foreach (var location in msg.LocationNames.Where(i => !_locations.Contains(i)))
                 {
                     _locationsBeingAdded.Add(location);
                     _persistence.Tell(new WorldPrefixPersistanceActor.PostNewPrefixMessage(location));
@@ -137,10 +137,10 @@ namespace Entities.NameGenerators
 
         private void SetupCommonReceive()
         {
-            Receive<QueryLocations>(msg =>
+            Receive<QueryLocationNames>(msg =>
             {
                 Context.LogMessageDebug(msg);
-                Sender.Tell(new Locations(_locations.ToArray()));
+                Sender.Tell(new LocationNamesResult(_locations.ToArray()));
             });
 
             Receive<Observe>(msg =>
@@ -182,7 +182,7 @@ namespace Entities.NameGenerators
             Receive<WorldPrefixPersistanceActor.StateSavedMessage>(msg =>
             {
                 Context.LogMessageDebug(msg);
-                var locationsAdded = new LocationsAdded(_locationsBeingAdded.ToArray());
+                var locationsAdded = new LocationNamesAdded(_locationsBeingAdded.ToArray());
                 foreach (var observer in _observers)
                 {
                     observer.Tell(locationsAdded);
@@ -200,37 +200,31 @@ namespace Entities.NameGenerators
             ReceiveAny(msg=>Stash.Stash());
         }
 
-        public class UnObserve
-        {
-        }
 
-        public class Observe
-        {
-        }
 
-        public class LocationsAdded
+        public class LocationNamesAdded
         {
             public string[] AddedLocations { get; }
 
-            public LocationsAdded(string[] addedLocations)
+            public LocationNamesAdded(string[] addedLocations)
             {
                 AddedLocations = addedLocations;
             }
         }
 
-        public class AddLocation
+        public class AddLocationName
         {
-            public string[] Locations { get; }
+            public string[] LocationNames { get; }
 
-            public AddLocation(string[] locations)
+            public AddLocationName(string[] locationNames)
             {
-                Locations = locations;
+                LocationNames = locationNames;
             }
         }
 
-        public class Locations
+        public class LocationNamesResult
         {
-            public Locations(string[] names)
+            public LocationNamesResult(string[] names)
             {
                 Names = names;
             }
@@ -238,14 +232,14 @@ namespace Entities.NameGenerators
             public string[] Names { get; private set; }
         }
 
-        public class QueryLocations
+        public class QueryLocationNames
         {
         }
 
 
-        public class GenerateLocations
+        public class GenerateLocationNames
         {
-            public GenerateLocations(int numberOfLocations)
+            public GenerateLocationNames(int numberOfLocations)
             {
                 NumberOfLocations = numberOfLocations;
             }

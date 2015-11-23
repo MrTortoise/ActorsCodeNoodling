@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.TestKit.NUnit;
 using Entities.NameGenerators;
+using Entities.Observation;
 using NUnit.Framework;
 using Serilog;
 
@@ -46,10 +47,10 @@ namespace Entities.Model.Locations
         public void Generate100KLocations()
         {
             var tp = _testkit.CreateTestProbe("genTest");
-            _locationGenerator.Tell(new LocationNameGeneratorActor.Observe(), tp);
-            _locationGenerator.Tell(new LocationNameGeneratorActor.GenerateLocations(100000), tp);
+            _locationGenerator.Tell(new Observe(), tp);
+            _locationGenerator.Tell(new LocationNameGeneratorActor.GenerateLocationNames(100000), tp);
 
-            var msg = tp.ExpectMsg<LocationNameGeneratorActor.LocationsAdded>(TimeSpan.FromMinutes(10));
+            var msg = tp.ExpectMsg<LocationNameGeneratorActor.LocationNamesAdded>(TimeSpan.FromMinutes(10));
 
             Assert.That(msg.AddedLocations.Length == 100000);
 

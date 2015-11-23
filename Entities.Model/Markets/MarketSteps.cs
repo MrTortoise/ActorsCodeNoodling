@@ -33,7 +33,7 @@ namespace Entities.Model.Markets
             {
                 var name = r["Name"];
 
-                _state.LocationGeneratorActor.Tell(new LocationNameGeneratorActor.AddLocation(new[] {r["Location"]}));
+                _state.LocationGeneratorActor.Tell(new LocationNameGeneratorActor.AddLocationName(new[] {r["Location"]}));
                 var location = r["Location"];
 
                 //ToDo unfook

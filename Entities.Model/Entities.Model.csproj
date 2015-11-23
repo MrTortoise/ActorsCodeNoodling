@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Locations\LocationGeneratorAutoGeneration.cs" />
+    <Compile Include="ObserverExposingValuesOutsideOFACtorSystem\ExternalAccessOfObserver.cs" />
     <Compile Include="Random\RandomTests.cs" />
     <Compile Include="SqlPersistenceHelpers.cs" />
     <Compile Include="Akka.Sql\SqlPersistenceTests.cs" />
