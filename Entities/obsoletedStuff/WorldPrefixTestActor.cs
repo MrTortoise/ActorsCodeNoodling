@@ -4,14 +4,14 @@ using System.IO;
 using System.Linq;
 using Akka.Actor;
 
-namespace Entities
+namespace Entities.obsoletedStuff
 {
-    public class World : ReceiveActor
+    public class WorldPrefixTestActor : ReceiveActor
     {
         public const string WorldPrefixStringsFilename = "worldPrefixStrings.txt";
-        private HashSet<string> _usedNames;
+      //  private HashSet<string> _usedNames;
 
-        public World()
+        public WorldPrefixTestActor()
         {
             Receive<TellGenerateNameMessage>(message =>
             {

@@ -70,6 +70,7 @@ namespace Entities.Model
         {
             var testProbe = _state.TestKit.CreateTestProbe(name);
             _state.TestProbes.Add(name, testProbe);
+            _state.Actors.Add(name, testProbe);
         }
 
         [When(@"I restart the actor system")]

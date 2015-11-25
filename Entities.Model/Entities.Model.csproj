@@ -68,7 +68,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CenterOfMassActors\CenterOfMassActor.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CenterOfMassActor.feature</DependentUpon>
+    </Compile>
+    <Compile Include="CenterOfMassActors\CenterOfMassActorTests.cs" />
+    <Compile Include="CenterOfMassActors\CenterOfMassSteps.cs" />
+    <Compile Include="ImmutibleDicTests\DictionaryTest.cs" />
+    <Compile Include="ImmutibleDicTests\ImmutibleDictionaryTest.cs" />
     <Compile Include="Locations\LocationGeneratorAutoGeneration.cs" />
+    <Compile Include="ObservationSteps.cs" />
     <Compile Include="ObserverExposingValuesOutsideOFACtorSystem\ExternalAccessOfObserver.cs" />
     <Compile Include="Random\RandomTests.cs" />
     <Compile Include="SqlPersistenceHelpers.cs" />
@@ -196,6 +206,10 @@
     <None Include="AutoFackery\SubstitutionByInterfaceRegistration.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SubstitutionByInterfaceRegistration.feature.cs</LastGenOutput>
+    </None>
+    <None Include="CenterOfMassActors\CenterOfMassActor.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CenterOfMassActor.feature.cs</LastGenOutput>
     </None>
     <None Include="ContractActors\ContractSupervisorActor.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

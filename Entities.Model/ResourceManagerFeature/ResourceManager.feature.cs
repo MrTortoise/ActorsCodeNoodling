@@ -107,6 +107,37 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Sign something up to observe resource manager and add a resource then i want to b" +
+            "e notified")]
+        public virtual void SignSomethingUpToObserveResourceManagerAndAddAResourceThenIWantToBeNotified()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sign something up to observe resource manager and add a resource then i want to b" +
+                    "e notified", ((string[])(null)));
+#line 22
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line 23
+ testRunner.Given("I create a TestProbe called \"resourceManagerMonitor\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 24
+ testRunner.And("I send an observe message to actor \"resourceManager\" from actor \"resourceManagerM" +
+                    "onitor\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "name"});
+            table3.AddRow(new string[] {
+                        "metal"});
+            table3.AddRow(new string[] {
+                        "rock"});
+#line 25
+ testRunner.When("I add the following resources to the Resource Manager", ((string)(null)), table3, "When ");
+#line 29
+ testRunner.Then("I expect the TestProbe \"resourceManagerMonitor\" to recieve an event message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

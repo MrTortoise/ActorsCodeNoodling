@@ -16,22 +16,27 @@ namespace Entities.Model.ResourceManagerFeature
     [Binding]
     public class ResourceManagerSteps
     {
-       private readonly ScenarioContextState _state;
+        public const string ResourceManagerName = "resourceManager";
+        private const string ResourceManagerTestProbeName = "resourceManagerTestProbe";
+        private readonly ScenarioContextState _state;
 
        public ResourceManagerSteps(ScenarioContextState state)
        {
           _state = state;
        }
 
-
-
         [Given(@"I create a Resource Manager")]
         public void GivenICreateAResourceManager()
         {
             var resourceManagerTestProbe = new TestProbe(_state.TestKit.Sys, new NUnitAssertions(),
-                "resourceManagerTestProbe");
+                ResourceManagerTestProbeName);
             var resourceManager = _state.TestKit.ActorOfAsTestActorRef<ResourceManager>(resourceManagerTestProbe);
+
+            _state.TestProbes.Add(ResourceManagerTestProbeName, resourceManagerTestProbe);
+
+            _state.Actors.Add(ResourceManagerTestProbeName, resourceManager);
             _state.ResourceManager = resourceManager;
+            _state.Actors.Add(ResourceManagerName, resourceManager);
         }
 
 

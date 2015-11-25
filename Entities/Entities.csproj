@@ -85,12 +85,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="DateTimeProvider.cs" />
     <Compile Include="ExchangeContract.cs" />
+    <Compile Include="LocationActors\AsteroidField.cs" />
     <Compile Include="LocationActors\CelestialBody.cs" />
     <Compile Include="LocationActors\CenterOfMassActor.cs" />
+    <Compile Include="LocationActors\CenterOfMassState.cs" />
     <Compile Include="LocationActors\ICelestialBody.cs" />
+    <Compile Include="LocationActors\IResourceComposition.cs" />
+    <Compile Include="LocationActors\IUpdateDelta.cs" />
+    <Compile Include="LocationActors\Moon.cs" />
     <Compile Include="LocationActors\Planet.cs" />
+    <Compile Include="LocationActors\Star.cs" />
+    <Compile Include="LocationActors\CenterOfMassManagerActor.cs" />
+    <Compile Include="Observation\Event.cs" />
+    <Compile Include="Observation\ObserverActor.cs" />
+    <Compile Include="Observation\UnObserve.cs" />
+    <Compile Include="UpdateDelta.cs" />
     <Compile Include="NameGenerators\INameGenerator.cs" />
     <Compile Include="InvitationToTreat.cs" />
     <Compile Include="IProduceDateTime.cs" />
@@ -110,7 +122,7 @@
     <Compile Include="ResourceStack.cs" />
     <Compile Include="TimePeriodType.cs" />
     <Compile Include="Trader.cs" />
-    <Compile Include="World.cs" />
+    <Compile Include="obsoletedStuff\WorldPrefixTestActor.cs" />
     <Compile Include="WorldPrefixPersistanceActor.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +130,9 @@
     <None Include="protos\google\protobuf\csharp_options.proto" />
     <None Include="protos\google\protobuf\descriptor.proto" />
     <None Include="protos\tutorial\addressbook.proto" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SystemEditor\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

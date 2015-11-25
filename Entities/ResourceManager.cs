@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Akka.Actor;
+using Entities.Observation;
 
 namespace Entities
 {
@@ -13,25 +14,54 @@ namespace Entities
     /// </summary>
     public class ResourceManager : ReceiveActor
     {
-        private readonly Dictionary<string, IResource> _resources;
+        private readonly HashSet<IResource> _resources = new HashSet<IResource>();
+        private readonly HashSet<IActorRef> _observers = new HashSet<IActorRef>();
 
         public ResourceManager()
         {
-            _resources = new Dictionary<string, IResource>();
-            Receive<PostResourceMessage>(m => _resources.Add(m.Resource.Name, m.Resource));
+            Receive<Observe>(msg =>
+            {
+                _observers.Add(Sender);
+            });
+
+            Receive<UnObserve>(msg =>
+            {
+                _observers.Remove(Sender);
+            });
+
+            Receive<PostResourceMessage>(m =>
+            {
+                Context.LogMessageDebug(m);
+                _resources.Add(m.Resource);
+                foreach (var actorRef in _observers)
+                {
+                    actorRef.Tell(new EventObserved());
+                }
+            });
+
             Receive<GetResource>(m =>
             {
-                IResource retVal = null;
-                if (_resources.ContainsKey(m.Name))
+                Context.LogMessageDebug(m);
+
+                if (string.IsNullOrWhiteSpace(m.Name))
                 {
-                    retVal = _resources[m.Name];
+                    Sender.Tell(new GetResourceResult(_resources.ToArray()));
+                }
+                else
+                {
+
+                    IResource retVal = _resources.SingleOrDefault(i => i.Name == m.Name);
+
+                    Sender.Tell(new GetResourceResult(retVal));
                 }
 
-                Sender.Tell(retVal);
+              
             });
         }
 
-
+        /// <summary>
+        /// Creates a new resource
+        /// </summary>
         public class PostResourceMessage
         {
             public IResource Resource { get;  }
@@ -42,13 +72,38 @@ namespace Entities
             }
         }
 
+        /// <summary>
+        /// Get resource message. Gets one or more resources.
+        /// </summary>
         public class GetResource
         {
+            /// <summary>
+            /// The name of the resource to get, empty for all.
+            /// </summary>
             public string Name { get; }
 
+            /// <summary>
+            /// Creates an instance of <see cref="GetResource"/>
+            /// </summary>
+            /// <param name="name">The name of the resource to get, null or empty for all.</param>
             public GetResource(string name)
             {
                 Name = name;
+            }
+        }
+
+        public class GetResourceResult
+        {
+            public IResource[] Values { get; set; }
+
+            public GetResourceResult(IResource retVal)
+            {
+                Values = new[] {retVal};
+            }
+
+            public GetResourceResult(IResource[] values)
+            {
+                Values = values;
             }
         }
     }

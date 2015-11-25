@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Akka;
+using Entities.obsoletedStuff;
 using NUnit.Framework;
 
 
@@ -12,14 +13,14 @@ namespace Entities.Model.Locations
         [TestCase]
         public void PrefixFileGeneratorCreate()
         {
-            if (File.Exists(World.WorldPrefixStringsFilename))
+            if (File.Exists(WorldPrefixTestActor.WorldPrefixStringsFilename))
             {
-                File.Delete(World.WorldPrefixStringsFilename);
+                File.Delete(WorldPrefixTestActor.WorldPrefixStringsFilename);
             }
 
             var noPrefixes = 1000;
-            World.GenerateNamePrefixFile(noPrefixes, World.WorldPrefixStringsFilename);
-            var strings = World.LoadPrefixesFromFile(World.WorldPrefixStringsFilename);
+            WorldPrefixTestActor.GenerateNamePrefixFile(noPrefixes, WorldPrefixTestActor.WorldPrefixStringsFilename);
+            var strings = WorldPrefixTestActor.LoadPrefixesFromFile(WorldPrefixTestActor.WorldPrefixStringsFilename);
 
             Assert.AreEqual(noPrefixes, strings.Count);
         }
@@ -27,14 +28,14 @@ namespace Entities.Model.Locations
         [TestCase]
         public void PrefixFileGeneratorCreateUnique()
         {
-            if (File.Exists(World.WorldPrefixStringsFilename))
+            if (File.Exists(WorldPrefixTestActor.WorldPrefixStringsFilename))
             {
-                File.Delete(World.WorldPrefixStringsFilename);
+                File.Delete(WorldPrefixTestActor.WorldPrefixStringsFilename);
             }
 
             var noPrefixes = 10000;
-            World.GenerateNamePrefixFile(noPrefixes, World.WorldPrefixStringsFilename);
-            var strings = World.LoadPrefixesFromFile(World.WorldPrefixStringsFilename);
+            WorldPrefixTestActor.GenerateNamePrefixFile(noPrefixes, WorldPrefixTestActor.WorldPrefixStringsFilename);
+            var strings = WorldPrefixTestActor.LoadPrefixesFromFile(WorldPrefixTestActor.WorldPrefixStringsFilename);
 
             var uniqueStrings = new HashSet<string>(strings);
 
