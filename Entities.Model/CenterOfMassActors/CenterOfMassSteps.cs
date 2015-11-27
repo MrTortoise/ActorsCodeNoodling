@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.Util.Internal;
 using Entities.LocationActors;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 
 namespace Entities.Model.CenterOfMassActors
@@ -20,32 +23,32 @@ namespace Entities.Model.CenterOfMassActors
             _state = state;
         }
 
-        [Given(@"I have created the following Moon Type called ""(.*)""")]
-        public void GivenIHaveCreatedTheFollowingMoonTypeCalled(string moonTypeName, Table table)
+        [Given(@"I have created the following Material called ""(.*)""")]
+        public void GivenIHaveCreatedTheFollowingMaterialCalled(string materialName, Table table)
         {
             var resourceComposition = GetResourceComposition(table);
 
-            var moonType = new Moon.MoonType(moonTypeName, resourceComposition);
-            _state.MoonTypes.Add(moonType.Name, moonType);
+            var material = new Material(materialName, resourceComposition);
+            _state.Materials.Add(material.Name, material);
         }
 
-        private Dictionary<IResource, double> GetResourceComposition(Table table)
+        private ImmutableDictionary<IResource, double> GetResourceComposition(Table table)
         {
             var resources =
                 _state.ResourceManager.Ask<ResourceManager.GetResourceResult>(new ResourceManager.GetResource(null));
 
             resources.Wait();
 
-            var resourceComposition = new Dictionary<IResource, double>();
+            var resourceCompositionBuilder = ImmutableDictionary.CreateBuilder<IResource, double>();
 
             foreach (var tableRow in table.Rows)
             {
                 var resourceName = tableRow["ResourceName"];
                 double val = double.Parse(tableRow["Value"]);
                 var resource = resources.Result.Values.Single(i => i.Name == resourceName);
-                resourceComposition.Add(resource, val);
+                resourceCompositionBuilder.Add(resource, val);
             }
-            return resourceComposition;
+            return resourceCompositionBuilder.ToImmutable();
         }
 
         [Given(@"I have created the following moons")]
@@ -54,7 +57,7 @@ namespace Entities.Model.CenterOfMassActors
             foreach (var tableRow in table.Rows)
             {
                 var celestialBody = GetCelestialBody(tableRow);
-                var moonType = _state.MoonTypes[tableRow["moonType"]];
+                var moonType = _state.Materials[tableRow["moonType"]];
                 var moon = new Moon(moonType, celestialBody);
                 _state.Moons.Add(moon.BodyData.Name, moon);
             }
@@ -76,22 +79,13 @@ namespace Entities.Model.CenterOfMassActors
             return celestialBody;
         }
 
-        [Given(@"I have created the following Planet Type called ""(.*)""")]
-        public void GivenIHaveCreatedTheFollowingPlanetTypeCalled(string name, Table table)
-        {
-            var resourceComposition = GetResourceComposition(table);
-
-            var planetType = new Planet.PlanetType(name, resourceComposition);
-            _state.PlanetTypes.Add(planetType.Name, planetType);
-        }
-
         [Given(@"I have created the following planets")]
         public void GivenIHaveCreatedTheFollowingPlanets(Table table)
         {
             foreach (var tableRow in table.Rows)
             {
                 var celestialBody = GetCelestialBody(tableRow);
-                var planetType = _state.PlanetTypes[tableRow["planetType"]];
+                var planetType = _state.Materials[tableRow["planetType"]];
 
                 var moonString = tableRow["moons"];
                 var strings = ExtractStringsFromCsv(moonString);
@@ -110,22 +104,13 @@ namespace Entities.Model.CenterOfMassActors
             return strings;
         }
 
-        [Given(@"I have created the following Star Type called ""(.*)""")]
-        public void GivenIHaveCreatedTheFollowingStarTypeCalled(string name, Table table)
-        {
-            var fuelRate = double.Parse(table.Rows[0]["fuelType"]);
-
-            var starType = new Star.StarType(name, fuelRate);
-            _state.StarTypes.Add(starType.Name, starType);
-        }
-
         [Given(@"I have created the following stars")]
         public void GivenIHaveCreatedTheFollowingStars(Table table)
         {
             foreach (var tableRow in table.Rows)
             {
                 var celestialBody = GetCelestialBody(tableRow);
-                var starType = _state.StarTypes[tableRow["starType"]];
+                var starType = _state.Materials[tableRow["starType"]];
 
                 var star = new Star(starType, celestialBody);
                 _state.Stars.Add(star.BodyData.Name, star);
@@ -140,6 +125,7 @@ namespace Entities.Model.CenterOfMassActors
             _state.Actors.Add(CenterOfMassManagerActor.Name, comManager);
         }
 
+        [Given(@"I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments")]
         [When(@"I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments")]
         public void WhenISendMessagesOfTypeCreateCenterOfMassToActorCenterOfMassManagerActorWithArguments(Table table)
         {
@@ -164,7 +150,57 @@ namespace Entities.Model.CenterOfMassActors
             {
                 comManager.Tell(message);
             }
+            Thread.Sleep(10);
         }
 
+        [When(@"I get the CenterOfMassActor called ""(.*)"" and store it in the context as ""(.*)""")]
+        public void WhenIGetTheCenterOfMassActorCalledAndStoreItInTheContextAs(string comActor, string contextKey)
+        {
+            var result = _state.CenterOfMassManagerActor.Ask<CenterOfMassManagerActor.CenterOfMassQueryResult>(
+                new CenterOfMassManagerActor.QueryCenterOfMasses(comActor));
+
+            result.Wait();
+            var actors = result.Result.CenterOfMasses;
+
+            Assert.Contains(comActor,actors.Keys);
+            var actor = actors[comActor];
+
+            ScenarioContext.Current.Add(contextKey, actor);
+        }
+
+        [Then(@"I Expect the solar system ""(.*)"" to have the following")]
+        public void ThenIExpectTheSolarSystemToHaveTheFollowing(string contextKey, Table table)
+        {
+            IActorRef actor = (IActorRef)ScenarioContext.Current[contextKey];
+            var result = actor.Ask<CenterOfMassActor.CenterOfMassQueryResult>(new CenterOfMassActor.CenterOfMassStateQuery());
+
+            result.Wait();
+
+            var r2 = result.Result;
+
+            var stars = r2.Stars;
+            var planets = r2.Planets;
+            var moons = r2.Planets.SelectMany(i => i.Moons);
+
+            var starNames = table.Rows.Where(i => i["ObjectType"] == "star").Select(i => i["Name"]);
+            var planetNames = table.Rows.Where(i => i["ObjectType"] == "planet").Select(i => i["Name"]);
+            var moonNames = table.Rows.Where(i => i["ObjectType"] == "moon").Select(i => i["Name"]);
+
+            foreach (var starName in starNames)
+            {
+                Assert.Contains(starName, stars.Select(i => i.BodyData.Name).ToArray());
+            }
+
+            foreach (var planetName in planetNames)
+            {
+                Assert.Contains(planetName,planets.Select(i=>i.BodyData.Name).ToArray());
+            }
+
+            foreach (var moonName in moonNames)
+            {
+                Assert.Contains(moonName, moons.Select(i => i.BodyData.Name).ToArray());
+            }
+
+        }
     }
 }

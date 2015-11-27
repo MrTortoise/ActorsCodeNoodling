@@ -32,16 +32,16 @@ namespace Entities.LocationActors
 
             Receive<QueryCenterOfMasses>(msg =>
             {
-                if (string.IsNullOrWhiteSpace(msg.Value))
+                if (string.IsNullOrWhiteSpace(msg.NameToQuery))
                 {
                     var dic = _centerOfMasses.ToDictionary(centerOfMass => centerOfMass.Key, centerOfMass => centerOfMass.Value);
                     Sender.Tell(new CenterOfMassQueryResult(dic));
                 }
                 else
                 {
-                    if (_centerOfMasses.ContainsKey(msg.Value))
+                    if (_centerOfMasses.ContainsKey(msg.NameToQuery))
                     {
-                        var dic = new Dictionary<string, IActorRef> {{msg.Value, _centerOfMasses[msg.Value]}};
+                        var dic = new Dictionary<string, IActorRef> {{msg.NameToQuery, _centerOfMasses[msg.NameToQuery]}};
                         Sender.Tell(new CenterOfMassQueryResult(dic));
                     }
                     else
@@ -86,7 +86,12 @@ namespace Entities.LocationActors
 
         public class QueryCenterOfMasses
         {
-            public string Value { get; set; }
+            public QueryCenterOfMasses(string nameToQuery)
+            {
+                NameToQuery = nameToQuery;
+            }
+
+            public string NameToQuery { get;  }
         }
 
         public class CreateCenterOfMass

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.TestKit;
@@ -47,6 +48,7 @@ namespace Entities.Model.ResourceManagerFeature
             var resources = CreateResourcesFromTable(table);
             var resourceManagerActorRef = _state.ResourceManager;
             resources.ForEach(r => resourceManagerActorRef.Tell(new ResourceManager.PostResourceMessage(r)));
+            Thread.Sleep(10);
         }
 
         public static Resource[] CreateResourcesFromTable(Table table)

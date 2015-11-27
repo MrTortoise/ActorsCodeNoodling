@@ -6,7 +6,7 @@ namespace Entities.LocationActors
     /// THe core data for any celestial body
     /// </summary>
     /// <remarks>Nothing clever assume all on one axis - and everything on same azis</remarks>
-    public class CelestialBody : ICloneable, IEquatable<CelestialBody>
+    public class CelestialBody 
     {
         /// <summary>
         /// Creates a new instance
@@ -83,55 +83,6 @@ namespace Entities.LocationActors
 
             CurrentAngularPosition += dp;
             Angle += a;
-        }
-
-        public object Clone()
-        {
-            return new CelestialBody(Name, Radius, OrbitDistance, OrbitalAngularVelocity, RotatationalAngularVelocity,
-                InitialOrbitalAngularPositionOffset, CurrentAngularPosition);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((CelestialBody) obj);
-        }
-
-        public bool Equals(CelestialBody other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return string.Equals(Name, other.Name) && Radius.Equals(other.Radius) && OrbitDistance.Equals(other.OrbitDistance) && OrbitalAngularVelocity.Equals(other.OrbitalAngularVelocity) && RotatationalAngularVelocity.Equals(other.RotatationalAngularVelocity) && InitialOrbitalAngularPositionOffset.Equals(other.InitialOrbitalAngularPositionOffset) && CurrentAngularPosition.Equals(other.CurrentAngularPosition) && Angle.Equals(other.Angle);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = Name.GetHashCode();
-                hashCode = (hashCode*397) ^ Radius.GetHashCode();
-                hashCode = (hashCode*397) ^ OrbitDistance.GetHashCode();
-                hashCode = (hashCode*397) ^ OrbitalAngularVelocity.GetHashCode();
-                hashCode = (hashCode*397) ^ RotatationalAngularVelocity.GetHashCode();
-                hashCode = (hashCode*397) ^ InitialOrbitalAngularPositionOffset.GetHashCode();
-                // ReSharper disable once NonReadonlyMemberInGetHashCode -- object is dynamic
-                hashCode = (hashCode*397) ^ CurrentAngularPosition.GetHashCode();
-                // ReSharper disable once NonReadonlyMemberInGetHashCode -- object is dynamic
-                hashCode = (hashCode*397) ^ Angle.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        public static bool operator ==(CelestialBody left, CelestialBody right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(CelestialBody left, CelestialBody right)
-        {
-            return !Equals(left, right);
         }
     }
 }

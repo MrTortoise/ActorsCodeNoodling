@@ -54,14 +54,26 @@ namespace Entities.LocationActors
                 }
             });
 
-            Receive<GetCenterOfMassState>(msg =>
+            Receive<CenterOfMassStateQuery>(msg =>
             {
-
+                Sender.Tell(new CenterOfMassQueryResult(Stars, Planets));
             });
         }
 
-        public class GetCenterOfMassState
+        public class CenterOfMassStateQuery
         {
+        }
+
+        public class CenterOfMassQueryResult
+        {
+            public Star[] Stars { get;  }
+            public Planet[] Planets { get;  }
+
+            public CenterOfMassQueryResult(Star[] stars, Planet[] planets)
+            {
+                Stars = stars;
+                Planets = planets;
+            }
         }
     }
 }

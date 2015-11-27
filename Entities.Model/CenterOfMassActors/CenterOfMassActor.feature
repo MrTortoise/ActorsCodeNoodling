@@ -46,11 +46,11 @@ Given I create a test actor system using config
 	And I create a Resource Manager
 	And I add the following resources to the Resource Manager
 	| name        |
-	| metal       |
-	| rock        |
-	| punk        |
+	| Metal       |
+	| Rock        |
+	| Punk        |
 	| geddit yet? |
-	And I have created the following Moon Type called "The Moon"
+	And I have created the following Material called "The Moon"
 	| ResourceName | Value |
 	| Metal        | 0.1   |
 	| Rock         | 0.9   |
@@ -58,7 +58,7 @@ Given I create a test actor system using config
 	| name         | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | moonType |
 	| The Moon     | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | The Moon |
 	| Another Moon | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | The Moon |
-	And I have created the following Planet Type called "Some Planet"
+	And I have created the following Material called "Some Planet"
 	| ResourceName | Value |
 	| Metal        | 0.1   |
 	| Rock         | 0.9   |
@@ -66,19 +66,28 @@ Given I create a test actor system using config
 	| name         | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | planetType  | moons                     |
 	| The Planet   | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Some Planet | "The Moon","Another Moon" |
 	| Other Planet | 10     | 300           | 0.1                    | 0                           | 0                                   | 0                      | Some Planet |                           |
-	And I have created the following Star Type called "Mellow Yellow"
+	And I have created the following Material called "Mellow Yellow"
 	| property | Value |
 	| fuelRate | 0.1   |
 	And I have created the following stars
 	| name           | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | starType      |
 	| The Sun        | 1      | 2             | 0.2                    | 0                           | 0                                   | 0                      | Mellow Yellow |
 	| The Second Sun | 1      | 2             | 0.2                    | 0                           | 3.14                                | 3.14                   | Mellow Yellow |
-
-
-@mytag
-Scenario: Create a center of mass actor, add a com with stars and planets etc and verify they exist
-	Given I create a CenterOfMassManagerActor
-	When I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments
+	And I create a CenterOfMassManagerActor
+	And I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments
 	| name         | stars                      | planets                     |
 	| Solar System | "The Sun","The Second Sun" | "The Planet","Other Planet" |
-	Then the result should be 120 on the screen
+
+
+Scenario: Create a center of mass actor, add a com with stars and planets etc and verify they exist
+
+	When I get the CenterOfMassActor called "Solar System" and store it in the context as "Solar System"
+	Then I Expect the solar system "Solar System" to have the following
+	| ObjectType | Name           |
+	| star       | The Sun        |
+	| star       | The Second Sun |
+	| planet     | The Planet     |
+	| planet     | Other Planet   |
+	| moon       | The Moon       |
+	| moon       | Another Moon   |
+

@@ -49,7 +49,6 @@ namespace Entities
                 }
                 else
                 {
-
                     IResource retVal = _resources.SingleOrDefault(i => i.Name == m.Name);
 
                     Sender.Tell(new GetResourceResult(retVal));

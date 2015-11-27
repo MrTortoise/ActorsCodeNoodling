@@ -29,10 +29,8 @@ namespace Entities.Model
            Markets = new Dictionary<string, IActorRef>();
            Actors = new Dictionary<string, IActorRef>();
            Moons = new Dictionary<string, Moon>();
-           MoonTypes = new Dictionary<string, Moon.MoonType>();
-           PlanetTypes = new Dictionary<string, Planet.PlanetType>();
            Planets = new Dictionary<string, Planet>();
-           StarTypes = new Dictionary<string, Star.StarType>();
+           Materials = new Dictionary<string, IMaterial>();
            Config = "akka { loglevel=DEBUG,  loggers=[\"Akka.Logger.Serilog.SerilogLogger, Akka.Logger.Serilog\"]}";
        }
 
@@ -62,11 +60,9 @@ namespace Entities.Model
        public string Config { get; set; }
        public TestActorRef<LocationNameGeneratorActor> LocationGeneratorActor { get; set; }
        public IActorRef RandomActor { get; set; }
-       public Dictionary<string,Moon.MoonType> MoonTypes { get; set; }
        public Dictionary<string,Moon> Moons { get; set; }
-       public Dictionary<string,Planet.PlanetType> PlanetTypes { get; set; }
        public Dictionary<string,Planet> Planets { get; set; }
-       public Dictionary<string,Star.StarType> StarTypes { get; set; }
+       public Dictionary<string,IMaterial> Materials { get; set; }
        public Dictionary<string,Star> Stars { get; set; }
        public IActorRef CenterOfMassManagerActor { get; set; }
 

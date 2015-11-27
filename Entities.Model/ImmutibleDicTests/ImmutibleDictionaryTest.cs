@@ -31,7 +31,7 @@ namespace Entities.Model.ImmutibleDicTests
         }
 
         [TestCase()]
-        public void EqualityOfDifferentButEqualInstancesSameKVPFails()
+        public void EqualityOfDifferentButEqualInstancesSameKvpFails()
         {
             var test1 = "test1";
             var test2 = "test2";

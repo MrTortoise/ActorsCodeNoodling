@@ -1,6 +1,8 @@
+using System;
+
 namespace Entities.LocationActors
 {
-    public class CenterOfMassState
+    public class CenterOfMassState 
     {
         public string Name { get; }
         public Star[] Stars { get; }

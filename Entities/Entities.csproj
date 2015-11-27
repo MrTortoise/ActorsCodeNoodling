@@ -93,8 +93,9 @@
     <Compile Include="LocationActors\CenterOfMassActor.cs" />
     <Compile Include="LocationActors\CenterOfMassState.cs" />
     <Compile Include="LocationActors\ICelestialBody.cs" />
-    <Compile Include="LocationActors\IResourceComposition.cs" />
+    <Compile Include="LocationActors\IMaterial.cs" />
     <Compile Include="LocationActors\IUpdateDelta.cs" />
+    <Compile Include="LocationActors\Material.cs" />
     <Compile Include="LocationActors\Moon.cs" />
     <Compile Include="LocationActors\Planet.cs" />
     <Compile Include="LocationActors\Star.cs" />
