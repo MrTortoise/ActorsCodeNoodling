@@ -45,10 +45,11 @@ Given I create a test actor system using config
 	"""
 	And I create a Resource Manager
 	And I add the following resources to the Resource Manager
-	| name        |
-	| Metal       |
-	| Rock        |
-	| Punk        |
+	| name     |
+	| Metal    |
+	| Rock     |
+	| Punk     |
+	| Hydrogen |
 	| geddit yet? |
 	And I have created the following Material called "The Moon"
 	| ResourceName | Value |
@@ -67,8 +68,8 @@ Given I create a test actor system using config
 	| The Planet   | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Some Planet | "The Moon","Another Moon" |
 	| Other Planet | 10     | 300           | 0.1                    | 0                           | 0                                   | 0                      | Some Planet |                           |
 	And I have created the following Material called "Mellow Yellow"
-	| property | Value |
-	| fuelRate | 0.1   |
+	| ResourceName | Value |
+	| Hydrogen     | 0.1   |
 	And I have created the following stars
 	| name           | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | starType      |
 	| The Sun        | 1      | 2             | 0.2                    | 0                           | 0                                   | 0                      | Mellow Yellow |

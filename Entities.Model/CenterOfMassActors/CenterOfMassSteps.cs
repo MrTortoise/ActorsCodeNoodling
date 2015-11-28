@@ -90,9 +90,18 @@ namespace Entities.Model.CenterOfMassActors
                 var moonString = tableRow["moons"];
                 var strings = ExtractStringsFromCsv(moonString);
 
-                var moons = strings.Select(i => _state.Moons[i]);
+                Moon[] moons = null;
+                if (!(strings.Length == 1 && string.IsNullOrWhiteSpace(strings[0])))
+                {
+                    foreach (var s in strings)
+                    {
+                        Assert.Contains(s, _state.Moons.Keys);
+                    }
 
-                var planet = new Planet(planetType, celestialBody, moons.ToArray());
+                    moons = strings.Select(i => _state.Moons[i]).ToArray();
+                }
+
+                var planet = new Planet(planetType, celestialBody, moons);
                 _state.Planets.Add(planet.BodyData.Name, planet);
             }
         }
@@ -100,7 +109,7 @@ namespace Entities.Model.CenterOfMassActors
         private static string[] ExtractStringsFromCsv(string input)
         {
             var strings = input.Split(',');
-            strings = strings.Select(i => i.Replace("\"", "")).ToArray();
+            strings = strings.Select(i => i.Replace("\"", "").Trim()).ToArray();
             return strings;
         }
 
@@ -149,8 +158,9 @@ namespace Entities.Model.CenterOfMassActors
             foreach (var message in messages)
             {
                 comManager.Tell(message);
+                Thread.Sleep(10);
             }
-            Thread.Sleep(10);
+           
         }
 
         [When(@"I get the CenterOfMassActor called ""(.*)"" and store it in the context as ""(.*)""")]
@@ -162,7 +172,7 @@ namespace Entities.Model.CenterOfMassActors
             result.Wait();
             var actors = result.Result.CenterOfMasses;
 
-            Assert.Contains(comActor,actors.Keys);
+            Assert.Contains(comActor, actors.Keys);
             var actor = actors[comActor];
 
             ScenarioContext.Current.Add(contextKey, actor);

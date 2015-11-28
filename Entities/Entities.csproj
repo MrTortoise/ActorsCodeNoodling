@@ -103,6 +103,7 @@
     <Compile Include="Observation\Event.cs" />
     <Compile Include="Observation\ObserverActor.cs" />
     <Compile Include="Observation\UnObserve.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="UpdateDelta.cs" />
     <Compile Include="NameGenerators\INameGenerator.cs" />
     <Compile Include="InvitationToTreat.cs" />

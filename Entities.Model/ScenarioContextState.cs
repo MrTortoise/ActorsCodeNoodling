@@ -31,6 +31,7 @@ namespace Entities.Model
            Moons = new Dictionary<string, Moon>();
            Planets = new Dictionary<string, Planet>();
            Materials = new Dictionary<string, IMaterial>();
+            Stars = new Dictionary<string, Star>();
            Config = "akka { loglevel=DEBUG,  loggers=[\"Akka.Logger.Serilog.SerilogLogger, Akka.Logger.Serilog\"]}";
        }
 

@@ -14,7 +14,7 @@ namespace Entities.LocationActors
         {
             Material = material;
             BodyData = bodyData;
-            Moons = moons;
+            Moons = moons ?? new Moon[0];
         }
 
         /// <summary>

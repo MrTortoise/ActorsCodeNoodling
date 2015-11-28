@@ -22,7 +22,7 @@ namespace Entities.LocationActors
         {
             Receive<CreateCenterOfMass>(msg =>
             {
-                var com = Context.ActorOf(CenterOfMassActor.CreateProps(msg.Name, msg.Stars, msg.Planets), msg.Name);
+                var com = Context.ActorOf(CenterOfMassActor.CreateProps(msg.Name, msg.Stars, msg.Planets), msg.Name.RemoveSpaces());
                 _centerOfMasses.Add(msg.Name, com);
                 foreach (var contentsChangedObserver in _contentsChangedObservers)
                 {
