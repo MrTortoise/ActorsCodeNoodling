@@ -6,12 +6,25 @@ using NUnit.Framework.Constraints;
 
 namespace Entities.LocationActors
 {
+    /// <summary>
+    /// This is the actor that is responsible for managing and aggregating info abotu the Center of Mass actors
+    /// </summary>
+    /// <remarks>
+    /// This is also the actor that will be responsible for essentially producing a map and so therefor all the high level cross COM stuff.
+    /// Eg user at location and wants to see all connections 4 levels deep
+    /// Eg a user at location wants to see nearby markets.
+    /// </remarks>
     public class CenterOfMassManagerActor : ReceiveActor
     {
         private readonly Dictionary<string,IActorRef> _centerOfMasses = new Dictionary<string, IActorRef>();
         private readonly List<IActorRef> _contentsChangedObservers = new List<IActorRef>();
 
+        private readonly Dictionary<ICelestialBody,IActorRef> _celestialBodiesOnCenterOfMasses = new Dictionary<ICelestialBody, IActorRef>();
+        
+
         public static string Name => "CenterOfMassManagerActor";
+
+        public static string Path => @"user\CenterOfMassManagerActor";
 
         public static Props CreateProps()
         {
@@ -24,6 +37,17 @@ namespace Entities.LocationActors
             {
                 var com = Context.ActorOf(CenterOfMassActor.CreateProps(msg.Name, msg.Stars, msg.Planets), msg.Name.RemoveSpaces());
                 _centerOfMasses.Add(msg.Name, com);
+
+                foreach (var star in msg.Stars)
+                {
+                    _celestialBodiesOnCenterOfMasses.Add(star, com);
+                }
+
+                foreach (var planet in msg.Planets)
+                {
+                    _celestialBodiesOnCenterOfMasses.Add(planet, com);
+                }
+
                 foreach (var contentsChangedObserver in _contentsChangedObservers)
                 {
                     contentsChangedObserver.Tell(new EventObserved());
@@ -96,15 +120,15 @@ namespace Entities.LocationActors
 
         public class CreateCenterOfMass
         {
-            public CreateCenterOfMass(string name, Star[] stars, Planet[] planets)
+            public CreateCenterOfMass(string name, CelestialBody[] stars, CelestialBody[] planets)
             {
                 Stars = stars;
                 Planets = planets;
                 Name = name;
             }
 
-            public Star[] Stars { get; private set; }
-            public Planet[] Planets { get; private set; }
+            public CelestialBody[] Stars { get; private set; }
+            public CelestialBody[] Planets { get; private set; }
             public string Name { get; private set; }
         }
 

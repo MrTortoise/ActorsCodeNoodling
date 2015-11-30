@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="96ea3e65-a25e-493b-b493-148d059813e1" name="MarketAggregationActor" linkedPackageId="c2d30bb7-8127-484d-bbc0-1faeee603160" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <profileInstances>
+    <packageHasProfileInstances Id="995b5c93-35c9-45dc-8605-8cd610dae4ed">
+      <profileInstance Id="341af169-f474-40d2-9443-c686c36504d7" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="bd6927c0-5ca2-41df-aadc-fa51ff591c21">
+      <profileInstance Id="2eed5f2b-2b93-4ab6-8407-c8d0f2166a96" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="483eb1cc-dc51-4fd8-9115-40b8614cbf04" name="Ecosystem Dev" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c96cfaed-be16-4d7d-9ac7-5466d8121219" />
+        <targetEnds>
+          <association Id="7ddab6cb-3f63-4540-a080-ade52968ccbe" isDerived="false" sourceEndRoleName="Ecosystem Dev" targetEndRoleName="Get a list of Celestial Bodies with Markets" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="4a324219-7a64-4cf3-83dc-2005d9826237" LastKnownName="Get a list of Celestial Bodies with Markets" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="85bed686-8be2-4854-ae3b-13a3b146cd5f" name="Ecosystem Dev" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="01cb63f9-8214-4d72-b0cf-6af511ef2525" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="dd66769a-0d87-45c0-bace-af1959be1e0e" name="Get a list of Celestial Bodies with Markets" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="dcfec94e-a5b6-4ba2-b502-c5fb7e213150" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7be45725-c8d2-4457-9d62-c79600e6b93e" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="13641917-3a46-4098-8823-926da1b5370f" name="MarketAggregationActor" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="1fd0e00b-ea66-4281-8c87-15445f2bd197" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="5e3af396-893c-442c-9ebf-db26261b23b9" name="TraderActor" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="347ef195-8da3-402d-8d04-6981e97253c9" />
+        <targetEnds>
+          <association Id="359d233b-011a-41d1-aa56-cb8cc69cad49" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Get a list of Celestial Bodies with Markets" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="4a324219-7a64-4cf3-83dc-2005d9826237" LastKnownName="Get a list of Celestial Bodies with Markets" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="2904af86-6527-4358-9e79-920e1b9f0598" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="caafe64c-15b2-4a7d-a755-1977087ea0f4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="50545632-0b63-4042-a6f5-f6bd9607df6b" name="Get a list of Celestial Bodies with Markets" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="b4184eae-d18e-4adf-b923-7a43e00d3330" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ca91acad-08d5-413d-9321-0f6ae8306345" />
+          </association>
+          <association Id="39890f72-df33-4cfd-aaac-d77542d07dc1" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Get a list of Resource Exchange Contracts at a set of markets" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="268f4606-4c74-4ab7-aad3-d6bb3f748f50" LastKnownName="Get a list of Contract&lt;T&gt; at a set of markets" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b6f86fe0-03f2-494e-a8de-ac3a157f8c42" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="1c20ffc6-daee-435e-82d2-dbbd527f6b96" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d4377eca-2093-4b04-bd76-759d823c58f2" name="Get a list of Resource Exchange Contracts at a set of markets" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="9aae0883-7860-4f41-ae74-60ea734861ee" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="fef237fd-01eb-423e-959f-0e4e92d943e3" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="4a324219-7a64-4cf3-83dc-2005d9826237" name="Get a list of Celestial Bodies with Markets" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8620be3b-1c52-4687-9b51-d4bce5dfa27f" />
+        <targetEnds>
+          <association Id="09d8a2c3-1cf4-4973-8e34-bc1aba430db7" isDerived="false" sourceEndRoleName="Get a list of Celestial Bodies with Markets" targetEndRoleName="MarketAggregationActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="13641917-3a46-4098-8823-926da1b5370f" LastKnownName="MarketAggregationActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f961389e-208b-435c-9638-3c2fdc6fbbfb" name="Get a list of Celestial Bodies with Markets" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="2789e2e2-6ae6-4343-a80f-43737dba2c58" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="4c417771-1cf9-4d4e-8194-c99e41a8f3ca" name="MarketAggregationActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="39a887d7-08fe-4ca0-96f0-2510b9023cf6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="95fa727c-79e6-4c83-8e57-56c771130683" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="268f4606-4c74-4ab7-aad3-d6bb3f748f50" name="Get a list of Contract&lt;T&gt; at a set of markets" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b9ea404d-a7d6-4c92-9f8e-932c2d37948a" />
+        <targetEnds>
+          <association Id="7c29aa72-5cb9-40e3-9253-b95acb4b5d49" isDerived="false" sourceEndRoleName="Get a list of Resource Exchange Contracts at a set of markets" targetEndRoleName="MarketAggregationActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="13641917-3a46-4098-8823-926da1b5370f" LastKnownName="MarketAggregationActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a2324c81-dfb8-4135-a7a5-bc485e8c5f6c" name="Get a list of Resource Exchange Contracts at a set of markets" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="6a40db9c-2661-41e8-b4dd-4bcb6fc166f8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="bb91dbbf-1c20-46a8-8962-ff38724cf968" name="MarketAggregationActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="836b3c67-e4ea-4ca2-8227-04e095dcb4e8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="82c5b777-891c-4cbd-b44f-405bae85ecb8" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+  </packagedElements>
+  <package Id="c2d30bb7-8127-484d-bbc0-1faeee603160" name="ArchitecturalModel">
+    <elementDefinition Id="70ad09e0-ef61-4429-9030-146fc76cf516" />
+  </package>
+</useCaseModelRoot>

@@ -26,19 +26,19 @@ namespace Entities.LocationActors
         /// <summary>
         /// Gets the stars in this COM
         /// </summary>
-        public Star[] Stars => _centerOfMassState.Stars;
+        public CelestialBody[] Stars => _centerOfMassState.Stars;
 
         /// <summary>
         /// Gets the planets and their bodies in this COM
         /// </summary>
-        public Planet[] Planets => _centerOfMassState.Planets;
+        public CelestialBody[] Planets => _centerOfMassState.Planets;
 
-        public static Props CreateProps(string name, Star[] stars, Planet[] planets)
+        public static Props CreateProps(string name, CelestialBody[] stars, CelestialBody[] planets)
         {
             return Props.Create(() => new CenterOfMassActor(name, stars, planets));
         }
 
-        public CenterOfMassActor(string name, Star[] stars, Planet[] planets) 
+        public CenterOfMassActor(string name, CelestialBody[] stars, CelestialBody[] planets) 
         {
             _centerOfMassState = new CenterOfMassState(name, stars, planets);
             Receive<UpdateDelta>(msg =>
@@ -66,10 +66,10 @@ namespace Entities.LocationActors
 
         public class CenterOfMassQueryResult
         {
-            public Star[] Stars { get;  }
-            public Planet[] Planets { get;  }
+            public CelestialBody[] Stars { get;  }
+            public CelestialBody[] Planets { get;  }
 
-            public CenterOfMassQueryResult(Star[] stars, Planet[] planets)
+            public CenterOfMassQueryResult(CelestialBody[] stars, CelestialBody[] planets)
             {
                 Stars = stars;
                 Planets = planets;

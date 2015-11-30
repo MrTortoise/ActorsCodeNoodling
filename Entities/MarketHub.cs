@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.Util.Internal;
+using Entities.LocationActors;
 using Entities.NameGenerators;
 
 namespace Entities
@@ -17,7 +18,7 @@ namespace Entities
     public class MarketHub : ReceiveActor
     {
         private readonly Dictionary<string, IActorRef> _markets = new Dictionary<string, IActorRef>();
-        private ActorSelection _locationGenerator;
+        private ActorSelection _centerOfMassManagerActor;
 
         public MarketHub()
         {
@@ -25,7 +26,9 @@ namespace Entities
             {
                 Context.LogMessageDebug(msg);
                 var sender = Context.Sender;
-                var marketActor = Context.ActorOf(Props.Create(() => new Market(msg.Name,msg.Location)), msg.Name);
+                var marketActor =
+                    Context.ActorOf(Props.Create(() => new Market(msg.Name, msg.Location, msg.CenterOfMassActor)),
+                        msg.Name);
 
                 _markets.Add(msg.Name, marketActor);
                 sender.Tell(new TellMarketCreatedMessage(marketActor));
@@ -41,7 +44,7 @@ namespace Entities
 
         protected override void PreStart()
         {
-            _locationGenerator = Context.ActorSelection(LocationNameGeneratorActor.Path);
+            _centerOfMassManagerActor = Context.ActorSelection(CenterOfMassManagerActor.Path);
         }
 
         private class MarketQueryCoordinator : ReceiveActor
@@ -118,21 +121,23 @@ namespace Entities
             /// </summary>
             public string Name { get; private set; }
 
-            public IActorRef Location { get; private set; }
+            public ICelestialBody Location { get; private set; }
+            public IActorRef CenterOfMassActor { get;  }
 
             /// <summary>
             /// Creates an instance of <see cref="TellMarketCreatedMessage"/>
             /// </summary>
             /// <param name="name">The name of the market to create</param>
-            /// <param name="location"></param>
-            public TellCreateMarketMessage(string name, IActorRef location)
+            /// <param name="location">The Celestial body the market is attached to</param>
+            /// <param name="centerOfMassActor">the center of mass actor the market belogns to</param>
+            public TellCreateMarketMessage(string name, ICelestialBody location, IActorRef centerOfMassActor)
             {
                 if (location == null) throw new ArgumentNullException(nameof(location));
                 if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
-              
 
                 Name = name;
                 Location = location;
+                CenterOfMassActor = centerOfMassActor;
             }
         }
 

@@ -51,19 +51,17 @@ namespace Entities.Model.CenterOfMassActors
             return resourceCompositionBuilder.ToImmutable();
         }
 
-        [Given(@"I have created the following moons")]
+        [Given(@"I have created the following Celestial Bodies")]
         public void GivenIHaveCreatedTheFollowingMoons(Table table)
         {
             foreach (var tableRow in table.Rows)
             {
                 var celestialBody = GetCelestialBody(tableRow);
-                var moonType = _state.Materials[tableRow["moonType"]];
-                var moon = new Moon(moonType, celestialBody);
-                _state.Moons.Add(moon.BodyData.Name, moon);
+                _state.CelestialBodies.Add(celestialBody.Name, celestialBody);
             }
         }
 
-        private static CelestialBody GetCelestialBody(TableRow tableRow)
+        private CelestialBody GetCelestialBody(TableRow tableRow)
         {
             var name = tableRow["name"];
             double radius = double.Parse(tableRow["radius"]);
@@ -74,36 +72,27 @@ namespace Entities.Model.CenterOfMassActors
                 double.Parse(tableRow["initialOrbitalAngularPositionOffset"]);
             double currentAngularPosition = double.Parse(tableRow["currentAngularPosition"]);
 
-            var celestialBody = new CelestialBody(name, radius, orbitDistance, orbitalAngularVelocity,
-                rotatationalAngularVelocity, initialOrbitalAngularPositionOffset, currentAngularPosition);
-            return celestialBody;
-        }
+            var material = _state.Materials[tableRow["material"]];
+            CelestialBodyType bodyType = (CelestialBodyType)Enum.Parse(typeof (CelestialBodyType), tableRow["bodyType"]);
 
-        [Given(@"I have created the following planets")]
-        public void GivenIHaveCreatedTheFollowingPlanets(Table table)
-        {
-            foreach (var tableRow in table.Rows)
+            var moonString = tableRow["satellites"];
+            var strings = ExtractStringsFromCsv(moonString);
+
+            ICelestialBody[] satellites = null;
+            if (!(strings.Length == 1 && string.IsNullOrWhiteSpace(strings[0])))
             {
-                var celestialBody = GetCelestialBody(tableRow);
-                var planetType = _state.Materials[tableRow["planetType"]];
-
-                var moonString = tableRow["moons"];
-                var strings = ExtractStringsFromCsv(moonString);
-
-                Moon[] moons = null;
-                if (!(strings.Length == 1 && string.IsNullOrWhiteSpace(strings[0])))
+                foreach (var s in strings)
                 {
-                    foreach (var s in strings)
-                    {
-                        Assert.Contains(s, _state.Moons.Keys);
-                    }
-
-                    moons = strings.Select(i => _state.Moons[i]).ToArray();
+                    Assert.Contains(s, _state.CelestialBodies.Keys);
                 }
 
-                var planet = new Planet(planetType, celestialBody, moons);
-                _state.Planets.Add(planet.BodyData.Name, planet);
+                satellites = strings.Select(i => _state.CelestialBodies[i]).ToArray();
             }
+
+            var celestialBody = new CelestialBody(name, radius, orbitDistance, orbitalAngularVelocity,
+                rotatationalAngularVelocity, initialOrbitalAngularPositionOffset, currentAngularPosition, material,
+                bodyType, satellites);
+            return celestialBody;
         }
 
         private static string[] ExtractStringsFromCsv(string input)
@@ -111,19 +100,6 @@ namespace Entities.Model.CenterOfMassActors
             var strings = input.Split(',');
             strings = strings.Select(i => i.Replace("\"", "").Trim()).ToArray();
             return strings;
-        }
-
-        [Given(@"I have created the following stars")]
-        public void GivenIHaveCreatedTheFollowingStars(Table table)
-        {
-            foreach (var tableRow in table.Rows)
-            {
-                var celestialBody = GetCelestialBody(tableRow);
-                var starType = _state.Materials[tableRow["starType"]];
-
-                var star = new Star(starType, celestialBody);
-                _state.Stars.Add(star.BodyData.Name, star);
-            }
         }
 
         [Given(@"I create a CenterOfMassManagerActor")]
@@ -148,8 +124,8 @@ namespace Entities.Model.CenterOfMassActors
                 var starStrings = ExtractStringsFromCsv(starsCsv);
                 var planetStrings = ExtractStringsFromCsv(planetsCsv);
 
-                var stars = starStrings.Select(i => _state.Stars[i]).ToArray();
-                var planets = planetStrings.Select(i => _state.Planets[i]).ToArray();
+                var stars = starStrings.Select(i => _state.CelestialBodies[i]).ToArray();
+                var planets = planetStrings.Select(i => _state.CelestialBodies[i]).ToArray();
 
                 messages.Add(new CenterOfMassManagerActor.CreateCenterOfMass(name, stars, planets));
             }
@@ -190,7 +166,7 @@ namespace Entities.Model.CenterOfMassActors
 
             var stars = r2.Stars;
             var planets = r2.Planets;
-            var moons = r2.Planets.SelectMany(i => i.Moons);
+            var moons = r2.Planets.SelectMany(i => i.Satellites);
 
             var starNames = table.Rows.Where(i => i["ObjectType"] == "star").Select(i => i["Name"]);
             var planetNames = table.Rows.Where(i => i["ObjectType"] == "planet").Select(i => i["Name"]);
@@ -198,17 +174,17 @@ namespace Entities.Model.CenterOfMassActors
 
             foreach (var starName in starNames)
             {
-                Assert.Contains(starName, stars.Select(i => i.BodyData.Name).ToArray());
+                Assert.Contains(starName, stars.Select(i => i.Name).ToArray());
             }
 
             foreach (var planetName in planetNames)
             {
-                Assert.Contains(planetName,planets.Select(i=>i.BodyData.Name).ToArray());
+                Assert.Contains(planetName,planets.Select(i=>i.Name).ToArray());
             }
 
             foreach (var moonName in moonNames)
             {
-                Assert.Contains(moonName, moons.Select(i => i.BodyData.Name).ToArray());
+                Assert.Contains(moonName, moons.Select(i => i.Name).ToArray());
             }
 
         }

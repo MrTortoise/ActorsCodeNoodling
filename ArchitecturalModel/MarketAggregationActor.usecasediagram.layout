@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.375, 8.5" name="MarketAggregationActor">
+  <useCaseModelRootMoniker Id="96ea3e65-a25e-493b-b493-148d059813e1" />
+  <nestedChildShapes>
+    <actorShape Id="5201b0c9-c26f-4a34-8a89-9ce838f7d781" absoluteBounds="5, 1, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="483eb1cc-dc51-4fd8-9115-40b8614cbf04" LastKnownName="Ecosystem Dev" />
+      <relativeChildShapes />
+    </actorShape>
+    <actorShape Id="95252967-1349-4d04-8a1d-cd247c0c874a" absoluteBounds="4.625, 3, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="5e3af396-893c-442c-9ebf-db26261b23b9" LastKnownName="TraderActor" />
+      <relativeChildShapes />
+    </actorShape>
+    <useCaseShape Id="96523287-4240-4a58-8280-701788b5b4c7" absoluteBounds="6.625, 2.375, 1.625, 0.5" customColor="238, 237, 131" heightOffset="0">
+      <useCaseMoniker Id="4a324219-7a64-4cf3-83dc-2005d9826237" LastKnownName="Get a list of Celestial Bodies with Markets" />
+      <relativeChildShapes />
+    </useCaseShape>
+    <useCaseAssociationConnector edgePoints="[(5.125 : 3.1890243902439); (6.8007777972418 : 2.78029809823371)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="359d233b-011a-41d1-aa56-cb8cc69cad49" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="95252967-1349-4d04-8a1d-cd247c0c874a" />
+        <useCaseShapeMoniker Id="96523287-4240-4a58-8280-701788b5b4c7" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(5.5 : 1.40714285714286); (7.08027569993045 : 2.40045901138485)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="7ddab6cb-3f63-4540-a080-ade52968ccbe" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="5201b0c9-c26f-4a34-8a89-9ce838f7d781" />
+        <useCaseShapeMoniker Id="96523287-4240-4a58-8280-701788b5b4c7" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseShape Id="a635daa4-e85d-4bef-b556-ab41b1591bba" absoluteBounds="6.625, 3.75, 1.5, 0.875" customColor="238, 237, 131" heightOffset="0">
+      <useCaseMoniker Id="268f4606-4c74-4ab7-aad3-d6bb3f748f50" LastKnownName="Get a list of Contract&lt;T&gt; at a set of markets" />
+      <relativeChildShapes />
+    </useCaseShape>
+    <useCaseAssociationConnector edgePoints="[(5.125 : 3.34375); (6.74411614346758 : 3.95091855380034)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="39890f72-df33-4cfd-aaac-d77542d07dc1" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="95252967-1349-4d04-8a1d-cd247c0c874a" />
+        <useCaseShapeMoniker Id="a635daa4-e85d-4bef-b556-ab41b1591bba" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <SubsystemShape Id="56ddfc85-0e9b-4dd4-ba08-59f3f3567700" absoluteBounds="10.125, 2.5, 3, 2.5" customColor="White">
+      <subsystemMoniker Id="13641917-3a46-4098-8823-926da1b5370f" LastKnownName="MarketAggregationActor" />
+    </SubsystemShape>
+    <useCaseAssociationConnector edgePoints="[(8.04953409732894 : 2.78942707092419); (10.125 : 3.34701492537313)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="09d8a2c3-1cf4-4973-8e34-bc1aba430db7" />
+      <relativeChildShapes />
+      <nodes>
+        <useCaseShapeMoniker Id="96523287-4240-4a58-8280-701788b5b4c7" />
+        <SubsystemShapeMoniker Id="56ddfc85-0e9b-4dd4-ba08-59f3f3567700" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(8.11358766911345 : 4.11146891641479); (10.125 : 3.90441176470588)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="7c29aa72-5cb9-40e3-9253-b95acb4b5d49" />
+      <relativeChildShapes />
+      <nodes>
+        <useCaseShapeMoniker Id="a635daa4-e85d-4bef-b556-ab41b1591bba" />
+        <SubsystemShapeMoniker Id="56ddfc85-0e9b-4dd4-ba08-59f3f3567700" />
+      </nodes>
+    </useCaseAssociationConnector>
+  </nestedChildShapes>
+</useCaseDiagram>

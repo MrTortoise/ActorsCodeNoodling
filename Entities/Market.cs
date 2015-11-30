@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Runtime.Remoting.Messaging;
 using Akka.Actor;
+using Entities.LocationActors;
 
 namespace Entities
 {
@@ -16,20 +17,23 @@ namespace Entities
         private readonly Dictionary<string, ResourceForSale> _itemsForSale = new Dictionary<string, ResourceForSale>();
 
         private readonly string _name;
-        private IActorRef _location;
+        private ICelestialBody _location;
+        private IActorRef _centerOfMassActorRef;
 
-        public static Props CreateProps(string name, IActorRef location)
+        public static Props CreateProps(string name, ICelestialBody location, IActorRef centerOfMassActorRef)
         {
-            return Props.Create(() => new Market(name, location));
+            return Props.Create(() => new Market(name, location, centerOfMassActorRef));
         }
 
-        public Market(string name, IActorRef location)
+        public Market(string name, ICelestialBody location, IActorRef centerOfMassActorRef)
         {
             if (location == null) throw new ArgumentNullException(nameof(location));
+            if (centerOfMassActorRef == null) throw new ArgumentNullException(nameof(centerOfMassActorRef));
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
 
             _name = name;
             _location = location;
+            _centerOfMassActorRef = centerOfMassActorRef;
         }
 
         public void Handle(QueryMarketMessage message)

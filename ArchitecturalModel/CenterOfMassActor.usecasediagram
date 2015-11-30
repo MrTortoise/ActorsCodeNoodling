@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="7e3dc150-3f26-47d0-b2f0-57af89ab01c7" name="CenterOfMassActor" linkedPackageId="59d897d0-2e6d-4787-af21-da7c0ca441eb" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <profileInstances>
+    <packageHasProfileInstances Id="22fe3fd9-0006-4b3a-ad6c-b514867285dd">
+      <profileInstance Id="02c3a08b-6e28-403d-ae4f-77820b570804" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="10a4340c-f39f-4462-bfc1-34d1176e4d7d">
+      <profileInstance Id="166dfae9-a28c-4cd1-ab10-212694a4386b" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="fc9e5050-baeb-45f2-b417-25d56dfc12e0" name="CenterOfMassActor" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="1754a778-6510-48eb-b287-60c0125891fd" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="3ee70ece-72b6-4e65-86e5-52e072f8fa4e" name="Physics System Actor" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7028e342-1d23-4478-8766-ed267e8f92f0" />
+        <targetEnds>
+          <association Id="52af4669-92d5-4cc9-baba-5ee11f282967" isDerived="false" sourceEndRoleName="Physics System Actor" targetEndRoleName="update with delta time" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="bd621786-49e4-4710-8fe8-0c8b1fc7b15c" LastKnownName="update with delta time" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e4742c20-5fdd-43ee-a1d5-093f10d39a0e" name="Physics System Actor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="cee920d2-221e-447c-9d0a-b27b70f7fee9" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="937806dc-e568-4b75-ad34-183a159b4827" name="update with delta time" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="429f9aca-2b09-4cda-b0e5-15cab14dae95" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="a6da32d9-3896-4ac5-a083-372abcaa5205" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="bd621786-49e4-4710-8fe8-0c8b1fc7b15c" name="update with delta time" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="dbadfd02-abd4-404c-b225-c0de72edfcdc" />
+        <targetEnds>
+          <association Id="fe317f96-8a96-4fd2-8902-129055eb990f" isDerived="false" sourceEndRoleName="update with delta time" targetEndRoleName="CenterOfMassActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="fc9e5050-baeb-45f2-b417-25d56dfc12e0" LastKnownName="CenterOfMassActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="94edfc5e-dab1-4b8e-8461-db54c6bbb491" name="update with delta time" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="e1ff1bad-cae8-4ad9-9bad-fcaca20c6e71" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c9f4246d-4c49-457e-8fc0-993159d1827f" name="CenterOfMassActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="2914d7e2-0a99-4b05-a8a2-304c959b4600" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="88e5547d-2c4c-4c2b-a669-6bc894d9f00f" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="e60f6279-1e4e-40a8-b949-9e40477871da" name="TraderActor" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="978f17e2-b81c-41a4-98c5-6cc3cfad5549" />
+        <targetEnds>
+          <association Id="8185174e-0ea7-49f7-88be-9fd8666cfb91" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Get Market For Celestial Body" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="58f32308-d159-44f3-b2f0-440c0c582e7b" LastKnownName="Get Market For Celestial Body" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="42af4966-9743-41b1-b08a-30b3da709e1c" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="6469a2ad-1ca8-4ed1-9606-996988bcf86f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ba018871-e488-4a4c-bf46-9a870954f3c4" name="Get Market For Celestial Body" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="c76cfa41-dc2b-4aae-905b-cf2ad1d49edb" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="c8469b43-d857-4179-820a-cb36e1f4f9f5" />
+          </association>
+          <association Id="9ddebe2e-d0fd-4ad7-9a77-b489b79a330d" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Get Celestial Bodies" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="fbfcc198-6a48-423f-bb67-c2a0244c7015" LastKnownName="Get Celestial Bodies" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b3704f3e-e1f9-4caa-84bd-323d4ac6e809" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="1f70774b-f14e-4a05-a55f-bccd9e1077ff" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="374d267e-cace-4437-bf69-fdca53a6ee2a" name="Get Celestial Bodies" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d733a134-20d0-4c65-9e33-aa6fb0af086e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="bfb19720-5be5-44ad-bee7-fa548f0bccaa" />
+          </association>
+          <association Id="8a68db46-227d-4ff3-923a-be32bb359fd7" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Create Market For Celestial Body" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="5a8cffe3-fb83-49b8-a1a5-9a5c0f4d41a8" LastKnownName="Create Market For Celestial Body" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f51df7d3-f065-402b-a60f-2754ef808be6" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="03e8e8b4-a756-496f-99de-6ff677c3a060" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9b66d9ce-1416-4c35-9eff-6727e2ccb96e" name="Create Market For Celestial Body" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1dc523ee-8874-467a-a13b-bc09aff37df4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0531a5a9-dac6-472a-82e6-9499efa22c44" />
+          </association>
+          <association Id="b4db56c2-528d-411b-93d9-ce43ea4eae3a" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Delte Market For Celestial Body" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="caff2693-18a6-42f2-9565-91ef3328b42e" LastKnownName="Delte Market For Celestial Body" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="90e7748f-e402-4b90-bba4-fc6bbf32f361" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="b678545d-f115-4645-a3e8-33feaaada405" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="cf3b18fd-cd36-4621-82a6-c4a0d6290e14" name="Delte Market For Celestial Body" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="6e87b73b-adfc-4f7c-8479-e21a424ef3b3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="89c3a17a-b64c-4998-9b88-b8f4d08f75ed" />
+          </association>
+          <association Id="3232bab4-216b-45bc-8956-3f6a92ebdc96" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Get List of connections to other Celestial Bodies" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="7b513995-fa82-4d59-9cba-7341fc648d65" LastKnownName="Get List of connections to other Celestial Bodies" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="89aca480-9805-446f-96d3-3c538a6dda66" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="751c0c53-9fe6-4a4a-b49d-2b38830e4e58" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8795f882-141e-4d82-96fd-7d7f386121e7" name="Get List of connections to other Celestial Bodies" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="c8061e99-cf22-4889-be5b-24e136ae6c0c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ff9e245f-e6f9-40b8-9334-44103146a073" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="58f32308-d159-44f3-b2f0-440c0c582e7b" name="Get Market For Celestial Body" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="2c92d961-80dd-41a5-b781-a416199cca60" />
+        <targetEnds>
+          <association Id="c069421c-8e86-4b4c-a86d-4a29e993d6d5" isDerived="false" sourceEndRoleName="Get Market For Celestial Body" targetEndRoleName="CenterOfMassActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="fc9e5050-baeb-45f2-b417-25d56dfc12e0" LastKnownName="CenterOfMassActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b12a8db0-1426-44ce-9faa-790d1bc1952a" name="Get Market For Celestial Body" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="32ab4c4d-ef7b-4d15-a111-2890d8569d4e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="bfc5a1c2-f226-46f2-bfb7-7a01f97c83b9" name="CenterOfMassActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a4bf7892-4cf7-41c7-bd24-b74846ae29e6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="aafe3c4e-d8d4-44e2-9d98-470d419c37c4" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="bd33fc21-1811-4c35-a6b9-e0aa0d4facfd" name="Ecosystem Dev" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="118504bd-a4bf-45c7-b3d3-75b3b21cb1dd" />
+        <targetEnds>
+          <association Id="2925a2ee-0d69-4599-a61f-fdc926384b0a" isDerived="false" sourceEndRoleName="Ecosystem Dev" targetEndRoleName="Create Market For Celestial Body" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="5a8cffe3-fb83-49b8-a1a5-9a5c0f4d41a8" LastKnownName="Create Market For Celestial Body" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="bde012c1-bc71-4897-943e-ccb07ff0b078" name="Ecosystem Dev" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="331b31cb-f258-4a3c-981a-ab5731caa24b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="069a3fe8-a6c8-42ff-b4e2-da7680cef754" name="Create Market For Celestial Body" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="c7aa905d-1fac-48c7-b57c-6d8b4570c28f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="d37d79e2-8451-43a0-8107-f616e3a22b11" />
+          </association>
+          <association Id="26c4d0b5-a4c9-46cc-aee1-05de07c57522" isDerived="false" sourceEndRoleName="Ecosystem Dev" targetEndRoleName="Get Celestial Bodies" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="fbfcc198-6a48-423f-bb67-c2a0244c7015" LastKnownName="Get Celestial Bodies" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9a16ff4d-9e89-494c-9742-2e5b2d810ff1" name="Ecosystem Dev" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="868ef40d-356c-4573-8dc5-c3fb1c6e5955" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d7143cfb-0b4a-4a9a-b2a4-d574535e54a4" name="Get Celestial Bodies" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="80093960-17aa-4ab1-b35a-6df67b62d129" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="b9a0c76a-5aab-420c-b7ed-1c3229906611" />
+          </association>
+          <association Id="430b240e-bdf2-4105-9c20-d58a10f912a3" isDerived="false" sourceEndRoleName="Ecosystem Dev" targetEndRoleName="Get Market For Celestial Body" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="58f32308-d159-44f3-b2f0-440c0c582e7b" LastKnownName="Get Market For Celestial Body" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0a3952e4-90ad-471f-96d3-2f94cdeb3c1f" name="Ecosystem Dev" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="91829bab-91ee-4eb5-8e63-4a54fd50e152" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c017e806-2e17-4b41-acba-951b8fdf8912" name="Get Market For Celestial Body" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f36cafef-c9b4-4d54-9bc8-07736e60c7ec" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="019588c0-580c-4108-999a-5e3b68e555b5" />
+          </association>
+          <association Id="7bd1a475-a2f1-451e-8328-430504d03709" isDerived="false" sourceEndRoleName="Ecosystem Dev" targetEndRoleName="Delte Market For Celestial Body" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="caff2693-18a6-42f2-9565-91ef3328b42e" LastKnownName="Delte Market For Celestial Body" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0f1008bf-7e8e-4b33-b9cf-485c31c2ad24" name="Ecosystem Dev" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="4a4a813a-1790-4b0a-88db-bf0f4725fa0a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7a9fa522-7f35-4838-a8cd-5f42e2d7c7ac" name="Delte Market For Celestial Body" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1da6da9d-8f95-400e-a4ce-22d8ca78babe" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="9982dc11-7bf1-4d4f-945d-28e7df2c54e4" />
+          </association>
+          <association Id="c43b9365-f242-4b88-b12a-bd4e42b29bd2" isDerived="false" sourceEndRoleName="Ecosystem Dev" targetEndRoleName="Get List of connections to other Celestial Bodies" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="7b513995-fa82-4d59-9cba-7341fc648d65" LastKnownName="Get List of connections to other Celestial Bodies" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5408a520-1478-4eee-a128-fe4c7c285d2f" name="Ecosystem Dev" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="8f73f63f-13ea-49c8-9e49-c86bbfe587f8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="67ec5390-e5e2-49ec-89ab-9578665d170d" name="Get List of connections to other Celestial Bodies" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1056f015-decc-498b-bf3f-95eabb5542df" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7680e6d1-14af-4ca1-9222-548eb4a016fd" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="5a8cffe3-fb83-49b8-a1a5-9a5c0f4d41a8" name="Create Market For Celestial Body" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="0d68a78b-6a2d-4207-bb89-df8488158d1f" />
+        <targetEnds>
+          <association Id="429c73b3-2c8b-4092-9c7b-9a661f25bd93" isDerived="false" sourceEndRoleName="Create Market For Celestial Body" targetEndRoleName="CenterOfMassActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="fc9e5050-baeb-45f2-b417-25d56dfc12e0" LastKnownName="CenterOfMassActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0106e7e5-3d77-4633-938f-d8760be53dc0" name="Create Market For Celestial Body" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="9afb1f3f-343a-4113-85cd-30f305abc07e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f0f7e74f-88a0-4168-8367-9d015d02623c" name="CenterOfMassActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="9dffedd2-139c-410c-97d8-d4c6ba4a76fe" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="16392b97-03e7-4c35-bb87-6f04a292ad1c" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="fbfcc198-6a48-423f-bb67-c2a0244c7015" name="Get Celestial Bodies" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="52a30576-596f-4cf3-a655-bd4efb76e120" />
+        <targetEnds>
+          <association Id="70507947-d55e-46c4-b7c1-c3ff347efab4" isDerived="false" sourceEndRoleName="Get Celestial Bodies" targetEndRoleName="CenterOfMassActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="fc9e5050-baeb-45f2-b417-25d56dfc12e0" LastKnownName="CenterOfMassActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b126ce17-d46b-4f30-9a5e-f073778ec547" name="Get Celestial Bodies" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="659ec8fb-f24d-4e08-b793-1cba585817a6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="eb866dba-5ce6-4ce8-8b4b-908f76b770ad" name="CenterOfMassActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1ce10ee6-3fba-42f1-9406-3d0d6983431d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="9d71a437-a4a7-443f-bf50-71c349de16cd" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="caff2693-18a6-42f2-9565-91ef3328b42e" name="Delte Market For Celestial Body" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="df4c4dee-55a8-4fde-89fb-43f4d468dc19" />
+        <targetEnds>
+          <association Id="79c689a7-0239-4a94-b853-e6621a4edaf2" isDerived="false" sourceEndRoleName="Delte Market For Celestial Body" targetEndRoleName="CenterOfMassActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="fc9e5050-baeb-45f2-b417-25d56dfc12e0" LastKnownName="CenterOfMassActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1b696f64-e24c-43a7-9c36-5f013e63a664" name="Delte Market For Celestial Body" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="47128ec0-e87d-468d-b2f5-65e6e977a90d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="cec94363-f2ef-4f07-8fb4-aaa7991d61c3" name="CenterOfMassActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="6a40d577-7f76-493b-afac-c21083fe1a96" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="59464ad2-1d2d-4730-9082-e8176980216d" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="7b513995-fa82-4d59-9cba-7341fc648d65" name="Get List of connections to other Celestial Bodies" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="5d35541e-5853-4abf-b299-3aa542c0f678" />
+        <targetEnds>
+          <association Id="4e662a31-1997-4872-9592-a36f6c9ae388" isDerived="false" sourceEndRoleName="Get List of connections to other Celestial Bodies" targetEndRoleName="CenterOfMassActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="fc9e5050-baeb-45f2-b417-25d56dfc12e0" LastKnownName="CenterOfMassActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5806ae21-38ad-4263-93e3-1aae7b6f1ce0" name="Get List of connections to other Celestial Bodies" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="dfae8684-a85e-407d-b8ea-ceb27b80a3b7" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d9a336d2-0e62-4a53-9d4a-3f271d395aa5" name="CenterOfMassActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="4b4163d3-5713-4e6a-a423-e3e724596a52" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="43d8be74-6168-4520-99b2-d4fe9aabf301" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+  </packagedElements>
+  <package Id="59d897d0-2e6d-4787-af21-da7c0ca441eb" name="ArchitecturalModel">
+    <elementDefinition Id="70ad09e0-ef61-4429-9030-146fc76cf516" />
+  </package>
+</useCaseModelRoot>

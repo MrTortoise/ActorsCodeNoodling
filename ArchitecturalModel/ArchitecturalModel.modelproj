@@ -22,6 +22,27 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" Condition="'$(VSToolsPath)' != ''" />
   <ItemGroup>
+    <Content Include="CenterOfMassActor.usecasediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="CenterOfMassActor.usecasediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>CenterOfMassActor.usecasediagram</DependentUpon>
+    </Content>
+    <Content Include="MarketActor.usecasediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="MarketActor.usecasediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>MarketActor.usecasediagram</DependentUpon>
+    </Content>
+    <Content Include="MarketAggregationActor.usecasediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="MarketAggregationActor.usecasediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>MarketAggregationActor.usecasediagram</DependentUpon>
+    </Content>
     <Content Include="Trader.usecasediagram">
       <SubType>Content</SubType>
     </Content>

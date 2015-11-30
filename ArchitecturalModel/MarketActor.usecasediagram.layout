@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.375, 8.5" name="MarketActor">
+  <useCaseModelRootMoniker Id="cefb06da-71bf-409d-9b62-f7d54a58b0df" />
+  <nestedChildShapes>
+    <SubsystemShape Id="ed54f7db-fca7-4e42-bdd7-fde468f07bb6" absoluteBounds="9.125, 3.125, 3, 2.5" customColor="White">
+      <subsystemMoniker Id="658d1208-49d1-46a9-8c40-c993106115d7" LastKnownName="MarketACtor" />
+    </SubsystemShape>
+  </nestedChildShapes>
+</useCaseDiagram>

@@ -15,7 +15,7 @@ Background:
    And I create a TestProbe called "buyer"
    And I create a TestProbe called "seller"
    And I create a TestProbe called "exchangeContractSup"
-  # And I have created a TestActor called "testActor"
+ # And I have created a TestActor called "testActor"
    And I have configured the DateTime provider to return "2015/1/1 15:00:00"
 
 Scenario: Get an instance of ExchangeContractActor and verify it is uninitialised
@@ -35,7 +35,7 @@ Scenario:  Post invitation to Exchange contract, verify its current state is pos
 	| SuggestedOfferResourceQuantity | 2        |
 	| LiabilityResourceName          | metal    |
 	| LiabilityResourceQuantity      | 2        |
-	| ContractOwner                  | seller     |
+	| ContractOwner                  | seller   |
 	Then I expect the state of the ExchangeContractActor "exchangeContract" to be "InvitationPosted"
     And I expect the creator of ExchangeContractActor "exchangeContract" to be "seller"
     And I expect the ExchangeContractActor "exchangeContract" to have the following for offer
@@ -50,7 +50,7 @@ Scenario:  Post invitation to Exchange contract, verify its current state is pos
     | LiabilityResourceQuantity      | 2                 |
 
 Scenario: Take an invitation and make an offer, verify state is OfferMade, offer is queryable, and owner gets notified
-	Given I create an ExchangeContractActor called "exchangeContract" with supervisor TestProbe called "exchangeContractSup"		
+	Given I create an ExchangeContractActor called "exchangeContract" with supervisor TestProbe called "exchangeContractSup"
 	And I post to the ExchangeContract "exchangeContract" the following invitation
 	| Field                          | Value     |
 	| ExchangeType                   | Purchase  |

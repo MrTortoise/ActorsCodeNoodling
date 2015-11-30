@@ -55,25 +55,21 @@ Given I create a test actor system using config
 	| ResourceName | Value |
 	| Metal        | 0.1   |
 	| Rock         | 0.9   |
-	And I have created the following moons
-	| name         | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | moonType |
-	| The Moon     | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | The Moon |
-	| Another Moon | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | The Moon |
 	And I have created the following Material called "Some Planet"
 	| ResourceName | Value |
 	| Metal        | 0.1   |
 	| Rock         | 0.9   |
-	And I have created the following planets
-	| name         | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | planetType  | moons                     |
-	| The Planet   | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Some Planet | "The Moon","Another Moon" |
-	| Other Planet | 10     | 300           | 0.1                    | 0                           | 0                                   | 0                      | Some Planet |                           |
 	And I have created the following Material called "Mellow Yellow"
 	| ResourceName | Value |
 	| Hydrogen     | 0.1   |
-	And I have created the following stars
-	| name           | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | starType      |
-	| The Sun        | 1      | 2             | 0.2                    | 0                           | 0                                   | 0                      | Mellow Yellow |
-	| The Second Sun | 1      | 2             | 0.2                    | 0                           | 3.14                                | 3.14                   | Mellow Yellow |
+	And I have created the following Celestial Bodies         
+	| name           | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | bodyType | material      | satellites                |
+	| The Moon       | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Moon     | The Moon      |                           |
+	| Another Moon   | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Moon     | The Moon      |                           |
+	| The Planet     | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Planet   | Some Planet   | "The Moon","Another Moon" |
+	| Other Planet   | 10     | 300           | 0.1                    | 0                           | 0                                   | 0                      | Planet   | Some Planet   |                           |
+	| The Sun        | 1      | 2             | 0.2                    | 0                           | 0                                   | 0                      | Star     | Mellow Yellow |                           |
+	| The Second Sun | 1      | 2             | 0.2                    | 0                           | 3.14                                | 3.14                   | Star     | Mellow Yellow |                           |
 	And I create a CenterOfMassManagerActor
 	And I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments
 	| name         | stars                      | planets                     |
@@ -91,4 +87,9 @@ Scenario: Create a center of mass actor, add a com with stars and planets etc an
 	| planet     | Other Planet   |
 	| moon       | The Moon       |
 	| moon       | Another Moon   |
+
+Scenario: Take the COM actor and do a few updates and ensure all is hunky dory.
+# whilst this is goign on need to consider how to resolve the position of a body given the root of its coordinate space is in its parent and it has no reference to this atm.
+# moreover due to the method of constructino passing a reference to a parent is a pain in the tits. Would ahve to switch from attaching things to parents creatign children 
+# this has fairly large impacts upon things like order of creation, and so sequencing in storage and normalisation. Deserailising is not as simple as mass deserialisation followed by repointing.
 
