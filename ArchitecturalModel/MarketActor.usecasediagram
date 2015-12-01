@@ -1,27 +1,197 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="cefb06da-71bf-409d-9b62-f7d54a58b0df" name="MarketActor" linkedPackageId="ebdef8cb-9784-45cb-bc8d-60f8ad5f990f" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
-  <profileInstances>
-    <packageHasProfileInstances Id="3f0ed153-4e16-4770-809a-d3efe5c7d132">
-      <profileInstance Id="a6f090cd-2316-4e66-9b34-e4ed842b4935" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="1b513a5c-43f5-472b-8d80-76a3b6a0a942">
-      <profileInstance Id="c941bca5-1518-4beb-9cf7-52a24959e7cf" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <useCaseModelRootHasTypes>
-      <subsystem Id="658d1208-49d1-46a9-8c40-c993106115d7" name="MarketACtor" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <subsystem Id="658d1208-49d1-46a9-8c40-c993106115d7" name="MarketActor" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="e07dab0e-9ee5-411d-b760-c95ae0a24b44" />
+        <targetEnds>
+          <association Id="5d6a4da7-b411-434f-90f0-79c08f3f73fb" isDerived="false" sourceEndRoleName="MarketActor" targetEndRoleName="Set Expiry for a contract" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="ba41102c-45a5-4c51-8827-4dca3885988a" LastKnownName="Set Expiry for a contract" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c8561055-9468-4101-903e-4e8cf9e9154b" name="MarketActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="06ae4192-5a7e-49c9-a8f6-3d4958a22849" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d2633d82-8ac8-43f3-9727-4055eaabe0f8" name="Set Expiry for a contract" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="ea1605a5-0af8-413f-b428-5e9b90b27e83" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="03f2e9dd-81db-4e71-9c29-52f6de79109f" />
+          </association>
+        </targetEnds>
       </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="5dc9e911-40db-4bca-b10e-a6a8111f75b7" name="TraderActor" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="9ca7451f-910d-4720-ba70-47af597011b9" />
+        <targetEnds>
+          <association Id="242e563f-56a4-4443-ac2a-6d743fa92b68" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Get List of Contracts" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="52d75874-6b52-4eda-b1ab-44161dba73a7" LastKnownName="Get List of Contracts" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8ad186ff-299d-49a6-bef4-935c334f03ca" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f4010f2a-405f-47ab-aca5-e10e785d9a3d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a24b471b-a14d-4fc2-b56f-e7d121ef2507" name="Get List of Contracts" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f6dfd2f1-863c-4993-b4d0-af2ddce898a2" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="04385ccc-943f-4a16-a58e-19affac85e26" />
+          </association>
+          <association Id="99ddf15a-0fac-4065-86f9-a4fc44fd62bb" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Add Contract" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="f5be46bb-9b74-4710-9bc5-ae0b769d9b11" LastKnownName="Add Contract" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d749821e-3def-44a1-9ee5-60106bbb592a" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="227445b3-36da-42fc-b877-386f0445cd2e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0ec56a91-8aec-4e44-8531-d56bcc9ff5b3" name="Add Contract" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="5962884c-2761-49b3-bdc0-90a4ea5e41e2" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="af05911a-6070-46f2-9dc0-36e428ac97e6" />
+          </association>
+          <association Id="1f7b6c4d-c2a0-458e-9aee-5ab3cb2a697d" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Delete Contract" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="4f50f8ed-0f8e-4b39-86e5-9bbd58c46d74" LastKnownName="Delete Contract" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a7666389-6bc9-4c58-81ad-ec3dc8c54093" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="eddcc829-1af1-4438-9ab3-9852516e2355" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="261b2b7a-d1e2-4e4b-9660-3e778f78421a" name="Delete Contract" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f9ae7870-0ddd-4268-9f16-67cf08ebe497" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ffe1ad94-6761-4ef2-822b-fe91d26ca7af" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="52d75874-6b52-4eda-b1ab-44161dba73a7" name="Get List of Contracts" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="eb46b616-fbaf-4ae0-87b3-368c839037ed" />
+        <targetEnds>
+          <association Id="47a06e7b-6f8a-43b3-b4ed-5c000c0bd698" isDerived="false" sourceEndRoleName="Get List of Contracts" targetEndRoleName="MarketActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="658d1208-49d1-46a9-8c40-c993106115d7" LastKnownName="MarketActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="893055a7-1b7b-48f1-a166-81ba62aebf97" name="Get List of Contracts" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="74dd1f36-d624-41ad-addf-c5e5d7e5b989" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="83dd7eff-17ac-4837-8658-25cc9cbc332f" name="MarketActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="efd56f1f-17de-4239-aa71-604a9bb71303" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="249298c4-311e-457a-afb1-97078ac38e36" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="f5be46bb-9b74-4710-9bc5-ae0b769d9b11" name="Add Contract" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="70a5916b-ef61-47a5-ba8a-0221e2e8c72f" />
+        <targetEnds>
+          <association Id="c725a8a5-1a47-463d-ae76-85769dfe3267" isDerived="false" sourceEndRoleName="Add Contract" targetEndRoleName="MarketActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="658d1208-49d1-46a9-8c40-c993106115d7" LastKnownName="MarketActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c0f7febb-27c8-412e-b0a4-5e6cbc3de370" name="Add Contract" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="e90cccfb-afa5-4348-a1a3-4c69283cb575" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0fb3210b-c1f0-4d91-8ab9-7f38c536252e" name="MarketActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="777ae751-36cc-4df8-a1a3-a3d4e4d2dd82" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="32b44f95-2756-488f-8d75-2ad75a4f5aa1" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="dd948316-5013-4d7e-af39-0f5bbdab6d0f" name="Scheduler" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="93273035-fdea-4f71-9633-37bfb5a4a1ee" />
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="ba41102c-45a5-4c51-8827-4dca3885988a" name="Set Expiry for a contract" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="d9bb304f-0a07-4e8e-9155-7921795f3789" />
+        <targetEnds>
+          <association Id="c92197b2-5d99-4371-875f-a89008ed85e3" isDerived="false" sourceEndRoleName="Set Expiry for a contract" targetEndRoleName="Scheduler" isLeaf="false" isAbstract="false">
+            <actorMoniker Id="dd948316-5013-4d7e-af39-0f5bbdab6d0f" LastKnownName="Scheduler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="53bfa206-8092-429f-a38b-ddfedbf908a0" name="Set Expiry for a contract" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="64f5575b-ced7-4a03-b393-c796eebd180d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5758c284-1b11-47c9-a341-518936533ffb" name="Scheduler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="0152a69f-3c50-4511-9633-9ba5a0b0e47c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="c7a7f26a-e294-4409-8ffe-cb033f87cf9f" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="4f50f8ed-0f8e-4b39-86e5-9bbd58c46d74" name="Delete Contract" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8035fcc6-4d21-4d15-b47f-889429d73702" />
+        <targetEnds>
+          <association Id="a890f218-5891-4a11-8a93-5509af555a21" isDerived="false" sourceEndRoleName="Delete Contract" targetEndRoleName="MarketActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="658d1208-49d1-46a9-8c40-c993106115d7" LastKnownName="MarketActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0eec82db-bf21-4884-a4e3-ad8059b272e7" name="Delete Contract" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="1bd3fb12-53bb-4883-972b-82a14bd3a39d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ef50ad55-ddf5-4606-9397-72d74a0b3fac" name="MarketActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="7f200fd2-c8e9-41a2-bbb6-04b1e085996d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="a89285d9-afe4-4045-a11b-5e07dd650770" />
+          </association>
+        </targetEnds>
+      </useCase>
     </useCaseModelRootHasTypes>
   </packagedElements>
   <package Id="ebdef8cb-9784-45cb-bc8d-60f8ad5f990f" name="ArchitecturalModel">
     <elementDefinition Id="70ad09e0-ef61-4429-9030-146fc76cf516" />
+    <profileInstances>
+      <packageHasProfileInstances Id="3f0ed153-4e16-4770-809a-d3efe5c7d132">
+        <profileInstance Id="a6f090cd-2316-4e66-9b34-e4ed842b4935" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="1b513a5c-43f5-472b-8d80-76a3b6a0a942">
+        <profileInstance Id="c941bca5-1518-4beb-9cf7-52a24959e7cf" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </useCaseModelRoot>

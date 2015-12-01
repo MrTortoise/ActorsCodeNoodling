@@ -1,1 +1,22 @@
-﻿ 
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Trader">
+  <useCaseModelRootMoniker Id="7af20f21-a63a-4c5c-a9f7-670bffdc3430" />
+  <nestedChildShapes>
+    <actorShape Id="9666c9d5-9dc1-4161-a8f3-cedeec0c2c23" absoluteBounds="4.5, 2.75, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="bef3d000-704c-4f05-bb80-e17a75c9327f" LastKnownName="Trader" />
+      <relativeChildShapes />
+    </actorShape>
+    <useCaseShape Id="3c135ff3-4cda-44b7-acc8-3c3e246df213" absoluteBounds="7.375, 1, 2.125, 0.75" customColor="238, 237, 131" heightOffset="0">
+      <useCaseMoniker Id="68417494-e1fe-4768-b1be-910956ede7f1" LastKnownName="Request resources from an owned Industrial Actor " />
+      <relativeChildShapes />
+    </useCaseShape>
+    <useCaseAssociationConnector edgePoints="[(5 : 2.88983050847458); (7.77330398856797 : 1.66769654741073)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="2b277e87-4f0c-4f02-9e9e-9f43611e7702" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="9666c9d5-9dc1-4161-a8f3-cedeec0c2c23" />
+        <useCaseShapeMoniker Id="3c135ff3-4cda-44b7-acc8-3c3e246df213" />
+      </nodes>
+    </useCaseAssociationConnector>
+  </nestedChildShapes>
+</useCaseDiagram>

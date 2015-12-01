@@ -29,6 +29,27 @@
       <SubType>Content</SubType>
       <DependentUpon>CenterOfMassActor.usecasediagram</DependentUpon>
     </Content>
+    <Content Include="CreateExchangeContract.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="CreateExchangeContract.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>CreateExchangeContract.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="ExchangeContractActor.usecasediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ExchangeContractActor.usecasediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>ExchangeContractActor.usecasediagram</DependentUpon>
+    </Content>
+    <Content Include="ExchangeContractNegotiation.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ExchangeContractNegotiation.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>ExchangeContractNegotiation.sequencediagram</DependentUpon>
+    </Content>
     <Content Include="MarketActor.usecasediagram">
       <SubType>Content</SubType>
     </Content>

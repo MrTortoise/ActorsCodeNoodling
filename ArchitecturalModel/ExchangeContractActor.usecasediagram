@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="4aaa34a6-a566-4633-b4ee-319269312453" name="ExchangeContractActor" linkedPackageId="d37479e0-f3bf-4a42-a086-fbe6724e00df" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="cd3c1539-e2e6-471f-8e80-13ddf5d1e73f" name="ExchangeContractActor" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="abc3f546-ec45-4251-8ffd-ecef5e1de5df" />
+        <targetEnds>
+          <association Id="def48e02-d8c9-49cf-9ffe-572b7f3292c8" isDerived="false" sourceEndRoleName="ExchangeContractActor" targetEndRoleName="Transfer Liability" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="726dbebb-164b-4491-b909-10895cbde9d7" LastKnownName="Transfer Liability" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="62edb375-52a7-4168-b952-3a7814c39f52" name="ExchangeContractActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="575671ef-3050-42fd-8443-66a7a8390c01" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="268ddd0e-597d-4d66-a7ce-96c76b10a5c7" name="Transfer Liability" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f99484e9-f3e9-4446-88b7-4d20a86f5c62" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="a625ca42-c578-4ff3-9afa-8f9c20d74947" />
+          </association>
+          <association Id="d9812587-c823-4d8e-bcc9-37612bd04a61" isDerived="false" sourceEndRoleName="ExchangeContractActor" targetEndRoleName="Post Exchange Deadline" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9cbeb7e4-9fe4-4459-baeb-e920bf862784" LastKnownName="Post Exchange Deadline" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="06677b45-6112-4453-8bbf-9f2e6361c2b1" name="ExchangeContractActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="c530aac6-b74f-40f7-b5b2-680f080c0aac" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="2f7174dc-d709-4291-afe7-d04c85b4afae" name="Post Exchange Deadline" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="dfc0ec96-2cdf-4f15-8fe7-48ce214da06d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="45eaab69-1c61-4f7a-b293-344c44a62961" />
+          </association>
+        </targetEnds>
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="ff9b4c09-f420-4f52-bd5a-2eb9463244ee" name="TraderActor" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b87572cb-a1f0-4af1-8630-0a5b71c32fe0" />
+        <targetEnds>
+          <association Id="1b2aaa38-373a-4907-bc60-65a281e8dddc" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Make Offer" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="3e681a04-0d41-44ba-ab1d-ad6adfac4d5d" LastKnownName="Make Offer" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d3dded61-8dd2-4dc1-b4f5-8461fa9a2ea6" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="86a47687-5f4f-4955-8e40-472a6d9c948a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b4a2b883-7384-46f7-aa88-21868d5e0a16" name="Make Offer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="58b95bc9-3b6e-479e-8fdc-247a0d5014ce" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="5380b6b6-5081-4cd0-8deb-880a70a1366f" />
+          </association>
+          <association Id="2eb9cfde-4ffe-4c64-9616-87d0685ee235" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Make Counter Offer" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9e10ab99-7fdb-465a-9fb8-f70bc9ebe8a1" LastKnownName="Make Counter Offer" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0076f3f8-1372-4a24-8de6-66c248afe361" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="73fc778f-0228-40bf-b461-e31f9076b54e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="53a1d6a6-ef3b-4ff5-8dd4-b4e4c54bc234" name="Make Counter Offer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="207ce3f7-eeff-43af-a802-4224925c00df" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="43146bd8-d53a-464e-b0f4-f88c137e09d0" />
+          </association>
+          <association Id="0576961d-6dd5-40e0-8fb0-5168552df0cf" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Accept Offer" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="946ba25a-8f67-43d0-9807-3f2c5be626b8" LastKnownName="Accept Offer" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="78ab71bb-adf5-4aea-a795-479833164e37" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="028b9db6-1ca9-417a-b5e3-bdcfccdb47d9" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="50f71cd1-ebbb-485d-b5e8-a544e22d8cf1" name="Accept Offer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="58b715ad-1b9d-4db0-b087-401385ded174" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="df3beaf5-3d77-412b-88b7-dd6512436187" />
+          </association>
+          <association Id="2356d4c1-005b-4a5d-98fb-9008a24a5922" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Decline Offer" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9b1786c8-09a0-49ad-946f-c47e149e00a4" LastKnownName="Decline Offer" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="75f46efa-b7ab-4dd0-bd0f-9da441168ba1" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f096a7b4-ae7d-43c1-ad04-d78c5bff7740" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9d014a90-114d-423f-9200-bc0d8988e810" name="Decline Offer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="dcf97ed6-d9e4-4d5e-bf48-89635d3ed998" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7a2bfeb8-67c7-4d90-892b-2660233b9fc9" />
+          </association>
+          <association Id="3e435a38-ffcd-4d10-892f-84b3ed9faff6" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Transfer Liability" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="726dbebb-164b-4491-b909-10895cbde9d7" LastKnownName="Transfer Liability" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="dc18b65f-7151-494e-9cc5-85275b745bf6" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="4c7c2b03-46cc-4e99-8ca2-8be25eb46ebb" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b488795c-2673-4fb8-b7a4-e4e391faf8d0" name="Transfer Liability" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1e8583aa-9454-4b63-8908-26d7da79148b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="80f79ba4-79c2-4e6c-85fd-c47a408290fc" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="3e681a04-0d41-44ba-ab1d-ad6adfac4d5d" name="Make Offer" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="11c617fa-3218-4aaf-bbee-68f1fa8917d7" />
+        <targetEnds>
+          <association Id="08ffbbc0-ee18-41c5-9fc0-7ff2795c89e1" isDerived="false" sourceEndRoleName="Make Offer" targetEndRoleName="ExchangeContractActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="cd3c1539-e2e6-471f-8e80-13ddf5d1e73f" LastKnownName="ExchangeContractActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9604e807-a886-4da9-b104-1ddb1c6552ac" name="Make Offer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="1aaae7c1-5cb4-481d-b254-c0e997f7796b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9527de97-ef67-45e5-8dd1-9bacc5a8c447" name="ExchangeContractActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="909b7ed3-1924-424b-988c-a2740d79ec99" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="f0865e52-3c2f-4513-8ec1-df58957ba441" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="9e10ab99-7fdb-465a-9fb8-f70bc9ebe8a1" name="Make Counter Offer" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="f652a071-bbec-48f1-8940-5ae1f64bc08d" />
+        <targetEnds>
+          <association Id="16ae4526-2f49-43ff-a48b-66cca287a4dc" isDerived="false" sourceEndRoleName="Make Counter Offer" targetEndRoleName="ExchangeContractActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="cd3c1539-e2e6-471f-8e80-13ddf5d1e73f" LastKnownName="ExchangeContractActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e9127d00-670e-4972-8535-9a487f90ae24" name="Make Counter Offer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="d1343833-1077-4fb4-ad3b-dd5d290479fe" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e1cec363-9710-4179-9a8e-f4d14baa7796" name="ExchangeContractActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="327146d3-6d38-41ac-9bd7-9c6932c9419f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="bdf341c6-ad91-4e61-8e8a-18e769f85c50" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="946ba25a-8f67-43d0-9807-3f2c5be626b8" name="Accept Offer" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="92163bbc-fc1c-4713-9a45-c195fb0df798" />
+        <targetEnds>
+          <association Id="24fa2d23-aeb3-455c-b78f-364f3f119e5a" isDerived="false" sourceEndRoleName="Accept Offer" targetEndRoleName="ExchangeContractActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="cd3c1539-e2e6-471f-8e80-13ddf5d1e73f" LastKnownName="ExchangeContractActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="237df586-386b-4f38-86ee-d383bbbc2fa8" name="Accept Offer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="9271d424-8fc6-46ae-85d3-6a4d15904b32" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7911ba92-1be7-44c8-a532-49fc7f82ca9d" name="ExchangeContractActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="7f2d94c8-dd03-4a8f-b4f3-cc9ae3d361bc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="10bba95e-6345-48fd-b4a1-6b4f7936e110" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="9b1786c8-09a0-49ad-946f-c47e149e00a4" name="Decline Offer" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="03dfc12d-6678-4525-b40a-a1fdb99bcba4" />
+        <targetEnds>
+          <association Id="f7f4c647-118e-4f7d-854b-d82ee3a5e0a1" isDerived="false" sourceEndRoleName="Decline Offer" targetEndRoleName="ExchangeContractActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="cd3c1539-e2e6-471f-8e80-13ddf5d1e73f" LastKnownName="ExchangeContractActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9b601a13-5726-4456-bb2a-d6d2102641df" name="Decline Offer" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="6feec685-37d7-42fc-889d-9a089d188143" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="eb58088e-191a-4496-b13e-419a016bd8b9" name="ExchangeContractActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="225a520c-81ed-44a6-b011-e9c5ddf4a9c7" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="59de0fa6-f30a-4c35-9f25-22713c83483c" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="726dbebb-164b-4491-b909-10895cbde9d7" name="Transfer Liability" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="699f67d4-b37b-461f-9fea-3cda961f46d8" />
+        <targetEnds>
+          <association Id="c13b1cdf-6f09-4253-8510-5c377ecb5f36" isDerived="false" sourceEndRoleName="Transfer Liability" targetEndRoleName="ExchangeContractActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="cd3c1539-e2e6-471f-8e80-13ddf5d1e73f" LastKnownName="ExchangeContractActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="05f7cf94-37d8-49aa-a0ab-3a3cde5db6ea" name="Transfer Liability" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f06c16c6-ab18-4258-b62b-d6c2fa22bd86" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8875ab71-2077-49d6-b153-4b8afd307c20" name="ExchangeContractActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="abcf1e15-c275-4cea-a776-24afef1d5575" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ff5f1260-bd7c-41ea-aa4f-f37d1cec09d4" />
+          </association>
+          <association Id="093b302c-dadb-464b-92bc-8c8d16f4a4cf" isDerived="false" sourceEndRoleName="Transfer Liability" targetEndRoleName="TraderActor" isLeaf="false" isAbstract="false">
+            <actorMoniker Id="ff9b4c09-f420-4f52-bd5a-2eb9463244ee" LastKnownName="TraderActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ef29724e-20cf-4333-a75f-2b657309ba2d" name="Transfer Liability" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="e074b462-7679-4abf-bb00-7cf01df393b4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="95b73c18-fd5f-4510-a1f6-919aed2035d9" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8a883997-7716-40bd-96f8-8c4ec704f686" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="40775361-882d-4f17-96e2-4e8f8863db32" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="7f096184-0eb3-48a6-82f6-6a2fff4f9be2" name="Scheduler" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="0b28ffe4-6065-4a16-9a08-5f9e751c5ab0" />
+        <targetEnds>
+          <association Id="82ac688f-f691-454c-bb59-4f6a06191c48" isDerived="false" sourceEndRoleName="Scheduler" targetEndRoleName="Expire Contract" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9cb599ef-ca04-49e2-8baf-37dc365f22b0" LastKnownName="Expire Contract offer" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="4c1ebbe4-aad1-4b15-8318-ab208419da57" name="Scheduler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="c4064379-b276-46da-bd29-d4cadf42ea2b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e21672c2-4afd-4669-9e89-f5f50ca626d8" name="Expire Contract" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d170435e-e1b3-4c29-b6ca-3645b6627673" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="d1a19175-7e02-461e-894a-30a54c8eaf48" />
+          </association>
+          <association Id="571a4ad9-3245-49aa-be0c-f874c4f0b966" isDerived="false" sourceEndRoleName="Scheduler" targetEndRoleName="Expire Exchange Deadline" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="917796da-7569-46d4-ad04-622993729df7" LastKnownName="Expire Exchange Deadline" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="efb56355-bf80-426f-b58f-1cf9b997d739" name="Scheduler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="7acac971-de0a-4816-8dad-ee8d3d5802c8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="436cdbb3-de12-4b23-848e-c822b5c22ae2" name="Expire Exchange Deadline" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="71931457-216a-4ef2-b67f-0651088a177a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="f9f2b149-f319-4c53-8cbd-d1cd6ffdffde" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="9cb599ef-ca04-49e2-8baf-37dc365f22b0" name="Expire Contract offer" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c342c71f-8571-45b2-a657-4ba3f5864bed" />
+        <targetEnds>
+          <association Id="39e41c63-6177-4a3c-a55a-9db77cca890b" isDerived="false" sourceEndRoleName="Expire Contract" targetEndRoleName="ExchangeContractActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="cd3c1539-e2e6-471f-8e80-13ddf5d1e73f" LastKnownName="ExchangeContractActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1c538555-1eec-42ef-a173-5ac8eaf43262" name="Expire Contract" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="46e2a742-b18d-4a69-b4d8-7001eeaf81a0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="62f519f5-92a2-4001-8bd5-1e553ca7d0b1" name="ExchangeContractActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="9c6dc642-5b69-4076-8c64-eb79561604d8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7e23a174-8120-4624-9851-dda3caa632eb" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="9cbeb7e4-9fe4-4459-baeb-e920bf862784" name="Post Exchange Deadline" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7423a343-791e-43e1-bf23-fd3ab356706b" />
+        <targetEnds>
+          <association Id="f3203805-b27f-4d94-9b53-ac274a158de5" isDerived="false" sourceEndRoleName="Post Exchange Deadline" targetEndRoleName="Scheduler" isLeaf="false" isAbstract="false">
+            <actorMoniker Id="7f096184-0eb3-48a6-82f6-6a2fff4f9be2" LastKnownName="Scheduler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ac82118d-2717-491c-9eb9-ebda3253589b" name="Post Exchange Deadline" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="c7784b7d-b41f-432d-9835-1366b4ecfbf9" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b0912648-f300-4c61-ae69-96206a3b72ae" name="Scheduler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="5a2739fa-1218-4c32-bcb5-edf0030720eb" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="139fc4f9-0281-40b1-81c0-04060c38e563" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="917796da-7569-46d4-ad04-622993729df7" name="Expire Exchange Deadline" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="ef4a9fdc-27fc-4f8a-8229-ed6a46f0d229" />
+        <targetEnds>
+          <association Id="56b29c8b-592f-43d5-9a72-02ca1ed87635" isDerived="false" sourceEndRoleName="Expire Exchange Deadline" targetEndRoleName="ExchangeContractActor" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="cd3c1539-e2e6-471f-8e80-13ddf5d1e73f" LastKnownName="ExchangeContractActor" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="bc72dd6d-81ba-49d2-bf0b-0e0373fc16fe" name="Expire Exchange Deadline" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="aa2836f5-4343-45d5-9c40-10c609dd8f05" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="50f8531d-a97f-4325-8fb0-64a76b26687c" name="ExchangeContractActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="afa29805-27ac-49f0-a1c7-e2639de2dfab" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="54368c5a-3e51-448d-829c-90c5b24e83bc" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+  </packagedElements>
+  <package Id="d37479e0-f3bf-4a42-a086-fbe6724e00df" name="ArchitecturalModel">
+    <elementDefinition Id="70ad09e0-ef61-4429-9030-146fc76cf516" />
+    <profileInstances>
+      <packageHasProfileInstances Id="58d8f854-8863-4447-991b-554805d71835">
+        <profileInstance Id="31d8ae7c-bb8b-406b-a3ce-59b6cc4a2141" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="22c8f3fe-db0a-49ee-bdd9-6a87e4f41157">
+        <profileInstance Id="d8bbce3c-adee-43b6-ba63-3cc413bc097b" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</useCaseModelRoot>

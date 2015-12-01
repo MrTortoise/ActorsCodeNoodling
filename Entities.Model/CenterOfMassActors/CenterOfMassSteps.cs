@@ -136,7 +136,6 @@ namespace Entities.Model.CenterOfMassActors
                 comManager.Tell(message);
                 Thread.Sleep(10);
             }
-           
         }
 
         [When(@"I get the CenterOfMassActor called ""(.*)"" and store it in the context as ""(.*)""")]

@@ -1,1 +1,50 @@
-﻿ 
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="7af20f21-a63a-4c5c-a9f7-670bffdc3430" name="Trader" linkedPackageId="2cfb0229-9247-4d57-ab23-389b3b72f6c1" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <profileInstances>
+    <packageHasProfileInstances Id="0b314ee2-6e1b-497e-a0e5-3a89f444568a">
+      <profileInstance Id="b9ed9c08-283c-4b64-a58a-25ecb2b3849c" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="cbc1f814-11a8-4f44-8d9e-72bc190c1ac1">
+      <profileInstance Id="1c1b4ad8-02f8-4b6d-86e9-e14dff7fdb1b" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="bef3d000-704c-4f05-bb80-e17a75c9327f" name="Trader" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="4a5b382c-3b0b-46ca-8f09-78984c29dc23" />
+        <targetEnds>
+          <association Id="2b277e87-4f0c-4f02-9e9e-9f43611e7702" isDerived="false" sourceEndRoleName="Trader" targetEndRoleName="Take resources from an owned Industrial Actor " isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="68417494-e1fe-4768-b1be-910956ede7f1" LastKnownName="Request resources from an owned Industrial Actor " />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9f9b66aa-6d5a-490f-b9dc-16d9aebdb6d1" name="Trader" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="3278f73e-1aca-478e-974e-9263abedaf79" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a013d791-4a02-40b8-a5f2-0c1b04a0cafb" name="Take resources from an owned Industrial Actor " isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="0d8330b5-7151-4243-ac8e-befab593f637" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="a8b4ecb6-873a-43c6-b66a-1e4ca14cd0ab" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="68417494-e1fe-4768-b1be-910956ede7f1" name="Request resources from an owned Industrial Actor " isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7d1b6327-cd57-4b58-a169-c92bd54bc782" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+  </packagedElements>
+  <package Id="2cfb0229-9247-4d57-ab23-389b3b72f6c1" name="ArchitecturalModel">
+    <elementDefinition Id="70ad09e0-ef61-4429-9030-146fc76cf516" />
+  </package>
+</useCaseModelRoot>

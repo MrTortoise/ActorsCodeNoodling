@@ -10,7 +10,7 @@
       <useCaseMoniker Id="bd621786-49e4-4710-8fe8-0c8b1fc7b15c" LastKnownName="update with delta time" />
       <relativeChildShapes />
     </useCaseShape>
-    <useCaseAssociationConnector edgePoints="[(11.3611111111111 : 1.25); (11.6415347710907 : 1.88095323495401)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(11.3611111111111 : 1.25); (11.6415347710907 : 1.88095323495401)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="52af4669-92d5-4cc9-baba-5ee11f282967" />
       <relativeChildShapes />
       <nodes>
@@ -22,11 +22,11 @@
       <actorMoniker Id="e60f6279-1e4e-40a8-b949-9e40477871da" LastKnownName="TraderActor" />
       <relativeChildShapes />
     </actorShape>
-    <useCaseShape Id="613278ac-8dd6-450c-984b-3c7a947c0166" absoluteBounds="7.25, 5.875, 1.125, 0.5" customColor="238, 237, 131" heightOffset="0">
+    <useCaseShape Id="613278ac-8dd6-450c-984b-3c7a947c0166" absoluteBounds="7.5, 4.875, 1.125, 0.5" customColor="238, 237, 131" heightOffset="0">
       <useCaseMoniker Id="58f32308-d159-44f3-b2f0-440c0c582e7b" LastKnownName="Get Market For Celestial Body" />
       <relativeChildShapes />
     </useCaseShape>
-    <useCaseAssociationConnector edgePoints="[(4.875 : 4.05147058823529); (7.51279253580155 : 5.91344178997756)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(4.875 : 3.96590909090909); (7.62714901919813 : 4.96669055243568)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="8185174e-0ea7-49f7-88be-9fd8666cfb91" />
       <relativeChildShapes />
       <nodes>
@@ -38,7 +38,7 @@
       <actorMoniker Id="bd33fc21-1811-4c35-a6b9-e0aa0d4facfd" LastKnownName="Ecosystem Dev" />
       <relativeChildShapes />
     </actorShape>
-    <useCaseAssociationConnector edgePoints="[(5.27430555555556 : 1.875); (7.66819149658219 : 5.88336715706786)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(5.33482142857143 : 1.875); (7.86591013331235 : 4.89076526522322)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="430b240e-bdf2-4105-9c20-d58a10f912a3" />
       <relativeChildShapes />
       <nodes>
@@ -46,11 +46,11 @@
         <useCaseShapeMoniker Id="613278ac-8dd6-450c-984b-3c7a947c0166" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseShape Id="ff2b4ade-6661-400e-9a75-4767a6e6fab4" absoluteBounds="7.25, 4.25, 1.375, 0.5" customColor="238, 237, 131" heightOffset="0">
+    <useCaseShape Id="ff2b4ade-6661-400e-9a75-4767a6e6fab4" absoluteBounds="7.375, 3.875, 1.375, 0.5" customColor="238, 237, 131" heightOffset="0">
       <useCaseMoniker Id="5a8cffe3-fb83-49b8-a1a5-9a5c0f4d41a8" LastKnownName="Create Market For Celestial Body" />
       <relativeChildShapes />
     </useCaseShape>
-    <useCaseAssociationConnector edgePoints="[(5.3695652173913 : 1.875); (7.70707983911959 : 4.26445939110002)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(5.375 : 1.83776595744681); (7.79237429173933 : 3.89510578020368)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="2925a2ee-0d69-4599-a61f-fdc926384b0a" />
       <relativeChildShapes />
       <nodes>
@@ -58,7 +58,7 @@
         <useCaseShapeMoniker Id="ff2b4ade-6661-400e-9a75-4767a6e6fab4" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseAssociationConnector edgePoints="[(4.875 : 3.92216981132075); (7.32725591603303 : 4.38485960679868)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(4.875 : 3.89318181818182); (7.38835078546249 : 4.07597096621545)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="8a68db46-227d-4ff3-923a-be32bb359fd7" />
       <relativeChildShapes />
       <nodes>
@@ -66,11 +66,11 @@
         <useCaseShapeMoniker Id="ff2b4ade-6661-400e-9a75-4767a6e6fab4" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseShape Id="0443e44e-4520-44c4-a9b7-2c993023a9f5" absoluteBounds="7.5, 3.375, 1, 0.5" customColor="238, 237, 131" heightOffset="0">
+    <useCaseShape Id="0443e44e-4520-44c4-a9b7-2c993023a9f5" absoluteBounds="7.5, 2.875, 1, 0.5" customColor="238, 237, 131" heightOffset="0">
       <useCaseMoniker Id="fbfcc198-6a48-423f-bb67-c2a0244c7015" LastKnownName="Get Celestial Bodies" />
       <relativeChildShapes />
     </useCaseShape>
-    <useCaseAssociationConnector edgePoints="[(4.875 : 3.85648148148148); (7.50539826882306 : 3.66163716527237)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(4.875 : 3.81944444444444); (7.54309422568987 : 3.22653461651336)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="9ddebe2e-d0fd-4ad7-9a77-b489b79a330d" />
       <relativeChildShapes />
       <nodes>
@@ -78,7 +78,7 @@
         <useCaseShapeMoniker Id="0443e44e-4520-44c4-a9b7-2c993023a9f5" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseAssociationConnector edgePoints="[(5.375 : 1.79891304347826); (7.70818197592371 : 3.42199615716432)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(5.375 : 1.7554347826087); (7.65404731838219 : 2.94450294872114)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="26c4d0b5-a4c9-46cc-aee1-05de07c57522" />
       <relativeChildShapes />
       <nodes>
@@ -86,11 +86,11 @@
         <useCaseShapeMoniker Id="0443e44e-4520-44c4-a9b7-2c993023a9f5" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseShape Id="96f875b8-f851-42ae-9be2-54b727efd5ce" absoluteBounds="7.25, 5.125, 1.25, 0.5" customColor="238, 237, 131" heightOffset="0">
-      <useCaseMoniker Id="caff2693-18a6-42f2-9565-91ef3328b42e" LastKnownName="Delte Market For Celestial Body" />
+    <useCaseShape Id="96f875b8-f851-42ae-9be2-54b727efd5ce" absoluteBounds="7.125, 5.625, 1.375, 0.5" customColor="238, 237, 131" heightOffset="0">
+      <useCaseMoniker Id="caff2693-18a6-42f2-9565-91ef3328b42e" LastKnownName="Delete Market For Celestial Body" />
       <relativeChildShapes />
     </useCaseShape>
-    <useCaseAssociationConnector edgePoints="[(5.30833333333333 : 1.875); (7.69907902003081 : 5.13510775458746)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(5.28308823529412 : 1.875); (7.65843249080839 : 5.63135835755746)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="7bd1a475-a2f1-451e-8328-430504d03709" />
       <relativeChildShapes />
       <nodes>
@@ -98,7 +98,7 @@
         <useCaseShapeMoniker Id="96f875b8-f851-42ae-9be2-54b727efd5ce" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseAssociationConnector edgePoints="[(4.875 : 3.99038461538462); (7.46566841348885 : 5.18607772930255)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(4.875 : 4.03186274509804); (7.46777114959073 : 5.65869954484124)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="b4db56c2-528d-411b-93d9-ce43ea4eae3a" />
       <relativeChildShapes />
       <nodes>
@@ -106,11 +106,11 @@
         <useCaseShapeMoniker Id="96f875b8-f851-42ae-9be2-54b727efd5ce" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseShape Id="d63c93f0-52a5-4717-b784-027503f2eca4" absoluteBounds="7.125, 2.625, 1.875, 0.5" customColor="238, 237, 131" heightOffset="0">
+    <useCaseShape Id="d63c93f0-52a5-4717-b784-027503f2eca4" absoluteBounds="7.125, 2, 1.875, 0.5" customColor="238, 237, 131" heightOffset="0">
       <useCaseMoniker Id="7b513995-fa82-4d59-9cba-7341fc648d65" LastKnownName="Get List of connections to other Celestial Bodies" />
       <relativeChildShapes />
     </useCaseShape>
-    <useCaseAssociationConnector edgePoints="[(4.875 : 3.80227272727273); (7.42900816076499 : 3.05928853505019)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(4.875 : 3.75681818181818); (7.60188638725134 : 2.46774461693573)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="3232bab4-216b-45bc-8956-3f6a92ebdc96" />
       <relativeChildShapes />
       <nodes>
@@ -118,7 +118,7 @@
         <useCaseShapeMoniker Id="d63c93f0-52a5-4717-b784-027503f2eca4" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseAssociationConnector edgePoints="[(5.375 : 1.7313829787234); (7.56467425684778 : 2.6631592582331)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(5.375 : 1.6781914893617); (7.32967552264426 : 2.09407989843495)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="c43b9365-f242-4b88-b12a-bd4e42b29bd2" />
       <relativeChildShapes />
       <nodes>
@@ -129,7 +129,7 @@
     <SubsystemShape Id="589b26ab-4ed6-423b-afb9-f2003ea26bd1" absoluteBounds="10, 2.875, 3, 2.5" customColor="White">
       <subsystemMoniker Id="fc9e5050-baeb-45f2-b417-25d56dfc12e0" LastKnownName="CenterOfMassActor" />
     </SubsystemShape>
-    <useCaseAssociationConnector edgePoints="[(11.7188108569224 : 2.37451314462072); (11.65625 : 2.875)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(11.7188108569224 : 2.37451314462072); (11.65625 : 2.875)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="fe317f96-8a96-4fd2-8902-129055eb990f" />
       <relativeChildShapes />
       <nodes>
@@ -137,7 +137,7 @@
         <SubsystemShapeMoniker Id="589b26ab-4ed6-423b-afb9-f2003ea26bd1" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseAssociationConnector edgePoints="[(8.16902521865208 : 5.93163038988362); (10 : 4.9385593220339)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(8.53314460325299 : 4.9880852063264); (10 : 4.56136363636364)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="c069421c-8e86-4b4c-a86d-4a29e993d6d5" />
       <relativeChildShapes />
       <nodes>
@@ -145,7 +145,7 @@
         <SubsystemShapeMoniker Id="589b26ab-4ed6-423b-afb9-f2003ea26bd1" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseAssociationConnector edgePoints="[(8.59788793178501 : 4.43048548086474); (10 : 4.28289473684211)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(8.75 : 4.125); (10 : 4.125)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="429c73b3-2c8b-4092-9c7b-9a661f25bd93" />
       <relativeChildShapes />
       <nodes>
@@ -153,7 +153,7 @@
         <SubsystemShapeMoniker Id="589b26ab-4ed6-423b-afb9-f2003ea26bd1" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseAssociationConnector edgePoints="[(8.48076197382041 : 3.69368028197434); (10 : 3.91071428571429)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(8.43412157106223 : 3.24903473458921); (10 : 3.69642857142857)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="70507947-d55e-46c4-b7c1-c3ff347efab4" />
       <relativeChildShapes />
       <nodes>
@@ -161,7 +161,7 @@
         <SubsystemShapeMoniker Id="589b26ab-4ed6-423b-afb9-f2003ea26bd1" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseAssociationConnector edgePoints="[(8.34838122600036 : 5.21176509448263); (10 : 4.64224137931034)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(8.23064788304956 : 5.67655693685783); (10 : 4.83686440677966)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="79c689a7-0239-4a94-b853-e6621a4edaf2" />
       <relativeChildShapes />
       <nodes>
@@ -169,7 +169,7 @@
         <SubsystemShapeMoniker Id="589b26ab-4ed6-423b-afb9-f2003ea26bd1" />
       </nodes>
     </useCaseAssociationConnector>
-    <useCaseAssociationConnector edgePoints="[(8.6169034346508 : 3.07660124896393); (10 : 3.57954545454545)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+    <useCaseAssociationConnector edgePoints="[(8.47425949875463 : 2.4745960902298); (10 : 3.30681818181818)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
       <associationMoniker Id="4e662a31-1997-4872-9592-a36f6c9ae388" />
       <relativeChildShapes />
       <nodes>

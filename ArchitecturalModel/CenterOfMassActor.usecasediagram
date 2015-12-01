@@ -1,19 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="7e3dc150-3f26-47d0-b2f0-57af89ab01c7" name="CenterOfMassActor" linkedPackageId="59d897d0-2e6d-4787-af21-da7c0ca441eb" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
-  <profileInstances>
-    <packageHasProfileInstances Id="22fe3fd9-0006-4b3a-ad6c-b514867285dd">
-      <profileInstance Id="02c3a08b-6e28-403d-ae4f-77820b570804" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="10a4340c-f39f-4462-bfc1-34d1176e4d7d">
-      <profileInstance Id="166dfae9-a28c-4cd1-ab10-212694a4386b" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-  </profileInstances>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="7e3dc150-3f26-47d0-b2f0-57af89ab01c7" name="CenterOfMassActor" linkedPackageId="59d897d0-2e6d-4787-af21-da7c0ca441eb" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
   <packagedElements>
     <useCaseModelRootHasTypes>
       <subsystem Id="fc9e5050-baeb-45f2-b417-25d56dfc12e0" name="CenterOfMassActor" isAbstract="false" isLeaf="false" isActiveClass="false">
@@ -119,7 +105,7 @@
             <elementDefinition Id="0531a5a9-dac6-472a-82e6-9499efa22c44" />
           </association>
           <association Id="b4db56c2-528d-411b-93d9-ce43ea4eae3a" isDerived="false" sourceEndRoleName="TraderActor" targetEndRoleName="Delte Market For Celestial Body" isLeaf="false" isAbstract="false">
-            <useCaseMoniker Id="caff2693-18a6-42f2-9565-91ef3328b42e" LastKnownName="Delte Market For Celestial Body" />
+            <useCaseMoniker Id="caff2693-18a6-42f2-9565-91ef3328b42e" LastKnownName="Delete Market For Celestial Body" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd Id="90e7748f-e402-4b90-bba4-fc6bbf32f361" name="TraderActor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
@@ -229,7 +215,7 @@
             <elementDefinition Id="019588c0-580c-4108-999a-5e3b68e555b5" />
           </association>
           <association Id="7bd1a475-a2f1-451e-8328-430504d03709" isDerived="false" sourceEndRoleName="Ecosystem Dev" targetEndRoleName="Delte Market For Celestial Body" isLeaf="false" isAbstract="false">
-            <useCaseMoniker Id="caff2693-18a6-42f2-9565-91ef3328b42e" LastKnownName="Delte Market For Celestial Body" />
+            <useCaseMoniker Id="caff2693-18a6-42f2-9565-91ef3328b42e" LastKnownName="Delete Market For Celestial Body" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd Id="0f1008bf-7e8e-4b33-b9cf-485c31c2ad24" name="Ecosystem Dev" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
@@ -310,7 +296,7 @@
       </useCase>
     </useCaseModelRootHasTypes>
     <useCaseModelRootHasTypes>
-      <useCase Id="caff2693-18a6-42f2-9565-91ef3328b42e" name="Delte Market For Celestial Body" isAbstract="false" isLeaf="false">
+      <useCase Id="caff2693-18a6-42f2-9565-91ef3328b42e" name="Delete Market For Celestial Body" isAbstract="false" isLeaf="false">
         <elementDefinition Id="df4c4dee-55a8-4fde-89fb-43f4d468dc19" />
         <targetEnds>
           <association Id="79c689a7-0239-4a94-b853-e6621a4edaf2" isDerived="false" sourceEndRoleName="Delte Market For Celestial Body" targetEndRoleName="CenterOfMassActor" isLeaf="false" isAbstract="false">
@@ -358,5 +344,19 @@
   </packagedElements>
   <package Id="59d897d0-2e6d-4787-af21-da7c0ca441eb" name="ArchitecturalModel">
     <elementDefinition Id="70ad09e0-ef61-4429-9030-146fc76cf516" />
+    <profileInstances>
+      <packageHasProfileInstances Id="22fe3fd9-0006-4b3a-ad6c-b514867285dd">
+        <profileInstance Id="02c3a08b-6e28-403d-ae4f-77820b570804" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="10a4340c-f39f-4462-bfc1-34d1176e4d7d">
+        <profileInstance Id="166dfae9-a28c-4cd1-ab10-212694a4386b" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </useCaseModelRoot>
