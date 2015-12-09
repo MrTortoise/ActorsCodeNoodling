@@ -17,15 +17,15 @@ namespace Entities
         private readonly Dictionary<string, ResourceForSale> _itemsForSale = new Dictionary<string, ResourceForSale>();
 
         private readonly string _name;
-        private ICelestialBody _location;
+        private CelestialBody _location;
         private IActorRef _centerOfMassActorRef;
 
-        public static Props CreateProps(string name, ICelestialBody location, IActorRef centerOfMassActorRef)
+        public static Props CreateProps(string name, CelestialBody location, IActorRef centerOfMassActorRef)
         {
             return Props.Create(() => new Market(name, location, centerOfMassActorRef));
         }
 
-        public Market(string name, ICelestialBody location, IActorRef centerOfMassActorRef)
+        public Market(string name, CelestialBody location, IActorRef centerOfMassActorRef)
         {
             if (location == null) throw new ArgumentNullException(nameof(location));
             if (centerOfMassActorRef == null) throw new ArgumentNullException(nameof(centerOfMassActorRef));

@@ -1,0 +1,398 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="49eacef5-506e-49f5-a17e-6b68668b681b" name="Factory" linkedPackageId="8e388850-cf60-4d31-88ac-826816a00887" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <ownedCommentsInternal>
+    <comment Id="7534ce76-fb82-402e-9def-c39c01e08e15">
+      <elementDefinition Id="7f87cc9c-c654-47ac-b9b8-ba9a4a88edb0" />
+      <body>The factory trader is an actor that moves both required and produced resources to and from the market and factory </body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="c9bcf052-95e2-4483-b09d-942c237e083b">
+      <profileInstance Id="f7204143-88fc-4e0f-908b-e2032ac48b03" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="789f36de-ddce-4a82-bbf6-f2035dfedd85">
+      <profileInstance Id="a2942bf1-522c-4f3a-ac96-1e183548e11a" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="e77c6820-db0a-4cf2-815f-71e893fb0875" name="Factory" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="d064d2dd-a56d-4ffc-a72a-2657b9888d8f" />
+        <targetEnds>
+          <association Id="f748bb0f-e00a-4c89-ba45-4cf9029ba37e" isDerived="false" sourceEndRoleName="Factory" targetEndRoleName="Tell Resource overflow" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9effef1a-5716-46a8-80c5-eff1349286ba" LastKnownName="Tell Resource overflow" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="224be44d-efbe-43cb-b408-0af7697f4a8b" name="Factory" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f0d2b446-22c4-46dd-bf07-3c2f0550d49c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e8c0d4cc-331e-4e6d-b50f-007491321abf" name="Tell Resource overflow" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="bbeb1c4e-769c-462e-89a9-5d6cdcf8a855" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="2f194731-e01d-4114-a966-ce3f30525b2c" />
+          </association>
+          <association Id="d588d527-2788-4484-b4bb-b6fad2dd2e7b" isDerived="false" sourceEndRoleName="Factory" targetEndRoleName="Tell Resources Needed" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="f65b9727-f30b-44ce-a1e9-e5afb37258e4" LastKnownName="Tell Resources Needed" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="82109d33-088d-4f7d-a048-ce3295f396f9" name="Factory" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="1ee221b1-4b2b-409a-98f4-2fd1d39bf989" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="3de4c0cc-7cd9-4a90-a8f5-0d920a5c907e" name="Tell Resources Needed" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="cecf5469-8caf-426c-94de-8da008d96ca9" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="2b903887-d3fc-43d9-9fed-39b77651245e" />
+          </association>
+        </targetEnds>
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="e88f68c5-5d27-49fc-b5be-b0c6be718e35" name="Market" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="a035a607-dd51-4a1b-854f-c47ccf1a57e1" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="f07a8069-7fe4-4835-bbb2-41b99f754723" name="FactoryTrader" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="02db160f-c063-45df-b0bb-d3c12ec2f5a1" />
+        <targetEnds>
+          <association Id="30fd989b-e60e-4214-8d22-9efd48e854e5" isDerived="false" sourceEndRoleName="FactoryTrader" targetEndRoleName="Get resource  Levels" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="72d15577-431c-46da-b927-31366ad50378" LastKnownName="Get resource  Levels" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="59862374-23fc-49cc-836f-873c1e9c8e7c" name="FactoryTrader" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f4f0c68a-6711-40ae-bce9-9258a4166e76" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c41f0da0-1261-4f22-93e3-21712a366754" name="Get resource  Levels" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8a356649-f685-438f-b9f5-aa8b19d994ee" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="af8f26e7-6a9c-4e7a-80b1-b2fc48712582" />
+          </association>
+          <association Id="9532bb34-3eb2-4bde-a6a9-798901b91f90" isDerived="false" sourceEndRoleName="FactoryTrader" targetEndRoleName="Create contract to sell resource" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="c57e3f6b-9a68-4a6b-9a4d-0833a4695ff3" LastKnownName="Create contract to sell resource" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6e938720-6729-4e7c-9022-09e2ff595199" name="FactoryTrader" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="0d9b06dc-6bd0-47b3-b866-eff3c5d9e5b0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c6864016-e3ee-45ab-b1f7-c2739c021320" name="Create contract to sell resource" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="99cdb859-46af-4eff-bd77-90d85d6ed9c9" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="f5cda982-17bc-4a6c-b2e2-3720b6d9a449" />
+          </association>
+          <association Id="fe503ab0-8c45-4b98-af9b-e11135ae8e41" isDerived="false" sourceEndRoleName="FactoryTrader" targetEndRoleName="Get contracts to buy resources" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="4a5edd90-334b-49ad-b06b-2edf112cfcd1" LastKnownName="Get contracts to buy resources" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0975272c-f68a-47e1-a187-691f88bdf9a0" name="FactoryTrader" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="671aeda7-8d7c-44dc-9887-9896f0b29b92" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="afad904a-69ce-493e-9009-dbd29af24819" name="Get contracts to buy resources" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a18adb4e-6453-45d6-b302-2335d006a3da" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="b9e85e9e-8d3c-4fe8-80ba-44c97b508650" />
+          </association>
+          <association Id="074d99f4-e1a6-4e35-9f6b-1218f3848bbd" isDerived="false" sourceEndRoleName="FactoryTrader" targetEndRoleName="Create Contract to buy resources" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="f61e6741-523d-4eb1-906b-a86df8c89e9d" LastKnownName="Create Contract to buy resources" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5e449244-90b4-45d4-910a-161720a1f815" name="FactoryTrader" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="c9420dea-0ca4-4d94-bd6e-beb7824bd86d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ba5ce129-2f9b-4f38-a70a-40e9cddb4100" name="Create Contract to buy resources" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a10228d2-7db3-440e-a7f2-cc2f36230b07" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="66ea79f9-13b1-49e0-aec4-30b3b99e0763" />
+          </association>
+          <association Id="b9358b5e-66c0-449a-b033-1d5b9c2dab6a" isDerived="false" sourceEndRoleName="FactoryTrader" targetEndRoleName="Take Resources" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="434f4bf0-68f1-4a2e-b8af-99953fbba5cd" LastKnownName="Take Resources" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ce423036-d287-4d8b-bec8-6478a03100ea" name="FactoryTrader" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="b94b28c0-3f12-4271-a782-f45cb4df2717" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e54ef5f7-547c-4974-b0a3-be8a3a2a799e" name="Take Resources" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="dc3ed7bf-b4fd-4b26-935d-2f762e409588" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="3529229d-ac79-423e-901f-576575a304f8" />
+          </association>
+          <association Id="e1199fb0-8fef-4fca-88b7-d5271688f2fb" isDerived="false" sourceEndRoleName="FactoryTrader" targetEndRoleName="Deposit Resources" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="48baf779-cff1-4f72-9a86-de19c5bc872b" LastKnownName="Deposit Resources" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="efe425e9-3c3d-4c24-9597-ed97f1a23ae6" name="FactoryTrader" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="72be55de-8376-40fb-aebc-6d41fae9c763" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b1d5f0a5-4896-44b5-870a-7c872ea0c805" name="Deposit Resources" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="073dfdf7-466b-4c39-b8e3-d1cfd058a023" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="1c021da6-a478-4445-96ff-2e77c1848564" />
+          </association>
+          <association Id="74203d13-9591-4781-ac06-a25e5ac6bc04" isDerived="false" sourceEndRoleName="FactoryTrader" targetEndRoleName="Complete Contract" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="45911ab4-fe69-4b3b-bcff-8d8a5e81dee7" LastKnownName="Complete Contract" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b49ecf0c-ea0e-420c-9008-2a6700890260" name="FactoryTrader" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="fe61dcae-cd44-4d4c-84c5-46ebef4a9782" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="439b43f2-2ae3-492e-bbb1-fc5a46417572" name="Complete Contract" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="35af4c0a-eebd-4fbe-adf9-647d38437896" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7d08380c-ced1-4af4-ae87-4a66cadd8784" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="72d15577-431c-46da-b927-31366ad50378" name="Get resource  Levels" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="76c512db-578d-44f4-8094-9368ac0dde55" />
+        <targetEnds>
+          <association Id="0f73613d-7d93-42f1-8e57-1c59c0150011" isDerived="false" sourceEndRoleName="Get resource  Levels" targetEndRoleName="Factory" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="e77c6820-db0a-4cf2-815f-71e893fb0875" LastKnownName="Factory" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ab235051-2e0d-4d1a-9510-da944cee7499" name="Get resource  Levels" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="7297bc5e-cdda-44ef-b44c-8a802e1a982d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="bc9be314-7ec3-4b1a-85f7-032280f940ca" name="Factory" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="ca317cfa-289e-4f27-a028-1772bb2be3c0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="3c57bf60-754c-4488-aafc-1894018b84f8" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="c57e3f6b-9a68-4a6b-9a4d-0833a4695ff3" name="Create contract to sell resource" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a4ed9c06-06d6-43e9-b92e-3ff0fcb16793" />
+        <targetEnds>
+          <association Id="8a7e031a-6b40-4fe9-9345-023f65ab8cc2" isDerived="false" sourceEndRoleName="Create contract to sell resource" targetEndRoleName="Market" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="e88f68c5-5d27-49fc-b5be-b0c6be718e35" LastKnownName="Market" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="779ea21f-c4ec-4bdb-a911-9ba509111446" name="Create contract to sell resource" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="b1b00cfb-ed9b-454c-986e-ebb3744933dc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="79dea689-c02b-4d91-94b4-aa9d6fd6b651" name="Market" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="2d15c477-47b6-4d0f-a159-07e65a809cc1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7be18bbe-ed99-4830-ad1e-4dccd8a6fbe2" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="4a5edd90-334b-49ad-b06b-2edf112cfcd1" name="Get contracts to buy resources" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="5096cc67-408b-4f8b-8514-38cdac8d1bcb" />
+        <targetEnds>
+          <association Id="8300d24a-7c86-462d-83b5-de44e2167dbb" isDerived="false" sourceEndRoleName="Get contracts to buy resources" targetEndRoleName="Market" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="e88f68c5-5d27-49fc-b5be-b0c6be718e35" LastKnownName="Market" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6cef207c-ba81-4542-82d6-101118ae1164" name="Get contracts to buy resources" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="c9e522ae-4ed2-4e80-bdd2-447e00f64694" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="91d19270-c222-4ac2-b420-126798ba33e6" name="Market" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="ec92f304-ef59-4154-81d1-2f8561400a11" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="538fc06d-acc0-4ee3-a7ac-db6546d84000" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="f61e6741-523d-4eb1-906b-a86df8c89e9d" name="Create Contract to buy resources" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b20ef3a8-7c87-421b-a6cf-0de8a730b1f1" />
+        <targetEnds>
+          <association Id="36279ef6-9bd3-4d08-b2a5-204369fa57f1" isDerived="false" sourceEndRoleName="Create Contract to buy resources" targetEndRoleName="Market" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="e88f68c5-5d27-49fc-b5be-b0c6be718e35" LastKnownName="Market" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="75e24447-988d-457a-aab8-9f55e7663fb9" name="Create Contract to buy resources" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="7953dc3d-efbb-4a95-816a-b34b2662feb1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="2457d712-7f45-4645-97f0-d54aba9204e6" name="Market" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="74c576af-1ad1-4e9d-9e03-0be5ee1994ad" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="de24d8f0-ee8a-4ad9-a93c-2f48b04964da" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="434f4bf0-68f1-4a2e-b8af-99953fbba5cd" name="Take Resources" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="fa49f94a-87d7-4603-80b2-02567fd8eb7f" />
+        <targetEnds>
+          <association Id="0fe3e958-e98c-4608-ab2b-2f1e1604f21b" isDerived="false" sourceEndRoleName="Take Resources" targetEndRoleName="Factory" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="e77c6820-db0a-4cf2-815f-71e893fb0875" LastKnownName="Factory" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ecb5d31f-2e3b-4000-a40d-64ff3face780" name="Take Resources" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="68291b6c-2c62-4d23-8a3e-ab6ef46b063b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d1e1fc81-815f-4006-8da9-445c37513478" name="Factory" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="985f384b-b2a6-4fa9-b8ac-5c389f7d196f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ca35fee2-15d0-4bc4-ba09-5324c26140d0" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="48baf779-cff1-4f72-9a86-de19c5bc872b" name="Deposit Resources" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="fb51df2e-39b1-43d6-8403-3a6a2ad706ea" />
+        <targetEnds>
+          <association Id="dc087d59-1af5-4765-b1a3-6088ce274b77" isDerived="false" sourceEndRoleName="Deposit Resources" targetEndRoleName="Factory" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="e77c6820-db0a-4cf2-815f-71e893fb0875" LastKnownName="Factory" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7311fefd-53a6-4cd1-a245-d8c2aee86139" name="Deposit Resources" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="b07cf6d7-888f-437f-b96e-405766705e21" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7bd3cd43-1d37-42bc-b300-8151ab52b71f" name="Factory" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="2dc0d8f9-deb6-40bb-a893-198e4798a6dc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="c9cdafde-6889-4bbd-8fbb-7a55be7633a1" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="f65b9727-f30b-44ce-a1e9-e5afb37258e4" name="Tell Resources Needed" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8476b2c9-bbcd-4cfd-bc4b-10467b092789" />
+        <targetEnds>
+          <association Id="10c0ef18-aa90-4e78-9f89-0858577062c6" isDerived="false" sourceEndRoleName="Tell Resources Needed" targetEndRoleName="FactoryTrader" isLeaf="false" isAbstract="false">
+            <actorMoniker Id="f07a8069-7fe4-4835-bbb2-41b99f754723" LastKnownName="FactoryTrader" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="68fe0f56-5715-49cc-9910-27309d6ea345" name="Tell Resources Needed" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="07d9e8d8-9edf-4f37-96ab-d5e796010a0c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ced6a93c-31bf-4006-8e51-c8a463173dd7" name="FactoryTrader" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="301a7dc0-5b20-426f-9f52-df3861cb4375" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="3ef01313-efeb-40ae-9747-621b29fb5b67" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="9effef1a-5716-46a8-80c5-eff1349286ba" name="Tell Resource overflow" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="12103da7-c810-469a-98af-2dbe950ce9f8" />
+        <targetEnds>
+          <association Id="6a3abb53-615b-4c2f-b763-e6a0d4efc461" isDerived="false" sourceEndRoleName="Tell Resource overflow" targetEndRoleName="FactoryTrader" isLeaf="false" isAbstract="false">
+            <actorMoniker Id="f07a8069-7fe4-4835-bbb2-41b99f754723" LastKnownName="FactoryTrader" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d9043baa-8093-4572-9c5a-4b5bce643613" name="Tell Resource overflow" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="3754dc38-841e-49e6-b661-70af391eeba6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e7bc8b6f-0c0f-4ce7-b385-0aff3383ac66" name="FactoryTrader" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="13a5dca9-4ad8-48e0-8f84-d4747efc919d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="5105ca0d-2e7c-4d28-a7b3-eda7cb14656e" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="45911ab4-fe69-4b3b-bcff-8d8a5e81dee7" name="Complete Contract" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="ed74a3a2-df9a-49c8-82b7-de52c8258781" />
+        <targetEnds>
+          <association Id="eb004a04-31e1-4752-9450-909904b07ea9" isDerived="false" sourceEndRoleName="Complete Contract" targetEndRoleName="Market" isLeaf="false" isAbstract="false">
+            <subsystemMoniker Id="e88f68c5-5d27-49fc-b5be-b0c6be718e35" LastKnownName="Market" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="bf7a53dd-7642-4abb-9835-160ebda3f1f7" name="Complete Contract" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="4352a90e-3ec8-42bc-be86-9e552c388079" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f58b06a4-7919-493a-b174-b55c900e0130" name="Market" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="045c64ba-8bad-4f3e-b4d9-c61651deb64e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="532fa0fa-16b8-415e-ba93-4d91fdeac252" />
+          </association>
+        </targetEnds>
+      </useCase>
+    </useCaseModelRootHasTypes>
+  </packagedElements>
+  <package Id="8e388850-cf60-4d31-88ac-826816a00887" name="ArchitecturalModel">
+    <elementDefinition Id="70ad09e0-ef61-4429-9030-146fc76cf516" />
+  </package>
+</useCaseModelRoot>

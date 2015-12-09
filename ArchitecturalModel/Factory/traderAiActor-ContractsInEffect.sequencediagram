@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/UseCaseModel" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" dslVersion="1.0.0.0" Id="0d719b68-77dd-4b30-a595-54879e94732d" name="traderAiActor-idle-ContractsInEffect" linkedPackageId="31442c43-cc58-4a66-bbb0-a58d4812f442" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="36cc7998-a9a4-4d62-b0fb-6682f46944c0">
+      <profileInstance Id="26c46557-ed80-4c15-97fe-50af8b0b876c" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="0628eaef-6fe4-4e3c-ac8e-81202cd538e5">
+      <profileInstance Id="4304f040-b512-45cd-a691-0932f43aa280" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <interaction Id="3daabb1e-7567-4374-8c26-9fe92c5d2eb3" name="traderAiActor-idle-ContractsInEffect" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
+        <elementDefinition Id="89b803dc-7182-4167-b1f4-2ad4baa5ce9f" />
+        <fragments>
+          <behaviorExecutionSpecification Id="caf863c2-f982-41b7-a46e-65fb81a9f57f" name="BehaviorExecutionSpecification1">
+            <elementDefinition Id="a6f1aa16-09ae-4087-8523-f5bfdeedde39" />
+            <coveredLifelines>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="a46db861-ed5a-414e-9f53-c9aaae16b988" LastKnownName="ExecutionOccurrenceSpecification2" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="d14c962a-8bfd-4584-80da-35d11002d58f" LastKnownName="ExecutionOccurrenceSpecification1" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="22293550-e3d9-46b1-bff8-ebfe305e583c" LastKnownName="MessageOccurrenceSpecification2" />
+              <messageOccurrenceSpecificationMoniker Id="5d419def-2270-4e0e-8037-255003940b1d" LastKnownName="MessageOccurrenceSpecification3" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="d14c962a-8bfd-4584-80da-35d11002d58f" name="ExecutionOccurrenceSpecification1">
+            <elementDefinition Id="9f62ea8c-ec00-415d-9067-881f8d88dfdd" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="fbe73a7a-ee5c-4f2c-acf2-95f91df6d396" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="52c32b0a-1836-41d4-b39e-1a2207498e11" name="MessageOccurrenceSpecification1">
+            <elementDefinition Id="f68a6745-93e4-43f1-be5f-e5663362419d" />
+            <covered>
+              <lifelineMoniker Id="c345a203-6697-4179-9fd0-57831cb9f568" LastKnownName="Trader AI Coordinator" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="22293550-e3d9-46b1-bff8-ebfe305e583c" name="MessageOccurrenceSpecification2">
+            <elementDefinition Id="1c6740a2-fce5-49ac-94cf-c53b893ebd72" />
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification Id="1aee8db1-3d12-4d58-8e0f-0a951f4aca68" name="BehaviorExecutionSpecification2">
+            <elementDefinition Id="b1785dfd-019d-40a9-84f0-89dfcf57994b" />
+            <coveredLifelines>
+              <lifelineMoniker Id="be2dcf74-95f5-4a75-b902-71d4a20f0505" LastKnownName="Factory" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="e188816e-2bd4-4da9-8633-ef4a96d65ee3" LastKnownName="ExecutionOccurrenceSpecification4" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="59bf4d4b-649a-46df-802d-ccdcd24a7065" LastKnownName="ExecutionOccurrenceSpecification3" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="0f258dd0-5f9b-4b8c-b505-d8ffdfe8d2b2" LastKnownName="MessageOccurrenceSpecification4" />
+              <messageOccurrenceSpecificationMoniker Id="e31f1722-9eed-45ec-a5bd-bec4e1f7dc15" LastKnownName="MessageOccurrenceSpecification5" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="59bf4d4b-649a-46df-802d-ccdcd24a7065" name="ExecutionOccurrenceSpecification3">
+            <elementDefinition Id="9b23d52d-d72a-4827-884e-7e9b71644847" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="a1bfcd42-44ab-4d75-9b39-d6f64c6c0d1b" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="be2dcf74-95f5-4a75-b902-71d4a20f0505" LastKnownName="Factory" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="5d419def-2270-4e0e-8037-255003940b1d" name="MessageOccurrenceSpecification3">
+            <elementDefinition Id="a0ea67c5-1745-4ecf-93f8-5f3a837ee106" />
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="0f258dd0-5f9b-4b8c-b505-d8ffdfe8d2b2" name="MessageOccurrenceSpecification4">
+            <elementDefinition Id="9edfb608-c875-4228-bcd3-0f20aedc1b70" />
+            <covered>
+              <lifelineMoniker Id="be2dcf74-95f5-4a75-b902-71d4a20f0505" LastKnownName="Factory" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="a46db861-ed5a-414e-9f53-c9aaae16b988" name="ExecutionOccurrenceSpecification2">
+            <elementDefinition Id="75aa6524-015e-4b7f-8da4-d386e2d1458f" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="145ad55e-a45f-44e4-ba0e-432d09a936bf" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification Id="b755e50c-d26b-47c3-b8d3-02a3d728694e" name="BehaviorExecutionSpecification3">
+            <elementDefinition Id="5a4b09e7-a3ea-40f5-83dc-a2094f1836b9" />
+            <coveredLifelines>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="986d097b-b877-4c3e-bfcb-b6c9a40a2a4c" LastKnownName="ExecutionOccurrenceSpecification6" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="67fbcd4c-2a39-4ca0-bbb8-8db4347271d6" LastKnownName="ExecutionOccurrenceSpecification5" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="ce478e72-2d0a-44a3-9370-903d54969752" LastKnownName="MessageOccurrenceSpecification6" />
+              <messageOccurrenceSpecificationMoniker Id="ca339284-4292-473e-a29e-831ef42459e4" LastKnownName="MessageOccurrenceSpecification11" />
+              <executionOccurrenceSpecificationMoniker Id="b3bd4199-9dcf-406b-97d9-ab0bb7918e7f" LastKnownName="ExecutionOccurrenceSpecification11" />
+              <executionOccurrenceSpecificationMoniker Id="1970c45d-8e95-4012-883d-0e8212695300" LastKnownName="ExecutionOccurrenceSpecification12" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="67fbcd4c-2a39-4ca0-bbb8-8db4347271d6" name="ExecutionOccurrenceSpecification5">
+            <elementDefinition Id="599a8298-4f89-4602-8c49-c1b7fbcab884" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="99b34f70-7757-492c-b522-4915c80abbb5" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="ce478e72-2d0a-44a3-9370-903d54969752" name="MessageOccurrenceSpecification6">
+            <elementDefinition Id="92d4fc7b-7732-4dd4-804a-41dfb5c07353" />
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="e31f1722-9eed-45ec-a5bd-bec4e1f7dc15" name="MessageOccurrenceSpecification5">
+            <elementDefinition Id="ea799143-66d1-4bbb-a381-6277e216ca58" />
+            <covered>
+              <lifelineMoniker Id="be2dcf74-95f5-4a75-b902-71d4a20f0505" LastKnownName="Factory" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="e188816e-2bd4-4da9-8633-ef4a96d65ee3" name="ExecutionOccurrenceSpecification4">
+            <elementDefinition Id="7e4f567a-7df1-4722-ace9-44dc006aa014" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="19675a11-d703-4588-bf34-7723a1ccbae8" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="be2dcf74-95f5-4a75-b902-71d4a20f0505" LastKnownName="Factory" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="ca339284-4292-473e-a29e-831ef42459e4" name="MessageOccurrenceSpecification11">
+            <elementDefinition Id="75b4e3fa-d39e-49bb-8233-8c40326351e6" />
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification Id="cc88bd5b-2783-45af-9d55-969df6242809" name="BehaviorExecutionSpecification6">
+            <elementDefinition Id="fd665328-9151-4411-b53e-b9e0d9ffd266" />
+            <coveredLifelines>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="1970c45d-8e95-4012-883d-0e8212695300" LastKnownName="ExecutionOccurrenceSpecification12" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="b3bd4199-9dcf-406b-97d9-ab0bb7918e7f" LastKnownName="ExecutionOccurrenceSpecification11" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="107f439a-bcd7-4758-9a4f-6d172acf7e3c" LastKnownName="MessageOccurrenceSpecification12" />
+              <messageOccurrenceSpecificationMoniker Id="938b11ba-821e-415e-8126-63028328a7c4" LastKnownName="MessageOccurrenceSpecification13" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="b3bd4199-9dcf-406b-97d9-ab0bb7918e7f" name="ExecutionOccurrenceSpecification11">
+            <elementDefinition Id="3097d61a-98cf-42a3-8fac-18a1cec91488" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="3dbdae06-ed61-4adf-b09d-a96461b306c4" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="107f439a-bcd7-4758-9a4f-6d172acf7e3c" name="MessageOccurrenceSpecification12">
+            <elementDefinition Id="3097da4d-06fa-4626-86c3-401ff790deec" />
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification Id="02c3f0fa-ccd6-42d0-92f2-89118236b4af" name="BehaviorExecutionSpecification7">
+            <elementDefinition Id="9671d6f4-c373-4b06-a86e-bcd6bf8f91e5" />
+            <coveredLifelines>
+              <lifelineMoniker Id="e5bfea61-79fd-4ef8-a0cd-f3c17f05407b" LastKnownName="Trader Actor" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="3fc65a61-d92a-40a0-a067-5473fe5725d0" LastKnownName="ExecutionOccurrenceSpecification14" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="278c6a0a-02a8-4abf-a95b-8a5860862311" LastKnownName="ExecutionOccurrenceSpecification13" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="834dca33-08ba-452e-97c7-9304013e9e15" LastKnownName="MessageOccurrenceSpecification14" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="278c6a0a-02a8-4abf-a95b-8a5860862311" name="ExecutionOccurrenceSpecification13">
+            <elementDefinition Id="7425dfa1-bf01-4efa-be39-a4da624ea5f5" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="c40b5ffd-58b6-4911-855a-1e5c3b4a7398" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="e5bfea61-79fd-4ef8-a0cd-f3c17f05407b" LastKnownName="Trader Actor" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="938b11ba-821e-415e-8126-63028328a7c4" name="MessageOccurrenceSpecification13">
+            <elementDefinition Id="1ba467d4-7587-4871-96cc-065685d114d1" />
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="834dca33-08ba-452e-97c7-9304013e9e15" name="MessageOccurrenceSpecification14">
+            <elementDefinition Id="bc95ba91-6e56-4238-b884-3925953b8fc6" />
+            <covered>
+              <lifelineMoniker Id="e5bfea61-79fd-4ef8-a0cd-f3c17f05407b" LastKnownName="Trader Actor" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="1970c45d-8e95-4012-883d-0e8212695300" name="ExecutionOccurrenceSpecification12">
+            <elementDefinition Id="6f680904-e969-47c8-a0f4-fee3f59bc7ff" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="de06479e-394d-4dfa-aa7a-e112071f67b3" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="3fc65a61-d92a-40a0-a067-5473fe5725d0" name="ExecutionOccurrenceSpecification14">
+            <elementDefinition Id="b03b1326-1c39-4e34-8fcd-74e8c4397857" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="1d830f9d-0b31-4c11-a269-e40b75ccea58" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="e5bfea61-79fd-4ef8-a0cd-f3c17f05407b" LastKnownName="Trader Actor" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="986d097b-b877-4c3e-bfcb-b6c9a40a2a4c" name="ExecutionOccurrenceSpecification6">
+            <elementDefinition Id="12fb1847-179a-4b9d-9ea5-6ea03ebd00f7" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="a84fcded-6d4c-4ee7-afb6-8092ba0df341" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="142943b1-94f5-4476-90eb-25d27a081109" LastKnownName="Trader Actor AI" />
+            </covered>
+          </executionOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline Id="c345a203-6697-4179-9fd0-57831cb9f568" name="Trader AI Coordinator" isActor="false" lifelineDisplayName="Trader AI Coordinator">
+            <elementDefinition Id="9406cae2-2f58-47e1-a6f1-d1c56b5b4ff7" />
+            <topLevelOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="52c32b0a-1836-41d4-b39e-1a2207498e11" LastKnownName="MessageOccurrenceSpecification1" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline Id="142943b1-94f5-4476-90eb-25d27a081109" name="Trader Actor AI" isActor="false" lifelineDisplayName="Trader Actor AI">
+            <elementDefinition Id="721d453b-6874-4450-ba64-e7e72e270843" />
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker Id="d14c962a-8bfd-4584-80da-35d11002d58f" LastKnownName="ExecutionOccurrenceSpecification1" />
+              <executionOccurrenceSpecificationMoniker Id="a46db861-ed5a-414e-9f53-c9aaae16b988" LastKnownName="ExecutionOccurrenceSpecification2" />
+              <executionOccurrenceSpecificationMoniker Id="67fbcd4c-2a39-4ca0-bbb8-8db4347271d6" LastKnownName="ExecutionOccurrenceSpecification5" />
+              <executionOccurrenceSpecificationMoniker Id="986d097b-b877-4c3e-bfcb-b6c9a40a2a4c" LastKnownName="ExecutionOccurrenceSpecification6" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline Id="be2dcf74-95f5-4a75-b902-71d4a20f0505" name="Factory" isActor="false" lifelineDisplayName="Factory">
+            <elementDefinition Id="79eb4845-5a5a-406e-bf79-962b7bacdc8e" />
+            <represents>
+              <propertyMoniker Id="8582cb14-1384-40ff-9f58-074d63038afd" />
+            </represents>
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker Id="59bf4d4b-649a-46df-802d-ccdcd24a7065" LastKnownName="ExecutionOccurrenceSpecification3" />
+              <executionOccurrenceSpecificationMoniker Id="e188816e-2bd4-4da9-8633-ef4a96d65ee3" LastKnownName="ExecutionOccurrenceSpecification4" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline Id="e5bfea61-79fd-4ef8-a0cd-f3c17f05407b" name="Trader Actor" isActor="false" lifelineDisplayName="Trader Actor">
+            <elementDefinition Id="7506705b-5d1e-436c-8589-669836aa09f2" />
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker Id="278c6a0a-02a8-4abf-a95b-8a5860862311" LastKnownName="ExecutionOccurrenceSpecification13" />
+              <executionOccurrenceSpecificationMoniker Id="3fc65a61-d92a-40a0-a067-5473fe5725d0" LastKnownName="ExecutionOccurrenceSpecification14" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message Id="6bef6ce8-21ca-43cc-8a13-aa2389f6b9c0" name="Tell Update Time" messageKind="Complete" messageSort="AsynchCall" createSelfMessage="false">
+            <elementDefinition Id="3603cfab-be40-4d3d-b41a-cad8c31c27f4" />
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="52c32b0a-1836-41d4-b39e-1a2207498e11" LastKnownName="MessageOccurrenceSpecification1" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="22293550-e3d9-46b1-bff8-ebfe305e583c" LastKnownName="MessageOccurrenceSpecification2" />
+            </receiveEvent>
+          </message>
+          <message Id="934044cf-cc1a-4034-b29e-181923fd9c79" name="Query resources" messageKind="Complete" messageSort="AsynchCall" createSelfMessage="false">
+            <elementDefinition Id="3aa23577-16a5-4510-941e-8074aa582cc2" />
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="5d419def-2270-4e0e-8037-255003940b1d" LastKnownName="MessageOccurrenceSpecification3" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="0f258dd0-5f9b-4b8c-b505-d8ffdfe8d2b2" LastKnownName="MessageOccurrenceSpecification4" />
+            </receiveEvent>
+          </message>
+          <message Id="abd4d5bd-b246-4030-b9a0-ca9047dcbfdb" name="get resources - see determineBuySellContracts for info" messageKind="Complete" messageSort="AsynchCall" createSelfMessage="false">
+            <elementDefinition Id="71a55784-c77f-467e-addf-d205b2c7fc6c" />
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="e31f1722-9eed-45ec-a5bd-bec4e1f7dc15" LastKnownName="MessageOccurrenceSpecification5" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="ce478e72-2d0a-44a3-9370-903d54969752" LastKnownName="MessageOccurrenceSpecification6" />
+            </receiveEvent>
+          </message>
+          <message Id="e42ed145-95b8-4f77-9a70-f088ad5e778e" name="Establish priority of contracts" messageKind="Complete" messageSort="SynchCall" createSelfMessage="true">
+            <elementDefinition Id="3ed28087-d4ba-4cae-a1cd-0959d6467474" />
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="ca339284-4292-473e-a29e-831ef42459e4" LastKnownName="MessageOccurrenceSpecification11" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="107f439a-bcd7-4758-9a4f-6d172acf7e3c" LastKnownName="MessageOccurrenceSpecification12" />
+            </receiveEvent>
+          </message>
+          <message Id="3f8bc0f4-9a9d-4357-b7a4-1d1a82f8551c" name="Tell Trader to complete contract" messageKind="Complete" messageSort="AsynchCall" createSelfMessage="false">
+            <elementDefinition Id="922dfd31-9aed-4f8d-a7c4-03dc46bfab16" />
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="938b11ba-821e-415e-8126-63028328a7c4" LastKnownName="MessageOccurrenceSpecification13" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="834dca33-08ba-452e-97c7-9304013e9e15" LastKnownName="MessageOccurrenceSpecification14" />
+            </receiveEvent>
+          </message>
+        </messages>
+        <ownedAttributesInternal>
+          <property Id="8582cb14-1384-40ff-9f58-074d63038afd" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="a4b78e99-d20f-4f2a-ae05-af2f273085f1" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="803d1951-a8d4-41c0-bd78-187163b9ddbf" LastKnownName="Factory" />
+            </type_NamedElement>
+          </property>
+          <property Id="fec54ed6-5f9f-4931-bfd5-5dee0176ae83" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="17de1f68-4cae-4b91-ab5d-67ae080a430b" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="ad37c6ae-863e-481a-81d1-07804fd9dcfc" LastKnownName="Market" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="803d1951-a8d4-41c0-bd78-187163b9ddbf" name="Factory" isAbstract="false" isLeaf="false" cachedFullName="ArchitecturalModel::Factory">
+        <elementDefinition Id="d064d2dd-a56d-4ffc-a72a-2657b9888d8f" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="ad37c6ae-863e-481a-81d1-07804fd9dcfc" name="Market" isAbstract="false" isLeaf="false" cachedFullName="ArchitecturalModel::Market">
+        <elementDefinition Id="a035a607-dd51-4a1b-854f-c47ccf1a57e1" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="fbe73a7a-ee5c-4f2c-acf2-95f91df6d396" name="ExecutionEvent">
+        <elementDefinition Id="1ec48a0e-2119-4211-be3d-c4da75a0acbc" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="145ad55e-a45f-44e4-ba0e-432d09a936bf" name="ExecutionEvent">
+        <elementDefinition Id="5198b22f-d6a8-48a4-a959-4084c3db5b2b" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="a1bfcd42-44ab-4d75-9b39-d6f64c6c0d1b" name="ExecutionEvent">
+        <elementDefinition Id="598dad1b-b0b6-4688-acad-642e28934142" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="19675a11-d703-4588-bf34-7723a1ccbae8" name="ExecutionEvent">
+        <elementDefinition Id="299701bd-2e56-48df-a0d1-5675750e2742" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="99b34f70-7757-492c-b522-4915c80abbb5" name="ExecutionEvent">
+        <elementDefinition Id="6ada0207-1566-49a9-a069-32f34e9cf73e" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="a84fcded-6d4c-4ee7-afb6-8092ba0df341" name="ExecutionEvent">
+        <elementDefinition Id="abcb3ddd-d0a5-48d1-b690-e7e423d5aaa5" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="3dbdae06-ed61-4adf-b09d-a96461b306c4" name="ExecutionEvent">
+        <elementDefinition Id="c229735d-f735-4caf-8860-f25c06fa2bdf" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="de06479e-394d-4dfa-aa7a-e112071f67b3" name="ExecutionEvent">
+        <elementDefinition Id="4a67185a-a367-4749-a373-c766b9435ccd" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="c40b5ffd-58b6-4911-855a-1e5c3b4a7398" name="ExecutionEvent">
+        <elementDefinition Id="c2ce29e4-9b91-4771-b738-66e4790dc143" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="1d830f9d-0b31-4c11-a269-e40b75ccea58" name="ExecutionEvent">
+        <elementDefinition Id="604c6d8d-0a0e-4a46-930a-e8680d11e371" />
+      </executionEvent>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="31442c43-cc58-4a66-bbb0-a58d4812f442" name="ArchitecturalModel">
+    <elementDefinition Id="70ad09e0-ef61-4429-9030-146fc76cf516" />
+  </package>
+</SequenceDesignerModel>

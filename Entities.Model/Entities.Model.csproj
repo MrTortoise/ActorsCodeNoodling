@@ -68,6 +68,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AtLeastOnceDelivery\AtLeastOnceDeliveryTests.cs" />
     <Compile Include="CenterOfMassActors\CenterOfMassActor.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -75,6 +76,17 @@
     </Compile>
     <Compile Include="CenterOfMassActors\CenterOfMassActorTests.cs" />
     <Compile Include="CenterOfMassActors\CenterOfMassSteps.cs" />
+    <Compile Include="FactoryTests\FactoryCoordinatorActor.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FactoryCoordinatorActor.feature</DependentUpon>
+    </Compile>
+    <Compile Include="FactoryTests\FactoryUpdate.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FactoryUpdate.feature</DependentUpon>
+    </Compile>
+    <Compile Include="FactoryTests\FactoryUpdateSteps.cs" />
     <Compile Include="ImmutibleDicTests\DictionaryTest.cs" />
     <Compile Include="ImmutibleDicTests\ImmutibleDictionaryTest.cs" />
     <Compile Include="Locations\LocationGeneratorAutoGeneration.cs" />
@@ -183,6 +195,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Trader.feature</DependentUpon>
     </Compile>
+    <Compile Include="Traders\TraderCreateFactory.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TraderCreateFactory.feature</DependentUpon>
+    </Compile>
     <Compile Include="Traders\TraderSteps.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +236,14 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ExchangeContractFeature1.feature.cs</LastGenOutput>
     </None>
+    <None Include="FactoryTests\FactoryCoordinatorActor.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FactoryCoordinatorActor.feature.cs</LastGenOutput>
+    </None>
+    <None Include="FactoryTests\FactoryUpdate.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FactoryUpdate.feature.cs</LastGenOutput>
+    </None>
     <None Include="Locations\WorldLocationGenerator.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>WorldLocationGenerator.feature.cs</LastGenOutput>
@@ -252,10 +277,15 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Trader.feature.cs</LastGenOutput>
     </None>
+    <None Include="Traders\TraderCreateFactory.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>TraderCreateFactory.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Locations\worldPrefixStrings.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
       <ItemGroup>

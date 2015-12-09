@@ -121,7 +121,7 @@ namespace Entities
             /// </summary>
             public string Name { get; private set; }
 
-            public ICelestialBody Location { get; private set; }
+            public CelestialBody Location { get; private set; }
             public IActorRef CenterOfMassActor { get;  }
 
             /// <summary>
@@ -130,7 +130,7 @@ namespace Entities
             /// <param name="name">The name of the market to create</param>
             /// <param name="location">The Celestial body the market is attached to</param>
             /// <param name="centerOfMassActor">the center of mass actor the market belogns to</param>
-            public TellCreateMarketMessage(string name, ICelestialBody location, IActorRef centerOfMassActor)
+            public TellCreateMarketMessage(string name, CelestialBody location, IActorRef centerOfMassActor)
             {
                 if (location == null) throw new ArgumentNullException(nameof(location));
                 if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));

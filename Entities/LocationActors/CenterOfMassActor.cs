@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Akka.Actor;
+using Entities.Factories;
 
 namespace Entities.LocationActors
 {
@@ -16,6 +17,7 @@ namespace Entities.LocationActors
     /// </remarks>
     public class CenterOfMassActor : ReceiveActor
     {
+        private readonly IActorRef _factoryCoordinator;
         private readonly CenterOfMassState _centerOfMassState;
 
         /// <summary>
@@ -33,16 +35,19 @@ namespace Entities.LocationActors
         /// </summary>
         public CelestialBody[] Planets => _centerOfMassState.Planets;
 
-        public static Props CreateProps(string name, CelestialBody[] stars, CelestialBody[] planets)
+        public static Props CreateProps(string name, CelestialBody[] stars, CelestialBody[] planets,IActorRef factoryCoordinator, Dictionary<CelestialBody, IActorRef> factories = null)
         {
-            return Props.Create(() => new CenterOfMassActor(name, stars, planets));
+            factories = factories ?? new Dictionary<CelestialBody, IActorRef>();
+            return Props.Create(() => new CenterOfMassActor(name, stars, planets, factoryCoordinator, factories));
         }
 
-        public CenterOfMassActor(string name, CelestialBody[] stars, CelestialBody[] planets) 
+        public CenterOfMassActor(string name, CelestialBody[] stars, CelestialBody[] planets, IActorRef factoryCoordinator, Dictionary<CelestialBody, IActorRef> factories) 
         {
-            _centerOfMassState = new CenterOfMassState(name, stars, planets);
+            _factoryCoordinator = factoryCoordinator;
+            _centerOfMassState = new CenterOfMassState(name, stars, planets, factories);
             Receive<UpdateDelta>(msg =>
             {
+                Context.LogMessageDebug(msg);
                 foreach (var star in _centerOfMassState.Stars)
                 {
                     star.UpdateDelta(msg.Delta);
@@ -56,7 +61,15 @@ namespace Entities.LocationActors
 
             Receive<CenterOfMassStateQuery>(msg =>
             {
+                Context.LogMessageDebug(msg);
                 Sender.Tell(new CenterOfMassQueryResult(Stars, Planets));
+            });
+
+            Receive<CreateFactoryOnBody>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                _factoryCoordinator.Tell(new FactoryCoordinatorActor.CreateFactory(msg.Name, msg.FactoryType, Sender,
+                    msg.Body));
             });
         }
 
@@ -73,6 +86,20 @@ namespace Entities.LocationActors
             {
                 Stars = stars;
                 Planets = planets;
+            }
+        }
+
+        public class CreateFactoryOnBody
+        {
+            public string Name { get; private set; }
+            public FactoryType FactoryType { get; private set; }
+            public CelestialBody Body { get; private set; }
+
+            public CreateFactoryOnBody(string name, FactoryType factoryType, CelestialBody body)
+            {
+                Name = name;
+                FactoryType = factoryType;
+                Body = body;
             }
         }
     }

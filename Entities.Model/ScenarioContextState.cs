@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.NUnit;
+using Entities.Factories;
 using Entities.LocationActors;
 using Entities.Model.Locations;
 using Entities.Model.Markets;
@@ -30,6 +31,7 @@ namespace Entities.Model
            Actors = new Dictionary<string, IActorRef>();
            Materials = new Dictionary<string, IMaterial>();
             CelestialBodies= new Dictionary<string, CelestialBody>();
+            FactoryCoordinator = new FactoryCoordinatorScenarioState();
            Config = "akka { loglevel=DEBUG,  loggers=[\"Akka.Logger.Serilog.SerilogLogger, Akka.Logger.Serilog\"]}";
        }
 
@@ -62,6 +64,21 @@ namespace Entities.Model
        public Dictionary<string,CelestialBody> CelestialBodies{ get; set; }
        public Dictionary<string,IMaterial> Materials { get; set; }
        public IActorRef CenterOfMassManagerActor { get; set; }
+       public FactoryCoordinatorScenarioState FactoryCoordinator { get; private set; }
+
+       public class FactoryCoordinatorScenarioState
+       {
+           public TimeSpan Period { get; set; }
+           public IActorRef Actor { get; set; }
+           public Dictionary<string,FactoryType> FactoryTypes{ get; private set; }
+           public Dictionary<string,IActorRef> Factories { get; private set; }
+
+           public FactoryCoordinatorScenarioState()
+           {
+               FactoryTypes = new Dictionary<string, FactoryType>();
+                Factories = new Dictionary<string, IActorRef>();
+           }
+       }
 
        /// <summary>
       /// Given a resource name will return a <see cref="Resource"/> from <see cref="ResourceManager"/>
@@ -69,17 +86,17 @@ namespace Entities.Model
       /// <param name="resourceName">The value of a <see cref="Resource.Name"/></param>
       /// <exception cref="InvalidOperationException">When <see cref="ResourceManager"/> ha snot been initialised in a previous step.</exception>
       /// <returns>The <see cref="Resource"/></returns>
-      public Resource GetResourceFromName(string resourceName)
+      public IResource GetResourceFromName(string resourceName)
       {
          if (ReferenceEquals(ResourceManager, null))
          {
             throw new InvalidOperationException("Resource Manager not initialised");
          }
 
-         var resourceQuery = ResourceManager.Ask<Resource>(new ResourceManager.GetResource(resourceName));
+         var resourceQuery = ResourceManager.Ask<ResourceManager.GetResourceResult>(new ResourceManager.GetResource(resourceName));
          resourceQuery.Wait(TimeSpan.FromMilliseconds(50));
          var resource = resourceQuery.Result;
-         return resource;   
+         return resource.Values[0];   
       }
    }
 }

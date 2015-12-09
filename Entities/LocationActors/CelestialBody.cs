@@ -6,7 +6,7 @@ namespace Entities.LocationActors
     /// THe core data for any celestial body
     /// </summary>
     /// <remarks>Nothing clever assume all on one axis - and everything on same azis</remarks>
-    public class CelestialBody : ICelestialBody, IUpdateDelta
+    public class CelestialBody :  IUpdateDelta
     {
         /// <summary>
         /// Creates a new instance
@@ -21,7 +21,7 @@ namespace Entities.LocationActors
         /// <param name="material">The material the celestial body is made from</param>
         /// <param name="bodyType">The celestial body type</param>
         /// <param name="satellites">The satellites of this body.</param>
-        public CelestialBody(string name, double radius, double orbitDistance, double orbitalAngularVelocity, double rotatationalAngularVelocity, double initialOrbitalAngularPositionOffset, double currentAngularPosition, IMaterial material, CelestialBodyType bodyType, ICelestialBody[] satellites = null)
+        public CelestialBody(string name, double radius, double orbitDistance, double orbitalAngularVelocity, double rotatationalAngularVelocity, double initialOrbitalAngularPositionOffset, double currentAngularPosition, IMaterial material, CelestialBodyType bodyType, CelestialBody[] satellites = null)
         {
             Name = name;
             Radius = radius;
@@ -32,7 +32,7 @@ namespace Entities.LocationActors
             CurrentAngularPosition = currentAngularPosition;
             Material = material;
             BodyType = bodyType;
-            Satellites = satellites ?? new ICelestialBody[0];
+            Satellites = satellites ?? new CelestialBody[0];
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Entities.LocationActors
         /// <remarks>
         /// Remember that stars do not have satelites - the COM does
         /// </remarks>
-        public ICelestialBody[] Satellites { get; }
+        public CelestialBody[] Satellites { get; }
 
         /// <summary>
         /// Update the position of the body

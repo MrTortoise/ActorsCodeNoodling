@@ -78,7 +78,7 @@ namespace Entities.Model.CenterOfMassActors
             var moonString = tableRow["satellites"];
             var strings = ExtractStringsFromCsv(moonString);
 
-            ICelestialBody[] satellites = null;
+            CelestialBody[] satellites = null;
             if (!(strings.Length == 1 && string.IsNullOrWhiteSpace(strings[0])))
             {
                 foreach (var s in strings)

@@ -11,11 +11,11 @@ using TechTalk.SpecFlow;
 namespace Entities.Model
 {
     [Binding]
-    public class SystemAndProbsSteps
+    public class SystemAndProbeSteps
     {
         private readonly ScenarioContextState _state;
 
-        public SystemAndProbsSteps(ScenarioContextState state)
+        public SystemAndProbeSteps(ScenarioContextState state)
         {
             _state = state;
         }

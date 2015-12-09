@@ -119,11 +119,11 @@ namespace Entities
 
         public class PostInvitationMessage
         {
-            public PostInvitationMessage(OfferType exchangeType, Resource invitationResource,
+            public PostInvitationMessage(OfferType exchangeType, IResource invitationResource,
                 int invitationResourceQuantity,
                 TimePeriodType invitationResourceTimePeriod, int invitationResourceTimePeriodQuantity,
-                Resource suggestedOfferResource,
-                int suggestedQuantity, Resource liabilityResource, int liabilityQuantity)
+                IResource suggestedOfferResource,
+                int suggestedQuantity, IResource liabilityResource, int liabilityQuantity)
             {
                 ExchangeType = exchangeType;
 
@@ -141,12 +141,12 @@ namespace Entities
 
             public OfferType ExchangeType { get; }
             public int LiabilityQuantity { get; }
-            public Resource LiabilityResource { get; }
-            public Resource InvitationResource { get; }
+            public IResource LiabilityResource { get; }
+            public IResource InvitationResource { get; }
             public int InvitationResourceQuantity { get; }
             public TimePeriodType InvitationResourceTimePeriod { get; }
             public int InvitationResourceTimePeriodQuantity { get; }
-            public Resource SuggestedOfferResource { get; }
+            public IResource SuggestedOfferResource { get; }
             public int SuggestedQuantity { get; }
         }
 

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="TraderAIActor">
+  <activityRootModelMoniker Id="f32fecb0-94a0-4540-b63a-c8382dfb56b8" />
+  <nestedChildShapes>
+    <initialNodeShape Id="5dc4d797-9f7b-4700-a21b-5cd9e1184d2d" absoluteBounds="4.75, 1.625, 0.125, 0.125" customColor="89, 89, 89">
+      <initialNodeMoniker Id="f247d15a-5498-41d7-b572-edcb6f728089" LastKnownName="Initial1" />
+    </initialNodeShape>
+    <acceptEventActionShape Id="bfac9ead-f830-42dd-8240-2a3f8c53b2cd" absoluteBounds="5.75, 1.5, 1.125, 0.375" customColor="185, 212, 238">
+      <acceptEventActionMoniker Id="af2f2701-ae23-4aee-838e-437cea8f77b1" LastKnownName="Event1" />
+    </acceptEventActionShape>
+  </nestedChildShapes>
+</activityDiagram>

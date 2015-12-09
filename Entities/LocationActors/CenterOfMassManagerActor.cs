@@ -19,7 +19,7 @@ namespace Entities.LocationActors
         private readonly Dictionary<string,IActorRef> _centerOfMasses = new Dictionary<string, IActorRef>();
         private readonly List<IActorRef> _contentsChangedObservers = new List<IActorRef>();
 
-        private readonly Dictionary<ICelestialBody,IActorRef> _celestialBodiesOnCenterOfMasses = new Dictionary<ICelestialBody, IActorRef>();
+        private readonly Dictionary<CelestialBody,IActorRef> _celestialBodiesOnCenterOfMasses = new Dictionary<CelestialBody, IActorRef>();
         
 
         public static string Name => "CenterOfMassManagerActor";
@@ -35,7 +35,7 @@ namespace Entities.LocationActors
         {
             Receive<CreateCenterOfMass>(msg =>
             {
-                var com = Context.ActorOf(CenterOfMassActor.CreateProps(msg.Name, msg.Stars, msg.Planets), msg.Name.RemoveSpaces());
+                var com = Context.ActorOf(CenterOfMassActor.CreateProps(msg.Name, msg.Stars, msg.Planets, new Dictionary<CelestialBody,IActorRef>()), msg.Name.RemoveSpaces());
                 _centerOfMasses.Add(msg.Name, com);
 
                 foreach (var star in msg.Stars)

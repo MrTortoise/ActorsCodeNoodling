@@ -50,6 +50,48 @@
       <SubType>Content</SubType>
       <DependentUpon>ExchangeContractNegotiation.sequencediagram</DependentUpon>
     </Content>
+    <Content Include="Factory\DecideOnContractToOffer.activitydiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Factory\DecideOnContractToOffer.activitydiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Factory\DecideOnContractToOffer.activitydiagram</DependentUpon>
+    </Content>
+    <Content Include="Factory\Factory.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Factory\Factory.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Factory\Factory.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="Factory\Factory.usecasediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Factory\Factory.usecasediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Factory\Factory.usecasediagram</DependentUpon>
+    </Content>
+    <Content Include="Factory\traderAiActor-ContractsInEffect.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Factory\traderAiActor-ContractsInEffect.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Factory\traderAiActor-ContractsInEffect.sequencediagram</DependentUpon>
+    </Content>
+    <Content Include="Factory\TraderAIActor.activitydiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Factory\TraderAIActor.activitydiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Factory\TraderAIActor.activitydiagram</DependentUpon>
+    </Content>
+    <Content Include="Factory\TraderAiActor-idle-DetermineBuySellContracts.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Factory\TraderAiActor-idle-DetermineBuySellContracts.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Factory\TraderAiActor-idle-DetermineBuySellContracts.sequencediagram</DependentUpon>
+    </Content>
     <Content Include="MarketActor.usecasediagram">
       <SubType>Content</SubType>
     </Content>
@@ -75,5 +117,6 @@
     <Content Include="ModelDefinition\ArchitecturalModel.uml">
       <SubType>Content</SubType>
     </Content>
+    <Folder Include="Factory" />
   </ItemGroup>
 </Project>
