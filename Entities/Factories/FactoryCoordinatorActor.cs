@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Akka.Actor;
 using Entities.LocationActors;
@@ -7,9 +8,10 @@ namespace Entities.Factories
 {
     public class FactoryCoordinatorActor : ReceiveActor
     {
-        private readonly HashSet<IActorRef> _factories = new HashSet<IActorRef>();
-        private readonly HashSet<FactoryType> _factoryTypes = new HashSet<FactoryType>();
         public const string Name = "FactoryCoordinatorActor";
+
+        private ImmutableHashSet<IActorRef> _factories = ImmutableHashSet<IActorRef>.Empty;
+        private ImmutableHashSet<FactoryType> _factoryTypes = ImmutableHashSet<FactoryType>.Empty;
 
         public static Props CreateProps()
         {
@@ -18,14 +20,9 @@ namespace Entities.Factories
 
         public FactoryCoordinatorActor()
         {
-            Receive<RegisterFactory>(msg =>
-            {
-                _factories.Add(msg.Factory);
-            });
-
             Receive<FactoryType>(msg =>
             {
-                _factoryTypes.Add(msg);
+               _factoryTypes =  _factoryTypes.Add(msg);
             });
 
             Receive<QueryFactoryTypes>(msg =>
@@ -35,18 +32,29 @@ namespace Entities.Factories
 
             Receive<CreateFactory>(msg =>
             {
+                var factory = Context.ActorOf(Factory.CreateProps(msg.Name, msg.FactoryType, msg.Body));
+                _factories = _factories.Add(factory);
+                Sender.Tell(new FactoryCreated(factory, Sender, msg.Body));
+                msg.Owner.Tell(new FactoryCreated(factory,Sender,msg.Body));
+            });
 
+            Receive<QueryFactories>(msg =>
+            {
+                Sender.Tell(new FactoryQueryResult(_factories));
             });
         }
 
-
-        public class RegisterFactory
+        public class FactoryCreated
         {
-            public IActorRef Factory { get; }
+            public IActorRef Factory { get; private set; }
+            public IActorRef CenterOfMass { get; private set; }
+            public CelestialBody CelestialBody { get; set; }
 
-            public RegisterFactory(IActorRef factory)
+            public FactoryCreated(IActorRef factory, IActorRef centerOfMass, CelestialBody body) 
             {
                 Factory = factory;
+                CenterOfMass = centerOfMass;
+                CelestialBody = body;
             }
         }
 
@@ -77,6 +85,20 @@ namespace Entities.Factories
                 FactoryType = factoryType;
                 Owner = owner;
                 Body = body;
+            }
+        }
+
+        public class QueryFactories
+        {
+        }
+
+        public class FactoryQueryResult
+        {
+            public ImmutableHashSet<IActorRef> Factories { get;private set; }
+
+            public FactoryQueryResult(ImmutableHashSet<IActorRef> factories)
+            {
+                Factories = factories;
             }
         }
     }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Entities.LocationActors
 {
@@ -107,6 +109,11 @@ namespace Entities.LocationActors
 
             CurrentAngularPosition += dp;
             Angle += a;
+        }
+
+        public IEnumerable<CelestialBody> GetSelfAndSatellites()
+        {
+            return (new[] {this}).Union(Satellites);
         }
     }
 }

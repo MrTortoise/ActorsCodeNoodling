@@ -93,6 +93,8 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
                     "                       }\r\n                       }\r\n                   }\r\n\t}", ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 46
  testRunner.And("I create a Resource Manager", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 47
+ testRunner.And("I have created a FactoryCoordinator actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "name"});
@@ -106,7 +108,7 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
                         "Hydrogen"});
             table1.AddRow(new string[] {
                         "geddit yet?"});
-#line 47
+#line 48
  testRunner.And("I add the following resources to the Resource Manager", ((string)(null)), table1, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -118,7 +120,7 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
             table2.AddRow(new string[] {
                         "Rock",
                         "0.9"});
-#line 54
+#line 55
  testRunner.And("I have created the following Material called \"The Moon\"", ((string)(null)), table2, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -130,7 +132,7 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
             table3.AddRow(new string[] {
                         "Rock",
                         "0.9"});
-#line 58
+#line 59
  testRunner.And("I have created the following Material called \"Some Planet\"", ((string)(null)), table3, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -139,7 +141,7 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
             table4.AddRow(new string[] {
                         "Hydrogen",
                         "0.1"});
-#line 62
+#line 63
  testRunner.And("I have created the following Material called \"Mellow Yellow\"", ((string)(null)), table4, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -219,9 +221,9 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
                         "Star",
                         "Mellow Yellow",
                         ""});
-#line 65
+#line 66
  testRunner.And("I have created the following Celestial Bodies", ((string)(null)), table5, "And ");
-#line 73
+#line 74
  testRunner.And("I create a CenterOfMassManagerActor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -232,7 +234,7 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
                         "Solar System",
                         "\"The Sun\",\"The Second Sun\"",
                         "\"The Planet\",\"Other Planet\""});
-#line 74
+#line 75
  testRunner.And("I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with" +
                     " arguments", ((string)(null)), table6, "And ");
 #line hidden
@@ -245,11 +247,11 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a center of mass actor, add a com with stars and planets etc and verify th" +
                     "ey exist", ((string[])(null)));
-#line 79
+#line 80
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 81
+#line 82
  testRunner.When("I get the CenterOfMassActor called \"Solar System\" and store it in the context as " +
                     "\"Solar System\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -274,7 +276,7 @@ this.FeatureBackground();
             table7.AddRow(new string[] {
                         "moon",
                         "Another Moon"});
-#line 82
+#line 83
  testRunner.Then("I Expect the solar system \"Solar System\" to have the following", ((string)(null)), table7, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -285,7 +287,7 @@ this.FeatureBackground();
         public virtual void TakeTheCOMActorAndDoAFewUpdatesAndEnsureAllIsHunkyDory_()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Take the COM actor and do a few updates and ensure all is hunky dory.", ((string[])(null)));
-#line 91
+#line 92
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();

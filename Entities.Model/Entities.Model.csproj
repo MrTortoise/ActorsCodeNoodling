@@ -261,7 +261,6 @@
       <LastGenOutput>MarketHub.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
-    <None Include="paket.references" />
     <None Include="Producers\Mine.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Mine.feature.cs</LastGenOutput>

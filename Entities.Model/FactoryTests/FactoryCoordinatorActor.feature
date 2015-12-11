@@ -33,6 +33,7 @@ Background:
 	| The Sun        | 1      | 2             | 0.2                    | 0                           | 0                                   | 0                      | Star     | Mellow Yellow |                           |
 	| The Second Sun | 1      | 2             | 0.2                    | 0                           | 3.14                                | 3.14                   | Star     | Mellow Yellow |                           |
 	And I create a CenterOfMassManagerActor
+	And I have created a FactoryCoordinator actor
 	And I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments
 	| name         | stars                      | planets                     |
 	| Solar System | "The Sun","The Second Sun" | "The Planet","Other Planet" |
@@ -40,23 +41,23 @@ Background:
 Scenario: Add factory types and query them
 	Given I have created a Factory Type called "FuckPhysics" with the following properties
 	| In    | resource | quantity | periods |
-	| false | metal    | 10       | 1       |
+	| false | Metal    | 10       | 1       |
 	When I query the factory types and store result in context as "FactoryTypes"
 	Then I expect the factory type "FuckPhysics" with the following properties in context "FactoryTypes"
 	| In    | resource | quantity | periods |
-	| false | metal    | 10       | 1      |
+	| false | Metal    | 10       | 1      |
 
 Scenario: Create a factory
 	Given I have created a Factory Type called "FuckPhysics" with the following properties
 	| In    | resource | quantity | periods |
-	| false | metal    | 10       | 1       |
+	| false | Metal    | 10       | 1       |
 	And I have created a Trader called "factoryCreator"
 	When I create the following Factories using actor "factoryCreator"
 	| name                        | factoryType | centerOfMass | celestialBody |
-	| somethingFromNothingFactory | fuckPhysics | Solar System | Other Planet  |
+	| somethingFromNothingFactory | FuckPhysics | Solar System | Other Planet  |
 	Then I expect the FactoryCoordinator to contain the following factories
 	| name                        | factoryType | centerOfMass | celestialBody |
-	| somethingFromNothingFactory | fuckPhysics | Solar System | Other Planet  |
+	| somethingFromNothingFactory | FuckPhysics | Solar System | Other Planet  |
 	Then I expect the results of querying the trader "factoryCreator" for its factories to be
 	| name                        | factoryType | centerOfMass | celestialBody |
-	| somethingFromNothingFactory | fuckPhysics | Solar System | Other Planet  |
+	| somethingFromNothingFactory | FuckPhysics | Solar System | Other Planet  |

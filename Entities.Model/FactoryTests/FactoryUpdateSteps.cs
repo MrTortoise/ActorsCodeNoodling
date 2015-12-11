@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Akka.Actor;
 using Entities.Factories;
 using Entities.LocationActors;
@@ -33,13 +35,6 @@ namespace Entities.Model.FactoryTests
             var actor = _state.TestKit.Sys.ActorOf(FactoryCoordinatorActor.CreateProps(), FactoryCoordinatorActor.Name);
             _state.FactoryCoordinator.Actor = actor;
             _state.Actors.Add(actor.Path.Name, actor);
-        }
-        
-        [Given(@"I add register the actor ""(.*)"" with FactoryCoordinator")]
-        public void GivenIAddRegisterTheActorWithFactoryCoordinator(string actorName)
-        {
-            var actor = _state.Actors[actorName];
-            _state.FactoryCoordinator.Actor.Tell(new FactoryCoordinatorActor.RegisterFactory(actor));
         }
         
         [Given(@"I have created a Factory Type called ""(.*)"" with the following properties")]
@@ -79,18 +74,6 @@ namespace Entities.Model.FactoryTests
             return factoryType;
         }
 
-        [When(@"I create the following Factories")]
-        public void WhenICreateTheFollowingFactories(Table table)
-        {
-            foreach (var tableRow in table.Rows)
-            {
-                var name = tableRow["name"];
-                var factoryTypeName = tableRow["factoryType"];
-                var comName = tableRow["centerOfMass"];
-                var celestialBodyName = tableRow["celestialBody"];
-            }
-        }
-
         [When(@"I wait for (.*) FactoryCoordinator time periods")]
         public void WhenIWaitForFactoryCoordinatorTimePeriods(int timePeriods)
         {
@@ -118,9 +101,7 @@ namespace Entities.Model.FactoryTests
         [When(@"I query the factory types and store result in context as ""(.*)""")]
         public void WhenIQueryTheFactoryTypesAdnSotreResultInContextAs(string contextKey)
         {
-            var factoryTypes =
-                _state.FactoryCoordinator.Actor.Ask<FactoryCoordinatorActor.FactoryTypesResult>(
-                    new FactoryCoordinatorActor.QueryFactoryTypes());
+            var factoryTypes = _state.FactoryCoordinator.Actor.Ask<FactoryCoordinatorActor.FactoryTypesResult>(new FactoryCoordinatorActor.QueryFactoryTypes());
 
             factoryTypes.Wait();
 
@@ -164,41 +145,55 @@ namespace Entities.Model.FactoryTests
                 var bodies = cbTask.Result.Planets.Concat(cbTask.Result.Planets.SelectMany(i => i.Satellites));
                 var body = bodies.Single(i => i.Name == celestialBodyName);
 
-                com.Tell(new CenterOfMassActor.CreateFactoryOnBody(name, factoryType, body));
-
+                com.Tell(new CenterOfMassActor.CreateFactoryOnBody(name, factoryType, body), traderActor);
             }
-
-            ScenarioContext.Current.Pending();
         }
 
         [Then(@"I expect the FactoryCoordinator to contain the following factories")]
         public void ThenIExpectTheFactoryCoordinatorToContainTheFollowingFactories(Table table)
         {
-            ScenarioContext.Current.Pending();
+            //| name | factoryType | centerOfMass | celestialBody |
+            //| somethingFromNothingFactory | fuckPhysics | Solar System | Other Planet |
+            var coordinatorFactories = _state.FactoryCoordinator.Actor.Ask<FactoryCoordinatorActor.FactoryQueryResult>(new FactoryCoordinatorActor.QueryFactories());
+           
+            coordinatorFactories.Wait();
+            var tasks = coordinatorFactories.Result.Factories.Select(i => i.Ask<Factory.FactoryState>(new Factory.QueryState())).ToArray();
+            Task.WaitAll(tasks);
+            var factoryStates = tasks.Select(i => i.Result).ToArray();
+
+            foreach (var tableRow in table.Rows)
+            {
+                var name = tableRow["name"];
+                var factoryTypeName = tableRow["factoryType"];
+                var celestialBodyName = tableRow["celestialBody"];
+
+                Assert.That(factoryStates.Any(i => i.Name == name && i.FactoryType.Name == factoryTypeName && i.Body.Name == celestialBodyName));
+            }
         }
+
 
         [Then(@"I expect the results of querying the trader ""(.*)"" for its factories to be")]
-        public void ThenIExpectTheResultsOfQueryingTheTraderForItsFactoriesToBe(string p0, Table table)
+        public void ThenIExpectTheResultsOfQueryingTheTraderForItsFactoriesToBe(string traderName, Table table)
         {
-            ScenarioContext.Current.Pending();
+            var trader = _state.Traders[traderName];
+            var queryTask = trader.Ask<Trader.FactoryQueryResult>(new Trader.QueryFactories());
+            queryTask.Wait();
+
+            var factoryTasks = queryTask.Result.Factories.Select(i=>i.Ask<Factory.FactoryState>(new Factory.QueryState())).ToArray();
+            Task.WaitAll(factoryTasks);
+            var factoryStates = factoryTasks.Select(i => i.Result).ToArray();
+
+            foreach (var tableRow in table.Rows)
+            {
+                var name = tableRow["name"];
+                var factoryTypeName = tableRow["factoryType"];
+                var celestialBodyName = tableRow["celestialBody"];
+
+                Assert.That(factoryStates.Any(i => i.Name == name && i.FactoryType.Name == factoryTypeName && i.Body.Name == celestialBodyName));
+            }
         }
 
     }
 
-    public class Factory : ReceiveActor
-    {
-        private FactoryType factoryType;
-        private string name;
-
-        public Factory(string name, FactoryType factoryType)
-        {
-            this.name = name;
-            this.factoryType = factoryType;
-        }
-
-        public static Props CreateProps(string name, FactoryType factoryType)
-        {
-            return Props.Create(() => new Factory(name, factoryType));
-        }
-    }
+   
 }

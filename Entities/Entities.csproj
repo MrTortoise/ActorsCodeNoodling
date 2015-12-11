@@ -95,6 +95,7 @@
     <Compile Include="LocationActors\CelestialBodyType.cs" />
     <Compile Include="LocationActors\CenterOfMassActor.cs" />
     <Compile Include="LocationActors\CenterOfMassState.cs" />
+    <Compile Include="Factories\Factory.cs" />
     <Compile Include="LocationActors\IMaterial.cs" />
     <Compile Include="LocationActors\IUpdateDelta.cs" />
     <Compile Include="LocationActors\Material.cs" />
@@ -127,7 +128,6 @@
     <Compile Include="WorldPrefixPersistanceActor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="paket.references" />
     <None Include="protos\google\protobuf\csharp_options.proto" />
     <None Include="protos\google\protobuf\descriptor.proto" />
     <None Include="protos\tutorial\addressbook.proto" />

@@ -16,6 +16,7 @@ namespace Entities.LocationActors
     /// </remarks>
     public class CenterOfMassManagerActor : ReceiveActor
     {
+        private readonly IActorRef _factoryCoordinator;
         private readonly Dictionary<string,IActorRef> _centerOfMasses = new Dictionary<string, IActorRef>();
         private readonly List<IActorRef> _contentsChangedObservers = new List<IActorRef>();
 
@@ -26,16 +27,17 @@ namespace Entities.LocationActors
 
         public static string Path => @"user\CenterOfMassManagerActor";
 
-        public static Props CreateProps()
+        public static Props CreateProps(IActorRef factoryCoordinator)
         {
-            return Props.Create(() => new CenterOfMassManagerActor());
+            return Props.Create(() => new CenterOfMassManagerActor(factoryCoordinator));
         }
 
-        public CenterOfMassManagerActor()
+        public CenterOfMassManagerActor(IActorRef factoryCoordinator)
         {
+            _factoryCoordinator = factoryCoordinator;
             Receive<CreateCenterOfMass>(msg =>
             {
-                var com = Context.ActorOf(CenterOfMassActor.CreateProps(msg.Name, msg.Stars, msg.Planets, new Dictionary<CelestialBody,IActorRef>()), msg.Name.RemoveSpaces());
+                var com = Context.ActorOf(CenterOfMassActor.CreateProps(msg.Name, msg.Stars, msg.Planets, _factoryCoordinator), msg.Name.RemoveSpaces());
                 _centerOfMasses.Add(msg.Name, com);
 
                 foreach (var star in msg.Stars)

@@ -44,6 +44,7 @@ Given I create a test actor system using config
 		}
 	"""
 	And I create a Resource Manager
+	And I have created a FactoryCoordinator actor
 	And I add the following resources to the Resource Manager
 	| name     |
 	| Metal    |

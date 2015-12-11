@@ -105,7 +105,7 @@ namespace Entities.Model.CenterOfMassActors
         [Given(@"I create a CenterOfMassManagerActor")]
         public void GivenICreateACenterOfMassManagerActorCalled()
         {
-            var comManager = _state.TestKit.Sys.ActorOf(CenterOfMassManagerActor.CreateProps(), CenterOfMassManagerActor.Name);
+            var comManager = _state.TestKit.Sys.ActorOf(CenterOfMassManagerActor.CreateProps(_state.FactoryCoordinator.Actor), CenterOfMassManagerActor.Name);
             _state.CenterOfMassManagerActor = comManager;
             _state.Actors.Add(CenterOfMassManagerActor.Name, comManager);
         }

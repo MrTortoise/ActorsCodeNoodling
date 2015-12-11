@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using Akka.Actor;
+using Entities.Factories;
 
 namespace Entities
 {
     /// <summary>
     /// This is an actor representing a trader. 
     /// </summary>
-    public class Trader : TypedActor, ITrader,
-        IHandle<Trader.PostResourceMessage>,
-        IHandle<Trader.QueryResourcesMessage>,
-        IHandle<ExchangeContract.OfferMadeNotification>
+    public class Trader : ReceiveActor, ITrader
     {
         private readonly Dictionary<IResource, ResourceStack> _resources;
+        private ImmutableHashSet<IActorRef> _factories = ImmutableHashSet<IActorRef>.Empty;
 
         /// <summary>
         /// Creates a Trader with a name
@@ -23,33 +22,41 @@ namespace Entities
             _resources = new Dictionary<IResource, ResourceStack>();
 
             Name = name;
+
+            Receive<PostResourceMessage>(message =>
+            {
+                Context.LogMessageDebug(message);
+                if (_resources.ContainsKey(message.ResourceStack.Resource))
+                {
+                    var resourceStack = _resources[message.ResourceStack.Resource];
+                    _resources[message.ResourceStack.Resource] = new ResourceStack(resourceStack.Resource,
+                        resourceStack.Quantity + message.ResourceStack.Quantity);
+                }
+                else
+                {
+                    _resources.Add(message.ResourceStack.Resource, message.ResourceStack);
+                }
+            });
+
+            Receive<QueryResourcesMessage>(message =>
+            {
+                Context.LogMessageDebug(message);
+                Sender.Tell(new QueryResourcesResultMessage(_resources.Values.ToImmutableArray()));
+            });
+
+            Receive<FactoryCoordinatorActor.FactoryCreated>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                _factories = _factories.Add(msg.Factory);
+            });
+
+            Receive<QueryFactories>(msg =>
+            {
+                Sender.Tell(new FactoryQueryResult(_factories));
+            });
         }
 
         public string Name { get; }
-
-        public void Handle(PostResourceMessage message)
-        {
-            if (_resources.ContainsKey(message.ResourceStack.Resource))
-            {
-                var resourceStack = _resources[message.ResourceStack.Resource];
-                _resources[message.ResourceStack.Resource] = new ResourceStack(resourceStack.Resource,
-                    resourceStack.Quantity + message.ResourceStack.Quantity);
-            }
-            else
-            {
-                _resources.Add(message.ResourceStack.Resource, message.ResourceStack);
-            }
-        }
-
-        public void Handle(QueryResourcesMessage message)
-        {
-            Sender.Tell(new QueryResourcesResultMessage(_resources.Values.ToImmutableArray()));
-        }
-
-        public void Handle(ExchangeContract.OfferMadeNotification message)
-        {
-            throw new System.NotImplementedException();
-        }
 
         public struct PostResourceMessage
         {
@@ -75,6 +82,19 @@ namespace Entities
             public ImmutableArray<ResourceStack> ResourceStacks { get; }
         }
 
+        public class FactoryQueryResult
+        {
+            public ImmutableHashSet<IActorRef> Factories { get; private set; }
 
+
+            public FactoryQueryResult(ImmutableHashSet<IActorRef> factories)
+            {
+                Factories = factories;
+            }
+        }
+
+        public class QueryFactories
+        {
+        }
     }
 }
