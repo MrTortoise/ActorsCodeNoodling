@@ -32,8 +32,8 @@ Background:
 	| Other Planet   | 10     | 300           | 0.1                    | 0                           | 0                                   | 0                      | Planet   | Some Planet   |                           |
 	| The Sun        | 1      | 2             | 0.2                    | 0                           | 0                                   | 0                      | Star     | Mellow Yellow |                           |
 	| The Second Sun | 1      | 2             | 0.2                    | 0                           | 3.14                                | 3.14                   | Star     | Mellow Yellow |                           |
-	And I create a CenterOfMassManagerActor
 	And I have created a FactoryCoordinator actor
+	And I create a CenterOfMassManagerActor
 	And I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments
 	| name         | stars                      | planets                     |
 	| Solar System | "The Sun","The Second Sun" | "The Planet","Other Planet" |

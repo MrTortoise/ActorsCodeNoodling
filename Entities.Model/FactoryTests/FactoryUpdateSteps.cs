@@ -146,6 +146,8 @@ namespace Entities.Model.FactoryTests
                 var body = bodies.Single(i => i.Name == celestialBodyName);
 
                 com.Tell(new CenterOfMassActor.CreateFactoryOnBody(name, factoryType, body), traderActor);
+
+                Thread.Sleep(10);
             }
         }
 

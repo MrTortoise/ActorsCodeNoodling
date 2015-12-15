@@ -201,9 +201,9 @@ namespace Entities.Model.FactoryTests
 #line 27
  testRunner.And("I have created the following Celestial Bodies", ((string)(null)), table5, "And ");
 #line 35
- testRunner.And("I create a CenterOfMassManagerActor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 36
  testRunner.And("I have created a FactoryCoordinator actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 36
+ testRunner.And("I create a CenterOfMassManagerActor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
