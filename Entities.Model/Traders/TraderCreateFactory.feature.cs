@@ -91,8 +91,6 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
                     "                              connection-string = \"Data Source=localhost\\\\SQLEXP" +
                     "RESS;Database=AkkaPersistenceTest;User Id=akkadotnet;Password=akkadotnet;\"\r\n    " +
                     "                       }\r\n                       }\r\n                   }\r\n\t}", ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 38
- testRunner.And("I create a Resource Manager", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "name"});
@@ -106,7 +104,7 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
                         "Hydrogen"});
             table1.AddRow(new string[] {
                         "geddit yet?"});
-#line 39
+#line 38
  testRunner.And("I add the following resources to the Resource Manager", ((string)(null)), table1, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -118,7 +116,7 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
             table2.AddRow(new string[] {
                         "Rock",
                         "0.9"});
-#line 46
+#line 45
  testRunner.And("I have created the following Material called \"The Moon\"", ((string)(null)), table2, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -130,7 +128,7 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
             table3.AddRow(new string[] {
                         "Rock",
                         "0.9"});
-#line 50
+#line 49
  testRunner.And("I have created the following Material called \"Some Planet\"", ((string)(null)), table3, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -139,7 +137,7 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
             table4.AddRow(new string[] {
                         "Hydrogen",
                         "0.1"});
-#line 54
+#line 53
  testRunner.And("I have created the following Material called \"Mellow Yellow\"", ((string)(null)), table4, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -219,10 +217,8 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
                         "Star",
                         "Mellow Yellow",
                         ""});
-#line 57
+#line 56
  testRunner.And("I have created the following Celestial Bodies", ((string)(null)), table5, "And ");
-#line 65
- testRunner.And("I create a CenterOfMassManagerActor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
@@ -232,7 +228,7 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
                         "Solar System",
                         "\"The Sun\",\"The Second Sun\"",
                         "\"The Planet\",\"Other Planet\""});
-#line 66
+#line 64
  testRunner.And("I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with" +
                     " arguments", ((string)(null)), table6, "And ");
 #line hidden
@@ -243,15 +239,15 @@ testRunner.Given("I create a test actor system using config", "akka { \r\n   log
         public virtual void TakeACenterOfMassActorAndCreateAFactory()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Take a center of mass actor and create a factory", ((string[])(null)));
-#line 70
+#line 68
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 71
+#line 69
  testRunner.Given("I have created a Trader called \"factoryCreator\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 72
+#line 70
  testRunner.When("I create a factory", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 73
+#line 71
  testRunner.Then("the result should be 120 on the screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

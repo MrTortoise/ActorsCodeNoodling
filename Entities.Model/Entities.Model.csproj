@@ -87,8 +87,22 @@
       <DependentUpon>FactoryUpdate.feature</DependentUpon>
     </Compile>
     <Compile Include="FactoryTests\FactoryUpdateSteps.cs" />
+    <Compile Include="Heartbeats\Heartbeat.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Heartbeat.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Heartbeats\HeartbeatSteps.cs" />
+    <Compile Include="TimeProvderSteps.cs" />
+    <Compile Include="TestTimeProvider.cs" />
     <Compile Include="ImmutibleDicTests\DictionaryTest.cs" />
     <Compile Include="ImmutibleDicTests\ImmutibleDictionaryTest.cs" />
+    <Compile Include="Inventory\Inventory.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Inventory.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\InventorySteps.cs" />
     <Compile Include="Locations\LocationGeneratorAutoGeneration.cs" />
     <Compile Include="ObservationSteps.cs" />
     <Compile Include="ObserverExposingValuesOutsideOFACtorSystem\ExternalAccessOfObserver.cs" />
@@ -186,10 +200,7 @@
     <Compile Include="SpecflowHelpers.cs" />
     <Compile Include="SqlPersistenceSteps.cs" />
     <Compile Include="SystemAndProbsSteps.cs" />
-    <Compile Include="Tradeables\ResourceModel.CreateAResource.g.cs">
-      <DependentUpon>ResourceModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tradeables\ResourceModel.cs" />
+    <Compile Include="TableExtensions.cs" />
     <Compile Include="Traders\Trader.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -243,6 +254,14 @@
     <None Include="FactoryTests\FactoryUpdate.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>FactoryUpdate.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Heartbeats\Heartbeat.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Heartbeat.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Inventory\Inventory.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Inventory.feature.cs</LastGenOutput>
     </None>
     <None Include="Locations\WorldLocationGenerator.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

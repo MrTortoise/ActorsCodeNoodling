@@ -70,8 +70,6 @@ namespace Entities.Model.ResourceManagerFeature
 #line 8
 #line 9
    testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 10
-   testRunner.And("I create a Resource Manager", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -82,7 +80,7 @@ namespace Entities.Model.ResourceManagerFeature
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Given a resource manager from the context, add a resource and then return it by i" +
                     "ts name", ((string[])(null)));
-#line 12
+#line 11
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -93,7 +91,7 @@ this.FeatureBackground();
                         "metal"});
             table1.AddRow(new string[] {
                         "rock"});
-#line 13
+#line 12
  testRunner.When("I add the following resources to the Resource Manager", ((string)(null)), table1, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -102,7 +100,7 @@ this.FeatureBackground();
                         "metal"});
             table2.AddRow(new string[] {
                         "rock"});
-#line 17
+#line 16
  testRunner.Then("the I expect the Resource  Manager to contain the following resources", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -115,13 +113,13 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sign something up to observe resource manager and add a resource then i want to b" +
                     "e notified", ((string[])(null)));
-#line 22
+#line 21
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
-#line 23
+#line 22
  testRunner.Given("I create a TestProbe called \"resourceManagerMonitor\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 24
+#line 23
  testRunner.And("I send an observe message to actor \"resourceManager\" from actor \"resourceManagerM" +
                     "onitor\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -131,9 +129,9 @@ this.FeatureBackground();
                         "metal"});
             table3.AddRow(new string[] {
                         "rock"});
-#line 25
+#line 24
  testRunner.When("I add the following resources to the Resource Manager", ((string)(null)), table3, "When ");
-#line 29
+#line 28
  testRunner.Then("I expect the TestProbe \"resourceManagerMonitor\" to recieve an event message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

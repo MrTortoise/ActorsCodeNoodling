@@ -32,8 +32,6 @@ namespace Entities.Model
             ScenarioContext.Current.Pending();
         }
 
-
-
         [Given(@"I create a test actor system")]
         public void GivenICreateATestActorSystem()
         {
@@ -44,6 +42,8 @@ namespace Entities.Model
             Serilog.Log.Logger = logger;
 
             _state.TestKit = new TestKit(_state.Config, "testActorSystem");
+
+            _state.SetupActorCoordinators();
         }
 
         [Given(@"I create a test actor system using config")]
@@ -58,6 +58,8 @@ namespace Entities.Model
 
             _state.Config = config;
             SetupSystem(_state.Config);
+
+            _state.SetupActorCoordinators();
         }
 
         private void SetupSystem(string config)
@@ -86,7 +88,5 @@ namespace Entities.Model
             var random = new System.Random();
             _state.RandomActor = _state.TestKit.Sys.ActorOf(RandomActor.CreateProps(random), "random");
         }
-
-
     }
 }

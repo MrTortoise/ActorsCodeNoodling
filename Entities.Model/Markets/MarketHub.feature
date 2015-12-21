@@ -35,7 +35,6 @@ Given I create a test actor system using config
                     }
 		}
 	"""
-	And I create a Resource Manager
 	And I add the following resources to the Resource Manager
 	| name     |
 	| Metal    |
@@ -66,7 +65,6 @@ Given I create a test actor system using config
 	| name           | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | starType      |
 	| The Sun        | 1      | 2             | 0.2                    | 0                           | 0                                   | 0                      | Mellow Yellow |
 	| The Second Sun | 1      | 2             | 0.2                    | 0                           | 3.14                                | 3.14                   | Mellow Yellow |
-	And I create a CenterOfMassManagerActor
 	And I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments
 	| name         | stars                      | planets                     |
 	| Solar System | "The Sun","The Second Sun" | "The Planet","Other Planet" |

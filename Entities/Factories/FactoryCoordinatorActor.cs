@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Akka.Actor;
@@ -32,7 +33,7 @@ namespace Entities.Factories
 
             Receive<CreateFactory>(msg =>
             {
-                var factory = Context.ActorOf(Factory.CreateProps(msg.Name, msg.FactoryType, msg.Body));
+                var factory = Context.ActorOf(Factory.CreateProps(msg.Name, msg.FactoryType, msg.Body, msg.InventoryType));
                 _factories = _factories.Add(factory);
                 Sender.Tell(new FactoryCreated(factory, Sender, msg.Body));
                 msg.Owner.Tell(new FactoryCreated(factory,Sender,msg.Body));
@@ -48,10 +49,14 @@ namespace Entities.Factories
         {
             public IActorRef Factory { get; private set; }
             public IActorRef CenterOfMass { get; private set; }
-            public CelestialBody CelestialBody { get; set; }
+            public CelestialBody CelestialBody { get; private set; }
 
-            public FactoryCreated(IActorRef factory, IActorRef centerOfMass, CelestialBody body) 
+            public FactoryCreated(IActorRef factory, IActorRef centerOfMass, CelestialBody body)
             {
+                if (factory == null) throw new ArgumentNullException(nameof(factory));
+                if (centerOfMass == null) throw new ArgumentNullException(nameof(centerOfMass));
+                if (body == null) throw new ArgumentNullException(nameof(body));
+
                 Factory = factory;
                 CenterOfMass = centerOfMass;
                 CelestialBody = body;
@@ -62,6 +67,8 @@ namespace Entities.Factories
         {
             public FactoryTypesResult(FactoryType[] factoryTypes)
             {
+                if (factoryTypes == null) throw new ArgumentNullException(nameof(factoryTypes));
+
                 FactoryTypes = factoryTypes;
             }
 
@@ -74,17 +81,25 @@ namespace Entities.Factories
 
         public class CreateFactory
         {
-            public string Name { get; set; }
-            public FactoryType FactoryType { get; set; }
-            public IActorRef Owner { get; set; }
-            public CelestialBody Body { get; set; }
+            public string Name { get; private set; }
+            public FactoryType FactoryType { get; private set; }
+            public IActorRef Owner { get; private set; }
+            public CelestialBody Body { get; private set; }
+            public InventoryType InventoryType { get; private set; }
 
-            public CreateFactory(string name, FactoryType factoryType, IActorRef owner, CelestialBody body)
+            public CreateFactory(string name, FactoryType factoryType, IActorRef owner, CelestialBody body, InventoryType inventoryType)
             {
+                if (factoryType == null) throw new ArgumentNullException(nameof(factoryType));
+                if (owner == null) throw new ArgumentNullException(nameof(owner));
+                if (body == null) throw new ArgumentNullException(nameof(body));
+                if (inventoryType == null) throw new ArgumentNullException(nameof(inventoryType));
+                if (String.IsNullOrWhiteSpace(name)) throw new ArgumentException("Argument is null or whitespace", nameof(name));
+
                 Name = name;
                 FactoryType = factoryType;
                 Owner = owner;
                 Body = body;
+                InventoryType = inventoryType;
             }
         }
 
@@ -98,6 +113,8 @@ namespace Entities.Factories
 
             public FactoryQueryResult(ImmutableHashSet<IActorRef> factories)
             {
+                if (factories == null) throw new ArgumentNullException(nameof(factories));
+
                 Factories = factories;
             }
         }

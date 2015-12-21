@@ -63,7 +63,7 @@ namespace Entities.LocationActors
             {
                 Context.LogMessageDebug(msg);
                 Debug.Assert(_centerOfMassState.UnionCelestialBodies().Contains(msg.Body));
-                _factoryCoordinator.Tell(new FactoryCoordinatorActor.CreateFactory(msg.Name, msg.FactoryType, Sender, msg.Body));
+                _factoryCoordinator.Tell(new FactoryCoordinatorActor.CreateFactory(msg.Name, msg.FactoryType, Sender, msg.Body, msg.InventoryType));
             });
 
             Receive<FactoryCoordinatorActor.FactoryCreated>(msg =>
@@ -86,6 +86,9 @@ namespace Entities.LocationActors
 
             public CenterOfMassQueryResult(CelestialBody[] stars, CelestialBody[] planets)
             {
+                if (stars == null) throw new ArgumentNullException(nameof(stars));
+                if (planets == null) throw new ArgumentNullException(nameof(planets));
+
                 Stars = stars;
                 Planets = planets;
             }
@@ -96,12 +99,19 @@ namespace Entities.LocationActors
             public string Name { get; private set; }
             public FactoryType FactoryType { get; private set; }
             public CelestialBody Body { get; private set; }
+            public InventoryType InventoryType { get; private set; }
 
-            public CreateFactoryOnBody(string name, FactoryType factoryType, CelestialBody body)
+            public CreateFactoryOnBody(string name, FactoryType factoryType, CelestialBody body, InventoryType inventoryType)
             {
+                if (factoryType == null) throw new ArgumentNullException(nameof(factoryType));
+                if (body == null) throw new ArgumentNullException(nameof(body));
+                if (inventoryType == null) throw new ArgumentNullException(nameof(inventoryType));
+                if (String.IsNullOrWhiteSpace(name)) throw new ArgumentException("Argument is null or whitespace", nameof(name));
+
                 Name = name;
                 FactoryType = factoryType;
                 Body = body;
+                InventoryType = inventoryType;
             }
         }
     }

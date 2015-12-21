@@ -7,7 +7,6 @@ Feature: ResourceManager
 
 Background: 
    Given I create a test actor system
-   And I create a Resource Manager
 
 Scenario: Given a resource manager from the context, add a resource and then return it by its name
 	When I add the following resources to the Resource Manager

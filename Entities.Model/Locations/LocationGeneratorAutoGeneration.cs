@@ -48,11 +48,11 @@ namespace Entities.Model.Locations
         {
             var tp = _testkit.CreateTestProbe("genTest");
             _locationGenerator.Tell(new Observe(), tp);
-            _locationGenerator.Tell(new LocationNameGeneratorActor.GenerateLocationNames(100000), tp);
+            _locationGenerator.Tell(new LocationNameGeneratorActor.GenerateLocationNames(10000), tp);
 
             var msg = tp.ExpectMsg<LocationNameGeneratorActor.LocationNamesAdded>(TimeSpan.FromMinutes(10));
 
-            Assert.That(msg.AddedLocations.Length == 100000);
+            Assert.That(msg.AddedLocations.Length == 10000);
 
             var rnd = _testkit.CreateTestProbe("rnd");
             var lg = _testkit.CreateTestProbe("lg");

@@ -7,9 +7,10 @@ namespace Entities.Factories
     {
         private readonly FactoryState _factoryState;
 
-        public Factory(string name, FactoryType factoryType, CelestialBody body)
+        public Factory(string name, FactoryType factoryType, CelestialBody body, InventoryType inventoryType)
         {
-            _factoryState = new FactoryState(body, name, factoryType);
+            var inventory = new Inventory(inventoryType);
+            _factoryState = new FactoryState(body, name, factoryType,inventory);
 
             Receive<QueryState>(msg =>
             {
@@ -17,9 +18,9 @@ namespace Entities.Factories
             });
         }
 
-        public static Props CreateProps(string name, FactoryType factoryType, CelestialBody body)
+        public static Props CreateProps(string name, FactoryType factoryType, CelestialBody body, InventoryType inventoryType)
         {
-            return Props.Create(() => new Factory(name, factoryType, body));
+            return Props.Create(() => new Factory(name, factoryType, body, inventoryType));
         }
 
         public class FactoryState
@@ -27,12 +28,14 @@ namespace Entities.Factories
             public CelestialBody Body { get; private set; }
             public string Name { get; private set; }
             public FactoryType FactoryType { get; private set; }
+            public Inventory Inventory { get; private set; }
 
-            public FactoryState(CelestialBody body, string name, FactoryType factoryType)
+            public FactoryState(CelestialBody body, string name, FactoryType factoryType, Inventory inventory)
             {
                 Body = body;
                 Name = name;
                 FactoryType = factoryType;
+                Inventory = inventory;
             }
         }
 

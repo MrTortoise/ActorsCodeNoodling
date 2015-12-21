@@ -7,7 +7,6 @@ Feature: Trader
 
 Background: 
    Given I create a test actor system
-   And I create a Resource Manager
 
 Scenario: Create a trader and give it some reources
 	Given I have created a Trader called "Test"	

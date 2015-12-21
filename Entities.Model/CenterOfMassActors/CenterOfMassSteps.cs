@@ -26,29 +26,10 @@ namespace Entities.Model.CenterOfMassActors
         [Given(@"I have created the following Material called ""(.*)""")]
         public void GivenIHaveCreatedTheFollowingMaterialCalled(string materialName, Table table)
         {
-            var resourceComposition = GetResourceComposition(table);
+            var resourceComposition = _state.GetResourceComposition(table);
 
             var material = new Material(materialName, resourceComposition);
             _state.Materials.Add(material.Name, material);
-        }
-
-        private ImmutableDictionary<IResource, double> GetResourceComposition(Table table)
-        {
-            var resources =
-                _state.ResourceManager.Ask<ResourceManager.GetResourceResult>(new ResourceManager.GetResource(null));
-
-            resources.Wait();
-
-            var resourceCompositionBuilder = ImmutableDictionary.CreateBuilder<IResource, double>();
-
-            foreach (var tableRow in table.Rows)
-            {
-                var resourceName = tableRow["ResourceName"];
-                double val = double.Parse(tableRow["Value"]);
-                var resource = resources.Result.Values.Single(i => i.Name == resourceName);
-                resourceCompositionBuilder.Add(resource, val);
-            }
-            return resourceCompositionBuilder.ToImmutable();
         }
 
         [Given(@"I have created the following Celestial Bodies")]
@@ -105,9 +86,14 @@ namespace Entities.Model.CenterOfMassActors
         [Given(@"I create a CenterOfMassManagerActor")]
         public void GivenICreateACenterOfMassManagerActorCalled()
         {
-            var comManager = _state.TestKit.Sys.ActorOf(CenterOfMassManagerActor.CreateProps(_state.FactoryCoordinator.Actor), CenterOfMassManagerActor.Name);
-            _state.CenterOfMassManagerActor = comManager;
-            _state.Actors.Add(CenterOfMassManagerActor.Name, comManager);
+            CreateCenterOfMassManagerActor(_state);
+        }
+
+        public static void CreateCenterOfMassManagerActor(ScenarioContextState scenarioContextState)
+        {
+            var comManager = scenarioContextState.TestKit.Sys.ActorOf(CenterOfMassManagerActor.CreateProps(scenarioContextState.FactoryCoordinator.Actor), CenterOfMassManagerActor.Name);
+            scenarioContextState.CenterOfMassManagerActor = comManager;
+            scenarioContextState.Actors.Add(CenterOfMassManagerActor.Name, comManager);
         }
 
         [Given(@"I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments")]

@@ -5,7 +5,6 @@
 
 Background: 
    Given I create a test actor system
-   And I create a Resource Manager
    Given I add the following resources to the Resource Manager
 	| name  |
 	| metal |

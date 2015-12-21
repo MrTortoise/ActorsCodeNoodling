@@ -70,21 +70,172 @@ namespace Entities.Model.FactoryTests
 #line 6
  #line 7
  testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
- testRunner.And("I create a Resource Manager", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "name"});
             table1.AddRow(new string[] {
-                        "metal"});
+                        "Metal"});
             table1.AddRow(new string[] {
-                        "rock"});
-#line 9
+                        "Rock"});
+            table1.AddRow(new string[] {
+                        "Punk"});
+            table1.AddRow(new string[] {
+                        "Hydrogen"});
+            table1.AddRow(new string[] {
+                        "geddit yet?"});
+#line 8
  testRunner.And("I add the following resources to the Resource Manager", ((string)(null)), table1, "And ");
-#line 13
- testRunner.And("I set the FactoryCoordinator time period to \"00:00:01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
- testRunner.And("I have created a FactoryCoordinator actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ResourceName",
+                        "Value"});
+            table2.AddRow(new string[] {
+                        "Metal",
+                        "0.1"});
+            table2.AddRow(new string[] {
+                        "Rock",
+                        "0.9"});
+#line 15
+ testRunner.And("I have created the following Material called \"The Moon\"", ((string)(null)), table2, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ResourceName",
+                        "Value"});
+            table3.AddRow(new string[] {
+                        "Metal",
+                        "0.1"});
+            table3.AddRow(new string[] {
+                        "Rock",
+                        "0.9"});
+#line 19
+ testRunner.And("I have created the following Material called \"Some Planet\"", ((string)(null)), table3, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ResourceName",
+                        "Value"});
+            table4.AddRow(new string[] {
+                        "Hydrogen",
+                        "0.1"});
+#line 23
+ testRunner.And("I have created the following Material called \"Mellow Yellow\"", ((string)(null)), table4, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "name",
+                        "radius",
+                        "orbitDistance",
+                        "orbitalAngularVelocity",
+                        "rotatationalAngularVelocity",
+                        "initialOrbitalAngularPositionOffset",
+                        "currentAngularPosition",
+                        "bodyType",
+                        "material",
+                        "satellites"});
+            table5.AddRow(new string[] {
+                        "The Moon",
+                        "10",
+                        "100",
+                        "0.1",
+                        "0",
+                        "0",
+                        "0",
+                        "Moon",
+                        "The Moon",
+                        ""});
+            table5.AddRow(new string[] {
+                        "Another Moon",
+                        "10",
+                        "100",
+                        "0.1",
+                        "0",
+                        "0",
+                        "0",
+                        "Moon",
+                        "The Moon",
+                        ""});
+            table5.AddRow(new string[] {
+                        "The Planet",
+                        "10",
+                        "100",
+                        "0.1",
+                        "0",
+                        "0",
+                        "0",
+                        "Planet",
+                        "Some Planet",
+                        "\"The Moon\",\"Another Moon\""});
+            table5.AddRow(new string[] {
+                        "Other Planet",
+                        "10",
+                        "300",
+                        "0.1",
+                        "0",
+                        "0",
+                        "0",
+                        "Planet",
+                        "Some Planet",
+                        ""});
+            table5.AddRow(new string[] {
+                        "The Sun",
+                        "1",
+                        "2",
+                        "0.2",
+                        "0",
+                        "0",
+                        "0",
+                        "Star",
+                        "Mellow Yellow",
+                        ""});
+            table5.AddRow(new string[] {
+                        "The Second Sun",
+                        "1",
+                        "2",
+                        "0.2",
+                        "0",
+                        "3.14",
+                        "3.14",
+                        "Star",
+                        "Mellow Yellow",
+                        ""});
+#line 26
+ testRunner.And("I have created the following Celestial Bodies", ((string)(null)), table5, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "name",
+                        "stars",
+                        "planets"});
+            table6.AddRow(new string[] {
+                        "Solar System",
+                        "\"The Sun\",\"The Second Sun\"",
+                        "\"The Planet\",\"Other Planet\""});
+#line 34
+ testRunner.And("I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with" +
+                    " arguments", ((string)(null)), table6, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "In",
+                        "resource",
+                        "quantity",
+                        "periods"});
+            table7.AddRow(new string[] {
+                        "false",
+                        "Metal",
+                        "10",
+                        "1"});
+#line 37
+ testRunner.And("I have created a Factory Type called \"FuckPhysics\" with the following properties", ((string)(null)), table7, "And ");
+#line 40
+ testRunner.And("I have created a Trader called \"factoryCreator\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Capacity",
+                        "CargoSize"});
+            table8.AddRow(new string[] {
+                        "smallFactoryInventory",
+                        "1000",
+                        "Small"});
+#line 41
+ testRunner.And("I have created the following inventory types", ((string)(null)), table8, "And ");
 #line hidden
         }
         
@@ -95,64 +246,37 @@ namespace Entities.Model.FactoryTests
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Setup a dummy actor, register with FactoryCoordinator can assert that updates are" +
                     " called when expected", ((string[])(null)));
-#line 16
-this.ScenarioSetup(scenarioInfo);
-#line 6
- this.FeatureBackground();
-#line 17
- testRunner.Given("I create a TestProbe called \"factory\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 18
- testRunner.And("I add register the actor \"factory\" with FactoryCoordinator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 19
- testRunner.When("I wait for 3 FactoryCoordinator time periods", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 20
- testRunner.Then("I expect test probe \"factory\" will of received 3 update events", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Create a factory giv eit resources update and ensure has produced")]
-        public virtual void CreateAFactoryGivEitResourcesUpdateAndEnsureHasProduced()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a factory giv eit resources update and ensure has produced", ((string[])(null)));
-#line 22
+#line 45
 this.ScenarioSetup(scenarioInfo);
 #line 6
  this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "In",
-                        "resource",
-                        "quantity",
-                        "periods"});
-            table2.AddRow(new string[] {
-                        "false",
-                        "metal",
-                        "10",
-                        "1"});
-#line 24
- testRunner.Given("I have created a factory Type called \"FuckPhysics\" with the following properties", ((string)(null)), table2, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
-                        "factoryType"});
-            table3.AddRow(new string[] {
-                        "testFactory",
-                        "FuckPhysics"});
-#line 27
- testRunner.And("I have created the following factory", ((string)(null)), table3, "And ");
-#line 30
- testRunner.When("I wait for 4 FactoryCoordinator time periods", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                        "factoryType",
+                        "centerOfMass",
+                        "celestialBody",
+                        "inventoryType"});
+            table9.AddRow(new string[] {
+                        "somethingFromNothingFactory",
+                        "FuckPhysics",
+                        "Solar System",
+                        "Other Planet",
+                        "smallFactoryInventory"});
+#line 46
+ testRunner.Given("I create the following Factories using actor \"factoryCreator\"", ((string)(null)), table9, "Given ");
+#line 49
+ testRunner.When("I wait for 3 FactoryCoordinator time periods", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "resource",
-                        "quantity"});
-            table4.AddRow(new string[] {
-                        "metal",
-                        "40"});
-#line 31
- testRunner.Then("I expect the factory \"testFactory\" to have the followign resources", ((string)(null)), table4, "Then ");
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ResourceName",
+                        "Value"});
+            table10.AddRow(new string[] {
+                        "Metal",
+                        "30"});
+#line 50
+ testRunner.Then("I expect the factory \"somethingFromNothingFactory\" to have the following resource" +
+                    "s", ((string)(null)), table10, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

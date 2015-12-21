@@ -36,12 +36,12 @@ namespace Entities.Model.Traders
         public void WhenIPostTheFolowingResourcesToTheTrader(string name, Table table)
         {
            var resourceManager = _state.ResourceManager;
-            List<Task<Resource>> resourceTasks = new List<Task<Resource>>();
+            List<Task<ResourceManager.GetResourceResult>> resourceTasks = new List<Task<ResourceManager.GetResourceResult>>();
 
             // get the resources
             table.Rows.ForEach(r =>
             {
-                var t = resourceManager.Ask<Resource>(new ResourceManager.GetResource(r["name"]));
+                var t = resourceManager.Ask<ResourceManager.GetResourceResult>(new ResourceManager.GetResource(r["name"]));
                 resourceTasks.Add(t);
             });
 
@@ -52,8 +52,8 @@ namespace Entities.Model.Traders
             //create the post messages
             var messages = table.Rows.Select(r =>
             {
-                var resource = resources.Single(res => res.Name.Equals(r["name"]));
-                return new Trader.PostResourceMessage(new ResourceStack(resource, Convert.ToInt32(r["quantity"])));
+                var resource = resources.Single(res => res.Values[0].Name.Equals(r["name"]));
+                return new Trader.PostResourceMessage(new ResourceStack(resource.Values[0], Convert.ToInt32(r["quantity"])));
             });
 
             // post them

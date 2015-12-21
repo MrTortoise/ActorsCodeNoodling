@@ -27,17 +27,22 @@ namespace Entities.Model.ResourceManagerFeature
        }
 
         [Given(@"I create a Resource Manager")]
-        public void GivenICreateAResourceManager()
+        public void CreateResourceMAnager()
         {
-            var resourceManagerTestProbe = new TestProbe(_state.TestKit.Sys, new NUnitAssertions(),
+            GivenICreateAResourceManager(_state);
+        }
+
+        public static void GivenICreateAResourceManager(ScenarioContextState scenarioContextState)
+        {
+            var resourceManagerTestProbe = new TestProbe(scenarioContextState.TestKit.Sys, new NUnitAssertions(),
                 ResourceManagerTestProbeName);
-            var resourceManager = _state.TestKit.ActorOfAsTestActorRef<ResourceManager>(resourceManagerTestProbe);
+            var resourceManager = scenarioContextState.TestKit.ActorOfAsTestActorRef<ResourceManager>(resourceManagerTestProbe);
 
-            _state.TestProbes.Add(ResourceManagerTestProbeName, resourceManagerTestProbe);
+            scenarioContextState.TestProbes.Add(ResourceManagerTestProbeName, resourceManagerTestProbe);
 
-            _state.Actors.Add(ResourceManagerTestProbeName, resourceManager);
-            _state.ResourceManager = resourceManager;
-            _state.Actors.Add(ResourceManagerName, resourceManager);
+            scenarioContextState.Actors.Add(ResourceManagerTestProbeName, resourceManager);
+            scenarioContextState.ResourceManager = resourceManager;
+            scenarioContextState.Actors.Add(ResourceManagerName, resourceManager);
         }
 
 
@@ -61,18 +66,18 @@ namespace Entities.Model.ResourceManagerFeature
         {
             var resources = CreateResourcesFromTable(table);
             var resManagerActor = _state.ResourceManager;
-            List<Task<IResource>> tasks = new List<Task<IResource>>();
+            List<Task<ResourceManager.GetResourceResult>> tasks = new List<Task<ResourceManager.GetResourceResult>>();
 
             resources.ForEach(r =>
             {
-                var t = resManagerActor.Ask<IResource>(new ResourceManager.GetResource(r.Name), TimeSpan.FromSeconds(2));
+                var t = resManagerActor.Ask<ResourceManager.GetResourceResult>(new ResourceManager.GetResource(r.Name), TimeSpan.FromSeconds(2));
                 tasks.Add(t);
             });
 
             // ReSharper disable once CoVariantArrayConversion
             Task.WaitAll(tasks.ToArray());
 
-            var results = tasks.Select(i => i.Result.Name).ToList();
+            var results = tasks.Select(i => i.Result.Values[0].Name).ToList();
             foreach (string resourceName in resources.Select(r => r.Name))
             {
                 Assert.Contains(resourceName, results);

@@ -8,7 +8,7 @@ namespace Entities.Factories
         public ImmutableDictionary<IResource, QuantityPeriod> InputResources { get;  }
         public ImmutableDictionary<IResource, QuantityPeriod> OutputResources { get;  }
 
-        public FactoryType(string name, ImmutableDictionary<IResource, QuantityPeriod> inputResources, ImmutableDictionary<IResource, QuantityPeriod> outputResources)
+        public FactoryType(string name, ImmutableDictionary<IResource, QuantityPeriod> inputResources, ImmutableDictionary<IResource, QuantityPeriod> outputResources) 
         {
             Name = name;
             InputResources = inputResources;

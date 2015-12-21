@@ -85,11 +85,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CargoSize.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DateTimeProvider.cs" />
     <Compile Include="ExchangeContract.cs" />
     <Compile Include="Factories\FactoryType.cs" />
     <Compile Include="Factories\FactoryCoordinatorActor.cs" />
+    <Compile Include="Factories\Inventory.cs" />
+    <Compile Include="InventoryType.cs" />
     <Compile Include="LocationActors\AsteroidField.cs" />
     <Compile Include="LocationActors\CelestialBody.cs" />
     <Compile Include="LocationActors\CelestialBodyType.cs" />

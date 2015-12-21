@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Entities.Model.Traders
+namespace Entities.Model.Inventory
 {
     using TechTalk.SpecFlow;
     
@@ -19,23 +19,21 @@ namespace Entities.Model.Traders
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Trader")]
-    [NUnit.Framework.CategoryAttribute("actorSystem")]
-    public partial class TraderFeature
+    [NUnit.Framework.DescriptionAttribute("Inventory")]
+    public partial class InventoryFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Trader.feature"
+#line 1 "Inventory.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Trader", "In order to profit\r\nAs a Trader\r\nI want to be able to post invitations to trade, " +
-                    "make offers, accept, reject and exchange goods", ProgrammingLanguage.CSharp, new string[] {
-                        "actorSystem"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Inventory", "In order to store resources\r\nAs pretty much any actor that holds resources\r\nI wan" +
+                    "t to be able to configure", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -69,23 +67,9 @@ namespace Entities.Model.Traders
         
         public virtual void FeatureBackground()
         {
-#line 8
-#line 9
-   testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Create a trader and give it some reources")]
-        public virtual void CreateATraderAndGiveItSomeReources()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a trader and give it some reources", ((string[])(null)));
-#line 11
-this.ScenarioSetup(scenarioInfo);
-#line 8
-this.FeatureBackground();
-#line 12
- testRunner.Given("I have created a Trader called \"Test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 6
+#line 7
+ testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "name"});
@@ -93,35 +77,71 @@ this.FeatureBackground();
                         "metal"});
             table1.AddRow(new string[] {
                         "rock"});
-#line 13
+#line 8
  testRunner.And("I add the following resources to the Resource Manager", ((string)(null)), table1, "And ");
 #line hidden
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Create and configure a basic inventory with capacity")]
+        public virtual void CreateAndConfigureABasicInventoryWithCapacity()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create and configure a basic inventory with capacity", ((string[])(null)));
+#line 13
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "name",
-                        "quantity"});
+                        "Name",
+                        "Capacity",
+                        "CargoSize"});
             table2.AddRow(new string[] {
-                        "metal",
-                        "3"});
+                        "testInventory",
+                        "100",
+                        "Small"});
             table2.AddRow(new string[] {
-                        "rock",
-                        "4"});
-#line 17
- testRunner.When("I post the folowing resources to the Trader \"Test\"", ((string)(null)), table2, "When ");
-#line 21
- testRunner.And("I ask What resources Trader \"Test\" has storing them in the context as \"TestResour" +
-                    "ces\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                        "testInventory2",
+                        "100",
+                        "Medium"});
+            table2.AddRow(new string[] {
+                        "testInventory3",
+                        "100",
+                        "Large"});
+#line 14
+ testRunner.When("I have created the following inventory types", ((string)(null)), table2, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "name",
-                        "quantity"});
+                        "Name",
+                        "Capacity",
+                        "CargoSize"});
             table3.AddRow(new string[] {
-                        "metal",
-                        "3"});
+                        "testInventory",
+                        "100",
+                        "Small"});
             table3.AddRow(new string[] {
-                        "rock",
-                        "4"});
-#line 22
- testRunner.Then("I expect the following resources in context \"TestResources\"", ((string)(null)), table3, "Then ");
+                        "testInventory2",
+                        "100",
+                        "Medium"});
+            table3.AddRow(new string[] {
+                        "testInventory3",
+                        "100",
+                        "Large"});
+#line 19
+ testRunner.Then("I expect the following inventory types to exist", ((string)(null)), table3, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Create an inventory Add resource and check exists")]
+        public virtual void CreateAnInventoryAddResourceAndCheckExists()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create an inventory Add resource and check exists", ((string[])(null)));
+#line 25
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
