@@ -46,6 +46,7 @@ namespace Entities.Model.FactoryTests
         public void GivenIHaveCreatedAFactoryTypeCalledWithTheFollowingProperties(string factoryTypeName , Table table)
         {
             var factoryType = ExtractFactoryType(factoryTypeName, table);
+
             _state.FactoryCoordinator.Actor.Tell(factoryType);
             _state.FactoryCoordinator.FactoryTypes.Add(factoryType.Name, factoryType);
         }
@@ -84,10 +85,17 @@ namespace Entities.Model.FactoryTests
         [When(@"I wait for (.*) FactoryCoordinator time periods")]
         public void WhenIWaitForFactoryCoordinatorTimePeriods(int timePeriods)
         {
-            TimeSpan result = _state.FactoryCoordinator.Period;
+            var heartBeatActor = _state.Actors[HeartBeatActor.Name];
+            var configQuery = heartBeatActor.Ask<HeartBeatActor.ConfigurationResult>(new HeartBeatActor.QueryConfiguration());
+            configQuery.Wait();
+
+            var period = configQuery.Result.State.FactoryUpdatePeriod;
+
+            Thread.Sleep(10);
+            TimeSpan result = period;
             for (int i = 0; i < timePeriods; i++)
             {
-                result = result + _state.FactoryCoordinator.Period;
+                result = result + period;
             }
 
             Thread.Sleep(result);
@@ -122,6 +130,7 @@ namespace Entities.Model.FactoryTests
             //| somethingFromNothingFactory | fuckPhysics | Solar System | Other Planet |
 
             var traderActor = _state.Traders[actorName];
+            var createFactoryTp = _state.TestKit.CreateTestProbe("CreateFactoryTestProbe");
 
             foreach (var tableRow in table.Rows)
             {
@@ -144,10 +153,14 @@ namespace Entities.Model.FactoryTests
 
                 var inventoryType = _state.GetInventoryType(inventoryTypeName);
 
+                com.Tell(new CenterOfMassActor.SubscribeFactoryCreated(),createFactoryTp);
                 com.Tell(new CenterOfMassActor.CreateFactoryOnBody(name, factoryType, body, inventoryType), traderActor);
+                var msg = createFactoryTp.ExpectMsg<FactoryCoordinatorActor.FactoryCreated>();
+                Assert.IsNotNull(msg);
 
                 Thread.Sleep(10);
             }
+            Thread.Sleep(10);
         }
 
         [Then(@"I expect the FactoryCoordinator to contain the following factories")]

@@ -69,7 +69,6 @@ namespace Entities.Model
         public IActorRef InventoryActorCoordinator { get; set; }
 
         public InventoryTypeCoordinator Inventory { get; set; }
-        public TestTimeProvider TimeProducer { get; set; }
 
         public class FactoryCoordinatorScenarioState
         {

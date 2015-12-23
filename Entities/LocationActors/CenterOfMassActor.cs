@@ -24,6 +24,8 @@ namespace Entities.LocationActors
         private readonly IActorRef _factoryCoordinator;
         private CenterOfMassState _centerOfMassState;
 
+        private readonly HashSet<IActorRef> _factoryCreatedObservers = new HashSet<IActorRef>(); 
+
         public static Props CreateProps(string name, CelestialBody[] stars, CelestialBody[] planets, IActorRef factoryCoordinator, ImmutableDictionary<IActorRef, CelestialBody> factories = null)
         {
             factories = factories ?? ImmutableDictionary<IActorRef, CelestialBody>.Empty;
@@ -72,7 +74,31 @@ namespace Entities.LocationActors
                 Debug.Assert(_centerOfMassState.UnionCelestialBodies().Contains(msg.CelestialBody));
                 var state = new CenterOfMassState(_centerOfMassState.Name, _centerOfMassState.Stars, _centerOfMassState.Planets, _centerOfMassState.Factories.Add(msg.Factory, msg.CelestialBody));
                 _centerOfMassState = state;
+                foreach (var factoryCreatedObserver in _factoryCreatedObservers)
+                {
+                    factoryCreatedObserver.Tell(msg);
+                }
             });
+
+            Receive<SubscribeFactoryCreated>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                _factoryCreatedObservers.Add(Sender);
+            });
+
+            Receive<UnsubscribeFactoryCreated>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                _factoryCreatedObservers.Remove(Sender);
+            });
+        }
+
+        public class UnsubscribeFactoryCreated
+        {
+        }
+
+        public class SubscribeFactoryCreated
+        {
         }
 
         public class CenterOfMassStateQuery

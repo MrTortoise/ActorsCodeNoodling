@@ -92,6 +92,7 @@
     <Compile Include="Factories\FactoryType.cs" />
     <Compile Include="Factories\FactoryCoordinatorActor.cs" />
     <Compile Include="Factories\Inventory.cs" />
+    <Compile Include="HeartBeatActor.cs" />
     <Compile Include="InventoryType.cs" />
     <Compile Include="LocationActors\AsteroidField.cs" />
     <Compile Include="LocationActors\CelestialBody.cs" />

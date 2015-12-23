@@ -1,22 +1,14 @@
-using System;
 using TechTalk.SpecFlow;
 
 namespace Entities.Model
 {
     [Binding]
-    public class TimeProviderSteps
+    public class SqlPersistenceSteps
     {
-        private readonly ScenarioContextState _state;
-
-        public TimeProviderSteps(ScenarioContextState state)
+        [Given(@"I have cleared out any persistence sql data")]
+        public void GivenIHaveClearedOutAnyPersistenceSqlData()
         {
-            _state = state;
-        }
-
-        public static void CreateTimeProviderCrap(ScenarioContextState scenarioContextState)
-        {
-            var timeProvider = new TestTimeProvider(DateTime.Now);
-            scenarioContextState.TimeProducer = timeProvider;
+            SqlPersistenceHelpers.ClearDatabase();
         }
     }
 }

@@ -7,6 +7,7 @@ using Akka.Util.Internal;
 using Entities.Factories;
 using Entities.Model.CenterOfMassActors;
 using Entities.Model.FactoryTests;
+using Entities.Model.Heartbeats;
 using Entities.Model.Inventory;
 using Entities.Model.ResourceManagerFeature;
 using TechTalk.SpecFlow;
@@ -49,8 +50,7 @@ namespace Entities.Model
             FactoryUpdateSteps.GivenIHaveCreatedAFactoryCoordinatorActor(scenarioContextState);
             InventorySteps.CreateInventoryActorCoordinator(scenarioContextState);
             CenterOfMassSteps.CreateCenterOfMassManagerActor(scenarioContextState);
-            TimeProviderSteps.CreateTimeProviderCrap(scenarioContextState);
-
+            HeartbeatSteps.CreateHeartbeatActor(scenarioContextState);
         }
 
         public static FactoryCoordinatorActor.FactoryQueryResult GetFactories(this ScenarioContextState scenarioContextState)

@@ -93,7 +93,7 @@
       <DependentUpon>Heartbeat.feature</DependentUpon>
     </Compile>
     <Compile Include="Heartbeats\HeartbeatSteps.cs" />
-    <Compile Include="TimeProvderSteps.cs" />
+    <Compile Include="SqlPersistenceSteps.cs" />
     <Compile Include="TestTimeProvider.cs" />
     <Compile Include="ImmutibleDicTests\DictionaryTest.cs" />
     <Compile Include="ImmutibleDicTests\ImmutibleDictionaryTest.cs" />
@@ -198,7 +198,6 @@
     <Compile Include="ScenarioContextExtensions.cs" />
     <Compile Include="ScenarioContextState.cs" />
     <Compile Include="SpecflowHelpers.cs" />
-    <Compile Include="SqlPersistenceSteps.cs" />
     <Compile Include="SystemAndProbsSteps.cs" />
     <Compile Include="TableExtensions.cs" />
     <Compile Include="Traders\Trader.feature.cs">

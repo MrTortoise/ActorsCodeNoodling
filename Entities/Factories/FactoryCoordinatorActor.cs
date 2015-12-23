@@ -23,16 +23,19 @@ namespace Entities.Factories
         {
             Receive<FactoryType>(msg =>
             {
+                Context.LogMessageDebug(msg);
                _factoryTypes =  _factoryTypes.Add(msg);
             });
 
             Receive<QueryFactoryTypes>(msg =>
             {
+                Context.LogMessageDebug(msg);
                 Sender.Tell(new FactoryTypesResult(_factoryTypes.ToArray()));
             });
 
             Receive<CreateFactory>(msg =>
             {
+                Context.LogMessageDebug(msg);
                 var factory = Context.ActorOf(Factory.CreateProps(msg.Name, msg.FactoryType, msg.Body, msg.InventoryType));
                 _factories = _factories.Add(factory);
                 Sender.Tell(new FactoryCreated(factory, Sender, msg.Body));
@@ -41,6 +44,7 @@ namespace Entities.Factories
 
             Receive<QueryFactories>(msg =>
             {
+                Context.LogMessageDebug(msg);
                 Sender.Tell(new FactoryQueryResult(_factories));
             });
         }
