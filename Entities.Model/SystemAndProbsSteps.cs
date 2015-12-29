@@ -35,37 +35,40 @@ namespace Entities.Model
         [Given(@"I create a test actor system")]
         public void GivenICreateATestActorSystem()
         {
-            var logger = new LoggerConfiguration()
-                .WriteTo.ColoredConsole()
-                .MinimumLevel.Debug()
-                .CreateLogger();
-            Serilog.Log.Logger = logger;
+            //var logger = new LoggerConfiguration()
+            //    .WriteTo.ColoredConsole()
+            //    .MinimumLevel.Debug()
+            //    .CreateLogger();
+            //Serilog.Log.Logger = logger;
 
             _state.TestKit = new TestKit(_state.Config, "testActorSystem");
-
-            _state.SetupActorCoordinators();
         }
 
         [Given(@"I create a test actor system using config")]
         [Given(@"I create a test actor system using config ""(.*)""")]
         public void GivenICreateATestActorSystem(string config)
         {
-            var logger = new LoggerConfiguration()
-                .WriteTo.ColoredConsole()
-                .MinimumLevel.Debug()
-                .CreateLogger();
-            Serilog.Log.Logger = logger;
+            //var logger = new LoggerConfiguration()
+            //    .WriteTo.ColoredConsole()
+            //    .MinimumLevel.Debug()
+            //    .CreateLogger();
+            //Serilog.Log.Logger = logger;
 
             _state.Config = config;
             SetupSystem(_state.Config);
-
-            _state.SetupActorCoordinators();
         }
 
         private void SetupSystem(string config)
         {
             _state.TestKit = new TestKit(config, "testActorSystem");
         }
+
+        [Given(@"I create the heirachy of coordinators")]
+        public void GivenICreateTheEhirachyOfCoordinators()
+        {
+            _state.SetupActorCoordinators();
+        }
+
 
         [Given(@"I create a TestProbe called ""(.*)""")]
         public void GivenICreateATestProbeCalled(string name)

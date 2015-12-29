@@ -8,6 +8,7 @@
 	And I have configured the heartBeat actor to update with the following configuration	
 	| updatePeriod | factoryUpdatePeriod |
 	| 100          | 1000                |
+	And I create the heirachy of coordinators
 	And I add the following resources to the Resource Manager
 	| name        |
 	| Metal       |
@@ -44,12 +45,13 @@
 	And I have created the following inventory types
 	| Name                  | Capacity | CargoSize |
 	| smallFactoryInventory | 1000     | Small     |
+	And I tell the heartbeat actor to start
 
 Scenario: Setup a dummy actor, register with FactoryCoordinator can assert that updates are called when expected
 	Given I create the following Factories using actor "factoryCreator"
 	| name                        | factoryType | centerOfMass | celestialBody | inventoryType         |
 	| somethingFromNothingFactory | FuckPhysics | Solar System | Other Planet  | smallFactoryInventory |
-	When I wait for 3 FactoryCoordinator time periods
+	When I wait for 3 FactoryUpdate time periods
 	Then I expect the factory "somethingFromNothingFactory" to have the following resources
 	| ResourceName | Value |
 	| Metal        | 30    |

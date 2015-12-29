@@ -35,7 +35,7 @@ namespace Entities.Model.Traders
         [When(@"I post the folowing resources to the Trader ""(.*)""")]
         public void WhenIPostTheFolowingResourcesToTheTrader(string name, Table table)
         {
-           var resourceManager = _state.ResourceManager;
+           var resourceManager = _state.Actors[ResourceManager.Name];
             List<Task<ResourceManager.GetResourceResult>> resourceTasks = new List<Task<ResourceManager.GetResourceResult>>();
 
             // get the resources

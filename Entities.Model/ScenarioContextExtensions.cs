@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Entities.Model.FactoryTests;
 using Entities.Model.Heartbeats;
 using Entities.Model.Inventory;
 using Entities.Model.ResourceManagerFeature;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 
 namespace Entities.Model
@@ -18,8 +20,10 @@ namespace Entities.Model
     {
         public static ImmutableDictionary<IResource, double> GetResourceComposition(this ScenarioContextState scenarioContextState, Table table)
         {
+            var actorRef = scenarioContextState.Actors[ResourceManager.Name];
+            Assert.IsNotNull(actorRef,"Resource manager was null - actor system not initialised in proper order?");
             var resources =
-                scenarioContextState.ResourceManager.Ask<ResourceManager.GetResourceResult>(new ResourceManager.GetResource(null));
+                actorRef.Ask<ResourceManager.GetResourceResult>(new ResourceManager.GetResource(null));
 
             resources.Wait();
 
@@ -46,11 +50,13 @@ namespace Entities.Model
 
         public static void SetupActorCoordinators(this ScenarioContextState scenarioContextState)
         {
+            var heartBeatActor = scenarioContextState.Actors[HeartBeatActor.Name];
+
             ResourceManagerSteps.GivenICreateAResourceManager(scenarioContextState);
-            FactoryUpdateSteps.GivenIHaveCreatedAFactoryCoordinatorActor(scenarioContextState);
+            FactoryUpdateSteps.GivenIHaveCreatedAFactoryCoordinatorActor(scenarioContextState, heartBeatActor);
             InventorySteps.CreateInventoryActorCoordinator(scenarioContextState);
             CenterOfMassSteps.CreateCenterOfMassManagerActor(scenarioContextState);
-            HeartbeatSteps.CreateHeartbeatActor(scenarioContextState);
+          
         }
 
         public static FactoryCoordinatorActor.FactoryQueryResult GetFactories(this ScenarioContextState scenarioContextState)

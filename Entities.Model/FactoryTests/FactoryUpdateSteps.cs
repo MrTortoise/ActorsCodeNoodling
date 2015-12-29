@@ -29,15 +29,15 @@ namespace Entities.Model.FactoryTests
             _state.FactoryCoordinator.Period = period;
         }
 
-        [Given(@"I have created a FactoryCoordinator actor")]
-        public void CreateFactoryCoordinatorActor()
-        {
-            GivenIHaveCreatedAFactoryCoordinatorActor(_state);
-        }
+        //[Given(@"I have created a FactoryCoordinator actor")]
+        //public void CreateFactoryCoordinatorActor()
+        //{
+        //    GivenIHaveCreatedAFactoryCoordinatorActor(_state);
+        //}
 
-        public static void GivenIHaveCreatedAFactoryCoordinatorActor(ScenarioContextState scenarioContextState)
+        public static void GivenIHaveCreatedAFactoryCoordinatorActor(ScenarioContextState scenarioContextState, IActorRef heartBeatActor)
         {
-            var actor = scenarioContextState.TestKit.Sys.ActorOf(FactoryCoordinatorActor.CreateProps(), FactoryCoordinatorActor.Name);
+            var actor = scenarioContextState.TestKit.Sys.ActorOf(FactoryCoordinatorActor.CreateProps(heartBeatActor), FactoryCoordinatorActor.Name);
             scenarioContextState.FactoryCoordinator.Actor = actor;
             scenarioContextState.Actors.Add(actor.Path.Name, actor);
         }
@@ -82,24 +82,7 @@ namespace Entities.Model.FactoryTests
             return factoryType;
         }
 
-        [When(@"I wait for (.*) FactoryCoordinator time periods")]
-        public void WhenIWaitForFactoryCoordinatorTimePeriods(int timePeriods)
-        {
-            var heartBeatActor = _state.Actors[HeartBeatActor.Name];
-            var configQuery = heartBeatActor.Ask<HeartBeatActor.ConfigurationResult>(new HeartBeatActor.QueryConfiguration());
-            configQuery.Wait();
 
-            var period = configQuery.Result.State.FactoryUpdatePeriod;
-
-            Thread.Sleep(10);
-            TimeSpan result = period;
-            for (int i = 0; i < timePeriods; i++)
-            {
-                result = result + period;
-            }
-
-            Thread.Sleep(result);
-        }
 
 
         [When(@"I query the factory types and store result in context as ""(.*)""")]
@@ -157,10 +140,7 @@ namespace Entities.Model.FactoryTests
                 com.Tell(new CenterOfMassActor.CreateFactoryOnBody(name, factoryType, body, inventoryType), traderActor);
                 var msg = createFactoryTp.ExpectMsg<FactoryCoordinatorActor.FactoryCreated>();
                 Assert.IsNotNull(msg);
-
-                Thread.Sleep(10);
             }
-            Thread.Sleep(10);
         }
 
         [Then(@"I expect the FactoryCoordinator to contain the following factories")]

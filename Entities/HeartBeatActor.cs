@@ -1,12 +1,19 @@
 using System;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Text;
 using Akka.Actor;
 
 namespace Entities
 {
     public class HeartBeatActor : ReceiveActor
     {
+        public enum UpdateType
+        {
+            Factory,
+            Tick
+        }
+
         public static Props CreateProps()
         {
             return Props.Create(() => new HeartBeatActor());
@@ -25,7 +32,7 @@ namespace Entities
             Receive<ConfigureUpdate>(msg =>
             {
                 Context.LogMessageDebug(msg);
-                _state = new HeartBeatState(msg.UpdatePeriod, msg.FactoryUpdatePeriod, DateTimeProvider.Now());
+                _state = new HeartBeatState(msg.UpdatePeriod, msg.FactoryUpdatePeriod, DateTimeProvider.Now(),ImmutableDictionary<UpdateType, ImmutableHashSet<IActorRef>>.Empty);
                 Become(Configured);
             });
         }
@@ -47,7 +54,6 @@ namespace Entities
             });
         }
 
-        public class Started{}
 
         private void HandleRegister()
         {
@@ -55,27 +61,16 @@ namespace Entities
             {
                 Context.LogMessageDebug(msg);
                 _state.RegisterActor(msg.UpdateType, msg.Actor);
+                Sender.Tell(new Registered(msg));
             });
 
             Receive<QueryConfiguration>(msg =>
             {
+                Context.LogMessageDebug(msg);
                 Sender.Tell(new ConfigurationResult(_state));
             });
         }
 
-        public class ConfigurationResult
-        {
-            public HeartBeatState State { get;private set; }
-
-            public ConfigurationResult(HeartBeatState state)
-            {
-                State = state;
-            }
-        }
-
-        public class QueryConfiguration
-        {
-        }
 
         private void Beating()
         {
@@ -87,7 +82,19 @@ namespace Entities
                 var now = DateTimeProvider.Now();
 
                 UpdateFactories(now);
+                UpdateTicks();
             });
+        }
+
+        private void UpdateTicks()
+        {
+            if (_state.Registrees.ContainsKey(UpdateType.Tick))
+            {
+                foreach (var actorRef in _state.Registrees[UpdateType.Tick])
+                {
+                    actorRef.Tell(new Tick());
+                }
+            }
         }
 
         private void UpdateFactories(DateTime now)
@@ -95,39 +102,38 @@ namespace Entities
             var diff = now - _state.LastFactoryUpdate;
             if (diff > _state.FactoryUpdatePeriod)
             {
-                int noPeriods;
-                var remainder = Math.DivRem(diff.Milliseconds, _state.FactoryUpdatePeriod.Milliseconds, out noPeriods);
+                int remainder;
+                var noPeriods = Math.DivRem((int)diff.TotalMilliseconds, (int)_state.FactoryUpdatePeriod.TotalMilliseconds, out remainder);
 
-                _state = new HeartBeatState(_state.UpdatePeriod, _state.FactoryUpdatePeriod, now - TimeSpan.FromMilliseconds(remainder));
+                _state = new HeartBeatState(_state.UpdatePeriod, _state.FactoryUpdatePeriod, now - TimeSpan.FromMilliseconds(remainder), _state.Registrees);
 
-                foreach (var actorRef in _state.Registrees[UpdateType.Factory])
+                if (_state.Registrees.ContainsKey(UpdateType.Factory))
                 {
-                    for (int i = 0; i < noPeriods; i++)
+                    foreach (var actorRef in _state.Registrees[UpdateType.Factory])
                     {
-                        actorRef.Tell(new FactoryTick());
+                        for (int i = 0; i < noPeriods; i++)
+                        {
+                            actorRef.Tell(new FactoryTick());
+                        }
                     }
                 }
             }
         }
-
-        public class FactoryTick{}
-
-        private class Tick{}
 
         public class HeartBeatState
         {
             public TimeSpan UpdatePeriod { get; private set; }
             public TimeSpan FactoryUpdatePeriod { get; private set; }
 
-            public ImmutableDictionary<UpdateType,ImmutableHashSet<IActorRef>> Registrees { get; private set; }
+            public ImmutableDictionary<UpdateType, ImmutableHashSet<IActorRef>> Registrees { get; private set; }
             public DateTime LastFactoryUpdate { get; private set; }
 
-            public HeartBeatState(TimeSpan updatePeriod, TimeSpan factoryUpdatePeriod, DateTime lastFactoryUpdate)
+            public HeartBeatState(TimeSpan updatePeriod, TimeSpan factoryUpdatePeriod, DateTime lastFactoryUpdate, ImmutableDictionary<UpdateType, ImmutableHashSet<IActorRef>> registrees)
             {
                 UpdatePeriod = updatePeriod;
                 FactoryUpdatePeriod = factoryUpdatePeriod;
                 LastFactoryUpdate = lastFactoryUpdate;
-                Registrees = ImmutableDictionary<UpdateType, ImmutableHashSet<IActorRef>>.Empty;
+                Registrees = registrees;
             }
 
             public void RegisterActor(UpdateType updateType, IActorRef actor)
@@ -143,7 +149,101 @@ namespace Entities
                     Registrees = Registrees.Add(updateType, ImmutableHashSet<IActorRef>.Empty.Add(actor));
                 }
             }
+
+            /// <summary>
+            /// Returns a string that represents the current object.
+            /// </summary>
+            /// <returns>
+            /// A string that represents the current object.
+            /// </returns>
+            public override string ToString()
+            {
+                StringBuilder registrees = new StringBuilder();
+                foreach (var updateType in Registrees.Keys)
+                {
+                    registrees.Append($"UpdateType({updateType}:");
+                    foreach (var actorRef in Registrees[updateType])
+                    {
+                        registrees.Append($"actorPath({actorRef.Path}),");
+                    }
+                    registrees.Append(")");
+                }
+
+                return $"HeartBeatState(UpdatePeriod:{UpdatePeriod.TotalMilliseconds},FactoryUpdatePeriod:{FactoryUpdatePeriod.TotalMilliseconds},Registrees({registrees}),LastFactoryUpdate:{LastFactoryUpdate})";
+            }
         }
+
+
+
+        public class Register
+        {
+            public UpdateType UpdateType { get; private set; }
+            public IActorRef Actor { get; private set; }
+
+            public Register(UpdateType updateType, IActorRef actor)
+            {
+                UpdateType = updateType;
+                Actor = actor;
+            }
+
+            /// <summary>
+            /// Returns a string that represents the current object.
+            /// </summary>
+            /// <returns>
+            /// A string that represents the current object.
+            /// </returns>
+            public override string ToString()
+            {
+                return $"Register(UpdateType:{UpdateType},Actor{Actor.Path.ToString()})";
+            }
+        }
+        public class Registered
+        {
+            public Register Registree { get; private set; }
+
+            public Registered(Register registree)
+            {
+                Registree = registree;
+            }
+
+            /// <summary>
+            /// Returns a string that represents the current object.
+            /// </summary>
+            /// <returns>
+            /// A string that represents the current object.
+            /// </returns>
+            public override string ToString()
+            {
+                return $"Registree({Registree})";
+            }
+        }
+
+        public class ConfigurationResult
+        {
+            public HeartBeatState State { get; private set; }
+
+            public ConfigurationResult(HeartBeatState state)
+            {
+                State = state;
+            }
+
+            /// <summary>
+            /// Returns a string that represents the current object.
+            /// </summary>
+            /// <returns>
+            /// A string that represents the current object.
+            /// </returns>
+            public override string ToString()
+            {
+                return $"ConfigurationResult(State{State})";
+            }
+        }
+
+        public class QueryConfiguration{}
+
+        public class FactoryTick{}
+
+        public class Tick{}
 
         public class ConfigureUpdate
         {
@@ -157,23 +257,7 @@ namespace Entities
             }
         }
 
-        public class Register
-        {
-            public UpdateType UpdateType { get;private set; }
-            public IActorRef Actor { get; private set; }
-
-            public Register(UpdateType updateType, IActorRef actor)
-            {
-                UpdateType = updateType;
-                Actor = actor;
-            }
-        }
-
         public class Start{}
-
-        public enum UpdateType
-        {
-            Factory
-        }
+        public class Started { }
     }
 }

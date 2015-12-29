@@ -33,7 +33,19 @@ namespace Entities.Model
             Materials = new Dictionary<string, IMaterial>();
             CelestialBodies = new Dictionary<string, CelestialBody>();
             FactoryCoordinator = new FactoryCoordinatorScenarioState();
-            Config = "akka { loglevel=DEBUG,  loggers=[\"Akka.Logger.Serilog.SerilogLogger, Akka.Logger.Serilog\"]}";
+            Config = @"akka {  
+    stdout - loglevel = DEBUG
+    loglevel = DEBUG
+    log - config - on - start = on
+    actor {
+                debug {
+                    receive = on
+                      autoreceive = on
+                      lifecycle = on
+              event-stream = on
+              unhandled = on
+        }
+    }";
         }
 
         public Dictionary<string, IActorRef> Actors { get; set; }
@@ -42,8 +54,6 @@ namespace Entities.Model
         /// A reference to the <see cref="TestKit"/> in order to get at all the Akka.Test goodness
         /// </summary>
         public TestKit TestKit { get; set; }
-
-        public TestActorRef<ResourceManager> ResourceManager { get; set; }
 
         /// <summary>
         /// Dictionary of <see cref="Trader"/> by name 
@@ -92,12 +102,13 @@ namespace Entities.Model
         /// <returns>The <see cref="Resource"/></returns>
         public IResource GetResourceFromName(string resourceName)
         {
-            if (ReferenceEquals(ResourceManager, null))
+            var actorRef = Actors[ResourceManager.Name];
+            if (ReferenceEquals(actorRef, null))
             {
                 throw new InvalidOperationException("Resource Manager not initialised");
             }
 
-            var resourceQuery = ResourceManager.Ask<ResourceManager.GetResourceResult>(new ResourceManager.GetResource(resourceName));
+            var resourceQuery = actorRef.Ask<ResourceManager.GetResourceResult>(new ResourceManager.GetResource(resourceName));
             resourceQuery.Wait(TimeSpan.FromMilliseconds(50));
             var resource = resourceQuery.Result;
             return resource.Values[0];

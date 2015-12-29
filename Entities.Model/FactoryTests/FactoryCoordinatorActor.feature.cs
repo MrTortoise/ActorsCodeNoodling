@@ -72,31 +72,30 @@ namespace Entities.Model.FactoryTests
  testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "name"});
+                        "updatePeriod",
+                        "factoryUpdatePeriod"});
             table1.AddRow(new string[] {
-                        "Metal"});
-            table1.AddRow(new string[] {
-                        "Rock"});
-            table1.AddRow(new string[] {
-                        "Punk"});
-            table1.AddRow(new string[] {
-                        "Hydrogen"});
-            table1.AddRow(new string[] {
-                        "geddit yet?"});
+                        "100",
+                        "1000"});
 #line 8
- testRunner.And("I add the following resources to the Resource Manager", ((string)(null)), table1, "And ");
+ testRunner.And("I have configured the heartBeat actor to update with the following configuration", ((string)(null)), table1, "And ");
+#line 11
+ testRunner.And("I create the heirachy of coordinators", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "ResourceName",
-                        "Value"});
+                        "name"});
             table2.AddRow(new string[] {
-                        "Metal",
-                        "0.1"});
+                        "Metal"});
             table2.AddRow(new string[] {
-                        "Rock",
-                        "0.9"});
-#line 15
- testRunner.And("I have created the following Material called \"The Moon\"", ((string)(null)), table2, "And ");
+                        "Rock"});
+            table2.AddRow(new string[] {
+                        "Punk"});
+            table2.AddRow(new string[] {
+                        "Hydrogen"});
+            table2.AddRow(new string[] {
+                        "geddit yet?"});
+#line 12
+ testRunner.And("I add the following resources to the Resource Manager", ((string)(null)), table2, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "ResourceName",
@@ -108,18 +107,30 @@ namespace Entities.Model.FactoryTests
                         "Rock",
                         "0.9"});
 #line 19
- testRunner.And("I have created the following Material called \"Some Planet\"", ((string)(null)), table3, "And ");
+ testRunner.And("I have created the following Material called \"The Moon\"", ((string)(null)), table3, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "ResourceName",
                         "Value"});
             table4.AddRow(new string[] {
-                        "Hydrogen",
+                        "Metal",
                         "0.1"});
+            table4.AddRow(new string[] {
+                        "Rock",
+                        "0.9"});
 #line 23
- testRunner.And("I have created the following Material called \"Mellow Yellow\"", ((string)(null)), table4, "And ");
+ testRunner.And("I have created the following Material called \"Some Planet\"", ((string)(null)), table4, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ResourceName",
+                        "Value"});
+            table5.AddRow(new string[] {
+                        "Hydrogen",
+                        "0.1"});
+#line 27
+ testRunner.And("I have created the following Material called \"Mellow Yellow\"", ((string)(null)), table5, "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
                         "radius",
                         "orbitDistance",
@@ -130,7 +141,7 @@ namespace Entities.Model.FactoryTests
                         "bodyType",
                         "material",
                         "satellites"});
-            table5.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "The Moon",
                         "10",
                         "100",
@@ -141,7 +152,7 @@ namespace Entities.Model.FactoryTests
                         "Moon",
                         "The Moon",
                         ""});
-            table5.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "Another Moon",
                         "10",
                         "100",
@@ -152,7 +163,7 @@ namespace Entities.Model.FactoryTests
                         "Moon",
                         "The Moon",
                         ""});
-            table5.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "The Planet",
                         "10",
                         "100",
@@ -163,7 +174,7 @@ namespace Entities.Model.FactoryTests
                         "Planet",
                         "Some Planet",
                         "\"The Moon\",\"Another Moon\""});
-            table5.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "Other Planet",
                         "10",
                         "300",
@@ -174,7 +185,7 @@ namespace Entities.Model.FactoryTests
                         "Planet",
                         "Some Planet",
                         ""});
-            table5.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "The Sun",
                         "1",
                         "2",
@@ -185,7 +196,7 @@ namespace Entities.Model.FactoryTests
                         "Star",
                         "Mellow Yellow",
                         ""});
-            table5.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "The Second Sun",
                         "1",
                         "2",
@@ -196,31 +207,31 @@ namespace Entities.Model.FactoryTests
                         "Star",
                         "Mellow Yellow",
                         ""});
-#line 26
- testRunner.And("I have created the following Celestial Bodies", ((string)(null)), table5, "And ");
+#line 30
+ testRunner.And("I have created the following Celestial Bodies", ((string)(null)), table6, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
                         "stars",
                         "planets"});
-            table6.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "Solar System",
                         "\"The Sun\",\"The Second Sun\"",
                         "\"The Planet\",\"Other Planet\""});
-#line 34
+#line 38
  testRunner.And("I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with" +
-                    " arguments", ((string)(null)), table6, "And ");
+                    " arguments", ((string)(null)), table7, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
                         "Capacity",
                         "CargoSize"});
-            table7.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "smallFactoryInventory",
                         "1000",
                         "Small"});
-#line 37
- testRunner.And("I have created the following inventory types", ((string)(null)), table7, "And ");
+#line 41
+ testRunner.And("I have created the following inventory types", ((string)(null)), table8, "And ");
 #line hidden
         }
         
@@ -229,25 +240,10 @@ namespace Entities.Model.FactoryTests
         public virtual void AddFactoryTypesAndQueryThem()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add factory types and query them", ((string[])(null)));
-#line 41
+#line 45
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
-                        "In",
-                        "resource",
-                        "quantity",
-                        "periods"});
-            table8.AddRow(new string[] {
-                        "false",
-                        "Metal",
-                        "10",
-                        "1"});
-#line 42
- testRunner.Given("I have created a Factory Type called \"FuckPhysics\" with the following properties", ((string)(null)), table8, "Given ");
-#line 45
- testRunner.When("I query the factory types and store result in context as \"FactoryTypes\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "In",
@@ -260,21 +256,9 @@ this.FeatureBackground();
                         "10",
                         "1"});
 #line 46
- testRunner.Then("I expect the factory type \"FuckPhysics\" with the following properties in context " +
-                    "\"FactoryTypes\"", ((string)(null)), table9, "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Create a factory")]
-        public virtual void CreateAFactory()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a factory", ((string[])(null)));
-#line 50
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
+ testRunner.Given("I have created a Factory Type called \"FuckPhysics\" with the following properties", ((string)(null)), table9, "Given ");
+#line 49
+ testRunner.When("I query the factory types and store result in context as \"FactoryTypes\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "In",
@@ -286,25 +270,37 @@ this.FeatureBackground();
                         "Metal",
                         "10",
                         "1"});
-#line 51
- testRunner.Given("I have created a Factory Type called \"FuckPhysics\" with the following properties", ((string)(null)), table10, "Given ");
+#line 50
+ testRunner.Then("I expect the factory type \"FuckPhysics\" with the following properties in context " +
+                    "\"FactoryTypes\"", ((string)(null)), table10, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Create a factory")]
+        public virtual void CreateAFactory()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a factory", ((string[])(null)));
 #line 54
- testRunner.And("I have created a Trader called \"factoryCreator\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
-                        "name",
-                        "factoryType",
-                        "centerOfMass",
-                        "celestialBody",
-                        "inventoryType"});
+                        "In",
+                        "resource",
+                        "quantity",
+                        "periods"});
             table11.AddRow(new string[] {
-                        "somethingFromNothingFactory",
-                        "FuckPhysics",
-                        "Solar System",
-                        "Other Planet",
-                        "smallFactoryInventory"});
+                        "false",
+                        "Metal",
+                        "10",
+                        "1"});
 #line 55
- testRunner.When("I create the following Factories using actor \"factoryCreator\"", ((string)(null)), table11, "When ");
+ testRunner.Given("I have created a Factory Type called \"FuckPhysics\" with the following properties", ((string)(null)), table11, "Given ");
+#line 58
+ testRunner.And("I have created a Trader called \"factoryCreator\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
@@ -318,8 +314,8 @@ this.FeatureBackground();
                         "Solar System",
                         "Other Planet",
                         "smallFactoryInventory"});
-#line 58
- testRunner.Then("I expect the FactoryCoordinator to contain the following factories", ((string)(null)), table12, "Then ");
+#line 59
+ testRunner.When("I create the following Factories using actor \"factoryCreator\"", ((string)(null)), table12, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
@@ -333,9 +329,24 @@ this.FeatureBackground();
                         "Solar System",
                         "Other Planet",
                         "smallFactoryInventory"});
-#line 61
+#line 62
+ testRunner.Then("I expect the FactoryCoordinator to contain the following factories", ((string)(null)), table13, "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "name",
+                        "factoryType",
+                        "centerOfMass",
+                        "celestialBody",
+                        "inventoryType"});
+            table14.AddRow(new string[] {
+                        "somethingFromNothingFactory",
+                        "FuckPhysics",
+                        "Solar System",
+                        "Other Planet",
+                        "smallFactoryInventory"});
+#line 65
  testRunner.Then("I expect the results of querying the trader \"factoryCreator\" for its factories to" +
-                    " be", ((string)(null)), table13, "Then ");
+                    " be", ((string)(null)), table14, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

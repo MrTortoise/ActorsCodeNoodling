@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.Event;
+using Akka.Serialization;
 
 namespace Entities
 {
@@ -13,7 +14,7 @@ namespace Entities
         public static void LogMessageDebug(this IActorContext context, object msg, string extra = "")
         {
             context.GetLogger()
-                .Debug("{Actor}:{MessageType}:{@Message}:{@extra}", context.Self.Path, msg.GetType().FullName, msg,
+                .Debug("{0}:{1}:{2}:{3}", context.Self.Path, msg.GetType().FullName, msg.ToString(),
                     extra);
         }
     }

@@ -14,17 +14,18 @@ namespace Entities.Factories
         private ImmutableHashSet<IActorRef> _factories = ImmutableHashSet<IActorRef>.Empty;
         private ImmutableHashSet<FactoryType> _factoryTypes = ImmutableHashSet<FactoryType>.Empty;
 
-        public static Props CreateProps()
+        public static Props CreateProps(IActorRef heartBeatActor)
         {
-            return Props.Create(() => new FactoryCoordinatorActor());
+            return Props.Create(() => new FactoryCoordinatorActor(heartBeatActor));
         }
 
-        public FactoryCoordinatorActor()
+        public FactoryCoordinatorActor(IActorRef heartBeatActor)
         {
+            heartBeatActor.Tell(new HeartBeatActor.Register(HeartBeatActor.UpdateType.Factory, Context.Self));
             Receive<FactoryType>(msg =>
             {
                 Context.LogMessageDebug(msg);
-               _factoryTypes =  _factoryTypes.Add(msg);
+                _factoryTypes = _factoryTypes.Add(msg);
             });
 
             Receive<QueryFactoryTypes>(msg =>
@@ -39,7 +40,7 @@ namespace Entities.Factories
                 var factory = Context.ActorOf(Factory.CreateProps(msg.Name, msg.FactoryType, msg.Body, msg.InventoryType));
                 _factories = _factories.Add(factory);
                 Sender.Tell(new FactoryCreated(factory, Sender, msg.Body));
-                msg.Owner.Tell(new FactoryCreated(factory,Sender,msg.Body));
+                msg.Owner.Tell(new FactoryCreated(factory, Sender, msg.Body));
             });
 
             Receive<QueryFactories>(msg =>
@@ -47,6 +48,17 @@ namespace Entities.Factories
                 Context.LogMessageDebug(msg);
                 Sender.Tell(new FactoryQueryResult(_factories));
             });
+
+            Receive<HeartBeatActor.FactoryTick>(msg =>
+            {
+                Context.LogMessageDebug(msg);
+                foreach (var actorRef in _factories)
+                {
+                    actorRef.Tell(msg);
+                }
+            });
+
+            Receive<HeartBeatActor.Registered>(msg => { Context.LogMessageDebug(msg); });
         }
 
         public class FactoryCreated

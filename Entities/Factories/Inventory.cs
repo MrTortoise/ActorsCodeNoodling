@@ -8,15 +8,15 @@ namespace Entities.Factories
     /// </summary>
     public class Inventory
     {
-        public Inventory(InventoryType inventoryType)
+        public Inventory(InventoryType inventoryType, ImmutableDictionary<IResource,int> resources = null)
         {
             if (inventoryType == null) throw new ArgumentNullException(nameof(inventoryType));
 
             InventoryType = inventoryType;
-            Resources = ImmutableDictionary<IResource, double>.Empty;
+            Resources = resources ?? ImmutableDictionary<IResource, int>.Empty;
         }
 
         public InventoryType InventoryType { get; set; }
-        public ImmutableDictionary<IResource,double> Resources { get; private set; }
+        public ImmutableDictionary<IResource, int> Resources { get; private set; }
     }
 }

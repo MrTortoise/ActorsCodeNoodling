@@ -5,6 +5,10 @@
 
 Background: 
 	Given I create a test actor system	
+	And I have configured the heartBeat actor to update with the following configuration
+	| updatePeriod | factoryUpdatePeriod |
+	| 100          | 1000                |
+	And I create the heirachy of coordinators
 	And I add the following resources to the Resource Manager
 	| name        |
 	| Metal       |

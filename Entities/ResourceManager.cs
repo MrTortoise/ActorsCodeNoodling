@@ -17,15 +17,24 @@ namespace Entities
         private readonly HashSet<IResource> _resources = new HashSet<IResource>();
         private readonly HashSet<IActorRef> _observers = new HashSet<IActorRef>();
 
+        public const string Name = "ResourceManager";
+
+        public static Props CreateProps()
+        {
+            return Props.Create(() => new ResourceManager());
+        }
+
         public ResourceManager()
         {
             Receive<Observe>(msg =>
             {
+                Context.LogMessageDebug(msg);
                 _observers.Add(Sender);
             });
 
             Receive<UnObserve>(msg =>
             {
+                Context.LogMessageDebug(msg);
                 _observers.Remove(Sender);
             });
 
@@ -103,5 +112,7 @@ namespace Entities
                 Values = values;
             }
         }
+
+        
     }
 }

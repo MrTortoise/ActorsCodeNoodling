@@ -17,8 +17,6 @@ namespace Entities.Model.ResourceManagerFeature
     [Binding]
     public class ResourceManagerSteps
     {
-        public const string ResourceManagerName = "resourceManager";
-        private const string ResourceManagerTestProbeName = "resourceManagerTestProbe";
         private readonly ScenarioContextState _state;
 
        public ResourceManagerSteps(ScenarioContextState state)
@@ -34,15 +32,8 @@ namespace Entities.Model.ResourceManagerFeature
 
         public static void GivenICreateAResourceManager(ScenarioContextState scenarioContextState)
         {
-            var resourceManagerTestProbe = new TestProbe(scenarioContextState.TestKit.Sys, new NUnitAssertions(),
-                ResourceManagerTestProbeName);
-            var resourceManager = scenarioContextState.TestKit.ActorOfAsTestActorRef<ResourceManager>(resourceManagerTestProbe);
-
-            scenarioContextState.TestProbes.Add(ResourceManagerTestProbeName, resourceManagerTestProbe);
-
-            scenarioContextState.Actors.Add(ResourceManagerTestProbeName, resourceManager);
-            scenarioContextState.ResourceManager = resourceManager;
-            scenarioContextState.Actors.Add(ResourceManagerName, resourceManager);
+            var resourceManager = scenarioContextState.TestKit.Sys.ActorOf(ResourceManager.CreateProps(),ResourceManager.Name);
+            scenarioContextState.Actors.Add(ResourceManager.Name, resourceManager);
         }
 
 
@@ -51,7 +42,7 @@ namespace Entities.Model.ResourceManagerFeature
         public void WhenIPressAddTheFollowingResourcesToTheResourceManager(Table table)
         {
             var resources = CreateResourcesFromTable(table);
-            var resourceManagerActorRef = _state.ResourceManager;
+            var resourceManagerActorRef = _state.Actors[ResourceManager.Name];
             resources.ForEach(r => resourceManagerActorRef.Tell(new ResourceManager.PostResourceMessage(r)));
             Thread.Sleep(10);
         }
@@ -65,7 +56,7 @@ namespace Entities.Model.ResourceManagerFeature
         public void ThenTheIExpectTheResourceManagerToContainTheFollowingResources(Table table)
         {
             var resources = CreateResourcesFromTable(table);
-            var resManagerActor = _state.ResourceManager;
+            var resManagerActor = _state.Actors[ResourceManager.Name];
             List<Task<ResourceManager.GetResourceResult>> tasks = new List<Task<ResourceManager.GetResourceResult>>();
 
             resources.ForEach(r =>
