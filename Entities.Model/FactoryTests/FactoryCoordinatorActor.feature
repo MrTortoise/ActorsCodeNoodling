@@ -18,15 +18,15 @@ Background:
 	| geddit yet? |
 	And I have created the following Material called "The Moon"
 	| ResourceName | Value |
-	| Metal        | 0.1   |
-	| Rock         | 0.9   |
+	| Metal        | 1     |
+	| Rock         | 9     |
 	And I have created the following Material called "Some Planet"
 	| ResourceName | Value |
-	| Metal        | 0.1   |
-	| Rock         | 0.9   |
+	| Metal        | 1     |
+	| Rock         | 9     |
 	And I have created the following Material called "Mellow Yellow"
 	| ResourceName | Value |
-	| Hydrogen     | 0.1   |
+	| Hydrogen     | 1     |
 	And I have created the following Celestial Bodies         
 	| name           | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | bodyType | material      | satellites                |
 	| The Moon       | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Moon     | The Moon      |                           |

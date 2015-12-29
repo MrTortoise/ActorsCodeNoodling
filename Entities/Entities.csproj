@@ -129,6 +129,7 @@
     <Compile Include="TimePeriodType.cs" />
     <Compile Include="Trader.cs" />
     <Compile Include="obsoletedStuff\WorldPrefixTestActor.cs" />
+    <Compile Include="WaitActor.cs" />
     <Compile Include="WorldPrefixPersistanceActor.cs" />
   </ItemGroup>
   <ItemGroup>

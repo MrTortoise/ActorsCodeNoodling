@@ -8,7 +8,7 @@ namespace Entities.LocationActors
     /// </summary>
     public class Material : IMaterial
     {
-        public Material(string name, ImmutableDictionary<IResource, double> materialComposition)
+        public Material(string name, ImmutableDictionary<IResource, int> materialComposition)
         {
             Name = name;
             MaterialComposition = materialComposition;
@@ -22,6 +22,6 @@ namespace Entities.LocationActors
         /// <summary>
         /// The composition of the material
         /// </summary>
-        public ImmutableDictionary<IResource, double> MaterialComposition { get; }
+        public ImmutableDictionary<IResource, int> MaterialComposition { get; }
     }
 }

@@ -102,10 +102,10 @@ namespace Entities.Model.FactoryTests
                         "Value"});
             table3.AddRow(new string[] {
                         "Metal",
-                        "0.1"});
+                        "1"});
             table3.AddRow(new string[] {
                         "Rock",
-                        "0.9"});
+                        "9"});
 #line 19
  testRunner.And("I have created the following Material called \"The Moon\"", ((string)(null)), table3, "And ");
 #line hidden
@@ -114,10 +114,10 @@ namespace Entities.Model.FactoryTests
                         "Value"});
             table4.AddRow(new string[] {
                         "Metal",
-                        "0.1"});
+                        "1"});
             table4.AddRow(new string[] {
                         "Rock",
-                        "0.9"});
+                        "9"});
 #line 23
  testRunner.And("I have created the following Material called \"Some Planet\"", ((string)(null)), table4, "And ");
 #line hidden
@@ -126,7 +126,7 @@ namespace Entities.Model.FactoryTests
                         "Value"});
             table5.AddRow(new string[] {
                         "Hydrogen",
-                        "0.1"});
+                        "1"});
 #line 27
  testRunner.And("I have created the following Material called \"Mellow Yellow\"", ((string)(null)), table5, "And ");
 #line hidden
@@ -234,20 +234,38 @@ namespace Entities.Model.FactoryTests
                         "1"});
 #line 41
  testRunner.And("I have created a Factory Type called \"FuckPhysics\" with the following properties", ((string)(null)), table8, "And ");
-#line 44
- testRunner.And("I have created a Trader called \"factoryCreator\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "In",
+                        "resource",
+                        "quantity",
+                        "periods"});
+            table9.AddRow(new string[] {
+                        "true",
+                        "Rock",
+                        "10",
+                        "1"});
+            table9.AddRow(new string[] {
+                        "false",
+                        "Metal",
+                        "10",
+                        "1"});
+#line 44
+ testRunner.And("I have created a Factory Type called \"Consumer\" with the following properties", ((string)(null)), table9, "And ");
+#line 48
+ testRunner.And("I have created a Trader called \"factoryCreator\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
                         "Capacity",
                         "CargoSize"});
-            table9.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "smallFactoryInventory",
                         "1000",
                         "Small"});
-#line 45
- testRunner.And("I have created the following inventory types", ((string)(null)), table9, "And ");
-#line 48
+#line 49
+ testRunner.And("I have created the following inventory types", ((string)(null)), table10, "And ");
+#line 52
  testRunner.And("I tell the heartbeat actor to start", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
@@ -259,37 +277,196 @@ namespace Entities.Model.FactoryTests
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Setup a dummy actor, register with FactoryCoordinator can assert that updates are" +
                     " called when expected", ((string[])(null)));
-#line 50
+#line 54
 this.ScenarioSetup(scenarioInfo);
 #line 6
  this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
                         "factoryType",
                         "centerOfMass",
                         "celestialBody",
                         "inventoryType"});
-            table10.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "somethingFromNothingFactory",
                         "FuckPhysics",
                         "Solar System",
                         "Other Planet",
                         "smallFactoryInventory"});
-#line 51
- testRunner.Given("I create the following Factories using actor \"factoryCreator\"", ((string)(null)), table10, "Given ");
-#line 54
- testRunner.When("I wait for 3 FactoryUpdate time periods", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 55
+ testRunner.Given("I create the following Factories using actor \"factoryCreator\"", ((string)(null)), table11, "Given ");
+#line 58
+ testRunner.When("I wait for 2 FactoryUpdate time periods", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                         "ResourceName",
                         "Value"});
-            table11.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "Metal",
                         "30"});
-#line 55
+#line 59
  testRunner.Then("I expect the factory \"somethingFromNothingFactory\" to have the following resource" +
-                    "s", ((string)(null)), table11, "Then ");
+                    "s", ((string)(null)), table12, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update a factory that consumes and produces without sufficient input - assert upd" +
+            "ate fails")]
+        public virtual void UpdateAFactoryThatConsumesAndProducesWithoutSufficientInput_AssertUpdateFails()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a factory that consumes and produces without sufficient input - assert upd" +
+                    "ate fails", ((string[])(null)));
+#line 63
+this.ScenarioSetup(scenarioInfo);
+#line 6
+ this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                        "name",
+                        "factoryType",
+                        "centerOfMass",
+                        "celestialBody",
+                        "inventoryType"});
+            table13.AddRow(new string[] {
+                        "creatorOfMetal",
+                        "Consumer",
+                        "Solar System",
+                        "Other Planet",
+                        "smallFactoryInventory"});
+#line 64
+ testRunner.Given("I create the following Factories using actor \"factoryCreator\"", ((string)(null)), table13, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ResourceName",
+                        "Value"});
+            table14.AddRow(new string[] {
+                        "Rock",
+                        "0"});
+#line 67
+ testRunner.And("I deposit into the factory \"creatorOfMetal\" the following resources", ((string)(null)), table14, "And ");
+#line 70
+ testRunner.When("I wait for 2 FactoryUpdate time periods", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ResourceName",
+                        "Value"});
+            table15.AddRow(new string[] {
+                        "Metal",
+                        "0"});
+            table15.AddRow(new string[] {
+                        "Rock",
+                        "0"});
+#line 71
+ testRunner.Then("I expect the factory \"creatorOfMetal\" to have the following resources", ((string)(null)), table15, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update a factory that consumes and produces with sufficient input - assert update" +
+            " succeeds")]
+        public virtual void UpdateAFactoryThatConsumesAndProducesWithSufficientInput_AssertUpdateSucceeds()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a factory that consumes and produces with sufficient input - assert update" +
+                    " succeeds", ((string[])(null)));
+#line 76
+this.ScenarioSetup(scenarioInfo);
+#line 6
+ this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                        "name",
+                        "factoryType",
+                        "centerOfMass",
+                        "celestialBody",
+                        "inventoryType"});
+            table16.AddRow(new string[] {
+                        "creatorOfMetal",
+                        "Consumer",
+                        "Solar System",
+                        "Other Planet",
+                        "smallFactoryInventory"});
+#line 77
+ testRunner.Given("I create the following Factories using actor \"factoryCreator\"", ((string)(null)), table16, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ResourceName",
+                        "Value"});
+            table17.AddRow(new string[] {
+                        "Rock",
+                        "30"});
+#line 80
+ testRunner.And("I deposit into the factory \"creatorOfMetal\" the following resources", ((string)(null)), table17, "And ");
+#line 83
+ testRunner.When("I wait for 2 FactoryUpdate time periods", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ResourceName",
+                        "Value"});
+            table18.AddRow(new string[] {
+                        "Metal",
+                        "30"});
+            table18.AddRow(new string[] {
+                        "Rock",
+                        "0"});
+#line 84
+ testRunner.Then("I expect the factory \"creatorOfMetal\" to have the following resources", ((string)(null)), table18, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Update a factory that consumes and produces with constrained input - assert updat" +
+            "e succeeds correct number of times")]
+        public virtual void UpdateAFactoryThatConsumesAndProducesWithConstrainedInput_AssertUpdateSucceedsCorrectNumberOfTimes()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update a factory that consumes and produces with constrained input - assert updat" +
+                    "e succeeds correct number of times", ((string[])(null)));
+#line 89
+this.ScenarioSetup(scenarioInfo);
+#line 6
+ this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
+                        "name",
+                        "factoryType",
+                        "centerOfMass",
+                        "celestialBody",
+                        "inventoryType"});
+            table19.AddRow(new string[] {
+                        "creatorOfMetal",
+                        "Consumer",
+                        "Solar System",
+                        "Other Planet",
+                        "smallFactoryInventory"});
+#line 90
+ testRunner.Given("I create the following Factories using actor \"factoryCreator\"", ((string)(null)), table19, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ResourceName",
+                        "Value"});
+            table20.AddRow(new string[] {
+                        "Rock",
+                        "20"});
+#line 93
+ testRunner.And("I deposit into the factory \"creatorOfMetal\" the following resources", ((string)(null)), table20, "And ");
+#line 96
+ testRunner.When("I wait for 2 FactoryUpdate time periods", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ResourceName",
+                        "Value"});
+            table21.AddRow(new string[] {
+                        "Metal",
+                        "20"});
+            table21.AddRow(new string[] {
+                        "Rock",
+                        "0"});
+#line 97
+ testRunner.Then("I expect the factory \"creatorOfMetal\" to have the following resources", ((string)(null)), table21, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

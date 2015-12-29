@@ -80,7 +80,6 @@ namespace Entities.Model.Heartbeats
             registrationWatcher.ExpectMsg<HeartBeatActor.Registered>(registered => ReferenceEquals(registered.Registree.Actor, actor) && registered.Registree.UpdateType == updateType);
         }
 
-
         [Then(@"I expect the actor ""(.*)"" to recieve the Start message")]
         public void ThenIExpectTheActorToRecieveTheStartMessage(string actorName)
         {
@@ -141,40 +140,6 @@ namespace Entities.Model.Heartbeats
             {
                 var msg = tp.ExpectMsg<HeartBeatActor.Tick>();
                 Assert.IsNotNull(msg);
-            }
-        }
-
-
-
-        public class WaitActor : ReceiveActor
-        {
-            public static Props CreateProps()
-            {
-                return Props.Create(() => new WaitActor());
-            }
-
-            public WaitActor()
-            {
-                Receive<Wait>(msg =>
-                {
-                    var sender = Sender;
-                    Thread.Sleep(msg.TimeSpan);
-                    sender.Tell(new WaitComplete());
-                });
-            }
-
-            public class WaitComplete
-            {
-            }
-
-            public class Wait
-            {
-                public Wait(int timeSpan)
-                {
-                    TimeSpan = timeSpan;
-                }
-
-                public int TimeSpan { get; private set; }
             }
         }
     }

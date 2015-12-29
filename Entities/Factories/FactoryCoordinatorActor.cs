@@ -11,7 +11,7 @@ namespace Entities.Factories
     {
         public const string Name = "FactoryCoordinatorActor";
 
-        private ImmutableHashSet<IActorRef> _factories = ImmutableHashSet<IActorRef>.Empty;
+        private ImmutableDictionary<string,IActorRef> _factories = ImmutableDictionary<string, IActorRef>.Empty;
         private ImmutableHashSet<FactoryType> _factoryTypes = ImmutableHashSet<FactoryType>.Empty;
 
         public static Props CreateProps(IActorRef heartBeatActor)
@@ -37,10 +37,10 @@ namespace Entities.Factories
             Receive<CreateFactory>(msg =>
             {
                 Context.LogMessageDebug(msg);
-                var factory = Context.ActorOf(Factory.CreateProps(msg.Name, msg.FactoryType, msg.Body, msg.InventoryType));
-                _factories = _factories.Add(factory);
-                Sender.Tell(new FactoryCreated(factory, Sender, msg.Body));
-                msg.Owner.Tell(new FactoryCreated(factory, Sender, msg.Body));
+                var factory = Context.ActorOf(Factory.CreateProps(msg.Name, msg.FactoryType, msg.Body, msg.InventoryType), msg.Name);
+                _factories = _factories.Add(msg.Name, factory);
+                Sender.Tell(new FactoryCreated(msg.Name,factory, Sender, msg.Body));
+                msg.Owner.Tell(new FactoryCreated(msg.Name, factory, Sender, msg.Body));
             });
 
             Receive<QueryFactories>(msg =>
@@ -52,7 +52,7 @@ namespace Entities.Factories
             Receive<HeartBeatActor.FactoryTick>(msg =>
             {
                 Context.LogMessageDebug(msg);
-                foreach (var actorRef in _factories)
+                foreach (var actorRef in _factories.Values)
                 {
                     actorRef.Tell(msg);
                 }
@@ -63,16 +63,19 @@ namespace Entities.Factories
 
         public class FactoryCreated
         {
+            public string Name { get; private set; }
             public IActorRef Factory { get; private set; }
             public IActorRef CenterOfMass { get; private set; }
             public CelestialBody CelestialBody { get; private set; }
 
-            public FactoryCreated(IActorRef factory, IActorRef centerOfMass, CelestialBody body)
+            public FactoryCreated(string name, IActorRef factory, IActorRef centerOfMass, CelestialBody body)
             {
                 if (factory == null) throw new ArgumentNullException(nameof(factory));
                 if (centerOfMass == null) throw new ArgumentNullException(nameof(centerOfMass));
                 if (body == null) throw new ArgumentNullException(nameof(body));
+                if (String.IsNullOrWhiteSpace(name)) throw new ArgumentException("Argument is null or whitespace", nameof(name));
 
+                Name = name;
                 Factory = factory;
                 CenterOfMass = centerOfMass;
                 CelestialBody = body;
@@ -125,9 +128,9 @@ namespace Entities.Factories
 
         public class FactoryQueryResult
         {
-            public ImmutableHashSet<IActorRef> Factories { get;private set; }
+            public ImmutableDictionary<string, IActorRef> Factories { get;private set; }
 
-            public FactoryQueryResult(ImmutableHashSet<IActorRef> factories)
+            public FactoryQueryResult(ImmutableDictionary<string,IActorRef> factories)
             {
                 if (factories == null) throw new ArgumentNullException(nameof(factories));
 

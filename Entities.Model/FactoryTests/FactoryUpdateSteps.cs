@@ -29,12 +29,6 @@ namespace Entities.Model.FactoryTests
             _state.FactoryCoordinator.Period = period;
         }
 
-        //[Given(@"I have created a FactoryCoordinator actor")]
-        //public void CreateFactoryCoordinatorActor()
-        //{
-        //    GivenIHaveCreatedAFactoryCoordinatorActor(_state);
-        //}
-
         public static void GivenIHaveCreatedAFactoryCoordinatorActor(ScenarioContextState scenarioContextState, IActorRef heartBeatActor)
         {
             var actor = scenarioContextState.TestKit.Sys.ActorOf(FactoryCoordinatorActor.CreateProps(heartBeatActor), FactoryCoordinatorActor.Name);
@@ -45,6 +39,7 @@ namespace Entities.Model.FactoryTests
         [Given(@"I have created a Factory Type called ""(.*)"" with the following properties")]
         public void GivenIHaveCreatedAFactoryTypeCalledWithTheFollowingProperties(string factoryTypeName , Table table)
         {
+
             var factoryType = ExtractFactoryType(factoryTypeName, table);
 
             _state.FactoryCoordinator.Actor.Tell(factoryType);
@@ -81,9 +76,6 @@ namespace Entities.Model.FactoryTests
 
             return factoryType;
         }
-
-
-
 
         [When(@"I query the factory types and store result in context as ""(.*)""")]
         public void WhenIQueryTheFactoryTypesAdnSotreResultInContextAs(string contextKey)
@@ -137,7 +129,9 @@ namespace Entities.Model.FactoryTests
                 var inventoryType = _state.GetInventoryType(inventoryTypeName);
 
                 com.Tell(new CenterOfMassActor.SubscribeFactoryCreated(),createFactoryTp);
-                com.Tell(new CenterOfMassActor.CreateFactoryOnBody(name, factoryType, body, inventoryType), traderActor);
+                traderActor.Tell(new Trader.CreateFactoryOnBody(com, name, factoryType, body, inventoryType));
+                
+               // com.Tell(new CenterOfMassActor.CreateFactoryOnBody(name, factoryType, body, inventoryType), traderActor);
                 var msg = createFactoryTp.ExpectMsg<FactoryCoordinatorActor.FactoryCreated>();
                 Assert.IsNotNull(msg);
             }
@@ -168,7 +162,7 @@ namespace Entities.Model.FactoryTests
 
         public static Factory.FactoryState[] GetFactoryStates(FactoryCoordinatorActor.FactoryQueryResult factoryQueryResult)
         {
-            var tasks = factoryQueryResult.Factories.Select(i => i.Ask<Factory.FactoryState>(new Factory.QueryState())).ToArray();
+            var tasks = factoryQueryResult.Factories.Select(i => i.Value.Ask<Factory.FactoryState>(new Factory.QueryState())).ToArray();
             Task.WaitAll(tasks);
             var factoryStates = tasks.Select(i => i.Result).ToArray();
             return factoryStates;
@@ -217,9 +211,31 @@ namespace Entities.Model.FactoryTests
 
             foreach (var resource in resourceComposition.Keys)
             {
-                Assert.Contains(resource, inventory.Resources.Keys.ToArray());
-                Assert.AreEqual(resourceComposition[resource], inventory.Resources[resource]);
+                List<IResource> collection = inventory.Resources.Keys.ToList();
+                if (resourceComposition[resource] > 0)
+                {
+                    Assert.Contains(resource, collection);
+                    Assert.AreEqual(resourceComposition[resource], inventory.Resources[resource]);
+                }
+                else
+                {
+                    // we know its 0
+                    if (inventory.Resources.ContainsKey(resource))
+                    {
+                        Assert.AreEqual(resourceComposition[resource], inventory.Resources[resource]);
+                    }
+                }
             }
+        }
+
+        [Given(@"I deposit into the factory ""(.*)"" the following resources")]
+        public void GivenIDepositIntoTheFactoryTheFollwingResources(string factoryName, Table table)
+        {
+            var resources = _state.GetResourceComposition(table);
+            var factories = _state.GetFactories();
+            var factory = factories.Factories[factoryName];
+
+            factory.Tell(new Factory.DepositResources(resources));
         }
     }
 }

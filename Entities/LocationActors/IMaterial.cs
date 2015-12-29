@@ -19,6 +19,6 @@ namespace Entities.LocationActors
         /// This is a scale starting from 0 and going up to infinity.
         /// I guess this should really be a sum of parts that adds up to one - but what do you do when you want to goto 11?
         /// </remarks>
-        ImmutableDictionary<IResource, double> MaterialComposition { get; }
+        ImmutableDictionary<IResource, int> MaterialComposition { get; }
     }
 }

@@ -102,10 +102,10 @@ namespace Entities.Model.FactoryTests
                         "Value"});
             table3.AddRow(new string[] {
                         "Metal",
-                        "0.1"});
+                        "1"});
             table3.AddRow(new string[] {
                         "Rock",
-                        "0.9"});
+                        "9"});
 #line 19
  testRunner.And("I have created the following Material called \"The Moon\"", ((string)(null)), table3, "And ");
 #line hidden
@@ -114,10 +114,10 @@ namespace Entities.Model.FactoryTests
                         "Value"});
             table4.AddRow(new string[] {
                         "Metal",
-                        "0.1"});
+                        "1"});
             table4.AddRow(new string[] {
                         "Rock",
-                        "0.9"});
+                        "9"});
 #line 23
  testRunner.And("I have created the following Material called \"Some Planet\"", ((string)(null)), table4, "And ");
 #line hidden
@@ -126,7 +126,7 @@ namespace Entities.Model.FactoryTests
                         "Value"});
             table5.AddRow(new string[] {
                         "Hydrogen",
-                        "0.1"});
+                        "1"});
 #line 27
  testRunner.And("I have created the following Material called \"Mellow Yellow\"", ((string)(null)), table5, "And ");
 #line hidden

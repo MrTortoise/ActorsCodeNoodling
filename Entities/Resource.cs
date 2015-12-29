@@ -17,6 +17,17 @@ namespace Entities
             return Name?.GetHashCode() ?? 0;
         }
 
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>
+        /// A string that represents the current object.
+        /// </returns>
+        public override string ToString()
+        {
+            return $"Resource(Name:{Name})";
+        }
+
 
         /// <summary>
         /// Creates a resource with a name

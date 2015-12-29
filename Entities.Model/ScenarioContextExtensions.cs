@@ -18,7 +18,7 @@ namespace Entities.Model
 {
     public static class ScenarioContextExtensions
     {
-        public static ImmutableDictionary<IResource, double> GetResourceComposition(this ScenarioContextState scenarioContextState, Table table)
+        public static ImmutableDictionary<IResource, int> GetResourceComposition(this ScenarioContextState scenarioContextState, Table table)
         {
             var actorRef = scenarioContextState.Actors[ResourceManager.Name];
             Assert.IsNotNull(actorRef,"Resource manager was null - actor system not initialised in proper order?");
@@ -27,12 +27,12 @@ namespace Entities.Model
 
             resources.Wait();
 
-            var resourceCompositionBuilder = ImmutableDictionary.CreateBuilder<IResource, double>();
+            var resourceCompositionBuilder = ImmutableDictionary.CreateBuilder<IResource, int>();
 
             foreach (var tableRow in table.Rows)
             {
                 var resourceName = tableRow["ResourceName"];
-                double val = double.Parse(tableRow["Value"]);
+                int val = int.Parse(tableRow["Value"]);
                 var resource = resources.Result.Values.Single(i => i.Name == resourceName);
                 resourceCompositionBuilder.Add(resource, val);
             }

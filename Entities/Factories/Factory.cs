@@ -28,6 +28,26 @@ namespace Entities.Factories
                     PerformTick();
                 }
             });
+
+            Receive<DepositResources>(msg =>
+            {
+                var stateInventory = _factoryState.Inventory.Resources;
+                var newItems = new Dictionary<IResource,int>();
+                foreach (var resource in msg.Resources.Keys)
+                {
+                    if (stateInventory.ContainsKey(resource))
+                    {
+                        newItems.Add(resource, stateInventory[resource] + msg.Resources[resource]);
+                    }
+                    else
+                    {
+                        newItems.Add(resource, msg.Resources[resource]);
+                    }
+                }
+
+                var newInventory = stateInventory.AddRange(newItems);
+                _factoryState = new FactoryState(_factoryState.Body, _factoryState.Name, _factoryState.FactoryType, new Inventory(_factoryState.Inventory.InventoryType, newInventory), _factoryState.TicksSinceLastUpdate);
+            });
         }
 
         private void PerformTick()
@@ -47,7 +67,12 @@ namespace Entities.Factories
             {
                 var resource = outputResource.Key;
 
-                var quant = _factoryState.Inventory.Resources[resource];
+                int quant = 0;
+                if (_factoryState.Inventory.Resources.ContainsKey(resource))
+                {
+                    quant = _factoryState.Inventory.Resources[resource];
+                }
+
                 var newQuant = quant + outputResource.Value.Quantity;
                 inv.Add(resource, newQuant);
             }
@@ -73,16 +98,17 @@ namespace Entities.Factories
             {
                 foreach (var resource in _factoryState.FactoryType.InputResources.Keys)
                 {
+                    // if inventory doesnt contain an input resource then requirements not met
                     if (!_factoryState.Inventory.Resources.ContainsKey(resource))
                     {
                         retVal = false;
                         break;
                     }
 
-                    var amount = _factoryState.FactoryType.InputResources[resource].Quantity;
+                    var requiredAmount = _factoryState.FactoryType.InputResources[resource].Quantity;
                     var inventoryAmount = _factoryState.Inventory.Resources[resource];
 
-                    if (amount < inventoryAmount)
+                    if (inventoryAmount < requiredAmount)
                     {
                         retVal = false;
                         break;
@@ -113,7 +139,11 @@ namespace Entities.Factories
 
             public int GetMinTicksPerUpdate()
             {
-                int max = FactoryType.InputResources.Values.Select(i => i.Periods).Max();
+                int max = 0;
+                if (FactoryType.InputResources.Any())
+                {
+                    max = FactoryType.InputResources.Values.Select(i => i.Periods).Max();
+                }
                 return max;
             }
 
@@ -129,6 +159,16 @@ namespace Entities.Factories
 
         public class QueryState
         {
+        }
+
+        public class DepositResources
+        {
+            public ImmutableDictionary<IResource, int> Resources { get; private set; }
+
+            public DepositResources(ImmutableDictionary<IResource, int> resources)
+            {
+                Resources = resources;
+            }
         }
     }
 }

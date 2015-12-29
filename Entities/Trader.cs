@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using Akka.Actor;
 using Entities.Factories;
+using Entities.LocationActors;
 
 namespace Entities
 {
@@ -10,6 +12,7 @@ namespace Entities
     /// </summary>
     public class Trader : ReceiveActor, ITrader
     {
+       // private readonly IActorRef _factoryCoordinatorActor;
         private readonly Dictionary<IResource, ResourceStack> _resources;
         private ImmutableHashSet<IActorRef> _factories = ImmutableHashSet<IActorRef>.Empty;
 
@@ -19,6 +22,7 @@ namespace Entities
         /// <param name="name"></param>
         public Trader(string name)
         {
+           // _factoryCoordinatorActor = factoryCoordinatorActor;
             _resources = new Dictionary<IResource, ResourceStack>();
 
             Name = name;
@@ -44,6 +48,11 @@ namespace Entities
                 Sender.Tell(new QueryResourcesResultMessage(_resources.Values.ToImmutableArray()));
             });
 
+            Receive<CreateFactoryOnBody>(msg =>
+            {
+                msg.CenterOfMassActor.Tell(new CenterOfMassActor.CreateFactoryOnBody(msg.Name, msg.FactoryType, msg.Body, msg.InventoryType));
+            });
+
             Receive<FactoryCoordinatorActor.FactoryCreated>(msg =>
             {
                 Context.LogMessageDebug(msg);
@@ -54,6 +63,30 @@ namespace Entities
             {
                 Sender.Tell(new FactoryQueryResult(_factories));
             });
+        }
+
+        public class CreateFactoryOnBody
+        {
+            public CreateFactoryOnBody(IActorRef centerOfMassActor, string name, FactoryType factoryType, CelestialBody body, InventoryType inventoryType)
+            {
+                if (centerOfMassActor == null) throw new ArgumentNullException(nameof(centerOfMassActor));
+                if (factoryType == null) throw new ArgumentNullException(nameof(factoryType));
+                if (body == null) throw new ArgumentNullException(nameof(body));
+                if (inventoryType == null) throw new ArgumentNullException(nameof(inventoryType));
+                if (String.IsNullOrWhiteSpace(name)) throw new ArgumentException("Argument is null or whitespace", nameof(name));
+
+                CenterOfMassActor = centerOfMassActor;
+                Name = name;
+                FactoryType = factoryType;
+                Body = body;
+                InventoryType = inventoryType;
+            }
+
+            public IActorRef CenterOfMassActor { get; private set; }
+            public string Name { get; private set; }
+            public FactoryType FactoryType { get; private set; }
+            public CelestialBody Body { get; private set; }
+            public InventoryType InventoryType { get; private set; }
         }
 
         public string Name { get; }
