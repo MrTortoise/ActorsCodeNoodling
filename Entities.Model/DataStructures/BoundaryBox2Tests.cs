@@ -17,10 +17,10 @@ namespace Entities.Model.DataStructures
         public void AssertEmptyValuesAre0()
         {
             var ut = Bounding2DBox.Empty;
-            Assert.AreEqual(0, ut.BottomLeft.X);
-            Assert.AreEqual(0, ut.BottomLeft.Y);
-            Assert.AreEqual(0, ut.TopRight.X);
-            Assert.AreEqual(0, ut.TopRight.Y);
+            Assert.AreEqual(0, ut.LowerLeft.X);
+            Assert.AreEqual(0, ut.LowerLeft.Y);
+            Assert.AreEqual(0, ut.UpperRight.X);
+            Assert.AreEqual(0, ut.UpperRight.Y);
         }
 
         [TestCase()]
@@ -30,25 +30,34 @@ namespace Entities.Model.DataStructures
             Assert.AreEqual(Bounding2DBox.Empty, ut);
         }
 
-        [TestCase()]
-        public void AssertValuesHold()
+        [TestCase(123, 134, 567, 567)]
+        public void AssertValuesHold(int lx, int ly, int ux, int uy)
         {
-            var bottomLeft = new Point2Int(123, 134);
-            var topRight = new Point2Int(765, 234);
+            var bottomLeft = new Point2Int(lx, ly);
+            var topRight = new Point2Int(ux, uy);
             var ut = new Bounding2DBox(bottomLeft, topRight);
 
-            Assert.AreEqual(bottomLeft, ut.BottomLeft);
-            Assert.AreEqual(topRight, ut.TopRight);
+            Assert.AreEqual(bottomLeft, ut.LowerLeft);
+            Assert.AreEqual(topRight, ut.UpperRight);
         }
 
-        [TestCase()]
-        public void AssertThatBottomLeftisBottomLeftOfTopRight()
+        [TestCase(1, 1, -1, -1, true)]
+        [TestCase(-1, -1, 1, 1, false)]
+        [TestCase(0, 0, 0, 0, false)]
+        public void AssertThatBottomLeftisBottomLeftOfTopRight(int lx, int ly, int ux, int uy, bool expectThrow)
         {
-            var bottomLeft = Point2Int.Zero;
-            var topRight = new Point2Int(-1, -1);
+            if (expectThrow)
+            {
+                var bottomLeft = new Point2Int(lx, ly);
+                var topRight = new Point2Int(ux, uy);
 
-            // ReSharper disable once ObjectCreationAsStatement
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Bounding2DBox(bottomLeft, topRight));
+                // ReSharper disable once ObjectCreationAsStatement
+                Assert.Throws<ArgumentOutOfRangeException>(() => new Bounding2DBox(bottomLeft, topRight));
+            }
+            else
+            {
+                AssertValuesHold(lx, ly, ux, uy);
+            }
         }
 
         [TestCase(-3, 0, false)]

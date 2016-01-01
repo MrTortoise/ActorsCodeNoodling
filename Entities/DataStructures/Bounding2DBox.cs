@@ -10,16 +10,17 @@ namespace Entities.DataStructures
         public static readonly Bounding2DBox Empty = new Bounding2DBox(Point2Int.Zero, Point2Int.Zero);
         public static readonly Bounding2DBox Max = new Bounding2DBox(Point2Int.Min, Point2Int.Max);
 
-        public Point2Int BottomLeft { get; private set; }
-        public Point2Int TopRight { get; private set; }
+        public Point2Int LowerLeft { get; private set; }
+        public Point2Int UpperRight { get; private set; }
 
-        public Bounding2DBox(Point2Int bottomLeft, Point2Int topRight)
+        public Bounding2DBox(Point2Int lowerLeft, Point2Int upperRight)
         {
-            if (bottomLeft.X > topRight.X || bottomLeft.Y > topRight.Y)
-                throw new ArgumentOutOfRangeException($"Bottom Left is not bottom left of top right, bottomLeft:{bottomLeft}, topRight:{topRight}");
+            if (lowerLeft.X > upperRight.X 
+                || lowerLeft.Y > upperRight.Y)
+                throw new ArgumentOutOfRangeException($"Bottom Left is not bottom left of top right, bottomLeft:{lowerLeft}, topRight:{upperRight}");
 
-            BottomLeft = bottomLeft;
-            TopRight = topRight;
+            LowerLeft = lowerLeft;
+            UpperRight = upperRight;
         }
 
         /// <summary>
@@ -28,8 +29,8 @@ namespace Entities.DataStructures
         /// <returns>the value will be rounded down so we use less than or equal to</returns>
         public Point2Int CenterPoint()
         {
-            var middleX = (BottomLeft.X + TopRight.X)/2;
-            var middleY = (BottomLeft.Y + TopRight.Y)/2;
+            var middleX = (LowerLeft.X + UpperRight.X)/2;
+            var middleY = (LowerLeft.Y + UpperRight.Y)/2;
 
             return new Point2Int(middleX, middleY);
         }
@@ -41,18 +42,18 @@ namespace Entities.DataStructures
         /// <returns></returns>
         public bool ContainsPoint(Point2Int point)
         {
-            return point.X < TopRight.X
-                   && point.X >= BottomLeft.X
-                   && point.Y < TopRight.Y
-                   && point.Y >= BottomLeft.Y;
+            return point.X < UpperRight.X
+                   && point.X >= LowerLeft.X
+                   && point.Y < UpperRight.Y
+                   && point.Y >= LowerLeft.Y;
         }
 
         public bool DoesBoundaryBoxIntersect(Bounding2DBox area)
         {
-            return area.BottomLeft.X < this.TopRight.X
-                   && area.BottomLeft.Y < this.TopRight.Y
-                   && area.TopRight.X >= this.BottomLeft.X
-                   && area.TopRight.Y >= this.BottomLeft.Y;
+            return area.LowerLeft.X < this.UpperRight.X
+                   && area.LowerLeft.Y < this.UpperRight.Y
+                   && area.UpperRight.X >= this.LowerLeft.X
+                   && area.UpperRight.Y >= this.LowerLeft.Y;
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace Entities.DataStructures
         /// </returns>
         public override string ToString()
         {
-            return $"BoundingBox(BottomLeft:{BottomLeft},TopRight:{TopRight}";
+            return $"BoundingBox(BottomLeft:{LowerLeft},TopRight:{UpperRight}";
         }
 
         /// <summary>
@@ -88,7 +89,7 @@ namespace Entities.DataStructures
         /// <param name="other">An object to compare with this object.</param>
         public bool Equals(Bounding2DBox other)
         {
-            return BottomLeft.Equals(other.BottomLeft) && TopRight.Equals(other.TopRight);
+            return LowerLeft.Equals(other.LowerLeft) && UpperRight.Equals(other.UpperRight);
         }
 
         /// <summary>
@@ -101,7 +102,7 @@ namespace Entities.DataStructures
         {
             unchecked
             {
-                return (BottomLeft.GetHashCode()*397) ^ TopRight.GetHashCode();
+                return (LowerLeft.GetHashCode()*397) ^ UpperRight.GetHashCode();
             }
         }
 

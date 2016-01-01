@@ -88,8 +88,13 @@
     <Compile Include="CargoSize.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataStructures\Bounding2DBox.cs" />
+    <Compile Include="DataStructures\BoundingCuboid.cs" />
     <Compile Include="DataStructures\IQuadTreeDivisionStrategy.cs" />
+    <Compile Include="DataStructures\ISimpleOctTreeDivisionStrategy.cs" />
+    <Compile Include="DataStructures\OctTree.cs" />
     <Compile Include="DataStructures\Point2Int.cs" />
+    <Compile Include="DataStructures\Point3Int.cs" />
+    <Compile Include="DataStructures\SimpleOctTreeDivisionStrategy.cs" />
     <Compile Include="DataStructures\SimpleQuadTreeDivisionStrategy.cs" />
     <Compile Include="DateTimeProvider.cs" />
     <Compile Include="ExchangeContract.cs" />

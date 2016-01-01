@@ -7,14 +7,14 @@ namespace Entities.DataStructures
             int maxItems = points.Length;
             var center = boundingBox.CenterPoint();
 
-            var bottomLeftOfNorthWest = new Point2Int(boundingBox.BottomLeft.X, center.Y);
-            var topRightOfNorthWest = new Point2Int(center.X, boundingBox.TopRight.Y);
+            var bottomLeftOfNorthWest = new Point2Int(boundingBox.LowerLeft.X, center.Y);
+            var topRightOfNorthWest = new Point2Int(center.X, boundingBox.UpperRight.Y);
             var bottomLeftOfNorthEast = center;
-            var topRightOfNorthEast = boundingBox.TopRight;
-            var bottomLeftOfSouthWest = boundingBox.BottomLeft;
+            var topRightOfNorthEast = boundingBox.UpperRight;
+            var bottomLeftOfSouthWest = boundingBox.LowerLeft;
             var topRightOfSouthWest = center;
-            var bottomLeftOfSouthEast = new Point2Int(center.X, boundingBox.BottomLeft.Y);
-            var topRightOfSouthEast = new Point2Int(boundingBox.TopRight.X, center.Y);
+            var bottomLeftOfSouthEast = new Point2Int(center.X, boundingBox.LowerLeft.Y);
+            var topRightOfSouthEast = new Point2Int(boundingBox.UpperRight.X, center.Y);
 
             northWest = new QuadTree(new Bounding2DBox(bottomLeftOfNorthWest, topRightOfNorthWest), maxItems, this);
             northEast = new QuadTree(new Bounding2DBox(bottomLeftOfNorthEast, topRightOfNorthEast), maxItems, this);

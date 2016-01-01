@@ -79,6 +79,8 @@
     <Compile Include="CenterOfMassActors\CenterOfMassActorTests.cs" />
     <Compile Include="CenterOfMassActors\CenterOfMassSteps.cs" />
     <Compile Include="DataStructures\BoundaryBox2Tests.cs" />
+    <Compile Include="DataStructures\BoundingCuboidTests.cs" />
+    <Compile Include="DataStructures\OctTreeTests.cs" />
     <Compile Include="DataStructures\Point2IntTests.cs" />
     <Compile Include="DataStructures\QuadTreeTests.cs" />
     <Compile Include="FactoryTests\FactoryCoordinatorActor.feature.cs">
