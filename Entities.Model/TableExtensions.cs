@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Entities.DataStructures;
 using TechTalk.SpecFlow;
 
 namespace Entities.Model
@@ -26,6 +27,20 @@ namespace Entities.Model
             }
 
             return inventoryTypes.ToArray();
+        }
+
+        public static Point2Int[] GetPoints(this Table table)
+        {
+            var points = new Point2Int[table.RowCount];
+            for (int i = 0; i < table.RowCount; i++)
+            {
+                int x = int.Parse(table.Rows[i]["X"]);
+                int y = int.Parse(table.Rows[i]["Y"]);
+                var point = new Point2Int(x,y);
+                points[i] = point;
+            }
+
+            return points;
         }
     }
 }

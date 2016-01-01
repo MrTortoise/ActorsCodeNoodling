@@ -60,6 +60,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj">
@@ -76,6 +78,9 @@
     </Compile>
     <Compile Include="CenterOfMassActors\CenterOfMassActorTests.cs" />
     <Compile Include="CenterOfMassActors\CenterOfMassSteps.cs" />
+    <Compile Include="DataStructures\BoundaryBox2Tests.cs" />
+    <Compile Include="DataStructures\Point2IntTests.cs" />
+    <Compile Include="DataStructures\QuadTreeTests.cs" />
     <Compile Include="FactoryTests\FactoryCoordinatorActor.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,6 +98,12 @@
       <DependentUpon>Heartbeat.feature</DependentUpon>
     </Compile>
     <Compile Include="Heartbeats\HeartbeatSteps.cs" />
+    <Compile Include="QuadTreeSpecificationSteps.cs" />
+    <Compile Include="QuadTreeSpec\QuadTreeSpecification.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuadTreeSpecification.feature</DependentUpon>
+    </Compile>
     <Compile Include="SqlPersistenceSteps.cs" />
     <Compile Include="TestTimeProvider.cs" />
     <Compile Include="ImmutibleDicTests\DictionaryTest.cs" />
@@ -210,6 +221,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TraderCreateFactory.feature</DependentUpon>
     </Compile>
+    <Compile Include="Traders\TraderExchangeWithOwnedFactory.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TraderExchangeWithOwnedFactory.feature</DependentUpon>
+    </Compile>
     <Compile Include="Traders\TraderSteps.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +302,10 @@
     <None Include="protos\google\protobuf\csharp_options.proto" />
     <None Include="protos\google\protobuf\descriptor.proto" />
     <None Include="protos\tutorial\addressbook.proto" />
+    <None Include="QuadTreeSpec\QuadTreeSpecification.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>QuadTreeSpecification.feature.cs</LastGenOutput>
+    </None>
     <None Include="ResourceManagerFeature\ResourceManager.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ResourceManager.feature.cs</LastGenOutput>
@@ -297,6 +317,10 @@
     <None Include="Traders\TraderCreateFactory.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>TraderCreateFactory.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Traders\TraderExchangeWithOwnedFactory.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>TraderExchangeWithOwnedFactory.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

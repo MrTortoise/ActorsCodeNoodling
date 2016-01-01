@@ -87,6 +87,10 @@
   <ItemGroup>
     <Compile Include="CargoSize.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="DataStructures\Bounding2DBox.cs" />
+    <Compile Include="DataStructures\IQuadTreeDivisionStrategy.cs" />
+    <Compile Include="DataStructures\Point2Int.cs" />
+    <Compile Include="DataStructures\SimpleQuadTreeDivisionStrategy.cs" />
     <Compile Include="DateTimeProvider.cs" />
     <Compile Include="ExchangeContract.cs" />
     <Compile Include="Factories\FactoryType.cs" />
@@ -107,6 +111,7 @@
     <Compile Include="Observation\Event.cs" />
     <Compile Include="Observation\ObserverActor.cs" />
     <Compile Include="Observation\UnObserve.cs" />
+    <Compile Include="DataStructures\QuadTree.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="UpdateDelta.cs" />
     <Compile Include="NameGenerators\INameGenerator.cs" />
@@ -310,15 +315,7 @@
     </When>
   </Choose>
   <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6')">
-      <ItemGroup>
-        <Reference Include="nunit.framework">
-          <HintPath>..\packages\NUnit\lib\net45\nunit.framework.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6')" />
   </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6')">
