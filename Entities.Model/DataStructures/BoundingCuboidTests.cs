@@ -94,7 +94,19 @@ namespace Entities.Model.DataStructures
 
             Assert.AreEqual(shouldPass, box.DoesBoundaryCuboidIntersect(ut));
         }
-        
 
+        [TestCase(-1, -1, -1, 1, 1, 1, 0, 0, 0, true)]
+        [TestCase(-3, -3, -3, -1, -1, -1, -2, -2, -2, true)]
+        public void CenterTests(
+            int minx, int miny, int minz,
+            int maxx, int maxy, int maxz, 
+            int x, int y, int z, 
+            bool expected)
+        {
+            var ut = new BoundingCuboid(new Point3Int(minx, miny, minz), new Point3Int(maxx, maxy, maxz));
+            var point = new Point3Int(x, y, z);
+            var center = ut.CenterPoint();
+            Assert.AreEqual(expected, point == center);
+        }
     }
 }

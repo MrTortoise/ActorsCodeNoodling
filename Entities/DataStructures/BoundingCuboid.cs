@@ -50,6 +50,15 @@ namespace Entities.DataStructures
                    && cuboid.UpperRight.Z >= this.LowerLeft.Z;
         }
 
+        public Point3Int CenterPoint()
+        {
+            var midx = (LowerLeft.X + UpperRight.X)/2;
+            var midy = (LowerLeft.Y + UpperRight.Y)/2;
+            var midz = (LowerLeft.Z + UpperRight.Z)/2;
+
+            return new Point3Int(midx, midy, midz);
+        }
+
         /// <summary>
         /// Returns the fully qualified type name of this instance.
         /// </summary>
@@ -109,5 +118,6 @@ namespace Entities.DataStructures
         {
             return !left.Equals(right);
         }
+
     }
 }
