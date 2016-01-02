@@ -6,6 +6,23 @@ using System.Threading.Tasks;
 
 namespace Entities.DataStructures
 {
+    public class Point3Int<T>
+    {
+        public Point3Int(Point3Int point, T value)
+        {
+            if (value == null) throw new ArgumentNullException(nameof(value));
+
+            Point = point;
+            Value = value;
+        }
+
+        public Point3Int(int x, int y, int z, T value)
+            : this(new Point3Int(x, y, z), value){}
+
+        public Point3Int Point { get; }
+        public T Value { get; }
+    }
+
     public struct Point3Int : IEquatable<Point3Int>
     {
         public static readonly Point3Int Min = new Point3Int(int.MinValue, int.MinValue, int.MinValue);
@@ -22,7 +39,7 @@ namespace Entities.DataStructures
         public int X { get; }
         public int Y { get; }
         public int Z { get; }
-        
+
 
         /// <summary>
         /// Returns the fully qualified type name of this instance.
@@ -36,12 +53,12 @@ namespace Entities.DataStructures
         }
 
         /// <summary>
-        /// Determines whether the specified object is equal to the current object.
+        /// Indicates whether this instance and a specified object are equal.
         /// </summary>
         /// <returns>
-        /// true if the specified object  is equal to the current object; otherwise, false.
+        /// true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false. 
         /// </returns>
-        /// <param name="obj">The object to compare with the current object. </param>
+        /// <param name="obj">The object to compare with the current instance. </param>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;

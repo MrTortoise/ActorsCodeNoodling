@@ -15,7 +15,7 @@ namespace Entities.Model.DataStructures
         [TestCase(1,2,3,4,5,6)]
         public void AssertValuesHold(int llx, int lly, int llz, int urx, int ury, int urz)
         {
-            var lowerLeft = new Point3Int(llx,lly,llz);
+            var lowerLeft = new Point3Int(llx, lly, llz);
             var upperRight = new Point3Int(urx, ury, urz);
 
             var ut = new BoundingCuboid(lowerLeft,upperRight);
@@ -51,7 +51,6 @@ namespace Entities.Model.DataStructures
         [TestCase(-1, 0, 0, true, TestName = "= left side")]
         [TestCase(0, -1, 0, true, TestName = "= bottom side")]
         [TestCase(0, 0, -1, true, TestName = "= front side")]
-        // these fail as positive are a less than check.
         [TestCase(1, 0, 0, false, TestName = "= right side")]
         [TestCase(0, 1, 0, false, TestName = "= top side")]
         [TestCase(0, 0, 1, false, TestName = "= back side")]

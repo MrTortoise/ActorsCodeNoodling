@@ -11,7 +11,7 @@ using NUnit.Framework.Constraints;
 namespace Entities.Model.DataStructures
 {
     [TestFixture]
-    class BoundaryBox2Tests
+    public class BoundaryBox2Tests
     {
         [TestCase()]
         public void AssertEmptyValuesAre0()

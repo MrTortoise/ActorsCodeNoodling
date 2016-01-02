@@ -15,38 +15,42 @@ namespace Entities.Model.DataStructures
         [TestCase(0,0,0)]
         public void AddAPointAssertExists(int x, int y, int z)
         {
-            var ut = new OctTree(BoundingCuboid.Max, 10, new SimpleOctTreeDivisionStrategy());
+            var ut = new OctTree<object>(BoundingCuboid.Max, 10, new SimpleOctTreeDivisionStrategy<object>());
             var point3Int = new Point3Int(x, y, z);
-            ut.Add(point3Int);
 
-            Assert.Contains(point3Int,ut.Points);
+            var point = new Point3Int<object>(point3Int, new object());
+            ut.Add(point);
+
+            Assert.Contains(point, ut.Points);
         }
 
         [TestCase()]
         public void DontAddPoint()
         {
-            var ut = new OctTree(BoundingCuboid.Max, 10,new SimpleOctTreeDivisionStrategy());
-            Assert.IsFalse(ut.Points.Contains(Point3Int.Zero));
+            var ut = new OctTree<object>(BoundingCuboid.Max, 10,new SimpleOctTreeDivisionStrategy<object>());
+            var point = new Point3Int<object>(Point3Int.Zero, new object());
+            Assert.IsFalse(ut.Points.Contains(point));
         }
 
         [TestCase()]
         public void AddPointsExceedCapacityAssertEndUpInRightOct()
         {
-            var blf = new Point3Int(-2, -2, -2);
-            var brf = new Point3Int(2, -2, -2);
+            var obj = new object();
+            var blf = new Point3Int<object>(-2, -2, -2, obj);
+            var brf = new Point3Int<object>(2, -2, -2, obj);
 
-            var blb = new Point3Int(-2, -2, 2);
-            var brb = new Point3Int(2, -2, 2);
+            var blb = new Point3Int<object>(-2, -2, 2, obj);
+            var brb = new Point3Int<object>(2, -2, 2, obj);
 
-            var ulf = new Point3Int(-2, 2, -2);
-            var urf = new Point3Int(2, 2, -2);
+            var ulf = new Point3Int<object>(-2, 2, -2, obj);
+            var urf = new Point3Int<object>(2, 2, -2, obj);
 
-            var ulb = new Point3Int(-2, 2, 2);
-            var urb = new Point3Int(2, 2, 2);
+            var ulb = new Point3Int<object>(-2, 2, 2, obj);
+            var urb = new Point3Int<object>(2, 2, 2, obj);
 
-            var magicNumber9 = new Point3Int(0, 0, 0);
+            var magicNumber9 = new Point3Int<object>(0, 0, 0, obj);
 
-            var ut = new OctTree(BoundingCuboid.Max, 8, new SimpleOctTreeDivisionStrategy());
+            var ut = new OctTree<object>(BoundingCuboid.Max, 8, new SimpleOctTreeDivisionStrategy<object>());
 
             ut.Add(blf);
             ut.Add(brf);
@@ -106,12 +110,13 @@ namespace Entities.Model.DataStructures
 
             var area = new BoundingCuboid(new Point3Int(boundaryMinX, boundaryMinY, boundaryMinZ), new Point3Int(boundaryMaxX, boundaryMaxY, boundaryMaxZ));
 
-            var point = new Point3Int(x, y, z);
+            var obj = new object();
+            var point = new Point3Int<object>(x, y, z, obj);
 
-            var ut = new OctTree(octTreeBoundingBox, 10, new SimpleOctTreeDivisionStrategy());
+            var ut = new OctTree<object>(octTreeBoundingBox, 10, new SimpleOctTreeDivisionStrategy<object>());
             ut.Add(point);
 
-            var points = new List<Point3Int>();
+            var points = new List<Point3Int<object>>();
             ut.GetPointsWithinBoundary(area, ref points);
 
             Assert.AreEqual(expected, points.Contains(point));

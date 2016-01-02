@@ -2,31 +2,31 @@
 
 namespace Entities.DataStructures
 {
-    public class OctTree
+    public class OctTree<T>
     {
-        public BoundingCuboid Boundary { get;  }
-        public int MaxItems { get;  }
-        public ISimpleOctTreeDivisionStrategy SimpleOctTreeDivisionStrategy { get;  }
-        public Point3Int[] Points { get; private set; }
+        public BoundingCuboid Boundary { get; }
+        public int MaxItems { get; }
+        public ISimpleOctTreeDivisionStrategy<T> SimpleOctTreeDivisionStrategy { get; }
+        public Point3Int<T>[] Points { get; private set; }
 
-        public OctTree ULF { get; private set; }
-        public OctTree URF { get; private set; }
-        public OctTree ULB { get; private set; }
-        public OctTree URB { get; private set; }
-        public OctTree BLF { get; private set; }
-        public OctTree BRF { get; private set; }
-        public OctTree BLB { get; private set; }
-        public OctTree BRB { get; private set; }
+        public OctTree<T> ULF { get; private set; }
+        public OctTree<T> URF { get; private set; }
+        public OctTree<T> ULB { get; private set; }
+        public OctTree<T> URB { get; private set; }
+        public OctTree<T> BLF { get; private set; }
+        public OctTree<T> BRF { get; private set; }
+        public OctTree<T> BLB { get; private set; }
+        public OctTree<T> BRB { get; private set; }
 
-        public OctTree(BoundingCuboid boundary, int maxItems, ISimpleOctTreeDivisionStrategy simpleOctTreeDivisionStrategy)
+        public OctTree(BoundingCuboid boundary, int maxItems, ISimpleOctTreeDivisionStrategy<T> simpleOctTreeDivisionStrategy)
         {
             Boundary = boundary;
             MaxItems = maxItems;
             SimpleOctTreeDivisionStrategy = simpleOctTreeDivisionStrategy;
-            Points = new Point3Int[0];
+            Points = new Point3Int<T>[0];
         }
 
-        public void Add(Point3Int point)
+        public void Add(Point3Int<T> point)
         {
             if (Points.Length + 1 > MaxItems)
             {
@@ -34,22 +34,22 @@ namespace Entities.DataStructures
                 return;
             }
 
-            var newPoints = new Point3Int[Points.Length +1];
+            var newPoints = new Point3Int<T>[Points.Length + 1];
             Points.CopyTo(newPoints, 0);
             Points = newPoints;
             Points[Points.Length - 1] = point;
         }
 
-        private void SpawnChildrenAndSubdivide(Point3Int point)
+        private void SpawnChildrenAndSubdivide(Point3Int<T> point)
         {
-            OctTree tlf;
-            OctTree trf;
-            OctTree tlb;
-            OctTree trb;
-            OctTree blf;
-            OctTree brf;
-            OctTree blb;
-            OctTree brb;
+            OctTree<T> tlf;
+            OctTree<T> trf;
+            OctTree<T> tlb;
+            OctTree<T> trb;
+            OctTree<T> blf;
+            OctTree<T> brf;
+            OctTree<T> blb;
+            OctTree<T> brb;
 
             SimpleOctTreeDivisionStrategy.SubDivide(Points, point, Boundary, out tlf, out trf, out tlb, out trb, out blf, out brf, out blb, out brb);
 
@@ -65,7 +65,7 @@ namespace Entities.DataStructures
             Points = null;
         }
 
-        public void GetPointsWithinBoundary(BoundingCuboid area, ref List<Point3Int> points)
+        public void GetPointsWithinBoundary(BoundingCuboid area, ref List<Point3Int<T>> points)
         {
             if (!Boundary.DoesBoundaryCuboidIntersect(area))
             {
@@ -89,11 +89,11 @@ namespace Entities.DataStructures
             }
         }
 
-        private void GetLocalPointsInCuboid(BoundingCuboid cuboid, ref List<Point3Int> points)
+        private void GetLocalPointsInCuboid(BoundingCuboid cuboid, ref List<Point3Int<T>> points)
         {
             for (int i = 0; i < Points.Length; i++)
             {
-                if (cuboid.ContainsPoint(Points[i]))
+                if (cuboid.ContainsPoint(Points[i].Point))
                 {
                     points.Add(Points[i]);
                 }
