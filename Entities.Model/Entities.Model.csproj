@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="CenterOfMassActors\CenterOfMassActorTests.cs" />
     <Compile Include="CenterOfMassActors\CenterOfMassSteps.cs" />
+    <Compile Include="DataStructures\BalancedBoundingTreeTests.cs" />
     <Compile Include="DataStructures\BoundaryBox2Tests.cs" />
     <Compile Include="DataStructures\BoundingCuboidTests.cs" />
     <Compile Include="DataStructures\OctTreeTests.cs" />
@@ -229,6 +230,13 @@
       <DependentUpon>TraderExchangeWithOwnedFactory.feature</DependentUpon>
     </Compile>
     <Compile Include="Traders\TraderSteps.cs" />
+    <Compile Include="UniverseGeneratorTests\DistributionGenerator.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DistributionGenerator.feature</DependentUpon>
+    </Compile>
+    <Compile Include="UniverseGeneratorTests\DistributionProviderTests.cs" />
+    <Compile Include="UniverseGeneratorTests\EqualityFunctionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -323,6 +331,10 @@
     <None Include="Traders\TraderExchangeWithOwnedFactory.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>TraderExchangeWithOwnedFactory.feature.cs</LastGenOutput>
+    </None>
+    <None Include="UniverseGeneratorTests\DistributionGenerator.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DistributionGenerator.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -77,7 +77,7 @@ namespace Entities.NameGenerators
 
         private void WaitingForRandomNumbers()
         {
-            Receive<RandomActor.RandomResult>(msg =>
+            Receive<RandomIntActor.RandomResult>(msg =>
             {
                 Context.LogMessageDebug(msg);
                 int numberOfStrings = msg.Number.Length/_numberOfCharacters;
@@ -131,7 +131,7 @@ namespace Entities.NameGenerators
 
         private void TellWantRandomNumbers(int numberOfLocations)
         {
-            _randomActorRef.Tell(new RandomActor.NextRandom('A', 'Z' + 1, _numberOfCharacters*numberOfLocations));
+            _randomActorRef.Tell(new RandomIntActor.NextRandom('A', 'Z' + 1, _numberOfCharacters*numberOfLocations));
         }
 
 

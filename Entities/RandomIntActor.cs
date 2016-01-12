@@ -8,35 +8,37 @@ using Akka.Actor;
 namespace Entities
 {
     /// <summary>
-    /// Wraps random to avoid the thread safety bullshit.
+    /// Wraps random to avoid the thread safety bullshit. 
     /// </summary>
-    public class RandomActor : ReceiveActor
+    public class RandomIntActor : ReceiveActor
     {
         private readonly Random _random;
 
+        public static string Path => @"user/RandomInt";
 
-        public static string Path => @"user/Random";
-
-        public static string Name => "Random";
+        public static string Name => "RandomInt";
 
         public static Props CreateProps(Random random)
         {
-            return Props.Create(() => new RandomActor(random));
+            return Props.Create(() => new RandomIntActor(random));
         }
 
-        public RandomActor(Random random)
+        public RandomIntActor(Random random)
         {
             _random = random;
 
             Receive<NextRandom>(msg =>
             {
-                int[] numbers = new int[msg.NumberOfNumbers];
-                for (int i = 0; i < msg.NumberOfNumbers; i++)
+                var sender = Sender;
+                Task.Run(() =>
                 {
-                    numbers[i] = _random.Next(msg.MinValue, msg.MaxValue);
-                }
-                
-                Sender.Tell(new RandomResult(numbers));
+                    int[] numbers = new int[msg.NumberOfNumbers];
+                    for (int i = 0; i < msg.NumberOfNumbers; i++)
+                    {
+                        numbers[i] = _random.Next(msg.MinValue, msg.MaxValue);
+                    }
+                    return new RandomResult(numbers);
+                }).PipeTo(sender);
             });
         }
 

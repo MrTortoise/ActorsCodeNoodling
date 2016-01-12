@@ -39,7 +39,7 @@ namespace Entities.Model.Random
 
             _testkit = new TestKit(config, "testSystem");
             var random = new System.Random();
-            _random = _testkit.Sys.ActorOf(RandomActor.CreateProps(random), "random");
+            _random = _testkit.Sys.ActorOf(RandomIntActor.CreateProps(random), "random");
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Entities.Model.Random
             var maxValue = 12345;
             var numberOfNumbers = 1000;
 
-            var msg = _random.Ask<RandomActor.RandomResult>(new RandomActor.NextRandom(minValue, maxValue, numberOfNumbers));
+            var msg = _random.Ask<RandomIntActor.RandomResult>(new RandomIntActor.NextRandom(minValue, maxValue, numberOfNumbers));
             msg.Wait();
 
             Assert.That(msg.Result.Number.Length == numberOfNumbers);

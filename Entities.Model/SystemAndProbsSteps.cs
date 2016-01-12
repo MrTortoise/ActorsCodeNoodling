@@ -89,7 +89,7 @@ namespace Entities.Model
         public void GivenIHaveCreatedARandomActor()
         {
             var random = new System.Random();
-            _state.RandomActor = _state.TestKit.Sys.ActorOf(RandomActor.CreateProps(random), "random");
+            _state.RandomActor = _state.TestKit.Sys.ActorOf(RandomIntActor.CreateProps(random), "random");
         }
     }
 }

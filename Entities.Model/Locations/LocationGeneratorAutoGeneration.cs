@@ -38,7 +38,7 @@ namespace Entities.Model.Locations
 
             _testkit = new TestKit(config, "testSystem");
             var random = new System.Random();
-            _random = _testkit.Sys.ActorOf(RandomActor.CreateProps(random), "random");
+            _random = _testkit.Sys.ActorOf(RandomIntActor.CreateProps(random), "random");
             _locationGenerator = _testkit.Sys.ActorOf(LocationNameGeneratorActor.CreateProps(_random, 6),
                 LocationNameGeneratorActor.Name);
         }
