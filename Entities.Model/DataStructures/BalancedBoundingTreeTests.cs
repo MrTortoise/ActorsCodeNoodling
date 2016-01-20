@@ -14,6 +14,8 @@ namespace Entities.Model.DataStructures
     [TestFixture]
     class BalancedBoundingTreeTests
     {
+        private const string MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs = @"M:\programming\general\git\EconomySimulator\TradingAISimulator\Entities.Model\bin\Debug\Graphs\";
+
         [SetUp]
         public void SetUp()
         {
@@ -144,15 +146,14 @@ namespace Entities.Model.DataStructures
             var alpha = ut.Insert(50, 100, new object()); //alpha
 
             // log before
-            const string directory = @"M:\programming\general\git\EconomySimulator\TradingAISimulator\Entities.Model\bin\Debug\Graphs\";
             string beforeFileName = @"balancedBoundingTreeTests.RotateRight.png";
-            ut.Write(10, directory, beforeFileName, Log.Logger).Wait();
+            ut.Write(10, MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs, beforeFileName, Log.Logger).Wait();
 
             ut.RightRotate(ut.Root);
 
             //log after
             string afterFileName = @"balancedBoundingTreeTests.RotateRight.Result.png";
-            ut.Write(10, directory, afterFileName, Log.Logger).Wait();
+            ut.Write(10, MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs, afterFileName, Log.Logger).Wait();
 
             Assert.AreSame(alpha, ut.Root);
             Assert.AreSame(BalancedBoundingTree<double, object>.Nil, alpha.Parent);
@@ -190,16 +191,31 @@ namespace Entities.Model.DataStructures
 
 
             tree.Root.UpperTree = fourteen;
+            fourteen.Parent = tree.Root;
             fourteen.UpperTree = fifteen;
+            fifteen.Parent = fourteen;
 
             tree.Root.LowerTree = two;
+            two.Parent = tree.Root;
             two.LowerTree = one;
+            one.Parent = two;
             two.UpperTree = seven;
+            seven.Parent = two;
 
             seven.LowerTree = five;
+            five.Parent = seven;
             seven.UpperTree = eight;
+            eight.Parent = seven;
 
-            tree.Insert(3.5, 4.5, value);
+            // log before
+            string beforeFileName = @"balancedBoundingTreeTests.RBInsertFixupLeftHandVersion.png";
+            tree.Write(10, MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs, beforeFileName, Log.Logger).Wait();
+
+            tree.Insert(four);
+
+            // log after
+            string afterFileName = @"balancedBoundingTreeTests.RBInsertFixupLeftHandVersion.Result.png";
+            tree.Write(10, MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs, afterFileName, Log.Logger).Wait();
 
             Assert.AreSame(seven, tree.Root);
 

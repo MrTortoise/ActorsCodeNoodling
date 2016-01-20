@@ -11,7 +11,15 @@ namespace Entities.DataStructures
     public class BalancedBoundingTree<TBounds, TPayload> 
         where TBounds : IComparable<TBounds>, IEquatable<TBounds>
     {
-        public static readonly BalancedBoundingNode Nil = new BalancedBoundingNode(default(TBounds), default(TBounds), default(TPayload), BalancedBoundingNode.Colour.Black);
+        public static readonly BalancedBoundingNode Nil;
+
+        static BalancedBoundingTree()
+        {
+            Nil = new BalancedBoundingNode(default(TBounds), default(TBounds), default(TPayload), BalancedBoundingNode.Colour.Black);
+            Nil.LowerTree = Nil;
+            Nil.UpperTree = Nil;
+            Nil.Parent = Nil;
+        }
 
         public BalancedBoundingTree(TBounds lower, TBounds upper, TPayload value)
         {
@@ -66,7 +74,7 @@ namespace Entities.DataStructures
             return node;
         }
 
-        private void Insert(BalancedBoundingNode node)
+        public void Insert(BalancedBoundingNode node)
         {
             BalancedBoundingNode y = Nil;
             BalancedBoundingNode x = Root;
@@ -114,7 +122,7 @@ namespace Entities.DataStructures
                     var y = node.Parent.Parent.UpperTree;
                     if (y.NodeColour == BalancedBoundingNode.Colour.Red)
                     {
-                        y.Parent.NodeColour = BalancedBoundingNode.Colour.Black;
+                        node.Parent.NodeColour = BalancedBoundingNode.Colour.Black;
                         y.NodeColour = BalancedBoundingNode.Colour.Black;
                         node.Parent.Parent.NodeColour = BalancedBoundingNode.Colour.Red;
                         node = node.Parent.Parent;
@@ -352,7 +360,7 @@ namespace Entities.DataStructures
             /// </returns>
             public override string ToString()
             {
-                return $"BBT:{LowerBound}:{UpperBound})";
+                return $"BBT:{LowerBound}:{UpperBound}:{NodeColour})";
             }
         }
     }
