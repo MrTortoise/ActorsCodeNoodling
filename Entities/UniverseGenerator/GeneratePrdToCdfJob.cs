@@ -18,6 +18,7 @@ namespace Entities.UniverseGenerator
             {
                 double cumulativeProbability = 0;
                 int range = msg.Max - msg.Min;
+                // as the range is an int we can see if we can sample every int value or not. If so then number of poitns is meaningless.
                 if (range > msg.NoPointsToSample)
                 {
                     Tuple<double, int>[] graph = new Tuple<double, int>[msg.NoPointsToSample];
@@ -31,7 +32,7 @@ namespace Entities.UniverseGenerator
                         graph[i] = new Tuple<double, int>(cumulativeProbability, currentVal);
                     }
 
-                    var cdf = new CdfFromHistogramFunction(graph);
+                    Cdf cdf = Cdf.GenerateFromHistogram(graph);
                     Sender.Tell(new CdfGenerated(msg.CdfName, cdf));
                 }
                 else
@@ -45,7 +46,7 @@ namespace Entities.UniverseGenerator
                         graph[i] = new Tuple<double, int>(cumulativeProbability, currentVal);
                     }
 
-                    var cdf = new CdfFromHistogramFunction(graph);
+                    var cdf = Cdf.GenerateFromHistogram(graph);
                     Sender.Tell(new CdfGenerated(msg.CdfName, cdf));
                 }
             });
@@ -72,6 +73,10 @@ namespace Entities.UniverseGenerator
             public ISingleVariableFunction<double, int> Function { get; }
             public int Min { get; }
             public int Max { get; }
+
+            /// <summary>
+            /// This is the number of points on the x axis between the min and max ranges
+            /// </summary>
             public int NoPointsToSample { get; }
             public string CdfName { get; }
 
@@ -87,38 +92,6 @@ namespace Entities.UniverseGenerator
                 NoPointsToSample = noPointsToSample;
                 CdfName = cdfName;
             }
-        }
-    }
-
-    public class CdfFromHistogramFunction : ISingleVariableFunction<int,double>
-    {
-        private readonly Tuple<double, int>[] _graph;
-
-
-        public CdfFromHistogramFunction(Tuple<double, int>[] graph)
-        {
-            if (graph == null) throw new ArgumentNullException(nameof(graph));
-            if (graph.Length == 0) throw new ArgumentException("Argument is empty collection", nameof(graph));
-
-            _graph = graph;
-
-            int total = _graph.Length;
-        }
-
-        public int F(double x)
-        {
-            //if (_graph.ContainsKey(x))
-            //{
-            //    return _graph[x];
-            //}
-
-         throw new NotImplementedException();
-
-            //double previous = 0;
-            //for (var i = 0; i < _graph.Keys.Count; i++)
-            //{
-              
-            //}
         }
     }
 }

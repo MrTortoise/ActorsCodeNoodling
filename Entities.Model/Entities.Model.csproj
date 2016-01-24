@@ -243,6 +243,8 @@
       <DependentUpon>TraderExchangeWithOwnedFactory.feature</DependentUpon>
     </Compile>
     <Compile Include="Traders\TraderSteps.cs" />
+    <Compile Include="UniverseGeneratorTests\CdfGenerationTest.cs" />
+    <Compile Include="UniverseGeneratorTests\CdfTests.cs" />
     <Compile Include="UniverseGeneratorTests\DistributionGenerator.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

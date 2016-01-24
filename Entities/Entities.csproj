@@ -162,6 +162,7 @@
     <Compile Include="RandomDoubleActor.cs" />
     <Compile Include="RNG\RandomNumberProvider.cs" />
     <Compile Include="StringExtensions.cs" />
+    <Compile Include="UniverseGenerator\Cdf.cs" />
     <Compile Include="UniverseGenerator\DistributionGenerator.cs" />
     <Compile Include="UniverseGenerator\DistributionProvider.cs" />
     <Compile Include="UniverseGenerator\EquaityFunction.cs" />
