@@ -6,6 +6,7 @@ namespace Entities.DataStructures
     /// <summary>
     /// Red-Black tree for nodes that are bounded by 2 values. EG a non continuous histogram.
     /// </summary>
+    /// <remarks>This is all based on chapter 13 of introduction to algorithms.</remarks>
     /// <typeparam name="TBounds">The type used for the bounds checking</typeparam>
     /// <typeparam name="TPayload"></typeparam>
     public class BalancedBoundingTree<TBounds, TPayload> 
@@ -110,10 +111,10 @@ namespace Entities.DataStructures
             node.LowerTree = Nil;
             node.UpperTree = Nil;
             node.NodeColour = BalancedBoundingNode.Colour.Red;
-            InsertFixup(node);
+            FixupNode(node);
         }
 
-        private void InsertFixup(BalancedBoundingNode node)
+        public void FixupNode(BalancedBoundingNode node)
         {
             while (node.Parent.NodeColour == BalancedBoundingNode.Colour.Red)
             {

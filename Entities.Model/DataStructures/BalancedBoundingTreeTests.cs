@@ -14,7 +14,7 @@ namespace Entities.Model.DataStructures
     [TestFixture]
     class BalancedBoundingTreeTests
     {
-        private const string MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs = @"M:\programming\general\git\EconomySimulator\TradingAISimulator\Entities.Model\bin\Debug\Graphs\";
+        private const string TestGraphDirectory = @"M:\programming\general\git\EconomySimulator\TradingAISimulator\Entities.Model\bin\Debug\Graphs\";
 
         [SetUp]
         public void SetUp()
@@ -43,7 +43,7 @@ namespace Entities.Model.DataStructures
         [TestCase()]
         public void AddSmallNodeToTree()
         {
-            var ut =new BalancedBoundingTree<double, object>(100, 200, new object());
+            var ut = new BalancedBoundingTree<double, object>(100, 200, new object());
             var node = ut.Insert(50, 100, new object());
 
             Assert.AreEqual(50, ut.Root.LowerTree.LowerBound);
@@ -172,13 +172,13 @@ namespace Entities.Model.DataStructures
 
             // log before
             string beforeFileName = @"balancedBoundingTreeTests.RotateRight.png";
-            ut.Write(10, MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs, beforeFileName, Log.Logger).Wait();
+            ut.Write(10, TestGraphDirectory, beforeFileName, Log.Logger).Wait();
 
             ut.RightRotate(ut.Root);
 
             //log after
             string afterFileName = @"balancedBoundingTreeTests.RotateRight.Result.png";
-            ut.Write(10, MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs, afterFileName, Log.Logger).Wait();
+            ut.Write(10, TestGraphDirectory, afterFileName, Log.Logger).Wait();
 
             Assert.AreSame(x, ut.Root);
             Assert.AreSame(BalancedBoundingTree<double, object>.Nil, x.Parent);
@@ -200,7 +200,7 @@ namespace Entities.Model.DataStructures
         /// Based on an example on page 317 13.3 Insertion
         /// </summary>
         [TestCase]
-        public void RBInsertFixupLeftHandVersion()
+        public void RbInsertFixupLeftHandVersion()
         {
             var value = new object();
             var tree = new BalancedBoundingTree<double,object>(10.5,11.5,value);
@@ -236,14 +236,14 @@ namespace Entities.Model.DataStructures
             eight.Parent = seven;
 
             // log before
-            string beforeFileName = @"balancedBoundingTreeTests.RBInsertFixupLeftHandVersion.png";
-            tree.Write(10, MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs, beforeFileName, Log.Logger).Wait();
+            string beforeFileName = @"balancedBoundingTreeTests.RbInsertFixupLeftHandVersion.png";
+            tree.Write(10, TestGraphDirectory, beforeFileName, Log.Logger).Wait();
 
             tree.Insert(four);
 
             // log after
-            string afterFileName = @"balancedBoundingTreeTests.RBInsertFixupLeftHandVersion.Result.png";
-            tree.Write(10, MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs, afterFileName, Log.Logger).Wait();
+            string afterFileName = @"balancedBoundingTreeTests.RbInsertFixupLeftHandVersion.Result.png";
+            tree.Write(10, TestGraphDirectory, afterFileName, Log.Logger).Wait();
 
             Assert.AreSame(seven, tree.Root);
 
@@ -281,7 +281,7 @@ namespace Entities.Model.DataStructures
         }
 
         [TestCase]
-        public void RBInsertFixupRightHandVersion()
+        public void RbInsertFixupRightHandVersion()
         {
             var value = new object();
             var tree = new BalancedBoundingTree<double, object>(2.5, 3.5, value);
@@ -323,14 +323,14 @@ namespace Entities.Model.DataStructures
             eleven.Parent = ten;
 
             // log before
-            string beforeFileName = @"balancedBoundingTreeTests.RBInsertFixupLeftHandVersion.png";
-            tree.Write(10, MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs, beforeFileName, Log.Logger).Wait();
+            string beforeFileName = @"balancedBoundingTreeTests.RbInsertFixupLeftHandVersion.png";
+            tree.Write(10, TestGraphDirectory, beforeFileName, Log.Logger).Wait();
 
             tree.Insert(twelve);
 
             // log after
-            string afterFileName = @"balancedBoundingTreeTests.RBInsertFixupRightHandVersion.Result.png";
-            tree.Write(10, MProgrammingGeneralGitEconomysimulatorTradingaisimulatorEntitiesModelBinDebugGraphs, afterFileName, Log.Logger).Wait();
+            string afterFileName = @"balancedBoundingTreeTests.RbInsertFixupRightHandVersion.Result.png";
+            tree.Write(10, TestGraphDirectory, afterFileName, Log.Logger).Wait();
 
             Assert.AreSame(ten, tree.Root);
             Assert.AreSame(three, ten.LowerTree);
@@ -398,6 +398,224 @@ namespace Entities.Model.DataStructures
             var rhs = new BalancedBoundingTree<double, object>.BalancedBoundingNode(rhsLower, rhsUpper, obj, BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black);
             int result = lhs.CompareTo(rhs);
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void InsertFixupCase1ATest()
+        {
+            var value = new object();
+            var tree = new BalancedBoundingTree<double, object>(9.5, 10.5, value);
+            var c = tree.Root;
+
+            var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
+            var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+
+            var a = new BalancedBoundingTree<double, object>.BalancedBoundingNode(4.5, 5.5, value, red);
+            a.Parent = c;
+            c.LowerTree = a;
+
+            var b = new BalancedBoundingTree<double, object>.BalancedBoundingNode(7.5, 8.5, value, red);
+            b.Parent = a;
+            a.UpperTree = b;
+
+            var d = new BalancedBoundingTree<double, object>.BalancedBoundingNode(14.5, 15.5, value, red);
+            d.Parent = c;
+            c.UpperTree = d;
+
+          
+            var alpha = new BalancedBoundingTree<double, object>.BalancedBoundingNode(3.5, 4.5, value, black);
+            alpha.Parent = a;
+            a.LowerTree = alpha;
+
+            var beta = new BalancedBoundingTree<double, object>.BalancedBoundingNode(6.5, 7.5, value, black);
+            beta.Parent = b;
+            b.LowerTree = beta;
+
+            var lambda = new BalancedBoundingTree<double, object>.BalancedBoundingNode(8.5, 9.5, value, black);
+            lambda.Parent = b;
+            b.UpperTree = lambda;
+
+            var theta = new BalancedBoundingTree<double, object>.BalancedBoundingNode(13.5, 14.5, value, black);
+            theta.Parent = d;
+            d.LowerTree = theta;
+
+            var epsilon = new BalancedBoundingTree<double, object>.BalancedBoundingNode(15.5, 16.5, value, black);
+            epsilon.Parent = d;
+            d.UpperTree = epsilon;
+
+            tree.FixupNode(b);
+
+            Assert.AreEqual(red, tree.Root.NodeColour);
+            Assert.AreEqual(black,a.NodeColour);
+            Assert.AreEqual(red,b.NodeColour);
+            Assert.AreEqual(black, d.NodeColour);
+        }
+
+        [Test]
+        public void InsertFixupCase1BTest()
+        {
+            var value = new object();
+            var tree = new BalancedBoundingTree<double, object>(9.5, 10.5, value);
+            var c = tree.Root;
+
+            var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
+            var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+
+            var b = new BalancedBoundingTree<double, object>.BalancedBoundingNode(7.5, 8.5, value, red);
+            b.Parent = c;
+            c.LowerTree= b;
+
+            var a = new BalancedBoundingTree<double, object>.BalancedBoundingNode(4.5, 5.5, value, red);
+            a.Parent = b;
+            b.LowerTree = a;
+
+            var d = new BalancedBoundingTree<double, object>.BalancedBoundingNode(14.5, 15.5, value, red);
+            d.Parent = c;
+            c.UpperTree = d;
+
+
+            var alpha = new BalancedBoundingTree<double, object>.BalancedBoundingNode(3.5, 4.5, value, black);
+            alpha.Parent = a;
+            a.LowerTree = alpha;
+
+            var beta = new BalancedBoundingTree<double, object>.BalancedBoundingNode(6.5, 7.5, value, black);
+            beta.Parent = a;
+            a.UpperTree= beta;
+
+            var lambda = new BalancedBoundingTree<double, object>.BalancedBoundingNode(8.5, 9.5, value, black);
+            lambda.Parent = b;
+            b.UpperTree = lambda;
+
+            var theta = new BalancedBoundingTree<double, object>.BalancedBoundingNode(13.5, 14.5, value, black);
+            theta.Parent = d;
+            d.LowerTree = theta;
+
+            var epsilon = new BalancedBoundingTree<double, object>.BalancedBoundingNode(15.5, 16.5, value, black);
+            epsilon.Parent = d;
+            d.UpperTree = epsilon;
+
+            tree.FixupNode(a);
+
+            Assert.AreEqual(red, tree.Root.NodeColour);
+            Assert.AreEqual(red, a.NodeColour);
+            Assert.AreEqual(black, b.NodeColour);
+            Assert.AreEqual(black, d.NodeColour);
+        }
+
+        [Test]
+        public void InsertFixupCase2And3Test()
+        {
+            var value = new object();
+            var tree = new BalancedBoundingTree<double, object>(12.5, 13.5, value);
+            var c = tree.Root;
+
+            var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
+            var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+
+            var a = new BalancedBoundingTree<double, object>.BalancedBoundingNode(4.5, 5.5, value, red);
+            a.Parent = c;
+            c.LowerTree = a;
+
+            var b = new BalancedBoundingTree<double, object>.BalancedBoundingNode(8.5, 9.5, value, red);
+            b.Parent = a;
+            a.UpperTree= b;
+
+            var alpha = new BalancedBoundingTree<double, object>.BalancedBoundingNode(3.5, 4.5, value, black);
+            alpha.Parent = a;
+            a.LowerTree = alpha;
+
+            var beta = new BalancedBoundingTree<double, object>.BalancedBoundingNode(6.5, 7.5, value, black);
+            beta.Parent = b;
+            b.LowerTree = beta;
+
+            var lambda = new BalancedBoundingTree<double, object>.BalancedBoundingNode(9.5, 10.5, value, black);
+            lambda.Parent = b;
+            b.UpperTree = lambda;
+
+            var theta = new BalancedBoundingTree<double, object>.BalancedBoundingNode(13.5, 14.5, value, black);
+            theta.Parent = c;
+            c.UpperTree = theta;
+
+            // log before
+            string beforeFileName = @"balancedBoundingTreeTests.InsertFixupCase2And3Test.png";
+            tree.Write(10, TestGraphDirectory, beforeFileName, Log.Logger).Wait();
+
+            tree.FixupNode(b);
+
+            // log after
+            string afterFileName = @"balancedBoundingTreeTests.InsertFixupCase2And3Test.Result.png";
+            tree.Write(10, TestGraphDirectory, afterFileName, Log.Logger).Wait();
+
+            Assert.AreSame(b, tree.Root);
+            Assert.AreSame(a, b.LowerTree);
+            Assert.AreSame(c, b.UpperTree);
+            Assert.AreSame(alpha, a.LowerTree);
+            Assert.AreSame(beta, a.UpperTree);
+            Assert.AreSame(lambda, c.LowerTree);
+            Assert.AreSame(theta, c.UpperTree);
+
+            Assert.AreEqual(black, tree.Root.NodeColour);
+            Assert.AreEqual(red, a.NodeColour);
+            Assert.AreEqual(red, c.NodeColour);
+        }
+
+
+
+        [Test]
+        public void InsertFixupCase2And3ReflectedTest()
+        {
+            var value = new object();
+            var tree = new BalancedBoundingTree<double, object>(9.5, 10.5, value);
+            var c = tree.Root;
+
+            var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
+            var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+
+            var a = new BalancedBoundingTree<double, object>.BalancedBoundingNode(14.5, 15.5, value, red);
+            a.Parent = c;
+            c.UpperTree = a;
+
+            var b = new BalancedBoundingTree<double, object>.BalancedBoundingNode(12.5, 13.5, value, red);
+            b.Parent = a;
+            a.LowerTree = b;
+
+            var alpha = new BalancedBoundingTree<double, object>.BalancedBoundingNode(16.5, 17.5, value, black);
+            alpha.Parent = a;
+            a.UpperTree = alpha;
+
+            var beta = new BalancedBoundingTree<double, object>.BalancedBoundingNode(13.5, 14.5, value, black);
+            beta.Parent = b;
+            b.UpperTree = beta;
+
+            var lambda = new BalancedBoundingTree<double, object>.BalancedBoundingNode(11.5, 12.5, value, black);
+            lambda.Parent = b;
+            b.LowerTree = lambda;
+
+            var theta = new BalancedBoundingTree<double, object>.BalancedBoundingNode(8.5, 9.5, value, black);
+            theta.Parent = c;
+            c.LowerTree = theta;
+
+            // log before
+            string beforeFileName = @"balancedBoundingTreeTests.InsertFixupCase2And3ReflectTest.png";
+            tree.Write(10, TestGraphDirectory, beforeFileName, Log.Logger).Wait();
+
+            tree.FixupNode(b);
+
+            // log after
+            string afterFileName = @"balancedBoundingTreeTests.InsertFixupCase2And3ReflectTest.Result.png";
+            tree.Write(10, TestGraphDirectory, afterFileName, Log.Logger).Wait();
+
+            Assert.AreSame(b, tree.Root);
+            Assert.AreSame(a, b.UpperTree);
+            Assert.AreSame(c, b.LowerTree);
+            Assert.AreSame(alpha, a.UpperTree);
+            Assert.AreSame(beta, a.LowerTree);
+            Assert.AreSame(lambda, c.UpperTree);
+            Assert.AreSame(theta, c.LowerTree);
+
+            Assert.AreEqual(black, tree.Root.NodeColour);
+            Assert.AreEqual(red, a.NodeColour);
+            Assert.AreEqual(red, c.NodeColour);
         }
     }
 }
