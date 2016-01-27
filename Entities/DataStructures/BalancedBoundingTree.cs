@@ -1,5 +1,6 @@
 using System;
 using System.CodeDom;
+using System.Diagnostics;
 
 namespace Entities.DataStructures
 {
@@ -31,7 +32,7 @@ namespace Entities.DataStructures
         {
             if (node == null) throw new ArgumentNullException(nameof(node));
 
-            while (ReferenceEquals(node, Nil) && !(key.CompareTo(node.LowerBound) >= 0 && key.CompareTo(node.UpperBound) < 0))
+            while (!ReferenceEquals(node, Nil) && !(key.CompareTo(node.LowerBound) >= 0 && key.CompareTo(node.UpperBound) < 0))
             {
                 node = key.CompareTo(node.LowerBound) < 0 ? node.LowerTree : node.UpperTree;
             }
@@ -163,6 +164,7 @@ namespace Entities.DataStructures
                     }
                 }
             }
+            Root.NodeColour = BalancedBoundingNode.Colour.Black;
         }
 
         public int CountNodes()
@@ -310,6 +312,7 @@ namespace Entities.DataStructures
             /// true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
             /// </returns>
             /// <param name="other">An object to compare with this object.</param>
+            [DebuggerStepThrough]
             public bool Equals(BalancedBoundingNode other)
             {
                 if (other == null) return false;
@@ -330,6 +333,7 @@ namespace Entities.DataStructures
             /// A value that indicates the relative order of the objects being compared. The return value has these meanings: Value Meaning Less than zero This instance precedes <paramref name="other"/> in the sort order.  Zero This instance occurs in the same position in the sort order as <paramref name="other"/>. Greater than zero This instance follows <paramref name="other"/> in the sort order. 
             /// </returns>
             /// <param name="other">An object to compare with this instance. </param>
+            [DebuggerStepThrough]
             public int CompareTo(BalancedBoundingNode other)
             {
                 if (other == null) throw new ArgumentNullException(nameof(other));
@@ -359,6 +363,7 @@ namespace Entities.DataStructures
             /// <returns>
             /// A string that represents the current object.
             /// </returns>
+            [DebuggerStepThrough]
             public override string ToString()
             {
                 return $"BBT:{LowerBound}:{UpperBound}:{NodeColour})";

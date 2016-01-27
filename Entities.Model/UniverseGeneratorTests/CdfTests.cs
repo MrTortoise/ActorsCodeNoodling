@@ -61,7 +61,7 @@ namespace Entities.Model.UniverseGeneratorTests
                 retVal[8] = new Tuple<double, int>(0.75, 80);
                 retVal[9] = new Tuple<double, int>(0.85, 90);
                 retVal[10] = new Tuple<double, int>(0.95, 100);
-                retVal[11] = new Tuple<double, int>(1, 100);
+                retVal[11] = new Tuple<double, int>(1, 110);
                 return retVal;
             }
         }
@@ -74,7 +74,8 @@ namespace Entities.Model.UniverseGeneratorTests
 
             foreach (var tuple in valuesToProbe)
             {
-                Assert.AreEqual(tuple.Item2, graph.F(tuple.Item1));
+                var actual = graph.F(tuple.Item1);
+                Assert.AreEqual(tuple.Item2, actual, $"F({(double)tuple.Item1})={actual} ... != {tuple.Item2}");
             }
         }
     }

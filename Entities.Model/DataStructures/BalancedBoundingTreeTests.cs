@@ -15,7 +15,7 @@ namespace Entities.Model.DataStructures
     class BalancedBoundingTreeTests
     {
         private const string TestGraphDirectory = @"M:\programming\general\git\EconomySimulator\TradingAISimulator\Entities.Model\bin\Debug\Graphs\";
-
+        
         [SetUp]
         public void SetUp()
         {
@@ -559,8 +559,6 @@ namespace Entities.Model.DataStructures
             Assert.AreEqual(red, c.NodeColour);
         }
 
-
-
         [Test]
         public void InsertFixupCase2And3ReflectedTest()
         {
@@ -616,6 +614,120 @@ namespace Entities.Model.DataStructures
             Assert.AreEqual(black, tree.Root.NodeColour);
             Assert.AreEqual(red, a.NodeColour);
             Assert.AreEqual(red, c.NodeColour);
+        }
+
+        [Test]
+        public void TreeInsertsAscending1()
+        {
+            var value = new object();
+            var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
+            var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+
+            var tree = new BalancedBoundingTree<double, object>(0, 0.1, value);
+            Assert.AreEqual(black, tree.Root.NodeColour);
+            Assert.AreEqual(0,tree.Root.LowerBound);
+            Assert.AreEqual(0.1, tree.Root.UpperBound);
+        }
+
+        [Test]
+        public void TreeInsertsAscending2()
+        {
+            var value = new object();
+            var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
+            var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+
+            var tree = new BalancedBoundingTree<double, object>(0, 0.1, value);
+            tree.Insert(0.1, 0.2, value);
+
+            Assert.AreEqual(black, tree.Root.NodeColour);
+            Assert.AreEqual(0, tree.Root.LowerBound);
+            Assert.AreEqual(0.1, tree.Root.UpperBound);
+
+            var two = tree.Root.UpperTree;
+            Assert.AreEqual(red, two.NodeColour);
+            Assert.AreEqual(0.1,two.LowerBound);
+            Assert.AreEqual(0.2, two.UpperBound);
+        }
+
+        [Test]
+        public void TreeInsertsAscending3()
+        {
+            var value = new object();
+            var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
+            var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+
+            var tree = new BalancedBoundingTree<double, object>(0, 0.1, value);
+            tree.Insert(0.1, 0.2, value);
+            tree.Insert(0.2, 0.3, value);
+
+            Assert.AreEqual(black, tree.Root.NodeColour);
+            Assert.AreEqual(0.1, tree.Root.LowerBound);
+            Assert.AreEqual(0.2, tree.Root.UpperBound);
+
+            var one = tree.Root.LowerTree;
+            Assert.AreEqual(red, one.NodeColour);
+            Assert.AreEqual(0, one.LowerBound);
+            Assert.AreEqual(0.1, one.UpperBound);
+
+            var three = tree.Root.UpperTree;
+            Assert.AreEqual(red, three.NodeColour);
+            Assert.AreEqual(0.2,three.LowerBound);
+            Assert.AreEqual(0.3,three.UpperBound);
+        }
+
+        [Test]
+        public void TreeInsertsAscending4()
+        {
+            var value = new object();
+            var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
+            var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+
+            var tree = new BalancedBoundingTree<double, object>(0, 0.1, value);
+            tree.Insert(0.1, 0.2, value);
+            tree.Insert(0.2, 0.3, value);
+            tree.Insert(0.3, 0.4, value);
+
+            Assert.AreEqual(black, tree.Root.NodeColour);
+            Assert.AreEqual(0.1, tree.Root.LowerBound);
+            Assert.AreEqual(0.2, tree.Root.UpperBound);
+
+            var one = tree.Root.LowerTree;
+            Assert.AreEqual(black, one.NodeColour);
+            Assert.AreEqual(0, one.LowerBound);
+            Assert.AreEqual(0.1, one.UpperBound);
+
+            var three = tree.Root.UpperTree;
+            Assert.AreEqual(black, three.NodeColour);
+            Assert.AreEqual(0.2, three.LowerBound);
+            Assert.AreEqual(0.3, three.UpperBound);
+
+            var four = three.UpperTree;
+            Assert.AreEqual(red, four.NodeColour);
+            Assert.AreEqual(0.3, four.LowerBound);
+            Assert.AreEqual(0.4, four.UpperBound);
+        }
+
+        [TestCase(0.05, 1)]
+        [TestCase(0.15, 2)]
+        [TestCase(0.25, 3)]
+        [TestCase(0.35, 4)]
+        [TestCase(0.45,null)]
+        public void SearchTests(double searchValue, int? foundValue)
+        {
+            var tree = new BalancedBoundingTree<double, int>(0, 0.1, 1);
+            tree.Insert(0.1, 0.2, 2);
+            tree.Insert(0.2, 0.3, 3);
+            tree.Insert(0.3, 0.4, 4);
+
+            if (!foundValue.HasValue)
+            {
+                Assert.AreSame(BalancedBoundingTree<double, int>.Nil, tree.Search(searchValue));
+            }
+            else
+            {
+                var actual = tree.Search(searchValue);
+                Assert.AreEqual(foundValue.Value, actual.Value);
+            }
         }
     }
 }
