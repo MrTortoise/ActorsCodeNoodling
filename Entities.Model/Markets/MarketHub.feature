@@ -14,27 +14,23 @@ Given I create a test actor system
 	| geddit yet? |
 	And I have created the following Material called "The Moon"
 	| ResourceName | Value |
-	| Metal        | 0.1   |
-	| Rock         | 0.9   |
-	And I have created the following moons
-	| name         | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | moonType |
-	| The Moon     | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | The Moon |
-	| Another Moon | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | The Moon |
-	And I have created the following Material called "Some Planet"
-	| ResourceName | Value |
-	| Metal        | 0.1   |
-	| Rock         | 0.9   |
-	And I have created the following planets
-	| name         | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | planetType  | moons                     |
-	| The Planet   | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Some Planet | "The Moon","Another Moon" |
-	| Other Planet | 10     | 300           | 0.1                    | 0                           | 0                                   | 0                      | Some Planet |                           |
+	| Metal        | 1   |
+	| Rock         | 9   |
 	And I have created the following Material called "Mellow Yellow"
 	| ResourceName | Value |
-	| Hydrogen     | 0.1   |
-	And I have created the following stars
-	| name           | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | starType      |
-	| The Sun        | 1      | 2             | 0.2                    | 0                           | 0                                   | 0                      | Mellow Yellow |
-	| The Second Sun | 1      | 2             | 0.2                    | 0                           | 3.14                                | 3.14                   | Mellow Yellow |
+	| Hydrogen     | 1   |
+		And I have created the following Material called "Some Planet"
+	| ResourceName | Value |
+	| Metal        | 1   |
+	| Rock         | 9   |	
+	And I have created the following Celestial Bodies         
+	| name           | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | bodyType | material      | satellites                |
+	| The Moon       | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Moon     | The Moon      |                           |
+	| Another Moon   | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Moon     | The Moon      |                           |
+	| The Planet     | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Planet   | Some Planet   | "The Moon","Another Moon" |
+	| Other Planet   | 10     | 300           | 0.1                    | 0                           | 0                                   | 0                      | Planet   | Some Planet   |                           |
+	| The Sun        | 1      | 2             | 0.2                    | 0                           | 0                                   | 0                      | Star     | Mellow Yellow |                           |
+	| The Second Sun | 1      | 2             | 0.2                    | 0                           | 3.14                                | 3.14                   | Star     | Mellow Yellow |                           |
 	And I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments
 	| name         | stars                      | planets                     |
 	| Solar System | "The Sun","The Second Sun" | "The Planet","Other Planet" |

@@ -19,7 +19,6 @@ namespace Entities.Model.UniverseGeneratorTests
             }
             else
             {
-
                 var ut = new EqualityCdf(min, max);
                 Assert.AreEqual(max, ut.Max);
                 Assert.AreEqual(min, ut.Min);

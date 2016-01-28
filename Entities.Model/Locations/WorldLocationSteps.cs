@@ -18,6 +18,7 @@ namespace Entities.Model.Locations
     [Binding]
     public class WorldLocationSteps
     {
+        private const string WorldPersistenceActor = "worldPersistenceActor";
         public ScenarioContextState State { get; }
 
         public WorldLocationSteps(ScenarioContextState state)
@@ -31,10 +32,10 @@ namespace Entities.Model.Locations
         public void GivenICreateAWorldPrefixPersistanceActorActorUsingTestProbe(string probe)
         {
             var testProbe = State.TestProbes[probe];
-            State.WorldPrefixPersistanceActor =
+            State.Actors[WorldPersistenceActor] =
                 testProbe.ActorOfAsTestActorRef<WorldPrefixPersistanceActor>(
-                    Props.Create(() => new WorldPrefixPersistanceActor()), testProbe, "worldPersistenceActor");
-            var parent = State.WorldPrefixPersistanceActor.Path.Parent;
+                    Props.Create(() => new WorldPrefixPersistanceActor()), testProbe, WorldPersistenceActor);
+          
             testProbe.ExpectMsg<WorldPrefixPersistanceActor.WorldPrefixPersistentRecoveryComplete>();
 
         }
@@ -45,15 +46,17 @@ namespace Entities.Model.Locations
         {
             var pr = State.TestProbes[probe];
             var prefixes = new List<string>(table.Rows.Select(r => r[0]));
+            IActorRef persistenceActor = State.Actors[WorldPersistenceActor];
+            Assert.IsNotNull(persistenceActor);
 
             prefixes.ForEach(p =>
             {
-                State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.PostNewPrefixMessage(p));
+                persistenceActor.Tell(new WorldPrefixPersistanceActor.PostNewPrefixMessage(p));
                 Thread.Sleep(10);
                 var msg = pr.ExpectMsg<WorldPrefixPersistanceActor.PrefixPersisted>(persisted => persisted.Prefix == p);
             });
 
-            State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.PostStoreStateMessage(), pr);
+            persistenceActor.Tell(new WorldPrefixPersistanceActor.PostStoreStateMessage(), pr);
             pr.ExpectMsg<WorldPrefixPersistanceActor.StateSavedMessage>();
         }
 
@@ -61,10 +64,11 @@ namespace Entities.Model.Locations
         [When(@"I kill the WorldPrefixPersistanceActor Actor")]
         public void WhenIKillAndRestoreTheWorldPrefixPersistanceActorActor()
         {
+            IActorRef persistenceActor = State.Actors[WorldPersistenceActor];
             Debug.WriteLine("about to watch World persistence actor");
-            State.TestKit.Watch(State.WorldPrefixPersistanceActor);
+            State.TestKit.Watch(persistenceActor);
             Debug.WriteLine("sending poison pill");
-            State.WorldPrefixPersistanceActor.Tell(PoisonPill.Instance);
+            persistenceActor.Tell(PoisonPill.Instance);
             Debug.WriteLine("Expecting terminated");
             State.TestKit.ExpectMsg<Terminated>();
             Debug.WriteLine("Terminated");
@@ -75,7 +79,8 @@ namespace Entities.Model.Locations
         public void ThenIExpectQueryingTheWorldPrefixPersistanceActorWithTestProbeToYieldTheFollowingPrefixes(string name, Table table)
         {
             var probe = State.TestProbes[name];
-            State.WorldPrefixPersistanceActor.Tell(new WorldPrefixPersistanceActor.QueryPrefixes(null), probe);
+            IActorRef persistenceActor = State.Actors[WorldPersistenceActor];
+            persistenceActor.Tell(new WorldPrefixPersistanceActor.QueryPrefixes(null), probe);
 
             var result = probe.ExpectMsg<WorldPrefixPersistanceActor.PostQueryResultsMessage>(TimeSpan.FromMilliseconds(5000));
             var prefixes = result.Prefixes;
@@ -88,23 +93,12 @@ namespace Entities.Model.Locations
             });
         }
 
-        [When(@"I have created a LocationGenerator Actor")]
-        [Given(@"I have created a LocationGenerator Actor")]
-        public void GivenIHaveCreatedALocationGeneratorActor()
-        {
-            State.LocationGeneratorActor =
-                State.TestKit.ActorOfAsTestActorRef<LocationNameGeneratorActor>(
-                    LocationNameGeneratorActor.CreateProps(State.RandomActor, 3),
-                    LocationNameGeneratorActor.Name);
-
-            Thread.Sleep(250);
-        }
-
         [When(@"I add a location using ""(.*)"" called ""(.*)""")]
         public void WhenIAddALocationUsingCalled(string testProbe , string location)
         {
             var sender = State.TestProbes[testProbe];
-            State.LocationGeneratorActor.Tell(new LocationNameGeneratorActor.AddLocationName(new[] {location}), sender);
+            IActorRef persistenceActor = State.Actors[WorldPersistenceActor];
+            persistenceActor.Tell(new LocationNameGeneratorActor.AddLocationName(new[] {location}), sender);
             Thread.Sleep(250);
         }
 
@@ -112,14 +106,16 @@ namespace Entities.Model.Locations
         public void GivenIObserveLocationGeneratorWithTestProbe(string testProbe)
         {
             var observer = State.TestProbes[testProbe];
-            State.LocationGeneratorActor.Tell(new Observe(), observer);
+            IActorRef persistenceActor = State.Actors[WorldPersistenceActor];
+            persistenceActor.Tell(new Observe(), observer);
         }
 
 
         [Then(@"I expect the location ""(.*)"" to exist")]
         public void ThenIExpectTheLocationToExist(string p0)
         {
-            var res = State.LocationGeneratorActor.Ask<LocationNameGeneratorActor.LocationNamesResult>(new LocationNameGeneratorActor.QueryLocationNames());
+            IActorRef persistenceActor = State.Actors[WorldPersistenceActor];
+            var res = persistenceActor.Ask<LocationNameGeneratorActor.LocationNamesResult>(new LocationNameGeneratorActor.QueryLocationNames());
             res.Wait();
             Assert.AreEqual(1,res.Result.Names.Count());
             Assert.AreEqual(p0,res.Result.Names.Single());
@@ -129,14 +125,15 @@ namespace Entities.Model.Locations
         public void WhenIPoisonTheLocationGenerator()
         {
             Debug.WriteLine("about to watch World persistence actor");
-            State.TestKit.Watch(State.LocationGeneratorActor);
+            State.TestKit.Watch(RootLevelActors.GeneratorActors.LocationNameGeneratorActorRef);
+            
             Debug.WriteLine("sending poison pill");
-            State.LocationGeneratorActor.Tell(PoisonPill.Instance);
+            RootLevelActors.GeneratorActors.LocationNameGeneratorActorRef.Tell(PoisonPill.Instance);
             Thread.Sleep(1);
             Debug.WriteLine("Expecting terminated");
             var msg = State.TestKit.ExpectMsg<Terminated>();
             Thread.Sleep(1);
-            State.TestKit.Unwatch(State.LocationGeneratorActor);
+            State.TestKit.Unwatch(RootLevelActors.GeneratorActors.LocationNameGeneratorActorRef);
             Debug.WriteLine("Terminated");
            // Thread.Sleep(5000);
 
@@ -156,7 +153,7 @@ namespace Entities.Model.Locations
         {
             var locations = GetLocations(table);
             var probe = State.TestProbes[probeName];
-            State.LocationGeneratorActor.Tell(new LocationNameGeneratorActor.AddLocationName(locations), probe);
+            RootLevelActors.GeneratorActors.LocationNameGeneratorActorRef.Tell(new LocationNameGeneratorActor.AddLocationName(locations), probe);
         }
 
         private static string[] GetLocations(Table table)
@@ -181,7 +178,7 @@ namespace Entities.Model.Locations
         {
             var locations = GetLocations(table);
 
-            var res = State.LocationGeneratorActor.Ask<LocationNameGeneratorActor.LocationNamesResult>(new LocationNameGeneratorActor.QueryLocationNames());
+            var res = RootLevelActors.GeneratorActors.LocationNameGeneratorActorRef.Ask<LocationNameGeneratorActor.LocationNamesResult>(new LocationNameGeneratorActor.QueryLocationNames());
             res.Wait();
             
             foreach (var location in locations)

@@ -91,54 +91,33 @@ testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.Sp
                         "Value"});
             table2.AddRow(new string[] {
                         "Metal",
-                        "0.1"});
+                        "1"});
             table2.AddRow(new string[] {
                         "Rock",
-                        "0.9"});
+                        "9"});
 #line 15
  testRunner.And("I have created the following Material called \"The Moon\"", ((string)(null)), table2, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "name",
-                        "radius",
-                        "orbitDistance",
-                        "orbitalAngularVelocity",
-                        "rotatationalAngularVelocity",
-                        "initialOrbitalAngularPositionOffset",
-                        "currentAngularPosition",
-                        "moonType"});
+                        "ResourceName",
+                        "Value"});
             table3.AddRow(new string[] {
-                        "The Moon",
-                        "10",
-                        "100",
-                        "0.1",
-                        "0",
-                        "0",
-                        "0",
-                        "The Moon"});
-            table3.AddRow(new string[] {
-                        "Another Moon",
-                        "10",
-                        "100",
-                        "0.1",
-                        "0",
-                        "0",
-                        "0",
-                        "The Moon"});
+                        "Hydrogen",
+                        "1"});
 #line 19
- testRunner.And("I have created the following moons", ((string)(null)), table3, "And ");
+ testRunner.And("I have created the following Material called \"Mellow Yellow\"", ((string)(null)), table3, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "ResourceName",
                         "Value"});
             table4.AddRow(new string[] {
                         "Metal",
-                        "0.1"});
+                        "1"});
             table4.AddRow(new string[] {
                         "Rock",
-                        "0.9"});
-#line 23
- testRunner.And("I have created the following Material called \"Some Planet\"", ((string)(null)), table4, "And ");
+                        "9"});
+#line 22
+  testRunner.And("I have created the following Material called \"Some Planet\"", ((string)(null)), table4, "And ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
@@ -148,8 +127,31 @@ testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.Sp
                         "rotatationalAngularVelocity",
                         "initialOrbitalAngularPositionOffset",
                         "currentAngularPosition",
-                        "planetType",
-                        "moons"});
+                        "bodyType",
+                        "material",
+                        "satellites"});
+            table5.AddRow(new string[] {
+                        "The Moon",
+                        "10",
+                        "100",
+                        "0.1",
+                        "0",
+                        "0",
+                        "0",
+                        "Moon",
+                        "The Moon",
+                        ""});
+            table5.AddRow(new string[] {
+                        "Another Moon",
+                        "10",
+                        "100",
+                        "0.1",
+                        "0",
+                        "0",
+                        "0",
+                        "Moon",
+                        "The Moon",
+                        ""});
             table5.AddRow(new string[] {
                         "The Planet",
                         "10",
@@ -158,6 +160,7 @@ testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.Sp
                         "0",
                         "0",
                         "0",
+                        "Planet",
                         "Some Planet",
                         "\"The Moon\",\"Another Moon\""});
             table5.AddRow(new string[] {
@@ -168,30 +171,10 @@ testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.Sp
                         "0",
                         "0",
                         "0",
+                        "Planet",
                         "Some Planet",
                         ""});
-#line 27
- testRunner.And("I have created the following planets", ((string)(null)), table5, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "ResourceName",
-                        "Value"});
-            table6.AddRow(new string[] {
-                        "Hydrogen",
-                        "0.1"});
-#line 31
- testRunner.And("I have created the following Material called \"Mellow Yellow\"", ((string)(null)), table6, "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
-                        "name",
-                        "radius",
-                        "orbitDistance",
-                        "orbitalAngularVelocity",
-                        "rotatationalAngularVelocity",
-                        "initialOrbitalAngularPositionOffset",
-                        "currentAngularPosition",
-                        "starType"});
-            table7.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "The Sun",
                         "1",
                         "2",
@@ -199,8 +182,10 @@ testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.Sp
                         "0",
                         "0",
                         "0",
-                        "Mellow Yellow"});
-            table7.AddRow(new string[] {
+                        "Star",
+                        "Mellow Yellow",
+                        ""});
+            table5.AddRow(new string[] {
                         "The Second Sun",
                         "1",
                         "2",
@@ -208,24 +193,26 @@ testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.Sp
                         "0",
                         "3.14",
                         "3.14",
-                        "Mellow Yellow"});
-#line 34
- testRunner.And("I have created the following stars", ((string)(null)), table7, "And ");
+                        "Star",
+                        "Mellow Yellow",
+                        ""});
+#line 26
+ testRunner.And("I have created the following Celestial Bodies", ((string)(null)), table5, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "name",
                         "stars",
                         "planets"});
-            table8.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "Solar System",
                         "\"The Sun\",\"The Second Sun\"",
                         "\"The Planet\",\"Other Planet\""});
-#line 38
+#line 34
  testRunner.And("I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with" +
-                    " arguments", ((string)(null)), table8, "And ");
-#line 41
+                    " arguments", ((string)(null)), table6, "And ");
+#line 37
  testRunner.And("I initialise the MarketHub Actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 42
+#line 38
  testRunner.And("I create a TestProbe called \"marketCreator\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
@@ -235,29 +222,29 @@ testRunner.Given("I create a test actor system", ((string)(null)), ((TechTalk.Sp
         public virtual void CreateAMarketInTheListingAndConfirmItsReferenceIsAsExpected()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a market in the listing and confirm its reference is as expected", ((string[])(null)));
-#line 44
+#line 40
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
                         "Location"});
-            table9.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "test1",
                         "Sopmewhere"});
-#line 45
-  testRunner.When("I create the following markets using testProbe \"marketCreator\"", ((string)(null)), table9, "When ");
+#line 41
+  testRunner.When("I create the following markets using testProbe \"marketCreator\"", ((string)(null)), table7, "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
                         "Location"});
-            table10.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "test1",
                         "Sopmewhere"});
-#line 48
+#line 44
   testRunner.Then("I expect testProbe \"marketCreator\" of been notified of the market having been cre" +
-                    "ated", ((string)(null)), table10, "Then ");
+                    "ated", ((string)(null)), table8, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -267,34 +254,34 @@ this.FeatureBackground();
         public virtual void CreateAMarketWithAGivenNameInTheMarketListing()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a market with a given name\tin the market listing", ((string[])(null)));
-#line 52
+#line 48
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
                         "Location"});
-            table11.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "test1",
                         "Somewhere"});
-            table11.AddRow(new string[] {
+            table9.AddRow(new string[] {
+                        "test2",
+                        "SomewhereElse"});
+#line 49
+ testRunner.When("I create the following markets using testProbe \"marketCreator\"", ((string)(null)), table9, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "Location"});
+            table10.AddRow(new string[] {
+                        "test1",
+                        "Somewhere"});
+            table10.AddRow(new string[] {
                         "test2",
                         "SomewhereElse"});
 #line 53
- testRunner.When("I create the following markets using testProbe \"marketCreator\"", ((string)(null)), table11, "When ");
-#line hidden
-            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Name",
-                        "Location"});
-            table12.AddRow(new string[] {
-                        "test1",
-                        "Somewhere"});
-            table12.AddRow(new string[] {
-                        "test2",
-                        "SomewhereElse"});
-#line 57
- testRunner.Then("I expect to see the following markets when I query the listings", ((string)(null)), table12, "Then ");
+ testRunner.Then("I expect to see the following markets when I query the listings", ((string)(null)), table10, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

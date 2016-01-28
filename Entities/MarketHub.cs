@@ -20,6 +20,13 @@ namespace Entities
         private readonly Dictionary<string, IActorRef> _markets = new Dictionary<string, IActorRef>();
         private ActorSelection _centerOfMassManagerActor;
 
+        public static Props CreateProps()
+        {
+            return Props.Create(() => new MarketHub());
+        }
+
+        public static readonly string Name = "MarketHub";
+
         public MarketHub()
         {
             Receive<TellCreateMarketMessage>(msg =>

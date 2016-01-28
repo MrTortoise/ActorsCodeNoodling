@@ -1,4 +1,5 @@
-﻿Feature: WorldLocationGenerator
+﻿@ignore
+Feature: WorldLocationGenerator
 	In order to have places to visit
 	As a content builder
 	I want to be able to add locations

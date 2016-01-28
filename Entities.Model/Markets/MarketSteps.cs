@@ -18,22 +18,18 @@ namespace Entities.Model.Markets
             _state = state;
         }
 
-        [Given(@"I initialise the MarketHub Actor")]
-        public void GivenIInitialiseTheMarketListingsActor()
-        {
-            _state.MarketHubActor = _state.TestKit.ActorOfAsTestActorRef<MarketHub>("TestActorHub");
-        }
+
 
         [When(@"I create the following markets using testProbe ""(.*)""")]
         public void WhenICreateTheFollowingMarketsUsingTestProbe(string creatorName, Table table)
         {
-            var marketHub = _state.MarketHubActor;
+            var marketHub = RootLevelActors.MarketHubActorRef;
             var creator = _state.TestProbes[creatorName];
             table.Rows.ForEach(r =>
             {
                 var name = r["Name"];
 
-                _state.LocationGeneratorActor.Tell(new LocationNameGeneratorActor.AddLocationName(new[] {r["Location"]}));
+                RootLevelActors.GeneratorActors.LocationNameGeneratorActorRef.Tell(new LocationNameGeneratorActor.AddLocationName(new[] {r["Location"]}));
                 var location = r["Location"];
 
                 //ToDo unfook
@@ -58,7 +54,7 @@ namespace Entities.Model.Markets
         public void ThenIExpectToSeeTheFollowingmarketsWhenIQueryTheListings(Table table)
         {
             var marketQueryTask =
-                _state.MarketHubActor.Ask<MarketHub.ResultsMarketListings>(
+                RootLevelActors.MarketHubActorRef.Ask<MarketHub.ResultsMarketListings>(
                     new MarketHub.QueryMarketListingsMessage(), TimeSpan.FromMilliseconds(500));
 
             marketQueryTask.Wait(500);

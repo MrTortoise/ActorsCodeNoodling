@@ -67,12 +67,12 @@ namespace Entities.Model
         public Dictionary<string, TestActorRef<ExchangeContract>> ExchangeContractActors { get; private set; }
 
         public Dictionary<string, TestProbe> TestProbes { get; private set; }
-        public TestActorRef<MarketHub> MarketHubActor { get; set; }
+      
         public Dictionary<string, IActorRef> Markets { get; private set; }
-        public TestActorRef<WorldPrefixPersistanceActor> WorldPrefixPersistanceActor { get; set; }
+
         public string Config { get; set; }
-        public TestActorRef<LocationNameGeneratorActor> LocationGeneratorActor { get; set; }
-        public IActorRef RandomActor { get; set; }
+
+
         public Dictionary<string, CelestialBody> CelestialBodies { get; set; }
         public Dictionary<string, IMaterial> Materials { get; set; }
         public FactoryCoordinatorScenarioState FactoryCoordinator { get; private set; }

@@ -14,7 +14,7 @@ namespace Entities.NameGenerators
     /// </summary>
     public class LocationNameGeneratorActor : ReceiveActor, IWithUnboundedStash
     {
-        private readonly IActorRef _randomActorRef;
+        private readonly IActorRef _randomIntActorRef;
         private readonly int _numberOfCharacters;
 
         private IActorRef _persistence;
@@ -32,9 +32,9 @@ namespace Entities.NameGenerators
             return Props.Create(() => new LocationNameGeneratorActor(randomActorRef, numberOfCharacters));
         }
 
-        public LocationNameGeneratorActor(IActorRef randomActorRef, int numberOfCharacters)
+        public LocationNameGeneratorActor(IActorRef randomIntActorRef, int numberOfCharacters)
         {
-            _randomActorRef = randomActorRef;
+            _randomIntActorRef = randomIntActorRef;
             _numberOfCharacters = numberOfCharacters;
 
             Become(Waiting);
@@ -132,7 +132,7 @@ namespace Entities.NameGenerators
 
         private void TellWantRandomNumbers(int numberOfLocations)
         {
-            _randomActorRef.Tell(new RandomIntActor.NextRandom('A', 'Z' + 1, _numberOfCharacters*numberOfLocations));
+            _randomIntActorRef.Tell(new RandomIntActor.NextRandom('A', 'Z' + 1, _numberOfCharacters*numberOfLocations));
         }
 
 

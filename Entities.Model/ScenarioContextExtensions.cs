@@ -51,7 +51,7 @@ namespace Entities.Model
 
         public static FactoryCoordinatorActor.FactoryQueryResult GetFactories(this ScenarioContextState scenarioContextState)
         {
-            var coordinatorFactories = RootLevelActors.InventoryTypeCoordinatorActorRef.Ask<FactoryCoordinatorActor.FactoryQueryResult>(new FactoryCoordinatorActor.QueryFactories());
+            var coordinatorFactories = RootLevelActors.FactoryCoordinatorActorRef.Ask<FactoryCoordinatorActor.FactoryQueryResult>(new FactoryCoordinatorActor.QueryFactories());
             coordinatorFactories.Wait();
             var factoryQueryResult = coordinatorFactories.Result;
             return factoryQueryResult;

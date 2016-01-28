@@ -35,8 +35,8 @@ namespace Entities.Model
             var points = new Point2Int[table.RowCount];
             for (int i = 0; i < table.RowCount; i++)
             {
-                int x = int.Parse(table.Rows[i]["X"]);
-                int y = int.Parse(table.Rows[i]["Y"]);
+                int x = int.Parse(table.Rows[i]["x"]);
+                int y = int.Parse(table.Rows[i]["y"]);
                 var point = new Point2Int(x,y);
                 points[i] = point;
             }

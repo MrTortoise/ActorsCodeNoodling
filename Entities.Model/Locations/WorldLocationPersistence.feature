@@ -1,4 +1,5 @@
 ﻿@Persistence
+@ignore
 Feature: WorldLocationPersistence
 	In order to have places and be able to dynamically add them
 	As a WorldGenerator

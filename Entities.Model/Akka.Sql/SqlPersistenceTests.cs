@@ -16,6 +16,7 @@ using NUnit.Framework.Constraints;
 namespace Entities.Model.Akka.Sql
 {
     [TestFixture]
+    [Ignore]
     class SqlPersistenceTests
     {
 

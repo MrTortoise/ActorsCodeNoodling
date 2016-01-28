@@ -9,6 +9,7 @@ using NUnit.Framework;
 
 namespace Entities.Model.Reaper
 {
+    [Ignore]
     [TestFixture]
     public class GamesWithTheReaper : TestKit
     {

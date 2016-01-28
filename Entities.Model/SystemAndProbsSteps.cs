@@ -60,8 +60,8 @@ namespace Entities.Model
             _state.Actors.Add(FactoryCoordinatorActor.Name, RootLevelActors.FactoryCoordinatorActorRef);
             _state.Actors.Add(InventoryTypeCoordinator.Name, RootLevelActors.InventoryTypeCoordinatorActorRef);
             _state.Actors.Add(CenterOfMassManagerActor.Name, RootLevelActors.CenterOfMassManagerActorRef);
-            _state.Actors.Add(RandomIntActor.Name, RootLevelActors.RandomActors.RandomIntActorRef);
-            _state.Actors.Add(RandomDoubleActor.Name, RootLevelActors.RandomActors.RandomDoubleActorRef);
+            _state.Actors.Add(RandomIntActor.Name, RootLevelActors.GeneratorActors.RandomIntActorRef);
+            _state.Actors.Add(RandomDoubleActor.Name, RootLevelActors.GeneratorActors.RandomDoubleActorRef);
         }
 
         [Given(@"I create a TestProbe called ""(.*)""")]
