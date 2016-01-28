@@ -20,7 +20,7 @@ Scenario: Given a resource manager from the context, add a resource and then ret
 
 Scenario: Sign something up to observe resource manager and add a resource then i want to be notified
 	Given I create a TestProbe called "resourceManagerMonitor"
-	And I send an observe message to actor "resourceManager" from actor "resourceManagerMonitor"
+	And I send an observe message to actor "ResourceManager" from actor "resourceManagerMonitor"
 	When I add the following resources to the Resource Manager
 	| name  |
 	| metal |

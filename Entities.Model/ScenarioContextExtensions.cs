@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.Util.Internal;
 using Entities.Factories;
+using Entities.Inventory;
 using Entities.Model.CenterOfMassActors;
 using Entities.Model.FactoryTests;
 using Entities.Model.Heartbeats;
@@ -41,31 +42,19 @@ namespace Entities.Model
 
         public static InventoryType GetInventoryType(this ScenarioContextState scenarioContextState, string inventoryTypeName)
         {
-            var inventoryTypesQueryTask = scenarioContextState.InventoryActorCoordinator.Ask<InventoryTypeCoordinator.InventoryTypesResult>(new InventoryTypeCoordinator.InventoryTypesQuery());
+            var inventoryTypesQueryTask = RootLevelActors.InventoryTypeCoordinatorActorRef.Ask<InventoryTypeCoordinator.InventoryTypesResult>(new InventoryTypeCoordinator.InventoryTypesQuery());
             inventoryTypesQueryTask.Wait();
 
             var result = inventoryTypesQueryTask.Result.InventoryTypes.SingleOrDefault(i => i.Name == inventoryTypeName);
             return result;
         }
 
-        public static void SetupActorCoordinators(this ScenarioContextState scenarioContextState)
-        {
-            var heartBeatActor = scenarioContextState.Actors[HeartBeatActor.Name];
-
-            ResourceManagerSteps.GivenICreateAResourceManager(scenarioContextState);
-            FactoryUpdateSteps.GivenIHaveCreatedAFactoryCoordinatorActor(scenarioContextState, heartBeatActor);
-            InventorySteps.CreateInventoryActorCoordinator(scenarioContextState);
-            CenterOfMassSteps.CreateCenterOfMassManagerActor(scenarioContextState);
-          
-        }
-
         public static FactoryCoordinatorActor.FactoryQueryResult GetFactories(this ScenarioContextState scenarioContextState)
         {
-            var coordinatorFactories = scenarioContextState.FactoryCoordinator.Actor.Ask<FactoryCoordinatorActor.FactoryQueryResult>(new FactoryCoordinatorActor.QueryFactories());
+            var coordinatorFactories = RootLevelActors.InventoryTypeCoordinatorActorRef.Ask<FactoryCoordinatorActor.FactoryQueryResult>(new FactoryCoordinatorActor.QueryFactories());
             coordinatorFactories.Wait();
             var factoryQueryResult = coordinatorFactories.Result;
             return factoryQueryResult;
         }
-
     }
 }

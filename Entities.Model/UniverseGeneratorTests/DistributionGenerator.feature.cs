@@ -32,8 +32,9 @@ namespace Entities.Model.UniverseGeneratorTests
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DistributionGenerator", "In order to generate interesting shaped distributions nad save them\nAs a universe" +
-                    " editor\nI want to be able to create and store various distributions of numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "DistributionGenerator", "In order to generate interesting shaped distributions nad save them\r\nAs a univers" +
+                    "e editor\r\nI want to be able to create and store various distributions of numbers" +
+                    "", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

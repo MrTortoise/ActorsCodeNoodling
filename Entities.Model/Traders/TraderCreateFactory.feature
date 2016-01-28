@@ -4,37 +4,7 @@
 	I want to be able to build a factory to consume and produce resources
 
 Background: 
-Given I create a test actor system using config
-	"""
-	akka { 
-	   loglevel=DEBUG,  loggers=["Akka.Logger.Serilog.SerilogLogger, Akka.Logger.Serilog"]
-	      persistence {
-                        publish-plugin-commands = on
-                        journal {
-                            plugin = "akka.persistence.journal.sql-server"
-                            sql-server {
-                                class = "Akka.Persistence.SqlServer.Journal.SqlServerJournal, Akka.Persistence.SqlServer"
-                                plugin-dispatcher = "akka.actor.default-dispatcher"
-                                table-name = EventJournal
-                                schema-name = dbo
-                                auto-initialize = on
-                                connection-string = "Data Source=localhost\\SQLEXPRESS;Database=AkkaPersistenceTest;User Id=akkadotnet;Password=akkadotnet;"
-                            }
-                        }
-                        snapshot-store {
-                            plugin = "akka.persistence.snapshot-store.sql-server"
-                            sql-server {
-                                class = "Akka.Persistence.SqlServer.Snapshot.SqlServerSnapshotStore, Akka.Persistence.SqlServer"
-                                plugin-dispatcher = "akka.actor.default-dispatcher"
-                                table-name = SnapshotStore
-                                schema-name = dbo
-                                auto-initialize = on
-                                connection-string = "Data Source=localhost\\SQLEXPRESS;Database=AkkaPersistenceTest;User Id=akkadotnet;Password=akkadotnet;"
-                            }
-                        }
-                    }
-		}
-	"""
+Given I create a test actor system
 	And I add the following resources to the Resource Manager
 	| name     |
 	| Metal    |
@@ -44,15 +14,15 @@ Given I create a test actor system using config
 	| geddit yet? |
 	And I have created the following Material called "The Moon"
 	| ResourceName | Value |
-	| Metal        | 0.1   |
-	| Rock         | 0.9   |
+	| Metal        | 1   |
+	| Rock         | 9   |
 	And I have created the following Material called "Some Planet"
 	| ResourceName | Value |
-	| Metal        | 0.1   |
-	| Rock         | 0.9   |
+	| Metal        | 1   |
+	| Rock         | 9   |
 	And I have created the following Material called "Mellow Yellow"
 	| ResourceName | Value |
-	| Hydrogen     | 0.1   |
+	| Hydrogen     | 1   |
 	And I have created the following Celestial Bodies         
 	| name           | radius | orbitDistance | orbitalAngularVelocity | rotatationalAngularVelocity | initialOrbitalAngularPositionOffset | currentAngularPosition | bodyType | material      | satellites                |
 	| The Moon       | 10     | 100           | 0.1                    | 0                           | 0                                   | 0                      | Moon     | The Moon      |                           |

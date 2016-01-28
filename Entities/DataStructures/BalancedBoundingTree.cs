@@ -34,7 +34,18 @@ namespace Entities.DataStructures
 
             while (!ReferenceEquals(node, Nil) && !(key.CompareTo(node.LowerBound) >= 0 && key.CompareTo(node.UpperBound) < 0))
             {
-                node = key.CompareTo(node.LowerBound) < 0 ? node.LowerTree : node.UpperTree;
+                if (key.CompareTo(node.LowerBound) < 0)
+                {
+                    node = node.LowerTree;
+                }
+                else
+                {
+                    if (ReferenceEquals(node.UpperTree, Nil) && (node.UpperBound.CompareTo(key) == 0))
+                    {
+                        return node;
+                    }
+                    node = node.UpperTree;
+                }
             }
 
             return node;

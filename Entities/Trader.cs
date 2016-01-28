@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using Akka.Actor;
 using Entities.Factories;
+using Entities.Inventory;
 using Entities.LocationActors;
 
 namespace Entities

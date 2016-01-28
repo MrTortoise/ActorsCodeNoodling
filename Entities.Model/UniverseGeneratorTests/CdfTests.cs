@@ -74,7 +74,7 @@ namespace Entities.Model.UniverseGeneratorTests
 
             foreach (var tuple in valuesToProbe)
             {
-                var actual = graph.F(tuple.Item1);
+                int actual = graph.F(tuple.Item1);
                 Assert.AreEqual(tuple.Item2, actual, $"F({(double)tuple.Item1})={actual} ... != {tuple.Item2}");
             }
         }

@@ -404,11 +404,16 @@ namespace Entities.Model.DataStructures
         public void InsertFixupCase1ATest()
         {
             var value = new object();
-            var tree = new BalancedBoundingTree<double, object>(9.5, 10.5, value);
-            var c = tree.Root;
-
             var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
             var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+
+            var tree = new BalancedBoundingTree<double, object>(9.5, 10.5, value);
+            var c = tree.Root;
+            var root = new BalancedBoundingTree<double, object>.BalancedBoundingNode(1, 2, value, black);
+            tree.Root = root;
+            c.Parent = root;
+            root.UpperTree = c;
+
 
             var a = new BalancedBoundingTree<double, object>.BalancedBoundingNode(4.5, 5.5, value, red);
             a.Parent = c;
@@ -445,7 +450,7 @@ namespace Entities.Model.DataStructures
 
             tree.FixupNode(b);
 
-            Assert.AreEqual(red, tree.Root.NodeColour);
+            Assert.AreEqual(red, tree.Root.UpperTree.NodeColour);
             Assert.AreEqual(black,a.NodeColour);
             Assert.AreEqual(red,b.NodeColour);
             Assert.AreEqual(black, d.NodeColour);
@@ -455,11 +460,18 @@ namespace Entities.Model.DataStructures
         public void InsertFixupCase1BTest()
         {
             var value = new object();
+            var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
+            var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+
             var tree = new BalancedBoundingTree<double, object>(9.5, 10.5, value);
             var c = tree.Root;
 
-            var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
-            var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+            var root =  new BalancedBoundingTree<double, object>.BalancedBoundingNode(1, 2 ,value, black);
+            tree.Root = root;
+            root.UpperTree = c;
+            c.Parent = root;
+
+    
 
             var b = new BalancedBoundingTree<double, object>.BalancedBoundingNode(7.5, 8.5, value, red);
             b.Parent = c;
@@ -496,7 +508,7 @@ namespace Entities.Model.DataStructures
 
             tree.FixupNode(a);
 
-            Assert.AreEqual(red, tree.Root.NodeColour);
+            Assert.AreEqual(red, tree.Root.UpperTree.NodeColour);
             Assert.AreEqual(red, a.NodeColour);
             Assert.AreEqual(black, b.NodeColour);
             Assert.AreEqual(black, d.NodeColour);
@@ -506,11 +518,16 @@ namespace Entities.Model.DataStructures
         public void InsertFixupCase2And3Test()
         {
             var value = new object();
-            var tree = new BalancedBoundingTree<double, object>(12.5, 13.5, value);
-            var c = tree.Root;
-
             var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
             var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
+
+            var tree = new BalancedBoundingTree<double, object>(12.5, 13.5, value);
+            var c = tree.Root;
+            var root = new BalancedBoundingTree<double, object>.BalancedBoundingNode(1, 2, value, black);
+            tree.Root = root;
+            c.Parent = root;
+            root.UpperTree = c;
+
 
             var a = new BalancedBoundingTree<double, object>.BalancedBoundingNode(4.5, 5.5, value, red);
             a.Parent = c;
@@ -546,7 +563,7 @@ namespace Entities.Model.DataStructures
             string afterFileName = @"balancedBoundingTreeTests.InsertFixupCase2And3Test.Result.png";
             tree.Write(10, TestGraphDirectory, afterFileName, Log.Logger).Wait();
 
-            Assert.AreSame(b, tree.Root);
+            Assert.AreSame(b, tree.Root.UpperTree);
             Assert.AreSame(a, b.LowerTree);
             Assert.AreSame(c, b.UpperTree);
             Assert.AreSame(alpha, a.LowerTree);
@@ -554,7 +571,7 @@ namespace Entities.Model.DataStructures
             Assert.AreSame(lambda, c.LowerTree);
             Assert.AreSame(theta, c.UpperTree);
 
-            Assert.AreEqual(black, tree.Root.NodeColour);
+            Assert.AreEqual(black, tree.Root.UpperTree.NodeColour);
             Assert.AreEqual(red, a.NodeColour);
             Assert.AreEqual(red, c.NodeColour);
         }
@@ -620,7 +637,6 @@ namespace Entities.Model.DataStructures
         public void TreeInsertsAscending1()
         {
             var value = new object();
-            var red = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Red;
             var black = BalancedBoundingTree<double, object>.BalancedBoundingNode.Colour.Black;
 
             var tree = new BalancedBoundingTree<double, object>(0, 0.1, value);
@@ -712,6 +728,9 @@ namespace Entities.Model.DataStructures
         [TestCase(0.25, 3)]
         [TestCase(0.35, 4)]
         [TestCase(0.45,null)]
+        [TestCase(0,1)]
+        [TestCase(0.4,4)]
+        [TestCase(0.2,3)]
         public void SearchTests(double searchValue, int? foundValue)
         {
             var tree = new BalancedBoundingTree<double, int>(0, 0.1, 1);

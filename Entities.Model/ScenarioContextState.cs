@@ -7,6 +7,7 @@ using Akka.Actor;
 using Akka.TestKit;
 using Akka.TestKit.NUnit;
 using Entities.Factories;
+using Entities.Inventory;
 using Entities.LocationActors;
 using Entities.Model.Inventory;
 using Entities.Model.Locations;
@@ -74,16 +75,13 @@ namespace Entities.Model
         public IActorRef RandomActor { get; set; }
         public Dictionary<string, CelestialBody> CelestialBodies { get; set; }
         public Dictionary<string, IMaterial> Materials { get; set; }
-        public IActorRef CenterOfMassManagerActor { get; set; }
         public FactoryCoordinatorScenarioState FactoryCoordinator { get; private set; }
-        public IActorRef InventoryActorCoordinator { get; set; }
 
         public InventoryTypeCoordinator Inventory { get; set; }
 
         public class FactoryCoordinatorScenarioState
         {
             public TimeSpan Period { get; set; }
-            public IActorRef Actor { get; set; }
             public Dictionary<string, FactoryType> FactoryTypes { get; private set; }
             public Dictionary<string, IActorRef> Factories { get; private set; }
 

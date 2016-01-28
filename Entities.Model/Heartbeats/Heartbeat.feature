@@ -7,8 +7,7 @@ Background:
 	Given I create a test actor system	
 
 Scenario: setup a heartbeat, register an actor and start the system
-	Given I have created the HeartBeat actor	
-	And I have configured the heartBeat actor to update with the following configuration
+	Given I have configured the heartBeat actor to update with the following configuration
 	| updatePeriod | factoryUpdatePeriod |
 	| 100          | 1000                |
 	And I create a TestProbe called "heartBeatMonitor"
@@ -17,8 +16,8 @@ Scenario: setup a heartbeat, register an actor and start the system
 	Then I expect the actor "heartBeatMonitor" to recieve the Start message
 
 Scenario: setup a heartbeat, register an actor, start let run for several beats and ensure right number of beats get called.
-Given I have created the HeartBeat actor	
-	And I have configured the heartBeat actor to update with the following configuration
+
+	Given I have configured the heartBeat actor to update with the following configuration
 	| updatePeriod | factoryUpdatePeriod |
 	| 100          | 1000                |
 	And I create a TestProbe called "heartBeatMonitor"

@@ -12,6 +12,7 @@ namespace Entities.UniverseGenerator
 
         public EqualityCdf(int min, int max)
         {
+            if (min > max) throw new ArgumentOutOfRangeException(nameof(min), $"min ({min}) must be <= max ({max})");
             Min = min;
             Max = max;
         }

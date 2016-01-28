@@ -5,6 +5,7 @@ using System.Text;
 using Akka.Actor;
 using Akka.Util.Internal;
 using Entities.Observation;
+using Entities.RNG;
 
 namespace Entities.NameGenerators
 {

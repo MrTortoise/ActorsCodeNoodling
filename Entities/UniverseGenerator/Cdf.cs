@@ -24,23 +24,29 @@ namespace Entities.UniverseGenerator
                 throw new ArgumentOutOfRangeException(nameof(graph), $"Graph must contain a 1 value as it is of range 0 and 1: {max}");
             }
 
-            BalancedBoundingTree<double, int> tree = new BalancedBoundingTree<double, int>(graph[0].Item1, graph[1].Item1, graph[0].Item2);
+            BalancedBoundingTree<double, int> tree = new BalancedBoundingTree<double, int>(Double.MinValue, graph[0].Item1, graph[0].Item2);
 
-            for (int i = 1; i < graph.Length - 1; i++)
+            for (int i = 0; i < graph.Length - 1; i++)
             {
                 tree.Insert(graph[i].Item1, graph[i + 1].Item1, graph[i].Item2);
             }
+
+            var maxTuple = graph[graph.Length-1];
+            tree.Insert(maxTuple.Item1, double.MaxValue, maxTuple.Item2);
 
             return new Cdf(tree);
         }
 
         private Cdf(BalancedBoundingTree<double, int> graph)
         {
+            if (graph == null) throw new ArgumentNullException(nameof(graph));
+
             _graph = graph;
         }
 
         public int F(double x)
         {
+            if (x < 0 || x > 1) throw new ArgumentOutOfRangeException(nameof(x), $"argument must be 0<=x<=1 : {x}");
             var node = _graph.Search(x);
             return node.Value;
         }

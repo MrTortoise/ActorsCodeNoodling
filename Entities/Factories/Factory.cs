@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Akka.Actor;
+using Entities.Inventory;
 using Entities.LocationActors;
 
 namespace Entities.Factories

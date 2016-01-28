@@ -1,6 +1,7 @@
 using System.Linq;
 using Akka.Actor;
 using Akka.TestKit.NUnit;
+using Entities.RNG;
 using Entities.UniverseGenerator;
 using NUnit.Framework;
 
@@ -8,7 +9,7 @@ namespace Entities.Model.UniverseGeneratorTests
 {
     public class CdfGenerationTest : TestKit
     {
-        [TestCase()]
+        [TestCase(100,0,100)]
         public void EqualityLineCdfTest(int noPointsToSample,int min, int max)
         {
             string pdfName = "equality";

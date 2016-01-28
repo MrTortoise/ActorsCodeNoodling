@@ -83,8 +83,6 @@ namespace Entities.Model.Heartbeats
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 10
- testRunner.Given("I have created the HeartBeat actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "updatePeriod",
@@ -92,15 +90,15 @@ this.FeatureBackground();
             table1.AddRow(new string[] {
                         "100",
                         "1000"});
-#line 11
- testRunner.And("I have configured the heartBeat actor to update with the following configuration", ((string)(null)), table1, "And ");
-#line 14
+#line 10
+ testRunner.Given("I have configured the heartBeat actor to update with the following configuration", ((string)(null)), table1, "Given ");
+#line 13
  testRunner.And("I create a TestProbe called \"heartBeatMonitor\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 15
+#line 14
  testRunner.And("I register actor \"heartBeatMonitor\" with the HeartBeat actor as type \"Tick\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 16
+#line 15
  testRunner.When("I tell the heartbeat actor to start", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 17
+#line 16
  testRunner.Then("I expect the actor \"heartBeatMonitor\" to recieve the Start message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -113,12 +111,10 @@ this.FeatureBackground();
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("setup a heartbeat, register an actor, start let run for several beats and ensure " +
                     "right number of beats get called.", ((string[])(null)));
-#line 19
+#line 18
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 20
-testRunner.Given("I have created the HeartBeat actor", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "updatePeriod",
@@ -126,19 +122,19 @@ testRunner.Given("I have created the HeartBeat actor", ((string)(null)), ((TechT
             table2.AddRow(new string[] {
                         "100",
                         "1000"});
-#line 21
- testRunner.And("I have configured the heartBeat actor to update with the following configuration", ((string)(null)), table2, "And ");
-#line 24
+#line 20
+ testRunner.Given("I have configured the heartBeat actor to update with the following configuration", ((string)(null)), table2, "Given ");
+#line 23
  testRunner.And("I create a TestProbe called \"heartBeatMonitor\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 25
+#line 24
  testRunner.And("I register actor \"heartBeatMonitor\" with the HeartBeat actor as type \"Tick\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 26
+#line 25
  testRunner.When("I tell the heartbeat actor to start", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 27
+#line 26
  testRunner.Then("I expect the actor \"heartBeatMonitor\" to recieve the Start message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 28
+#line 27
  testRunner.When("I wait for 3 TickUpdate time periods", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 29
+#line 28
  testRunner.Then("I expect TestProbe \"heartBeatMonitor\" to receive at least 3 TickUpdate messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

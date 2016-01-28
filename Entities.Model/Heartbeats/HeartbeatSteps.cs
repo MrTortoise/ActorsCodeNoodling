@@ -15,19 +15,7 @@ namespace Entities.Model.Heartbeats
         {
             _state = state;
         }
-
-        [Given(@"I have created the HeartBeat actor")]
-        public void GivenIHaveCreatedAHeartBeatActor()
-        {
-            CreateHeartbeatActor(_state);
-        }
-
-        public static void CreateHeartbeatActor(ScenarioContextState scenarioContextState)
-        {
-            var heartBeatActor = scenarioContextState.TestKit.Sys.ActorOf(HeartBeatActor.CreateProps(), HeartBeatActor.Name);
-            scenarioContextState.Actors.Add(HeartBeatActor.Name, heartBeatActor);
-        }
-
+        
         [Given(@"I have configured the heartBeat actor to update with the following configuration")]
         public void GivenIHaveConfiguredItToUpdateWithTheFollowingConfiguration(Table table)
         {
@@ -41,14 +29,8 @@ namespace Entities.Model.Heartbeats
 
             TimeSpan updatePeriod = TimeSpan.FromMilliseconds(updatePeriodMilliseconds);
             TimeSpan factoryUpdatePeriod = TimeSpan.FromMilliseconds(factoryUpdatePeriodMilliseconds);
-
-            if (!_state.Actors.ContainsKey(HeartBeatActor.Name))
-            {
-                CreateHeartbeatActor(_state);
-            }
-
-            var heartBeatActor = _state.Actors[HeartBeatActor.Name];
-            heartBeatActor.Tell(new HeartBeatActor.ConfigureUpdate(updatePeriod, factoryUpdatePeriod));
+          
+            RootLevelActors.HeartBeatActorRef.Tell(new HeartBeatActor.ConfigureUpdate(updatePeriod, factoryUpdatePeriod));
             Thread.Sleep(10);
         }
 
@@ -56,11 +38,11 @@ namespace Entities.Model.Heartbeats
         [When(@"I tell the heartbeat actor to start")]
         public void WhenITellTheHeartbeatActorToStart()
         {
-            var heartBeatActor = _state.Actors[HeartBeatActor.Name];
+       
 
             var heartBeatActorStartedWatcher = _state.TestKit.CreateTestProbe("heartBeatActorStartWatch");
-            heartBeatActor.Tell(new HeartBeatActor.Register(HeartBeatActor.UpdateType.Tick, heartBeatActorStartedWatcher));
-            heartBeatActor.Tell(new HeartBeatActor.Start());
+            RootLevelActors.HeartBeatActorRef.Tell(new HeartBeatActor.Register(HeartBeatActor.UpdateType.Tick, heartBeatActorStartedWatcher));
+            RootLevelActors.HeartBeatActorRef.Tell(new HeartBeatActor.Start());
 
             var msg = heartBeatActorStartedWatcher.ExpectMsg<HeartBeatActor.Started>();
 
@@ -71,12 +53,12 @@ namespace Entities.Model.Heartbeats
         public void GivenIRegisterActorWithTheHeartBeatActorAsType(string actorName, string updateTypeString)
         {
             HeartBeatActor.UpdateType updateType = (HeartBeatActor.UpdateType)Enum.Parse(typeof (HeartBeatActor.UpdateType), updateTypeString);
-            var heartBeatActor = _state.Actors[HeartBeatActor.Name];
+           
             var actor = _state.Actors[actorName];
 
             var registrationWatcher = _state.TestKit.CreateTestProbe("HeartBeatRegistrationWatcher");
 
-            heartBeatActor.Tell(new HeartBeatActor.Register(updateType, actor), registrationWatcher);
+            RootLevelActors.HeartBeatActorRef.Tell(new HeartBeatActor.Register(updateType, actor), registrationWatcher);
             registrationWatcher.ExpectMsg<HeartBeatActor.Registered>(registered => ReferenceEquals(registered.Registree.Actor, actor) && registered.Registree.UpdateType == updateType);
         }
 
@@ -91,8 +73,7 @@ namespace Entities.Model.Heartbeats
         [When(@"I wait for (.*) FactoryUpdate time periods")]
         public void WhenIWaitForFactoryUpdateTimePeriods(int timePeriods)
         {
-            var heartBeatActor = _state.Actors[HeartBeatActor.Name];
-            var configQuery = heartBeatActor.Ask<HeartBeatActor.ConfigurationResult>(new HeartBeatActor.QueryConfiguration());
+            var configQuery = RootLevelActors.HeartBeatActorRef.Ask<HeartBeatActor.ConfigurationResult>(new HeartBeatActor.QueryConfiguration());
             configQuery.Wait();
 
             var period = configQuery.Result.State.FactoryUpdatePeriod;
@@ -112,8 +93,7 @@ namespace Entities.Model.Heartbeats
         [When(@"I wait for (.*) TickUpdate time periods")]
         public void WhenIWaitForTickUpdateTimePeriods(int timePeriods)
         {
-            var heartBeatActor = _state.Actors[HeartBeatActor.Name];
-            var configQuery = heartBeatActor.Ask<HeartBeatActor.ConfigurationResult>(new HeartBeatActor.QueryConfiguration());
+            var configQuery = RootLevelActors.HeartBeatActorRef.Ask<HeartBeatActor.ConfigurationResult>(new HeartBeatActor.QueryConfiguration());
             configQuery.Wait();
 
             var period = configQuery.Result.State.UpdatePeriod;

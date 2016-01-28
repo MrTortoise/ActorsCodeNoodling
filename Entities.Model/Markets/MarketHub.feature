@@ -4,37 +4,7 @@
 	I want to be able to create markets, list them and query
 
 Background: 
-Given I create a test actor system using config
-	"""
-	akka { 
-	   loglevel=DEBUG,  loggers=["Akka.Logger.Serilog.SerilogLogger, Akka.Logger.Serilog"]
-	      persistence {
-                        publish-plugin-commands = on
-                        journal {
-                            plugin = "akka.persistence.journal.sql-server"
-                            sql-server {
-                                class = "Akka.Persistence.SqlServer.Journal.SqlServerJournal, Akka.Persistence.SqlServer"
-                                plugin-dispatcher = "akka.actor.default-dispatcher"
-                                table-name = EventJournal
-                                schema-name = dbo
-                                auto-initialize = on
-                                connection-string = "Data Source=localhost\\SQLEXPRESS;Database=AkkaPersistenceTest;User Id=akkadotnet;Password=akkadotnet;"
-                            }
-                        }
-                        snapshot-store {
-                            plugin = "akka.persistence.snapshot-store.sql-server"
-                            sql-server {
-                                class = "Akka.Persistence.SqlServer.Snapshot.SqlServerSnapshotStore, Akka.Persistence.SqlServer"
-                                plugin-dispatcher = "akka.actor.default-dispatcher"
-                                table-name = SnapshotStore
-                                schema-name = dbo
-                                auto-initialize = on
-                                connection-string = "Data Source=localhost\\SQLEXPRESS;Database=AkkaPersistenceTest;User Id=akkadotnet;Password=akkadotnet;"
-                            }
-                        }
-                    }
-		}
-	"""
+Given I create a test actor system
 	And I add the following resources to the Resource Manager
 	| name     |
 	| Metal    |

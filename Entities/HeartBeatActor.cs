@@ -20,6 +20,7 @@ namespace Entities
         }
 
         public static string Name = "HeartBeatActor";
+
         private HeartBeatState _state;
 
         public HeartBeatActor()

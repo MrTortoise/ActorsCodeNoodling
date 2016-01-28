@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.TestKit.NUnit;
+using Entities.RNG;
 using Entities.UniverseGenerator;
 using NUnit.Framework;
 

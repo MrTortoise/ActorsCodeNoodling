@@ -83,19 +83,6 @@ namespace Entities.Model.CenterOfMassActors
             return strings;
         }
 
-        [Given(@"I create a CenterOfMassManagerActor")]
-        public void GivenICreateACenterOfMassManagerActorCalled()
-        {
-            CreateCenterOfMassManagerActor(_state);
-        }
-
-        public static void CreateCenterOfMassManagerActor(ScenarioContextState scenarioContextState)
-        {
-            var comManager = scenarioContextState.TestKit.Sys.ActorOf(CenterOfMassManagerActor.CreateProps(scenarioContextState.FactoryCoordinator.Actor), CenterOfMassManagerActor.Name);
-            scenarioContextState.CenterOfMassManagerActor = comManager;
-            scenarioContextState.Actors.Add(CenterOfMassManagerActor.Name, comManager);
-        }
-
         [Given(@"I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments")]
         [When(@"I send messages of type CreateCenterOfMass to actor CenterOfMassManagerActor with arguments")]
         public void WhenISendMessagesOfTypeCreateCenterOfMassToActorCenterOfMassManagerActorWithArguments(Table table)
@@ -115,11 +102,10 @@ namespace Entities.Model.CenterOfMassActors
 
                 messages.Add(new CenterOfMassManagerActor.CreateCenterOfMass(name, stars, planets));
             }
-
-            var comManager = _state.CenterOfMassManagerActor;
+      
             foreach (var message in messages)
             {
-                comManager.Tell(message);
+                RootLevelActors.CenterOfMassManagerActorRef.Tell(message);
                 Thread.Sleep(10);
             }
         }
@@ -127,7 +113,7 @@ namespace Entities.Model.CenterOfMassActors
         [When(@"I get the CenterOfMassActor called ""(.*)"" and store it in the context as ""(.*)""")]
         public void WhenIGetTheCenterOfMassActorCalledAndStoreItInTheContextAs(string comActor, string contextKey)
         {
-            var result = _state.CenterOfMassManagerActor.Ask<CenterOfMassManagerActor.CenterOfMassQueryResult>(
+            var result = RootLevelActors.CenterOfMassManagerActorRef.Ask<CenterOfMassManagerActor.CenterOfMassQueryResult>(
                 new CenterOfMassManagerActor.QueryCenterOfMasses(comActor));
 
             result.Wait();

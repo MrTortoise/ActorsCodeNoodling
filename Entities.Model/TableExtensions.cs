@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Entities.DataStructures;
+using Entities.Inventory;
 using TechTalk.SpecFlow;
 
 namespace Entities.Model

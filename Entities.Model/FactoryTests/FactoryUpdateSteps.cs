@@ -29,20 +29,12 @@ namespace Entities.Model.FactoryTests
             _state.FactoryCoordinator.Period = period;
         }
 
-        public static void GivenIHaveCreatedAFactoryCoordinatorActor(ScenarioContextState scenarioContextState, IActorRef heartBeatActor)
-        {
-            var actor = scenarioContextState.TestKit.Sys.ActorOf(FactoryCoordinatorActor.CreateProps(heartBeatActor), FactoryCoordinatorActor.Name);
-            scenarioContextState.FactoryCoordinator.Actor = actor;
-            scenarioContextState.Actors.Add(actor.Path.Name, actor);
-        }
-
         [Given(@"I have created a Factory Type called ""(.*)"" with the following properties")]
         public void GivenIHaveCreatedAFactoryTypeCalledWithTheFollowingProperties(string factoryTypeName , Table table)
         {
 
             var factoryType = ExtractFactoryType(factoryTypeName, table);
-
-            _state.FactoryCoordinator.Actor.Tell(factoryType);
+            RootLevelActors.FactoryCoordinatorActorRef.Tell(factoryType);
             _state.FactoryCoordinator.FactoryTypes.Add(factoryType.Name, factoryType);
         }
 
@@ -80,7 +72,7 @@ namespace Entities.Model.FactoryTests
         [When(@"I query the factory types and store result in context as ""(.*)""")]
         public void WhenIQueryTheFactoryTypesAdnSotreResultInContextAs(string contextKey)
         {
-            var factoryTypes = _state.FactoryCoordinator.Actor.Ask<FactoryCoordinatorActor.FactoryTypesResult>(new FactoryCoordinatorActor.QueryFactoryTypes());
+            var factoryTypes = RootLevelActors.FactoryCoordinatorActorRef.Ask<FactoryCoordinatorActor.FactoryTypesResult>(new FactoryCoordinatorActor.QueryFactoryTypes());
 
             factoryTypes.Wait();
 
@@ -116,7 +108,7 @@ namespace Entities.Model.FactoryTests
                 var inventoryTypeName = tableRow["inventoryType"];
 
                 var factoryType = _state.FactoryCoordinator.FactoryTypes[factoryTypeName];
-                var comTask = _state.CenterOfMassManagerActor.Ask<CenterOfMassManagerActor.CenterOfMassQueryResult>(new CenterOfMassManagerActor.QueryCenterOfMasses(comName));
+                var comTask = RootLevelActors.CenterOfMassManagerActorRef.Ask<CenterOfMassManagerActor.CenterOfMassQueryResult>(new CenterOfMassManagerActor.QueryCenterOfMasses(comName));
                 comTask.Wait();
 
                 var com = comTask.Result.CenterOfMasses[comName];

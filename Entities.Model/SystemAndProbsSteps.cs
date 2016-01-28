@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Akka.TestKit;
 using Akka.TestKit.NUnit;
+using Entities.Factories;
+using Entities.Inventory;
+using Entities.LocationActors;
+using Entities.RNG;
 using Serilog;
 using TechTalk.SpecFlow;
 
@@ -32,43 +36,33 @@ namespace Entities.Model
             ScenarioContext.Current.Pending();
         }
 
-        [Given(@"I create a test actor system")]
-        public void GivenICreateATestActorSystem()
-        {
-            //var logger = new LoggerConfiguration()
-            //    .WriteTo.ColoredConsole()
-            //    .MinimumLevel.Debug()
-            //    .CreateLogger();
-            //Serilog.Log.Logger = logger;
-
-            _state.TestKit = new TestKit(_state.Config, "testActorSystem");
-        }
-
         [Given(@"I create a test actor system using config")]
         [Given(@"I create a test actor system using config ""(.*)""")]
         public void GivenICreateATestActorSystem(string config)
         {
-            //var logger = new LoggerConfiguration()
-            //    .WriteTo.ColoredConsole()
-            //    .MinimumLevel.Debug()
-            //    .CreateLogger();
-            //Serilog.Log.Logger = logger;
-
             _state.Config = config;
-            SetupSystem(_state.Config);
+            GivenICreateATestActorSystem();
         }
 
-        private void SetupSystem(string config)
+        [Given(@"I create a test actor system")]
+        public void GivenICreateATestActorSystem()
         {
-            _state.TestKit = new TestKit(config, "testActorSystem");
+            _state.TestKit = new TestKit(_state.Config, "testActorSystem");
+            RootLevelActors.SetActorSystem(_state.TestKit.Sys);
+            RootLevelActors.SetupRootLevelActors(null);
+            AddRootLevelActorsToScenarioState();
         }
 
-        [Given(@"I create the heirachy of coordinators")]
-        public void GivenICreateTheEhirachyOfCoordinators()
+        private void AddRootLevelActorsToScenarioState()
         {
-            _state.SetupActorCoordinators();
+            _state.Actors.Add(ResourceManager.Name, RootLevelActors.ResourceManagerActorRef);
+            _state.Actors.Add(HeartBeatActor.Name,RootLevelActors.HeartBeatActorRef);
+            _state.Actors.Add(FactoryCoordinatorActor.Name, RootLevelActors.FactoryCoordinatorActorRef);
+            _state.Actors.Add(InventoryTypeCoordinator.Name, RootLevelActors.InventoryTypeCoordinatorActorRef);
+            _state.Actors.Add(CenterOfMassManagerActor.Name, RootLevelActors.CenterOfMassManagerActorRef);
+            _state.Actors.Add(RandomIntActor.Name, RootLevelActors.RandomActors.RandomIntActorRef);
+            _state.Actors.Add(RandomDoubleActor.Name, RootLevelActors.RandomActors.RandomDoubleActorRef);
         }
-
 
         [Given(@"I create a TestProbe called ""(.*)""")]
         public void GivenICreateATestProbeCalled(string name)
@@ -82,14 +76,7 @@ namespace Entities.Model
         public void WhenIRestartTheActorSystem()
         {
             _state.TestKit.Shutdown();
-            SetupSystem(_state.Config);
-        }
-
-        [Given(@"I have created a Random Actor")]
-        public void GivenIHaveCreatedARandomActor()
-        {
-            var random = new System.Random();
-            _state.RandomActor = _state.TestKit.Sys.ActorOf(RandomIntActor.CreateProps(random), "random");
+            GivenICreateATestActorSystem();
         }
     }
 }

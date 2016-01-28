@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.TestKit.NUnit;
+using Entities.RNG;
 using NUnit.Framework;
 using Serilog;
 

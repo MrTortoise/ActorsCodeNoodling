@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Akka.Actor;
 using Entities.Factories;
+using Entities.Inventory;
 
 namespace Entities.LocationActors
 {

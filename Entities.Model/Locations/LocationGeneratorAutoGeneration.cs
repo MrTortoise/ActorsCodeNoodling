@@ -7,6 +7,7 @@ using Akka.Actor;
 using Akka.TestKit.NUnit;
 using Entities.NameGenerators;
 using Entities.Observation;
+using Entities.RNG;
 using NUnit.Framework;
 using Serilog;
 
@@ -44,6 +45,7 @@ namespace Entities.Model.Locations
         }
 
         [TestCase()]
+        [Ignore]
         public void Generate100KLocations()
         {
             var tp = _testkit.CreateTestProbe("genTest");

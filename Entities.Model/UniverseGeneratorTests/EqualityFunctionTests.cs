@@ -17,10 +17,13 @@ namespace Entities.Model.UniverseGeneratorTests
                 // ReSharper disable once ObjectCreationAsStatement
                 Assert.Throws<ArgumentOutOfRangeException>(() => new EqualityCdf(min, max));
             }
+            else
+            {
 
-            var ut = new EqualityCdf(min, max);
-            Assert.AreEqual(max, ut.Max);
-            Assert.AreEqual(min, ut.Min);
+                var ut = new EqualityCdf(min, max);
+                Assert.AreEqual(max, ut.Max);
+                Assert.AreEqual(min, ut.Min);
+            }
         }
     }
 }

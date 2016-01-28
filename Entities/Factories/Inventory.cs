@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Immutable;
+using Entities.Inventory;
 
 namespace Entities.Factories
 {

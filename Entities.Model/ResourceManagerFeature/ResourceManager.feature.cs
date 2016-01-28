@@ -120,7 +120,7 @@ this.FeatureBackground();
 #line 22
  testRunner.Given("I create a TestProbe called \"resourceManagerMonitor\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 23
- testRunner.And("I send an observe message to actor \"resourceManager\" from actor \"resourceManagerM" +
+ testRunner.And("I send an observe message to actor \"ResourceManager\" from actor \"resourceManagerM" +
                     "onitor\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {

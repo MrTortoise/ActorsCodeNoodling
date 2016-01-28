@@ -24,26 +24,13 @@ namespace Entities.Model.ResourceManagerFeature
           _state = state;
        }
 
-        [Given(@"I create a Resource Manager")]
-        public void CreateResourceMAnager()
-        {
-            GivenICreateAResourceManager(_state);
-        }
-
-        public static void GivenICreateAResourceManager(ScenarioContextState scenarioContextState)
-        {
-            var resourceManager = scenarioContextState.TestKit.Sys.ActorOf(ResourceManager.CreateProps(),ResourceManager.Name);
-            scenarioContextState.Actors.Add(ResourceManager.Name, resourceManager);
-        }
-
-
         [Given(@"I add the following resources to the Resource Manager")]
         [When(@"I add the following resources to the Resource Manager")]
         public void WhenIPressAddTheFollowingResourcesToTheResourceManager(Table table)
         {
             var resources = CreateResourcesFromTable(table);
-            var resourceManagerActorRef = _state.Actors[ResourceManager.Name];
-            resources.ForEach(r => resourceManagerActorRef.Tell(new ResourceManager.PostResourceMessage(r)));
+            
+            resources.ForEach(r => RootLevelActors.ResourceManagerActorRef.Tell(new ResourceManager.PostResourceMessage(r)));
             Thread.Sleep(10);
         }
 
@@ -56,12 +43,11 @@ namespace Entities.Model.ResourceManagerFeature
         public void ThenTheIExpectTheResourceManagerToContainTheFollowingResources(Table table)
         {
             var resources = CreateResourcesFromTable(table);
-            var resManagerActor = _state.Actors[ResourceManager.Name];
             List<Task<ResourceManager.GetResourceResult>> tasks = new List<Task<ResourceManager.GetResourceResult>>();
 
             resources.ForEach(r =>
             {
-                var t = resManagerActor.Ask<ResourceManager.GetResourceResult>(new ResourceManager.GetResource(r.Name), TimeSpan.FromSeconds(2));
+                var t = RootLevelActors.ResourceManagerActorRef.Ask<ResourceManager.GetResourceResult>(new ResourceManager.GetResource(r.Name), TimeSpan.FromSeconds(2));
                 tasks.Add(t);
             });
 
