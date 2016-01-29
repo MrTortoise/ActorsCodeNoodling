@@ -39,6 +39,25 @@ namespace Entities.UniverseGenerator
             Receive<AddProbabilityDensityFunction>(msg =>
             {
                 _probabilityDistributionFunctions.Add(msg.FunctionName, msg.Function);
+                var pdfFunctionAdded = new PdfFunctionAdded();
+                foreach (var pdfAddedSubscription in _pdfAddedSubscriptions)
+                {
+                    pdfAddedSubscription.Tell(pdfFunctionAdded);
+                }
+            });
+
+            Receive<SubscribeToCdfAdded>(msg =>
+            {
+                _cdfAddedSubscriptions.Add(Sender);
+            });
+
+            Receive<AddCumulativeDistributionFunction>(msg =>
+            {
+                _cumulativeDistributionFunctions.Add(msg.FunctionName, msg.Function);
+                foreach (var functionAddedSubscription in _cdfAddedSubscriptions)
+                {
+                    functionAddedSubscription.Tell(new CdfFunctionAdded(msg.FunctionName));
+                }
             });
 
             Receive<GenerateCdfFromPdf>(msg =>
@@ -50,25 +69,15 @@ namespace Entities.UniverseGenerator
             Receive<GeneratePdfToCdfJob.CdfGenerated>(msg =>
             {
                 _cumulativeDistributionFunctions.Add(msg.CdfName,msg.CDF);
-            });
-
-            Receive<SubscribeToCdfAdded>(msg =>
-            {
-                _cdfAddedSubscriptions.Add(Sender);
+                foreach (var cdfAddedSubscription in _cdfAddedSubscriptions)
+                {
+                    cdfAddedSubscription.Tell(new CdfFunctionAdded(msg.CdfName));
+                }
             });
 
             Receive<SubscribeToDistributionGenerated>(msg =>
             {
                 _distributionGeneratedSubscriptions.Add(Sender);
-            });
-
-            Receive<AddCumulativeDistributionFunction>(msg =>
-            {
-                _cumulativeDistributionFunctions.Add(msg.FunctionName, msg.Function);
-                foreach (var functionAddedSubscription in _cdfAddedSubscriptions)
-                {
-                    functionAddedSubscription.Tell(new CdfFunctionAdded(msg.FunctionName));
-                }
             });
 
             Receive<Generate>(msg =>

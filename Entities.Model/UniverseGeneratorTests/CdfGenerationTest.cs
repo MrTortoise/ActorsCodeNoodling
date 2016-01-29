@@ -19,14 +19,14 @@ namespace Entities.Model.UniverseGeneratorTests
             var generator = Sys.ActorOf(DistributionGenerator.CreateProps(randomActor), DistributionGenerator.Name);
 
             var tp = CreateTestProbe();
-            generator.Tell(new DistributionGenerator.SubscribeToPdfAdded());
+            generator.Tell(new DistributionGenerator.SubscribeToPdfAdded(), tp);
             generator.Tell(new DistributionGenerator.AddProbabilityDensityFunction(pdfName, function), tp);
 
             var pdfAdded = tp.ExpectMsg<DistributionGenerator.PdfFunctionAdded>();
 
 
-            generator.Tell(new DistributionGenerator.GenerateCdfFromPdf(cdfname, pdfName, min, max, noPointsToSample));
             generator.Tell(new DistributionGenerator.SubscribeToCdfAdded(), tp);
+            generator.Tell(new DistributionGenerator.GenerateCdfFromPdf(cdfname, pdfName, min, max, noPointsToSample));
 
             var cdfAdded = tp.ExpectMsg<DistributionGenerator.CdfFunctionAdded>();
 

@@ -19,25 +19,22 @@ namespace Entities.UniverseGenerator
                 double cumulativeProbability = 0;
                 int range = msg.Max - msg.Min;
                 // as the range is an int we can see if we can sample every int value or not. If so then number of poitns is meaningless.
+                Tuple<double, int>[] graph;
                 if (range > msg.NoPointsToSample)
                 {
-                    Tuple<double, int>[] graph = new Tuple<double, int>[msg.NoPointsToSample];
-                    double step = range / (double)msg.NoPointsToSample;
-
+                    double step = range/(double) msg.NoPointsToSample;
+                    graph = new Tuple<double, int>[msg.NoPointsToSample];
                     for (int i = 0; i < range; i++)
                     {
-                        int currentVal = (int)Math.Round(msg.Min + i * step);
+                        int currentVal = (int) Math.Round(msg.Min + i*step);
                         double probability = msg.Function.F(currentVal);
                         cumulativeProbability += probability;
                         graph[i] = new Tuple<double, int>(cumulativeProbability, currentVal);
                     }
-
-                    Cdf cdf = Cdf.GenerateFromHistogram(graph);
-                    Sender.Tell(new CdfGenerated(msg.CdfName, cdf));
                 }
                 else
                 {
-                    Tuple<double, int>[] graph = new Tuple<double, int>[range];
+                    graph = new Tuple<double, int>[range];
                     for (int i = 0; i < range; i++)
                     {
                         int currentVal = msg.Min + i;
@@ -45,12 +42,21 @@ namespace Entities.UniverseGenerator
                         cumulativeProbability += probability;
                         graph[i] = new Tuple<double, int>(cumulativeProbability, currentVal);
                     }
-
-                    var cdf = Cdf.GenerateFromHistogram(graph);
-                    Sender.Tell(new CdfGenerated(msg.CdfName, cdf));
                 }
+
+                Tuple<double, int>[] normalisedGraph = new Tuple<double, int>[graph.Length];
+                double probabilityNormaliser = 1/cumulativeProbability;
+                for (var i = graph.Length - 1; i >= 0; i--)
+                {
+                    normalisedGraph[i] = new Tuple<double, int>(graph[i].Item1*probabilityNormaliser, graph[i].Item2);
+                }
+
+                Cdf cdf = Cdf.GenerateFromHistogram(normalisedGraph);
+                Sender.Tell(new CdfGenerated(msg.CdfName, cdf));
             });
         }
+
+
 
         public class CdfGenerated
         {
