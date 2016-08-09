@@ -47,6 +47,13 @@ namespace Entities.Model
         [Given(@"I create a test actor system")]
         public void GivenICreateATestActorSystem()
         {
+            //var logger = new LoggerConfiguration()
+            //    .WriteTo.ColoredConsole()
+            //    .MinimumLevel.Debug()
+            //    .CreateLogger();
+            //Serilog.Log.Logger = logger;
+
+        //    logger.Debug("willies");
             _state.TestKit = new TestKit(_state.Config, "testActorSystem");
             RootLevelActors.SetActorSystem(_state.TestKit.Sys);
             RootLevelActors.SetupRootLevelActors(null);

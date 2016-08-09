@@ -1,0 +1,51 @@
+# Universe Generation + Center of mass Actors
+
+## The Universe
+- The universe is going to be an oct tree or an r* tree.
+- do not know anythign about r* so that will be an optomisation. 
+	- Although i know spatial databases use them so would be using off the shelf.
+	- This also suggests that you definatley need to think about partitioning and partial reads etc.
+	- large parts of universe are nto goign to be doing anything
+		- possibly as much as 99%
+		- This points at generating it as and when necessary.
+			- maybe ultimatley give players rules and controls over this.
+- That said i havent looked into deleting nodes in an oct tree ...
+- Other problem is that universe is going to be large way beyond one machines ability as will be in gigabytes.
+	- ths is especially true when you get into processing everythign within.
+- so **main idea** is to have a tree that has center of mass actors at its leaves.
+- The **Center of Mass Manager Actor** is probably going to end up being responsible for querying against this system.
+
+## Center Of Mass Actors
+- These are solar systems
+- Within these the 'sim' game will take place locally.
+	- Celestial Body
+		- Star
+			- Each Center of Mass Actor has 0-many stars
+			- stars have a composition that will have an effect on the properties of the generated planets.
+				- Energy Output will effect the temperature on a planet given its orbit radius
+		- Planets
+			- This category covers all objects that orbit a center of mass.
+			- not yet considered things like the oort belt.
+				- probably going to use something like comets or just have really large 'asteroids' orbiting (so mini planets)
+			- these celestial bodies will have factories.
+	- Update Loop
+		- Initial idea is not to have things orbiting.
+			- In order to facilitate this
+				- if strucures extrude from surface of body then:
+					- player 'structures' need to be placed relative to a celestial body.
+					- structures must have no risk of collision with other bodies structures
+						- will lead to orbit no-build zones.
+						- moons could be problematic in terms of sweep - but as such become inherenty harder to build on
+				- if strucures are build on a 2d surface that is representative of surface area?
+					- volume of planet directly related to surface area.
+					- can model areas as unbuildable.
+					- no worries with impingement into space.
+					- seems far simpler.
+					- surface area provides an interesting constraint that is intuitive.
+	- trade with nearby systems is likley to be mandatory.
+		- self sufficient systems are likley to be the only viable system if any exist.
+			- once players realise they exist then system choce will just get rerolled until its optimal.
+			- maybe each system needs a base levels to facilitate certain kinds of production.
+				- does this point towards beign able to generate starter systems based on a points system?
+					- starter kits?
+			- self sufficiently becomes easier with construction as can provide basic self sufficiency through units that require resource to run.

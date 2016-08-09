@@ -9,14 +9,15 @@ using Akka.Actor;
 using Akka.Event;
 using Akka.Persistence;
 using Akka.Persistence.SqlServer;
-using Akka.TestKit.NUnit;
+
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
+using Akka.TestKit.NUnit;
 
 namespace Entities.Model.Akka.Sql
 {
     [TestFixture]
-    [Ignore]
+    [Ignore("because")]
     class SqlPersistenceTests
     {
 

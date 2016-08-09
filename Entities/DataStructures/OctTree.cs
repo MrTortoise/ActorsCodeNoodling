@@ -2,9 +2,20 @@
 
 namespace Entities.DataStructures
 {
+    /// <summary>
+    /// A class that upon reaching a threshold of points inside itself splits into 8 parts, moves the points into the appropiate parts and continues.
+    /// </summary>
+    /// <remarks>
+    /// If this isnt efficient enough then you start gettring to R* trees - but by that point databases start to maane the data for you.
+    /// This is fine if you are just querying locations however if you want something in memory then this is probaly simpler.
+    /// </remarks>
+    /// <typeparam name="T"></typeparam>
     public class OctTree<T>
     {
         public BoundingCuboid Boundary { get; }
+        /// <summary>
+        /// Max number of items prior to sub division
+        /// </summary>
         public int MaxItems { get; }
         public ISimpleOctTreeDivisionStrategy<T> SimpleOctTreeDivisionStrategy { get; }
         public Point3Int<T>[] Points { get; private set; }

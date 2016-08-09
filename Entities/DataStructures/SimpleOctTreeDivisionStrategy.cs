@@ -2,8 +2,8 @@ namespace Entities.DataStructures
 {
     public class SimpleOctTreeDivisionStrategy<T> : ISimpleOctTreeDivisionStrategy<T>
     {
-        public void SubDivide(Point3Int<T>[] points,
-            Point3Int<T> point,
+        public void SubDivide(Point3Int<T>[] existingPoints,
+            Point3Int<T> newPoint,
             BoundingCuboid boundary,
             out OctTree<T> tlf,
             out OctTree<T> trf,
@@ -14,7 +14,7 @@ namespace Entities.DataStructures
             out OctTree<T> blb,
             out OctTree<T> brb)
         {
-            int maxItems = points.Length;
+            int maxItems = existingPoints.Length;
             var center = boundary.CenterPoint();
 
             //blf
@@ -57,12 +57,12 @@ namespace Entities.DataStructures
             var maxTrb = boundary.UpperRight;
             trb = new OctTree<T>(new BoundingCuboid(minTrb, maxTrb), maxItems, this);
 
-            foreach (var point3Int in points)
+            foreach (var point3Int in existingPoints)
             {
                 AddPoint(blf, brf, blb, brb, tlf, trf, tlb, trb, point3Int, center);
             }
 
-            AddPoint(blf, brf, blb, brb, tlf, trf, tlb, trb, point, center);
+            AddPoint(blf, brf, blb, brb, tlf, trf, tlb, trb, newPoint, center);
         }
 
         private void AddPoint(OctTree<T> blf, OctTree<T> brf, OctTree<T> blb, OctTree<T> brb, OctTree<T> tlf, OctTree<T> trf, OctTree<T> tlb, OctTree<T> trb, Point3Int<T> point, Point3Int center)

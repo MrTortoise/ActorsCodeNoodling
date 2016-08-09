@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{FAF8C29B-9471-4632-B62B-BC7D53B03C53}"
 EndProject
@@ -11,8 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Model.XUnit", "Ent
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{F99012DF-A3A6-4955-91CE-27481D9F03DD}"
 	ProjectSection(SolutionItems) = preProject
+		Economy.md = Economy.md
 		README.md = README.md
 		SoWtfIsThis.md = SoWtfIsThis.md
+		UniverseGeneration.md = UniverseGeneration.md
 	EndProjectSection
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "ArchitecturalModel", "ArchitecturalModel\ArchitecturalModel.modelproj", "{EF86F230-D55F-432A-8E2F-1B00FC0CBBE8}"

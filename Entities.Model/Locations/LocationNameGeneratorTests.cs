@@ -3,24 +3,26 @@ using System.IO;
 using Akka;
 using Entities.obsoletedStuff;
 using NUnit.Framework;
-
+using System;
 
 namespace Entities.Model.Locations
 {
     [TestFixture]
     public class LocationNameGeneratorTests
     {
+        public string worldPrefixStringFileName = AppDomain.CurrentDomain.BaseDirectory + WorldPrefixTestActor.WorldPrefixStringsFilename;
+
         [TestCase]
         public void PrefixFileGeneratorCreate()
         {
-            if (File.Exists(WorldPrefixTestActor.WorldPrefixStringsFilename))
+            if (File.Exists(worldPrefixStringFileName))
             {
-                File.Delete(WorldPrefixTestActor.WorldPrefixStringsFilename);
+                File.Delete(worldPrefixStringFileName);
             }
 
             var noPrefixes = 1000;
-            WorldPrefixTestActor.GenerateNamePrefixFile(noPrefixes, WorldPrefixTestActor.WorldPrefixStringsFilename);
-            var strings = WorldPrefixTestActor.LoadPrefixesFromFile(WorldPrefixTestActor.WorldPrefixStringsFilename);
+            WorldPrefixTestActor.GenerateNamePrefixFile(noPrefixes, worldPrefixStringFileName);
+            var strings = WorldPrefixTestActor.LoadPrefixesFromFile(worldPrefixStringFileName);
 
             Assert.AreEqual(noPrefixes, strings.Count);
         }
@@ -28,14 +30,14 @@ namespace Entities.Model.Locations
         [TestCase]
         public void PrefixFileGeneratorCreateUnique()
         {
-            if (File.Exists(WorldPrefixTestActor.WorldPrefixStringsFilename))
+            if (File.Exists(worldPrefixStringFileName))
             {
-                File.Delete(WorldPrefixTestActor.WorldPrefixStringsFilename);
+                File.Delete(worldPrefixStringFileName);
             }
 
             var noPrefixes = 10000;
-            WorldPrefixTestActor.GenerateNamePrefixFile(noPrefixes, WorldPrefixTestActor.WorldPrefixStringsFilename);
-            var strings = WorldPrefixTestActor.LoadPrefixesFromFile(WorldPrefixTestActor.WorldPrefixStringsFilename);
+            WorldPrefixTestActor.GenerateNamePrefixFile(noPrefixes, worldPrefixStringFileName);
+            var strings = WorldPrefixTestActor.LoadPrefixesFromFile(worldPrefixStringFileName);
 
             var uniqueStrings = new HashSet<string>(strings);
 

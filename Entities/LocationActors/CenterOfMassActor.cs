@@ -17,8 +17,10 @@ namespace Entities.LocationActors
     /// Represents a center of mass of some form of solar system
     /// </summary>
     /// <remarks>
-    /// Am considering modelling many of these as being part of clusters of larger systems.
-    /// _stars dotn need to be actors ... but what about things that have things like markets?
+    /// These are the actors that form locations in the universe. 
+    /// Within a COM Actor there are several <see cref="CelestialBody"/>, maybe be at least one COM called stars, some orbiting bodies which in trun may haev their own orbiting bodies.
+    /// This actor will be able to query those bodies and return a summary of this system.
+    /// Initially the system will be static, later might introduce rotation.
     /// </remarks>
     public class CenterOfMassActor : ReceiveActor
     {
@@ -33,7 +35,12 @@ namespace Entities.LocationActors
             return Props.Create(() => new CenterOfMassActor(name, stars, planets, factoryCoordinator, factories));
         }
 
-        public CenterOfMassActor(string name, CelestialBody[] stars, CelestialBody[] planets, IActorRef factoryCoordinator, ImmutableDictionary<IActorRef, CelestialBody> factories) 
+        public CenterOfMassActor(
+            string name, 
+            CelestialBody[] stars, 
+            CelestialBody[] planets, 
+            IActorRef factoryCoordinator, 
+            ImmutableDictionary<IActorRef, CelestialBody> factories) 
         {
             if (stars == null) throw new ArgumentNullException(nameof(stars));
             if (planets == null) throw new ArgumentNullException(nameof(planets));

@@ -9,9 +9,10 @@ namespace Entities.Model.UniverseGeneratorTests
 {
     public class CdfGenerationTest : TestKit
     {
-        [TestCase(100,0,100)]
+        [TestCase(1000,0,100)]
         public void EqualityLineCdfTest(int noPointsToSample,int min, int max)
         {
+            // this test on home pc can do 10^7 samples in < 3 secs.
             string pdfName = "equality";
             string cdfname = "cdfName";
             ISingleVariableFunction<double, int> function = new EqualityPdf();
@@ -24,12 +25,10 @@ namespace Entities.Model.UniverseGeneratorTests
 
             var pdfAdded = tp.ExpectMsg<DistributionGenerator.PdfFunctionAdded>();
 
-
             generator.Tell(new DistributionGenerator.SubscribeToCdfAdded(), tp);
             generator.Tell(new DistributionGenerator.GenerateCdfFromPdf(cdfname, pdfName, min, max, noPointsToSample));
 
             var cdfAdded = tp.ExpectMsg<DistributionGenerator.CdfFunctionAdded>();
-
 
             string distributionName = "testDistribution";
 
@@ -42,19 +41,6 @@ namespace Entities.Model.UniverseGeneratorTests
             Assert.IsTrue(generatedMessage.Distribution.Min() >= min);
             Assert.IsTrue(generatedMessage.Distribution.Max() <= max);
             Assert.AreEqual(noPointsToSample, generatedMessage.Distribution.Length);
-            // * generate histogram
-            // take a function of a line
-            // take number of points we want to sample, say 10,000
-            // take the min max ranges and generate input data and cumulate the total sum
-
-            // * generate cdf
-            // iterate again and add value of previous item to current
-            // for each data divide by total area to see its cumulative contribution
-            // iterate over again
-
-            //
-
-
         }
     }
 }

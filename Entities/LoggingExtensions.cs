@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Akka.Actor;
 using Akka.Event;
 using Akka.Serialization;
+using Akka.Logger.Serilog;
 
 namespace Entities
 {
     public static class LoggingExtensions
     {
         public static void LogMessageDebug(this IActorContext context, object msg, string extra = "")
-        {
+        {          
             context.GetLogger()
                 .Debug("{0}:{1}:{2}:{3}", context.Self.Path, msg.GetType().FullName, msg.ToString(),
                     extra);

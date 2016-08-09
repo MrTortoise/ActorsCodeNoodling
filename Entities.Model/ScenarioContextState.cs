@@ -35,18 +35,20 @@ namespace Entities.Model
             CelestialBodies = new Dictionary<string, CelestialBody>();
             FactoryCoordinator = new FactoryCoordinatorScenarioState();
             Config = @"akka {  
-    stdout - loglevel = DEBUG
-    loglevel = DEBUG
-    log - config - on - start = on
-    actor {
-                debug {
-                    receive = on
-                      autoreceive = on
-                      lifecycle = on
-              event-stream = on
-              unhandled = on
-        }
-    }";
+                        stdout-loglevel = DEBUG
+                        loglevel = DEBUG
+                        log-config-on-start = on
+                    #     loggers=[""Akka.Logger.Serilog.SerilogLogger, Akka.Logger.Serilog""]
+                        actor {
+                         debug {
+                          receive = on
+                          autoreceive = on
+                          lifecycle = on
+                          event-stream = on
+                          unhandled = on
+                         }
+                        }
+                       }";
         }
 
         public Dictionary<string, IActorRef> Actors { get; set; }

@@ -25,7 +25,8 @@ namespace Entities
             InvitationPosted,
             OfferRecieved,
             OfferRejected,
-            CounterOffered
+            CounterOffered,
+            OfferAccepted
         }
 
         private State _state;

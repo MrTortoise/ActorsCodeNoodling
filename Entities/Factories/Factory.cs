@@ -23,6 +23,7 @@ namespace Entities.Factories
 
             Receive<HeartBeatActor.FactoryTick>(msg =>
             {
+                Context.LogMessageDebug("Tick received");
                 var areInputRequirementsMet = AreInputRequirementsMet();
                 if (areInputRequirementsMet)
                 {
@@ -91,10 +92,16 @@ namespace Entities.Factories
             _factoryState = new FactoryState(_factoryState.Body, _factoryState.Name, _factoryState.FactoryType, inventory, _factoryState.TicksSinceLastUpdate);
         }
 
+        /// <summary>
+        /// Establishes if it is time for tick, then if resources are met.
+        /// </summary>
+        /// <remarks>This has a weakness of if ticks have passed but resources not met then when resources are met will immediatley produce.
+        /// It also fails in that if the  imput requirements are met then the output starts to progress.</remarks>
+        /// <returns>True if sufficient period has passed to update and resources are available</returns>
         private bool AreInputRequirementsMet()
         {
             bool retVal = true;
-            var noTicks = _factoryState.TicksSinceLastUpdate+1;
+            var noTicks = _factoryState.TicksSinceLastUpdate + 1;
             if (noTicks >= _factoryState.GetMinTicksPerUpdate())
             {
                 foreach (var resource in _factoryState.FactoryType.InputResources.Keys)
@@ -129,15 +136,29 @@ namespace Entities.Factories
             return Props.Create(() => new Factory(name, factoryType, body, inventoryType));
         }
 
+        /// <summary>
+        /// The immutable factory state
+        /// </summary>
         public class FactoryState
         {
+            /// <summary>
+            /// The <see cref="CelestialBody"/> the factory is attached to
+            /// </summary>
             public CelestialBody Body { get; private set; }
             public string Name { get; private set; }
+
+            /// <summary>
+            /// The resource generation / consumption of the factory.
+            /// </summary>
             public FactoryType FactoryType { get; private set; }
             public Inventory Inventory { get; private set; }
 
             public int TicksSinceLastUpdate { get; private set; }
 
+            /// <summary>
+            /// Gets the largest period for input resources. This is minimum time per update.
+            /// </summary>
+            /// <returns>Number of ticks required for the inputs to be consumed.</returns>
             public int GetMinTicksPerUpdate()
             {
                 int max = 0;

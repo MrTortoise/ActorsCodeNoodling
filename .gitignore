@@ -1,11 +1,6 @@
-Entities/obj/
-Entities.Model/bin/
-Entities.Model/obj/
-Entities/bin/
-.vs/TradingAISystem/v14/.suo
+.vs/*
 packages/
 TradingAISystem.sln.DotSettings.user
-Entities.Tests/bin/
-Entities.Tests/obj/
-Entities.Model.XUnit/bin/
-Entities.Model.XUnit/obj/
+
+**/bin/**
+**/obj/**

@@ -30,7 +30,7 @@ namespace Entities.Model.Locations
         public void Setup()
         {
             var logger = new LoggerConfiguration()
-               .WriteTo.ColoredConsole()
+               .WriteTo.LiterateConsole()
                .MinimumLevel.Debug()
                .CreateLogger();
             Serilog.Log.Logger = logger;
@@ -45,7 +45,7 @@ namespace Entities.Model.Locations
         }
 
         [TestCase()]
-        [Ignore]
+        [Ignore("because")]
         public void Generate100KLocations()
         {
             var tp = _testkit.CreateTestProbe("genTest");

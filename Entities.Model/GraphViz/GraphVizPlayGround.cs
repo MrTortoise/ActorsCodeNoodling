@@ -25,7 +25,8 @@ namespace Entities.Model.GraphViz
             string graphVizBin = @"C:\Program Files (x86)\Graphviz2.38\bin";
         IRenderer renderer = new Renderer(graphVizBin);
 
-            string directory = @"M:\programming\general\git\EconomySimulator\TradingAISimulator\Entities.Model\bin\Debug\GRaphs\";
+            var basedir = AppDomain.CurrentDomain.BaseDirectory;
+            string directory = basedir + @"\GRaphs\";
             string fileName = @"balancedBoundingTreeTests.RotateLeft.png";
             Directory.CreateDirectory(directory);
             using (Stream file = File.Create(directory + fileName))

@@ -16,9 +16,6 @@ namespace Entities.Model.UniverseGeneratorTests
         {
             get
             {
-                yield return new TestCaseData(EmptyTupleArray,null).SetName("Empty Input").Throws(typeof(ArgumentException));
-                yield return new TestCaseData(NoZeroValue, null).SetName("No Zero valued key").Throws(typeof (ArgumentOutOfRangeException));
-                yield return new TestCaseData(NoOneValue, null).SetName("No One valued key").Throws(typeof(ArgumentOutOfRangeException));
                 yield return new TestCaseData(SimpleDistribution, SimpleDistributionTestValues).SetName("Simple Linear");
             }
         }
@@ -66,13 +63,33 @@ namespace Entities.Model.UniverseGeneratorTests
             }
         }
 
-
-        [Test, TestCaseSource("Histograms")]
-        public void GenerteFromHistogram(Tuple<double, int>[] input, Tuple<double, int>[] valuesToProbe)
+        [Test]
+        public void EmptyInputFailsTest()
         {
-            var graph = Cdf.GenerateFromHistogram(input);
+            Assert.Throws<ArgumentException>(() => Cdf.GenerateFromHistogram(EmptyTupleArray));
+        }
 
-            foreach (var tuple in valuesToProbe)
+        [Test]
+        public void NoZeroValueFailsTest()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Cdf.GenerateFromHistogram(NoZeroValue));
+        }
+
+        [Test]
+        public void NoOneValueFailsTest()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Cdf.GenerateFromHistogram(NoOneValue));
+        }
+
+            
+
+
+        [Test]
+        public void GenerteFromHistogram()
+        {
+            var graph = Cdf.GenerateFromHistogram(SimpleDistribution);
+
+            foreach (var tuple in SimpleDistributionTestValues)
             {
                 int actual = graph.F(tuple.Item1);
                 Assert.AreEqual(tuple.Item2, actual, $"F({(double)tuple.Item1})={actual} ... != {tuple.Item2}");

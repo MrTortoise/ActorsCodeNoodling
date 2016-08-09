@@ -1,10 +1,11 @@
 ﻿@ignore
+@Persistence
 Feature: WorldLocationGenerator
 	In order to have places to visit
 	As a content builder
 	I want to be able to add locations
 
-@Persistence
+
 Background: 
 	Given I create a test actor system using config
 	"""

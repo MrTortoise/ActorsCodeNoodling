@@ -14,15 +14,17 @@ namespace Entities.Model.DataStructures
     [TestFixture]
     class BalancedBoundingTreeTests
     {
-        private const string TestGraphDirectory = @"M:\programming\general\git\EconomySimulator\TradingAISimulator\Entities.Model\bin\Debug\Graphs\";
+        private string TestGraphDirectory;
         
         [SetUp]
         public void SetUp()
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.ColoredConsole()
+                .WriteTo.LiterateConsole()
                 .CreateLogger();
+
+            TestGraphDirectory = AppDomain.CurrentDomain.BaseDirectory + @"\GRaphs\";
         }
 
         [TestCase()]
@@ -121,7 +123,7 @@ namespace Entities.Model.DataStructures
             alpha.Parent = x;
 
             // log before
-            const string directory = @"M:\programming\general\git\EconomySimulator\TradingAISimulator\Entities.Model\bin\Debug\Graphs\";
+             string directory = TestGraphDirectory;
             string beforeFileName = @"balancedBoundingTreeTests.RotateLeft.png";
             ut.Write(10, directory, beforeFileName, Log.Logger).Wait();
 

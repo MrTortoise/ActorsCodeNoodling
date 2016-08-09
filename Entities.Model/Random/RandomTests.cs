@@ -31,7 +31,7 @@ namespace Entities.Model.Random
         public void Setup()
         {
             var logger = new LoggerConfiguration()
-               .WriteTo.ColoredConsole()
+               .WriteTo.LiterateConsole()
                .MinimumLevel.Debug()
                .CreateLogger();
             Serilog.Log.Logger = logger;

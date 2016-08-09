@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace Entities.Model.Reaper
 {
-    [Ignore]
+    [Ignore("because")]
     [TestFixture]
     public class GamesWithTheReaper : TestKit
     {
