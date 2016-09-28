@@ -6,6 +6,7 @@ using Akka.Actor;
 
 namespace Entities
 {
+    //
     public class HeartBeatActor : ReceiveActor
     {
         public enum UpdateType

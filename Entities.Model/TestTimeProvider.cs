@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security;
 
 namespace Entities.Model
 {
@@ -16,6 +17,7 @@ namespace Entities.Model
             _dateTime = dateTime;
         }
 
+        [SecurityCritical]
         public DateTime GetDateTime()
         {
             return _dateTime;

@@ -54,6 +54,8 @@ Scenario: Setup a dummy actor, register with FactoryCoordinator can assert that 
 	Given I create the following Factories using actor "factoryCreator"
 	| name                        | factoryType | centerOfMass | celestialBody | inventoryType         |
 	| somethingFromNothingFactory | FuckPhysics | Solar System | Other Planet  | smallFactoryInventory |
+	And I tell the FactoryCoordinator to start the factory called "somethingFromNothingFactory"
+	When I tell the heartbeat actor to start
 	When I wait for 2 FactoryUpdate time periods
 	Then I expect the factory "somethingFromNothingFactory" to have the following resources
 	| ResourceName | Value |

@@ -12,7 +12,7 @@ using Serilog;
 namespace Entities.Model.Random
 {
     [TestFixture]
-    public class RandomTests
+    public class RandomTests : IDisposable
     {
         private TestKit _testkit;
         private IActorRef _random;
@@ -65,5 +65,40 @@ namespace Entities.Model.Random
             Assert.That(msg.Result.Number.Min() >= minValue);
             Assert.That(msg.Result.Number.Max() <= maxValue);
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _testkit.Dispose();
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~RandomTests() {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

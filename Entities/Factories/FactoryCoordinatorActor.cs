@@ -138,5 +138,12 @@ namespace Entities.Factories
                 Factories = factories;
             }
         }
+
+        public class StartFactory
+        {
+            public StartFactory()
+            {
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace Entities.Factories
     public class Factory : ReceiveActor
     {
         private FactoryState _factoryState;
+        private ActorSelection _heartBeatActor;
 
         public Factory(string name, FactoryType factoryType, CelestialBody body, InventoryType inventoryType)
         {
@@ -52,6 +53,10 @@ namespace Entities.Factories
             });
         }
 
+        protected override void PreStart()
+        {
+            _heartBeatActor = Context.ActorSelection(string.Format("/user/{0}", HeartBeatActor.Name));
+        }
         private void PerformTick()
         {
             var inv = ImmutableDictionary.CreateBuilder<IResource, int>();

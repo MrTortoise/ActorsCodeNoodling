@@ -24,8 +24,7 @@ namespace Entities.Model
                 using (var command = new SqlCommand(cleanEventJournalSql, connection))
                 {
                     command.ExecuteNonQuery();
-                }
-                connection.Close();
+                }              
             }
         }
     }

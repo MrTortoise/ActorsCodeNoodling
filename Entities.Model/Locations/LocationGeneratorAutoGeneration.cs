@@ -14,7 +14,7 @@ using Serilog;
 namespace Entities.Model.Locations
 {
     [TestFixture]
-    public class LocationGeneratorAutoGeneration
+    public class LocationGeneratorAutoGeneration : IDisposable
     {
         private TestKit _testkit;
         private IActorRef _random;
@@ -69,5 +69,37 @@ namespace Entities.Model.Locations
 
             _testkit.Shutdown(TimeSpan.FromSeconds(20), true);
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _testkit.Dispose();
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
+        }
+
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
+
+
     }
 }

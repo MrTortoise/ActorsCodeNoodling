@@ -49,6 +49,44 @@ Eg
 
 So now your goal is to create an ecosystem that produces lots of workers to goto work purifying nasty shit (and dying) that has a side effect of producing the items for the peopele who want to blow shit up. By makign some thign be waste that cannto be processed (maybe it has an innate decay rate) you build interesting long term feedback cycles that cause the environment to be challenging and changing.
 
-Items:
+###Items
 A very very broad category. Probably terrible, needs breaking into categories. Eg are factories, worker complexes items?
 Eg promises and contracts are definatley items.
+
+ - The consideration is really that as everythign is some form of entity so everything is potentially an item in an inventory. The trick i simply to find fun thing sto do with them.
+ 
+
+##Games
+### Game themes
+ - Arranging supply lines and managing production queues
+ - Buying and selling contracts
+ - Exploration
+ - API against which bots can operate
+ - Statistical space battles
+ - some kind of grid based sim game for production
+
+### Musings on abstract purposes of games in the system
+####Currency
+ - In order to balance the economy there needs to be a way of removing currency. Games can be seen therefor in terms of how the move currency around the system.
+ - Currency is quite literally any and every object in the game.
+
+####Fun
+ - Loot
+  - Randomly floating about
+  - a side effect of some form of combat?
+  - source of curency via production. IE mined, farmed or whatever
+ - Skill
+  - this could be precision and rate of input to meet an end.
+  - applying reflection to improve judgements
+ - Le Codez
+  - being able to use whatever mad programming chops / data science / financial / econnomic analysis chops to call against he api to profit.
+ 
+####End game
+  - What are possible goals? 
+  - What do people want to accopmlish? 
+  - What form of bragging rights
+
+####Streamers
+ - Popular games are streamed a lot.
+ - Games that interesting to watch or engage with as a viewer end up with a self reinforcing community.
+ - This often seems to end up requiring generating events or enabling others to generate events for entertainment.

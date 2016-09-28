@@ -229,5 +229,13 @@ namespace Entities.Model.FactoryTests
 
             factory.Tell(new Factory.DepositResources(resources));
         }
+
+        [Given(@"I tell the FactoryCoordinator to start the factory called ""(.*)""")]
+        public void GivenITellTheFactoryCoordinatorToStartTheFactoryCalled(string factoryName)
+        {
+            var coordinator = RootLevelActors.FactoryCoordinatorActorRef;
+            coordinator.Tell(new FactoryCoordinatorActor.StartFactory());
+        }
+
     }
 }

@@ -52,9 +52,7 @@ namespace Entities.Model.Akka.Sql
         public void SqlEventSnapShotJournal()
         {
             var testSystem = new TestKit(Config,"sql");
-            SqlServerPersistence.Init(testSystem.Sys);
 
-            SqlPersistenceHelpers.ClearDatabase();
 
             var persistor =
                 testSystem.ActorOfAsTestActorRef<SqlPersistenceTests.SqlTestActor>(Props.Create(() => new SqlPersistenceTests.SqlTestActor("SomeTest")));
